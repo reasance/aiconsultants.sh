@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page not found · ai-consultants</title>
+    <meta name="robots" content="noindex">
+    <meta name="theme-color" content="#000000">
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;600&amp;family=Geist+Mono:wght@400;600&amp;display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            color-scheme: dark;
+            --bg: #000000;
+            --bg-elevated: #181818;
+            --border-light: #272727;
+            --border-strong: #313131;
+            --text: #f0f0f0;
+            --text-body: #c8c8c8;
+            --text-muted: #9a9a9a;
+            --ease: cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        body {
+            min-height: 100dvh;
+            display: grid; align-content: center;
+            padding: 48px 24px;
+            font-family: 'Geist', system-ui, -apple-system, sans-serif;
+            font-size: 16px; line-height: 24px;
+            background: var(--bg); color: var(--text-body);
+            -webkit-font-smoothing: antialiased;
+        }
+        main { width: 100%; max-width: 680px; margin: 0 auto; }
+        .code { font-family: 'Geist Mono', ui-monospace, Menlo, monospace; font-size: 14px; line-height: 20px; color: var(--text-muted); margin-bottom: 16px; }
+        h1 {
+            font-size: 48px; line-height: 1; font-weight: 600; letter-spacing: -0.03em;
+            background: linear-gradient(90deg, #FFFFFF, #9B9B9B);
+            -webkit-background-clip: text; background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 24px; text-wrap: balance;
+        }
+        p { font-size: 18px; line-height: 28px; max-width: 60ch; margin-bottom: 32px; }
+        .links { display: flex; flex-wrap: wrap; gap: 12px 24px; align-items: center; }
+        .home {
+            font-family: 'Geist Mono', ui-monospace, Menlo, monospace; font-size: 14px; line-height: 20px; font-weight: 600;
+            background: var(--text); color: var(--bg); text-decoration: none;
+            padding: 8px 12px;
+            transition: background-color 0.3s var(--ease), transform 0.3s var(--ease);
+        }
+        .home:hover { background: #fff; }
+        .home:active { transform: scale(0.98); }
+        .quiet {
+            font-family: 'Geist Mono', ui-monospace, Menlo, monospace; font-size: 14px; line-height: 20px;
+            color: var(--text-body); text-decoration: none; border-bottom: 1px solid var(--border-strong);
+            transition: color 0.3s var(--ease), border-color 0.3s var(--ease);
+        }
+        .quiet:hover { color: var(--text); border-color: var(--text-muted); }
+        :focus-visible { outline: 2px solid var(--text); outline-offset: 4px; }
+        @media (max-width: 639px) { body { padding: 48px 16px; } h1 { font-size: 36px; line-height: 40px; } p { font-size: 16px; line-height: 24px; } }
+    </style>
+</head>
+<body>
+<main>
+    <p class="code">404 · ai-consultants</p>
+    <h1>This page doesn't exist</h1>
+    <p>The link may be old, or the address has a typo. The site is a single page; the documentation lives in the README on GitHub.</p>
+    <div class="links">
+        <a class="home" href="/">Back to the home page</a>
+        <a class="quiet" href="https://github.com/reasance/ai-consultants#readme">Read the docs on GitHub &#8599;</a>
+    </div>
+</main>
+</body>
+</html>

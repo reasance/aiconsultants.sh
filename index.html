@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ai-consultants: ask several AI models at once, get one merged list</title>
     <meta name="description" content="Free open-source CLI: ask Gemini, GPT, Claude, Mistral and more the same coding question in parallel, get one merged list showing who raised each point.">
-    <meta name="theme-color" content="#0a0a0a">
+    <meta name="theme-color" content="#000000">
 
     <!-- SEO -->
     <link rel="canonical" href="https://aiconsultants.sh/">
@@ -62,55 +62,73 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&amp;family=Geist+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet">
+    <link rel="icon" href="favicon.svg" type="image/svg+xml">
+    <link rel="icon" href="favicon-32.png" type="image/png" sizes="32x32">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <script>
+        // Motion is opt-in: only without reduced motion, and dropped if the page script never runs
+        if (!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches)) {
+            document.documentElement.classList.add('motion');
+            setTimeout(function () { if (!window.__aicMotion) document.documentElement.classList.remove('motion'); }, 3000);
+        }
+    </script>
     <style>
         *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
         :root {
             color-scheme: dark;
-            --bg: #0a0a0a;
-            --bg-elevated: #111;
-            --bg-card: #141414;
-            --border: #222;
-            --border-light: #2a2a2a;
-            --border-strong: #3a3a3a;
+            --bg: #000000;
+            --bg-elevated: #181818;
+            --bg-card: #1F1F1F;
+            --border: #1F1F1F;
+            --border-light: #272727;
+            --border-strong: #313131;
             --border-bright: #e6e6e6;
             --text: #f0f0f0;
             --text-body: #c8c8c8;
             --text-secondary: #b0b0b0;
-            --text-muted: #9a9a9a;      /* was #555 (about 2.6:1); now about 7:1 on --bg */
-            --accent: #f5b544;          /* one meaning only: raised by only one model */
-            --font-body: 'Space Grotesk', system-ui, -apple-system, sans-serif;
-            --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+            --text-muted: #9a9a9a;      /* about 7:1 on --bg */
+            --accent: #e9b250;          /* one meaning only: raised by only one model */
+            --font-body: 'Geist', system-ui, -apple-system, sans-serif;
+            --font-mono: 'Geist Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
             --gutter: 24px;
+            /* Motion: --ease for UI states, --e/--e2/--io for the load and story choreography */
+            --ease: cubic-bezier(0.22, 1, 0.36, 1);
+            --e: cubic-bezier(0.16, 1, 0.3, 1);
+            --e2: cubic-bezier(0.33, 1, 0.68, 1);
+            --io: cubic-bezier(0.65, 0, 0.35, 1);
         }
 
-        html { scroll-behavior: smooth; scroll-padding-top: 80px; -webkit-text-size-adjust: 100%; }
+        html { scroll-behavior: smooth; scroll-padding-top: 96px; -webkit-text-size-adjust: 100%; }
 
         body {
             font-family: var(--font-body);
             font-size: 16px;
+            line-height: 24px;
             background: var(--bg);
             color: var(--text-body);
-            line-height: 1.6;
             -webkit-font-smoothing: antialiased;
             overflow-wrap: break-word;
         }
 
-        a { color: var(--text); text-underline-offset: 3px; }
+        h1, h2, h3 { text-wrap: balance; }
+        p, li, dd { text-wrap: pretty; }
+
+        a { color: var(--text); text-underline-offset: 3px; transition: color 0.3s var(--ease), border-color 0.3s var(--ease); }
         strong { color: var(--text); font-weight: 600; }
 
         code {
             font-family: var(--font-mono);
-            font-size: 0.86em;
+            font-size: 0.875em;
             color: var(--text);
-            background: var(--bg-card);
+            background: var(--bg-elevated);
             border: 1px solid var(--border-light);
-            padding: 1px 5px;
+            padding: 0 4px;
             overflow-wrap: anywhere;
         }
 
-        :focus-visible { outline: 2px solid var(--text); outline-offset: 3px; }
+        :focus-visible { outline: 2px solid var(--text); outline-offset: 4px; }
 
         .sr-only {
             position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
@@ -120,75 +138,98 @@
         .skip-link {
             position: absolute; left: 16px; top: -48px; z-index: 300;
             background: var(--text); color: var(--bg);
-            font-family: var(--font-mono); font-size: 13px;
+            font-family: var(--font-mono); font-size: 14px; line-height: 20px;
             padding: 8px 12px; text-decoration: none;
         }
         .skip-link:focus { top: 12px; }
 
-        .container { max-width: 1120px; margin: 0 auto; padding: 0 var(--gutter); }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 var(--gutter); }
         .prose { max-width: 680px; }
 
-        /* ——— NAV ——— */
+        /* ——— NAV: floats off the top edge, sized to its content ——— */
         .site-nav {
-            position: sticky; top: 0; z-index: 100;
-            background: rgba(10, 10, 10, 0.85);
-            -webkit-backdrop-filter: blur(12px);
-            backdrop-filter: blur(12px);
-            border-bottom: 1px solid var(--border);
+            position: sticky; top: 12px; z-index: 100;
+            margin-top: 12px;
+            padding: 0 var(--gutter);
         }
 
-        .nav-inner { display: flex; align-items: center; justify-content: space-between; height: 64px; }
+        .nav-inner {
+            position: relative; isolation: isolate;
+            display: flex; align-items: center; justify-content: space-between; gap: 48px;
+            width: fit-content; max-width: 100%;
+            height: 56px; margin: 0 auto; padding: 0 16px 0 24px;
+        }
+        /* The blurred surface lives on a pseudo element, so the fixed mobile panel is not trapped by backdrop-filter */
+        .nav-inner::before {
+            content: ""; position: absolute; inset: 0; z-index: -1;
+            background: rgba(0, 0, 0, 0.72);
+            -webkit-backdrop-filter: blur(12px);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--border-light);
+        }
 
         .wordmark {
             font-family: var(--font-mono);
-            font-size: 15px; font-weight: 500;
+            font-size: 14px; line-height: 20px; font-weight: 600;
             color: var(--text); text-decoration: none;
             letter-spacing: -0.02em;
         }
 
-        .nav-links { display: flex; align-items: center; gap: 28px; list-style: none; }
+        .nav-links { display: flex; align-items: center; gap: 24px; list-style: none; }
 
         .nav-links a {
             font-family: var(--font-mono);
-            font-size: 13px;
+            font-size: 14px; line-height: 20px;
             color: var(--text-secondary);
             text-decoration: none;
             display: inline-flex; align-items: center; gap: 8px;
-            transition: color 0.2s;
         }
         .nav-links a:hover { color: var(--text); }
+        .nav-links a.current { color: var(--text); }
         .nav-links img { height: 20px; width: auto; display: block; }
 
         .menu-btn {
             display: none;
-            align-items: center; gap: 10px;
+            align-items: center; gap: 12px;
             background: none; border: 1px solid var(--border-light);
             color: var(--text); cursor: pointer;
-            font-family: var(--font-mono); font-size: 13px;
-            padding: 6px 10px;
+            font-family: var(--font-mono); font-size: 14px; line-height: 20px; font-weight: 600;
+            padding: 4px 12px;
+            transition: border-color 0.3s var(--ease), transform 0.3s var(--ease);
         }
-        .menu-btn .bars { display: block; width: 16px; }
-        .menu-btn .bars span { display: block; height: 1.5px; background: var(--text); margin: 4px 0; }
+        .menu-btn:hover { border-color: var(--text-muted); }
+        .menu-btn:active { transform: scale(0.98); }
+        .menu-btn .bars { position: relative; display: block; width: 16px; height: 12px; }
+        .menu-btn .bars span {
+            position: absolute; left: 0; right: 0; height: 2px; background: var(--text);
+            transition: transform 0.5s var(--ease), opacity 0.3s var(--ease);
+        }
+        .menu-btn .bars span:nth-child(1) { top: 0; }
+        .menu-btn .bars span:nth-child(2) { top: 5px; }
+        .menu-btn .bars span:nth-child(3) { top: 10px; }
+        .menu-btn[aria-expanded="true"] .bars span:nth-child(1) { transform: translateY(5px) rotate(45deg); }
+        .menu-btn[aria-expanded="true"] .bars span:nth-child(2) { opacity: 0; }
+        .menu-btn[aria-expanded="true"] .bars span:nth-child(3) { transform: translateY(-5px) rotate(-45deg); }
 
         /* ——— SHARED ——— */
         .section-label {
             font-family: var(--font-mono);
-            font-size: 11px; font-weight: 500;
-            letter-spacing: 0.12em; text-transform: uppercase;
+            font-size: 14px; line-height: 20px; font-weight: 500;
             color: var(--text-muted);
             margin-bottom: 16px;
         }
 
-        section { padding: 88px 0; border-bottom: 1px solid var(--border); }
+        section { padding: 80px 0 96px; border-bottom: 1px solid var(--border); }
 
         section h2 {
-            font-size: clamp(28px, 4vw, 36px);
-            font-weight: 600; letter-spacing: -0.02em; line-height: 1.2;
+            font-size: 36px; line-height: 40px;
+            font-weight: 600; letter-spacing: -0.025em;
             color: var(--text);
             margin-bottom: 24px;
+            max-width: 680px;
         }
 
-        .lead { font-size: 17px; color: var(--text-body); max-width: 680px; margin-bottom: 40px; }
+        .lead { font-size: 18px; line-height: 28px; color: var(--text-body); max-width: 680px; margin-bottom: 40px; }
 
         /* Command block: real text, wraps instead of scrolling, own copy button */
         .cmd {
@@ -196,7 +237,7 @@
             background: var(--bg-elevated);
             border: 1px solid var(--border-light);
             padding: 12px 12px 12px 16px;
-            font-family: var(--font-mono); font-size: 13px; line-height: 1.6;
+            font-family: var(--font-mono); font-size: 14px; line-height: 20px;
             color: var(--text);
         }
         .cmd-line { flex: 1; min-width: 0; white-space: pre-wrap; overflow-wrap: anywhere; }
@@ -205,66 +246,69 @@
 
         .copy {
             flex: none;
-            font-family: var(--font-mono); font-size: 12px;
+            font-family: var(--font-mono); font-size: 12px; line-height: 16px; font-weight: 600;
             color: var(--text); background: transparent;
             border: 1px solid var(--border-strong);
-            padding: 3px 10px; cursor: pointer;
-            transition: border-color 0.2s, background 0.2s;
+            padding: 2px 8px; cursor: pointer;
+            transition: border-color 0.3s var(--ease), background-color 0.3s var(--ease), transform 0.3s var(--ease);
         }
         .copy:hover { border-color: var(--text-muted); background: var(--bg-card); }
+        .copy:active { transform: scale(0.98); }
 
         /* ——— HERO ——— */
-        .hero { padding: 56px 0 88px; border-bottom: 1px solid var(--border); }
+        .hero { padding: 64px 0 96px; border-bottom: 1px solid var(--border); }
 
         .hero-grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: 48px; }
 
         .eyebrow {
             font-family: var(--font-mono);
-            font-size: 13px; color: var(--text-secondary);
+            font-size: 14px; line-height: 20px; color: var(--text-secondary);
             margin-bottom: 16px; max-width: 46ch;
         }
 
         .hero h1 {
-            font-size: clamp(30px, 7.6vw, 40px);
-            font-weight: 700; letter-spacing: -0.03em; line-height: 1.12;
+            font-size: 36px; line-height: 40px;
+            font-weight: 600; letter-spacing: -0.03em;
             color: var(--text);
-            margin-bottom: 20px;
+            background: linear-gradient(90deg, #FFFFFF, #9B9B9B);
+            -webkit-background-clip: text; background-clip: text;
+            -webkit-text-fill-color: transparent;
+            max-width: 680px;
+            margin-bottom: 24px;
         }
 
-        .subhead { font-size: 17px; color: var(--text-body); line-height: 1.6; margin-bottom: 28px; max-width: 60ch; }
+        .subhead { font-size: 18px; line-height: 28px; color: var(--text-body); margin-bottom: 32px; max-width: 60ch; }
 
         .cta-label {
             font-family: var(--font-mono);
-            font-size: 11px; font-weight: 500;
-            letter-spacing: 0.12em; text-transform: uppercase;
-            color: var(--text); margin-bottom: 10px;
+            font-size: 14px; line-height: 20px; font-weight: 500;
+            color: var(--text); margin-bottom: 12px;
         }
 
         .cmd-hero {
             background: var(--bg);
             border-color: var(--border-bright);
-            padding: 14px 14px 14px 18px;
-            font-size: 14px;
             color: #fff;
         }
         .cmd-hero .copy {
+            font-size: 14px; line-height: 20px;
+            padding: 8px 12px; margin: -4px -4px -4px 0;
             background: var(--text); color: var(--bg);
-            border-color: var(--text); font-weight: 500;
+            border-color: var(--text);
         }
-        .cmd-hero .copy:hover { background: #fff; }
+        .cmd-hero .copy:hover { background: #fff; border-color: #fff; }
 
-        .card-video { display: block; width: 100%; height: auto; background: #0a0a0a; border-bottom: 1px solid var(--border); }
+        .card-video { display: block; width: 100%; height: auto; background: var(--bg); border-bottom: 1px solid var(--border); }
         .cmd-hero + .cmd-hero { margin-top: 8px; }
-        .cmd-hint { display: block; color: var(--text-muted); font-size: 12px; user-select: none; -webkit-user-select: none; }
-        .r-gloss { color: var(--text-secondary); font-size: 12px; font-weight: 400; }
-        .pins-note { display: none; }
+        .cmd-hint { display: block; color: var(--text-muted); font-size: 12px; line-height: 16px; margin-top: 4px; user-select: none; -webkit-user-select: none; }
+        .r-gloss { color: var(--text-secondary); font-size: 12px; line-height: 16px; font-weight: 400; }
 
         .cta-notes { margin-top: 16px; display: grid; gap: 8px; max-width: 60ch; }
-        .cta-notes p { font-size: 14px; color: var(--text-secondary); line-height: 1.55; }
+        .cta-notes p { font-size: 14px; line-height: 20px; color: var(--text-secondary); }
 
         .quiet-link {
-            display: inline-block; margin-top: 20px;
-            font-family: var(--font-mono); font-size: 13px;
+            display: inline-block; margin-top: 24px;
+            font-family: var(--font-mono); font-size: 14px; line-height: 20px;
             color: var(--text-secondary); text-decoration: none;
             border-bottom: 1px solid var(--border-strong);
             padding-bottom: 2px;
@@ -279,94 +323,92 @@
         }
 
         .card-bar {
-            display: flex; align-items: center; gap: 6px;
-            height: 34px; padding: 0 14px;
+            display: flex; align-items: center; gap: 8px;
+            height: 32px; padding: 0 16px;
             border-bottom: 1px solid var(--border);
         }
-        .card-bar i { width: 9px; height: 9px; border-radius: 50%; background: var(--border-strong); display: block; }
+        .card-bar i { width: 8px; height: 8px; border-radius: 9999px; background: var(--border-strong); display: block; }
 
-        .card-body { padding: 22px 20px 20px; font-family: var(--font-mono); font-size: 13px; line-height: 1.65; }
+        .card-body { padding: 24px; font-family: var(--font-mono); font-size: 14px; line-height: 20px; }
 
         .card-label {
-            font-size: 11px; font-weight: 500;
-            letter-spacing: 0.1em; text-transform: uppercase;
+            font-size: 12px; line-height: 16px; font-weight: 500;
             color: var(--text-muted);
             margin-bottom: 8px;
         }
 
-        .card-label .fname { text-transform: none; letter-spacing: 0.02em; }
-        .card-cmd { color: var(--text); white-space: pre-wrap; overflow-wrap: anywhere; }
-        .card-note { color: var(--text-secondary); margin-top: 8px; font-size: 12.5px; }
-
-        .card-divider { border: 0; border-top: 1px dashed var(--border-strong); margin: 20px 0; }
-
         .r-outcome { color: var(--text-body); }
         .r-outcome b { color: var(--text); font-weight: 500; }
-        .r-head { color: var(--text); font-weight: 500; margin: 14px 0 8px; }
+        .r-head { color: var(--text); font-weight: 500; margin: 16px 0 8px; }
 
-        .r-list { list-style: none; display: grid; gap: 10px; }
-        .r-list li { display: grid; grid-template-columns: 14px minmax(0, 1fr); }
+        /* The story keeps the list at its resting height, so the page never shifts */
+        .r-clip { overflow: hidden; }
+        .r-list { list-style: none; display: grid; gap: 12px; }
+        .r-list li { display: grid; grid-template-columns: 16px minmax(0, 1fr); }
         .r-list li::before { content: "-"; color: var(--text-muted); }
         .kind { color: var(--text-muted); }
         .point { color: var(--text-body); }
         .by { color: var(--text-muted); white-space: nowrap; }
         .by b { color: var(--text); font-weight: 500; }
-        .solo { color: var(--accent); }
+        .solo { color: var(--accent); display: inline-block; }
 
-        .legend { margin-top: 16px; color: var(--text-secondary); font-size: 12.5px; }
+        .legend { margin-top: 16px; color: var(--text-secondary); font-size: 12px; line-height: 16px; }
 
         .show-all {
-            margin-top: 14px;
-            font-family: var(--font-mono); font-size: 12px;
+            margin-top: 16px;
+            font-family: var(--font-mono); font-size: 12px; line-height: 16px; font-weight: 600;
             color: var(--text); background: none;
             border: 1px solid var(--border-strong);
-            padding: 4px 10px; cursor: pointer;
+            padding: 4px 8px; cursor: pointer;
+            transition: border-color 0.3s var(--ease), transform 0.3s var(--ease);
         }
+        .show-all:hover { border-color: var(--text-muted); }
+        .show-all:active { transform: scale(0.98); }
 
         .card figcaption {
             border-top: 1px solid var(--border);
-            padding: 12px 20px;
-            font-size: 13px; color: var(--text-muted); line-height: 1.5;
+            padding: 12px 24px;
+            font-size: 14px; line-height: 20px; color: var(--text-muted);
         }
-
-        /* Pins: desktop only, link the card to the How it works steps */
-        .pin { display: none; }
 
         /* ——— HOW IT WORKS ——— */
         .pipeline {
             display: flex; flex-wrap: wrap; gap: 8px; align-items: center;
             margin-bottom: 40px;
-            font-family: var(--font-mono); font-size: 13px;
+            font-family: var(--font-mono); font-size: 14px; line-height: 20px;
             list-style: none;
         }
-        .pipeline-step { padding: 8px 14px; border: 1px solid var(--border-light); color: var(--text); }
+        .pipeline-step {
+            padding: 8px 16px; border: 1px solid var(--border-light); color: var(--text-secondary);
+            transition: border-color 0.3s var(--ease), color 0.3s var(--ease), background-color 0.3s var(--ease);
+        }
+        .pipeline-step.lit { border-color: var(--text-muted); color: var(--text); background: var(--bg-elevated); }
         .pipeline-arrow { color: var(--text-muted); }
 
-        .diagram { display: none; margin: 0 0 48px; max-width: 720px; }
-        .diagram svg { width: 100%; height: auto; display: block; }
-        .diagram .box { fill: var(--bg-elevated); stroke: var(--border-strong); }
+        .diagram { display: none; margin: 0 0 64px; }
+        .diagram svg { width: 100%; height: auto; display: block; overflow: visible; }
+        .diagram .box { fill: var(--bg-elevated); stroke: var(--border-strong); transition: stroke 0.3s var(--ease); }
+        .diagram .lit .box { stroke: var(--text); }
         .diagram .line { fill: none; stroke: var(--border-strong); stroke-width: 1.5; }
-        .diagram .bar { stroke: var(--border-strong); stroke-width: 2; }
-        .diagram .skip { fill: none; stroke: var(--border-strong); stroke-dasharray: 5 4; }
-        .diagram text { font-family: var(--font-mono); font-size: 13px; fill: var(--text-body); }
-        .diagram text.strong { fill: var(--text); }
+        .diagram .track { stroke: var(--border-light); stroke-width: 4; }
+        .diagram .fill { stroke: var(--text-muted); stroke-width: 4; }
+        .diagram .skip { fill: none; stroke: var(--border-strong); stroke-dasharray: 6 4; }
+        .diagram text { font-family: var(--font-mono); font-size: 14px; fill: var(--text-body); transition: fill 0.3s var(--ease); }
+        .diagram text.strong, .diagram .lit text { fill: var(--text); }
         .diagram text.dim { fill: var(--text-muted); }
+        .diagram .pulse { fill: #fff; opacity: 0; }
+        .diagram .halo { fill: #fff; opacity: 0; }
 
-        .steps { list-style: none; display: grid; gap: 32px; max-width: 720px; }
-        .step {
-            display: grid; grid-template-columns: 44px minmax(0, 1fr); gap: 12px;
-            padding: 4px 0 4px 12px; margin-left: -12px;
-            border-left: 2px solid transparent;
-            transition: border-color 0.2s;
-        }
-        .step.linked, .step:target { border-left-color: var(--text); }
-        .step-num { font-family: var(--font-mono); font-size: 13px; color: var(--text-muted); padding-top: 3px; }
-        .step h3 { font-size: 18px; font-weight: 600; color: var(--text); margin-bottom: 6px; }
-        .step p { font-size: 15px; color: var(--text-body); }
+        .steps { list-style: none; display: grid; gap: 32px; }
+        .step { display: grid; grid-template-columns: 48px minmax(0, 1fr); gap: 16px; }
+        .step-num { font-family: var(--font-mono); font-size: 14px; line-height: 20px; color: var(--text-muted); padding-top: 4px; font-variant-numeric: tabular-nums; }
+        .step:target .step-num { color: var(--text); }
+        .step h3 { font-size: 20px; line-height: 28px; font-weight: 600; color: var(--text); margin-bottom: 8px; }
+        .step p { font-size: 16px; line-height: 24px; color: var(--text-body); max-width: 65ch; }
 
         .footnote {
-            margin-top: 40px; max-width: 720px;
-            font-size: 14px; color: var(--text-secondary);
+            margin-top: 40px; max-width: 768px;
+            font-size: 14px; line-height: 20px; color: var(--text-secondary);
             border-top: 1px solid var(--border); padding-top: 16px;
         }
 
@@ -375,178 +417,223 @@
 
         .col-title {
             font-family: var(--font-mono);
-            font-size: 12px; font-weight: 500;
-            letter-spacing: 0.12em; text-transform: uppercase;
+            font-size: 14px; line-height: 20px; font-weight: 500;
             color: var(--text);
-            padding-bottom: 10px; margin-bottom: 18px;
-            border-bottom: 1px solid var(--border);
+            padding-bottom: 8px; margin-bottom: 24px;
+            border-bottom: 1px solid var(--border-light);
         }
 
-        .use-list, .skip-list { list-style: none; display: grid; gap: 18px; }
-        .use-list li, .skip-list li { position: relative; padding-left: 26px; font-size: 15px; }
+        .use-list, .skip-list { list-style: none; display: grid; gap: 24px; }
+        .use-list li, .skip-list li { position: relative; padding-left: 24px; font-size: 16px; line-height: 24px; }
         .use-list li::before, .skip-list li::before {
             position: absolute; left: 0; top: 0;
             font-family: var(--font-mono); color: var(--text-secondary);
         }
         .use-list li::before { content: "\2713"; }
         .skip-list li::before { content: "\2715"; }
-        .skip-list { gap: 14px; }
+        .skip-list { gap: 16px; }
 
-        .situation { display: block; color: var(--text); font-weight: 600; margin-bottom: 6px; }
+        .situation { display: block; color: var(--text); font-weight: 600; margin-bottom: 8px; }
         .q {
             display: inline-block;
-            font-family: var(--font-mono); font-size: 12.5px; line-height: 1.55;
+            font-family: var(--font-mono); font-size: 12px; line-height: 16px;
             color: var(--text-body);
-            background: var(--bg-card);
-            border: 1px solid var(--border-light);
-            padding: 4px 8px;
+            background: var(--bg-elevated);
+            padding: 8px 12px;
             overflow-wrap: anywhere;
         }
-        .q-extra { display: block; margin-top: 6px; color: var(--text-body); }
+        .q-extra { display: block; margin-top: 8px; color: var(--text-body); }
 
-        .measured { border: 1px solid var(--border-light); padding: 24px; }
-        .measured h3 { font-size: 16px; font-weight: 600; color: var(--text); margin-bottom: 8px; }
-        .measured p { font-size: 15px; color: var(--text-body); max-width: 860px; }
+        .measured { background: var(--bg-elevated); padding: 24px; }
+        .measured h3 { font-size: 16px; line-height: 24px; font-weight: 600; color: var(--text); margin-bottom: 8px; }
+        .measured p { font-size: 16px; line-height: 24px; color: var(--text-body); max-width: 65ch; }
 
         /* ——— WORKS WITH ——— */
-        .chip-row { display: grid; grid-template-columns: minmax(0, 1fr); gap: 10px; margin-bottom: 28px; }
+        .chip-row { display: grid; grid-template-columns: minmax(0, 1fr); gap: 12px; margin-bottom: 32px; }
         .row-label {
             font-family: var(--font-mono);
-            font-size: 12px; font-weight: 500;
-            letter-spacing: 0.08em; text-transform: uppercase;
+            font-size: 14px; line-height: 20px; font-weight: 500;
             color: var(--text-muted);
-            padding-top: 6px;
+            padding-top: 4px;
         }
         .chips { list-style: none; display: flex; flex-wrap: wrap; gap: 8px; }
         .chips li {
-            font-family: var(--font-mono); font-size: 13px; line-height: 1.5;
+            font-family: var(--font-mono); font-size: 14px; line-height: 20px;
             color: var(--text);
             border: 1px solid var(--border-light);
-            padding: 5px 12px;
+            padding: 4px 12px;
+            transition: border-color 0.3s var(--ease), background-color 0.3s var(--ease);
         }
-        .works-note { max-width: 680px; font-size: 15px; color: var(--text-body); margin-top: 8px; }
-        .small-print { margin-top: 20px; font-size: 13px; color: var(--text-muted); }
+        .chips li.lit { border-color: var(--text-muted); background: var(--bg-elevated); }
+        .works-note { max-width: 680px; font-size: 16px; line-height: 24px; color: var(--text-body); margin-top: 8px; }
+        .small-print { margin-top: 24px; font-size: 14px; line-height: 20px; color: var(--text-muted); }
 
         /* ——— BEFORE YOU RUN ——— */
-        .facts { display: grid; gap: 0; border-top: 1px solid var(--border); max-width: 900px; }
-        .fact { display: grid; grid-template-columns: minmax(0, 1fr); gap: 6px; padding: 24px 0; border-bottom: 1px solid var(--border); }
+        .facts { display: grid; gap: 0; border-top: 1px solid var(--border-light); max-width: 900px; }
+        .fact { display: grid; grid-template-columns: minmax(0, 1fr); gap: 8px; padding: 24px 0; border-bottom: 1px solid var(--border-light); }
         .fact dt {
             font-family: var(--font-mono);
-            font-size: 12px; font-weight: 500;
-            letter-spacing: 0.1em; text-transform: uppercase;
+            font-size: 14px; line-height: 20px; font-weight: 500;
             color: var(--text);
-            padding-top: 3px;
+            padding-top: 2px;
         }
-        .fact dd { font-size: 15px; color: var(--text-body); }
-        .tag {
-            display: inline-block;
-            font-family: var(--font-mono); font-size: 11px;
-            color: var(--text-secondary);
-            border: 1px solid var(--border-strong);
-            padding: 0 6px; margin: 0 2px;
-            vertical-align: 1px;
-            white-space: nowrap;
-        }
+        .fact dd { font-size: 16px; line-height: 24px; color: var(--text-body); max-width: 70ch; }
 
         /* ——— GET STARTED ——— */
-        .prereq { border: 1px solid var(--border-light); padding: 20px; margin-bottom: 32px; max-width: 820px; }
+        .prereq { background: var(--bg-elevated); padding: 24px; margin-bottom: 32px; max-width: 820px; }
         .box-label {
             font-family: var(--font-mono);
-            font-size: 12px; font-weight: 500;
-            letter-spacing: 0.12em; text-transform: uppercase;
+            font-size: 14px; line-height: 20px; font-weight: 500;
             color: var(--text); margin-bottom: 12px;
         }
-        .prereq > ul { list-style: none; display: grid; gap: 14px; }
-        .prereq > ul > li { font-size: 15px; color: var(--text-body); padding-left: 16px; position: relative; }
+        .prereq > ul { list-style: none; display: grid; gap: 16px; }
+        .prereq > ul > li { font-size: 16px; line-height: 24px; color: var(--text-body); padding-left: 16px; position: relative; }
         .prereq > ul > li::before { content: "-"; position: absolute; left: 0; color: var(--text-muted); }
-        .cli-list { display: grid; gap: 10px; margin-top: 12px; }
+        .cli-list { display: grid; gap: 12px; margin-top: 12px; }
         .cli-list > div { display: grid; grid-template-columns: minmax(0, 1fr); gap: 4px; }
-        .cli-list dt { font-family: var(--font-mono); font-size: 13px; color: var(--text); }
-        .cli-list dd { font-size: 14px; color: var(--text-secondary); }
-        .cli-list .cmd { padding: 6px 8px 6px 12px; font-size: 12.5px; margin-bottom: 4px; }
-        .cli-list .copy { padding: 1px 8px; }
+        .cli-list dt { font-family: var(--font-mono); font-size: 14px; line-height: 20px; color: var(--text); }
+        .cli-list dd { font-size: 14px; line-height: 20px; color: var(--text-secondary); }
+        .cli-list .cmd { background: var(--bg); padding: 8px 8px 8px 12px; margin-bottom: 4px; }
 
         .tabs { max-width: 820px; }
         .tablist { display: flex; gap: 0; border-bottom: 1px solid var(--border-light); margin-bottom: 24px; flex-wrap: wrap; }
         .tab {
-            font-family: var(--font-mono); font-size: 13px;
+            font-family: var(--font-mono); font-size: 14px; line-height: 20px;
             color: var(--text-secondary); background: none;
             border: 0; border-bottom: 2px solid transparent;
-            padding: 10px 16px; margin-bottom: -1px;
+            padding: 12px 16px; margin-bottom: -1px;
             cursor: pointer;
+            transition: color 0.3s var(--ease), border-color 0.3s var(--ease);
         }
         .tab[aria-selected="true"] { color: var(--text); border-bottom-color: var(--text); }
         .tab:hover { color: var(--text); }
         .no-js .tablist { display: none; }
         .panel-title { display: none; }
-        .no-js .panel-title { display: block; font-family: var(--font-mono); font-size: 13px; color: var(--text); margin: 24px 0 12px; }
+        .no-js .panel-title { display: block; font-family: var(--font-mono); font-size: 14px; line-height: 20px; color: var(--text); margin: 24px 0 12px; }
 
-        .setup-steps { list-style: none; display: grid; gap: 22px; }
-        .setup-steps li { display: grid; grid-template-columns: 28px minmax(0, 1fr); gap: 8px; }
-        .setup-n { font-family: var(--font-mono); font-size: 13px; color: var(--text-muted); padding-top: 13px; }
-        .setup-steps p, .panel-text { font-size: 14px; color: var(--text-secondary); margin-top: 8px; }
-        .cmd-stack { display: grid; gap: 10px; }
-        .panel-text.then { margin: 6px 0 0; color: var(--text-body); }
+        .setup-steps { list-style: none; display: grid; gap: 24px; }
+        .setup-steps li { display: grid; grid-template-columns: 32px minmax(0, 1fr); gap: 8px; }
+        .setup-n { font-family: var(--font-mono); font-size: 14px; line-height: 20px; color: var(--text-muted); padding-top: 12px; font-variant-numeric: tabular-nums; }
+        .setup-steps p, .panel-text { font-size: 14px; line-height: 20px; color: var(--text-secondary); margin-top: 8px; }
+        .cmd-stack { display: grid; gap: 12px; }
+        .panel-text.then { margin: 8px 0 0; color: var(--text-body); }
 
         .warn {
             max-width: 820px; margin-top: 32px;
-            border-left: 2px solid var(--text-muted);
-            padding: 4px 0 4px 16px;
-            font-size: 15px; color: var(--text-body);
+            background: var(--bg-elevated);
+            padding: 16px 24px;
+            font-size: 16px; line-height: 24px; color: var(--text-body);
         }
 
         .more-link {
             display: inline-block; margin-top: 24px;
-            font-size: 15px; color: var(--text); text-decoration: none;
+            font-size: 16px; line-height: 24px; color: var(--text); text-decoration: none;
             border-bottom: 1px solid var(--border-strong);
         }
         .more-link:hover { border-color: var(--text); }
 
-        /* ——— FAQ ——— */
-        .faq { max-width: 760px; border-top: 1px solid var(--border); }
-        .faq details { border-bottom: 1px solid var(--border); }
-        .faq summary {
-            cursor: pointer; list-style: none;
-            display: flex; justify-content: space-between; align-items: baseline; gap: 16px;
-            padding: 20px 0;
-            font-size: 17px; font-weight: 600; color: var(--text);
-        }
-        .faq summary::-webkit-details-marker { display: none; }
-        .faq summary::after { content: "+"; font-family: var(--font-mono); font-weight: 400; color: var(--text-secondary); }
-        .faq details[open] summary::after { content: "\2212"; }
-        .faq details p { padding: 0 0 22px; font-size: 15px; color: var(--text-body); }
-        .faq-more { margin-top: 28px; }
+        /* ——— FAQ: question and answer side by side, always open ——— */
+        .faq { max-width: 1040px; border-top: 1px solid var(--border-light); }
+        .faq-item { display: grid; grid-template-columns: minmax(0, 1fr); gap: 8px; padding: 24px 0; border-bottom: 1px solid var(--border-light); }
+        .faq dt { font-size: 18px; line-height: 28px; font-weight: 600; color: var(--text); }
+        .faq dd { font-size: 16px; line-height: 24px; color: var(--text-body); max-width: 65ch; }
+        .faq-more { margin-top: 32px; }
 
         /* ——— FOOTER ——— */
-        footer { padding: 48px 0; }
-        .footer-lead { font-size: 15px; color: var(--text-body); margin-bottom: 24px; }
+        footer { padding: 48px 0 64px; }
         .footer-main { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-start; gap: 24px; margin-bottom: 24px; }
-        .footer-links { display: flex; flex-wrap: wrap; gap: 10px 22px; list-style: none; max-width: 680px; }
+        .footer-links { display: flex; flex-wrap: wrap; gap: 8px 24px; list-style: none; max-width: 680px; }
         .footer-links a {
-            font-family: var(--font-mono); font-size: 13px;
+            font-family: var(--font-mono); font-size: 14px; line-height: 20px;
             color: var(--text-secondary); text-decoration: none;
         }
         .footer-links a:hover { color: var(--text); }
         .shields { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
         .shields a { display: inline-flex; }
         .shields img { height: 20px; width: auto; display: block; }
-        .footer-fine { font-size: 13px; color: var(--text-muted); max-width: 820px; }
+        .footer-fine { font-size: 12px; line-height: 16px; color: var(--text-muted); max-width: 820px; }
         .footer-fine a { color: var(--text-secondary); }
 
         /* ——— TOAST ——— */
         .toast {
             position: fixed; bottom: 24px; left: 50%;
-            transform: translateX(-50%) translateY(20px);
+            transform: translateX(-50%) translateY(16px);
             width: max-content; max-width: calc(100vw - 32px);
-            font-family: var(--font-mono); font-size: 13px; line-height: 1.5;
+            font-family: var(--font-mono); font-size: 14px; line-height: 20px;
             color: var(--text); background: var(--bg-card);
             border: 1px solid var(--border-strong);
-            padding: 10px 16px;
+            padding: 8px 16px;
             opacity: 0; pointer-events: none;
-            transition: opacity 0.3s, transform 0.3s;
+            transition: opacity 0.3s var(--ease), transform 0.5s var(--ease);
             z-index: 200;
         }
         .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+        /* ——— MOTION ———
+           Only active when JS added html.motion (never under reduced motion), so without JS
+           every element sits in its final state. */
+
+        /* Page load: the hero copy and the example card rise and resolve from blur */
+        .motion .k-up, .motion .k-left, .motion .k-pop, .motion .k-card, .motion .k-fade {
+            transition: transform 1.05s var(--e) var(--d, 0s), opacity 0.75s var(--e2) var(--d, 0s), filter 0.75s var(--e2) var(--d, 0s);
+        }
+        .motion .k-card { transition-duration: 0.9s, 0.6s, 0.6s; }
+        .motion .hero:not(.in) .k-up { opacity: 0; transform: translateY(10px); filter: blur(4px); }
+        .motion .hero:not(.in) .k-left { opacity: 0; transform: translateX(-10px); filter: blur(4px); }
+        .motion .hero:not(.in) .k-pop { opacity: 0; transform: scale(0.86); filter: blur(4px); }
+        .motion .hero:not(.in) .k-card { opacity: 0; transform: translateY(24px) scale(0.985); filter: blur(6px); }
+        .motion .hero:not(.in) .k-fade { opacity: 0; }
+
+        .hero .eyebrow { --d: 0s; }
+        .hero h1 { --d: 0.08s; }
+        .hero .subhead { --d: 0.16s; }
+        .hero .cta > :nth-child(1) { --d: 0.26s; }
+        .hero .cta > :nth-child(2) { --d: 0.32s; }
+        .hero .cta > :nth-child(3) { --d: 0.38s; }
+        .hero .cta > :nth-child(4) { --d: 0.46s; }
+        .hero .cta > :nth-child(5) { --d: 0.52s; }
+        .hero .card { --d: 0.18s; }
+        .hero .card-bar i:nth-child(1) { --d: 0.34s; }
+        .hero .card-bar i:nth-child(2) { --d: 0.38s; }
+        .hero .card-bar i:nth-child(3) { --d: 0.42s; }
+        .hero .card-video { --d: 0.4s; }
+        .hero .card-label { --d: 0.5s; }
+        .hero .r-outcome { --d: 0.56s; }
+        .hero .r-gloss { --d: 0.6s; }
+        .hero .r-head { --d: 0.64s; }
+        .hero .r-list > li:nth-child(1) { --d: 0.7s; }
+        .hero .r-list > li:nth-child(2) { --d: 0.76s; }
+        .hero .r-list > li:nth-child(3) { --d: 0.82s; }
+        .hero .r-list > li:nth-child(4) { --d: 0.88s; }
+        .hero .r-list > li:nth-child(2) .solo { --d: 0.86s; }
+        .hero .r-list > li:nth-child(3) .solo { --d: 0.92s; }
+        .hero .r-list > li:nth-child(4) .solo { --d: 0.98s; }
+        .hero .legend, .hero .show-all { --d: 1s; }
+        .hero figcaption { --d: 1.06s; }
+
+        /* Diagram: nodes pop in reading order, connectors draw on, the merged list fills like progress */
+        .motion .diagram .node { transform-box: fill-box; transform-origin: center; transition: transform 1.05s var(--e) var(--d, 0s), opacity 0.75s var(--e2) var(--d, 0s); }
+        .motion .diagram:not(.in) .node { opacity: 0; transform: scale(0.86); }
+        .motion .diagram .line, .motion .diagram .fill { stroke-dasharray: 1; transition: stroke-dashoffset 0.9s var(--io) var(--d, 0s); }
+        .motion .diagram .fill { transition-duration: 0.7s; }
+        .motion .diagram:not(.in) .line, .motion .diagram:not(.in) .fill { stroke-dashoffset: 1; }
+        .motion .diagram .k-fade { transition: opacity 0.75s var(--e2) var(--d, 0s); }
+        .motion .diagram:not(.in) .k-fade { opacity: 0; }
+        .diagram .n-q { --d: 0s; }
+        .diagram .in-path { --d: 0.12s; }
+        .diagram .n-m1 { --d: 0.3s; }
+        .diagram .n-m2 { --d: 0.36s; }
+        .diagram .n-m3 { --d: 0.42s; }
+        .diagram .out-path { --d: 0.5s; }
+        .diagram .n-out { --d: 0.78s; }
+        .diagram .fill:nth-of-type(1) { --d: 1s; }
+        .diagram .fill:nth-of-type(2) { --d: 1.08s; }
+        .diagram .fill:nth-of-type(3) { --d: 1.16s; }
+        .diagram .n-skip { --d: 1.3s; }
+
+        /* Text sections: rise and fade in once as they enter the viewport */
+        .motion [data-reveal] { transition: opacity 0.7s var(--ease) var(--d, 0s), transform 0.7s var(--ease) var(--d, 0s); }
+        .motion [data-reveal]:not(.in) { opacity: 0; transform: translateY(16px); }
 
         /* ——— RESPONSIVE ——— */
         @media (min-width: 640px) {
@@ -555,80 +642,73 @@
         }
 
         @media (min-width: 720px) {
-            .diagram { display: block; }
             .cli-list > div { grid-template-columns: 72px minmax(0, 1fr); gap: 12px; }
-            .cli-list dt { padding-top: 7px; }
-            .chip-row { grid-template-columns: 170px minmax(0, 1fr); gap: 16px; }
-            .fact { grid-template-columns: 150px minmax(0, 1fr); gap: 24px; }
+            .cli-list dt { padding-top: 8px; }
+            .chip-row { grid-template-columns: 168px minmax(0, 1fr); gap: 16px; }
+            .fact { grid-template-columns: 168px minmax(0, 1fr); gap: 24px; }
         }
 
         @media (min-width: 860px) {
-            .when-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 56px; }
+            .when-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 64px; }
+            .faq-item { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 48px; }
+        }
+
+        @media (min-width: 900px) {
+            .diagram { display: block; }
+            .pipeline { display: none; }
         }
 
         @media (min-width: 1024px) {
-            .hero-grid { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 56px; align-items: start; }
+            .hero { padding-top: 80px; }
+            .hero-grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 64px; align-items: start; }
+            .hero h1 { font-size: 48px; line-height: 1; }
             .show-all { display: none; }
-            .pins-note { display: inline; }
-
-            .pinned { position: relative; padding-right: 30px; }
-            .pin {
-                display: flex; align-items: center; justify-content: center;
-                position: absolute; right: 0; top: 1px;
-                width: 20px; height: 20px; border-radius: 50%;
-                border: 1px solid var(--text-muted);
-                font-size: 11px; line-height: 1;
-                color: var(--text); background: var(--bg);
-                text-decoration: none;
-            }
-            .pin:hover, .pin:focus-visible { background: var(--text); color: var(--bg); border-color: var(--text); }
-            .pin::after {
-                content: attr(data-tip);
-                position: absolute; right: 28px; top: 50%;
-                transform: translateY(-50%);
-                white-space: nowrap;
-                font-family: var(--font-mono); font-size: 12px;
-                color: var(--text); background: var(--bg-card);
-                border: 1px solid var(--border-strong);
-                padding: 4px 8px;
-                opacity: 0; pointer-events: none;
-                transition: opacity 0.15s;
-            }
-            .pin:hover::after, .pin:focus-visible::after { opacity: 1; }
         }
 
         @media (max-width: 1023px) {
-            .card.collapsed .extra { display: none; }
+            .card.collapsed .r-list > li:nth-child(n+4):not(.leave) { display: none; }
         }
 
         @media (max-width: 859px) {
+            .nav-inner { width: 100%; }
             .menu-btn { display: inline-flex; }
             .nav-links {
-                display: none;
-                position: absolute; top: 64px; left: 0; right: 0;
+                position: fixed; inset: 0; z-index: -2;
+                display: flex; flex-direction: column; align-items: flex-start; gap: 24px;
                 background: var(--bg);
-                border-bottom: 1px solid var(--border);
-                flex-direction: column; align-items: flex-start;
-                padding: 20px 16px 24px;
-                gap: 18px;
+                padding: 96px var(--gutter) 48px;
+                opacity: 0; visibility: hidden;
+                transition: opacity 0.3s var(--ease), visibility 0s linear 0.3s;
             }
-            .nav-links.open { display: flex; }
-            .no-js .nav-links { display: flex; position: static; flex-direction: row; flex-wrap: wrap; padding: 0 0 12px; background: none; border: 0; }
+            .nav-links a { font-family: var(--font-body); font-size: 24px; line-height: 32px; font-weight: 600; color: var(--text); }
+            .nav-links li { opacity: 0; transform: translateY(8px); transition: opacity 0.3s var(--ease), transform 0.5s var(--ease); }
+            .nav-links.open { opacity: 1; visibility: visible; transition: opacity 0.3s var(--ease), visibility 0s; }
+            .nav-links.open li { opacity: 1; transform: none; }
+            .nav-links.open li:nth-child(2) { transition-delay: 60ms; }
+            .nav-links.open li:nth-child(3) { transition-delay: 120ms; }
+            .nav-links.open li:nth-child(4) { transition-delay: 180ms; }
+            .nav-links.open li:nth-child(5) { transition-delay: 240ms; }
+            .no-js .nav-links { position: static; z-index: auto; opacity: 1; visibility: visible; flex-direction: row; flex-wrap: wrap; gap: 16px; padding: 0 0 12px; background: none; }
+            .no-js .nav-links li { opacity: 1; transform: none; }
+            .no-js .nav-links a { font-family: var(--font-mono); font-size: 14px; line-height: 20px; font-weight: 400; }
             .no-js .nav-inner { flex-wrap: wrap; height: auto; padding-top: 12px; }
             .no-js .menu-btn { display: none; }
         }
 
         @media (max-width: 639px) {
             :root { --gutter: 16px; }
-            section { padding: 64px 0; }
-            .hero { padding: 48px 0 64px; }
-            .subhead { font-size: 16px; }
-            .cmd-hero { font-size: 13px; padding: 12px; }
-            .card-body { padding: 18px 14px 16px; font-size: 12.5px; }
-            .card figcaption { padding: 12px 14px; }
+            section { padding: 64px 0 80px; }
+            section h2 { font-size: 30px; line-height: 36px; }
+            .hero { padding: 48px 0 80px; }
+            .subhead { font-size: 16px; line-height: 24px; }
+            .lead { font-size: 16px; line-height: 24px; }
+            .cmd-hero { padding: 12px; }
+            .card-body { padding: 16px; }
+            .card figcaption { padding: 12px 16px; }
             .by { white-space: normal; }
             .prereq { padding: 16px; }
-            .measured { padding: 18px; }
+            .measured { padding: 16px; }
+            .warn { padding: 16px; }
         }
 
         @media (prefers-reduced-motion: reduce) {
@@ -665,51 +745,51 @@
 <div class="hero" id="top">
     <div class="container hero-grid">
         <div class="hero-copy">
-            <p class="eyebrow">For developers using Claude Code, Codex CLI, Antigravity, or just a terminal</p>
-            <h1>Ask several AI models at once. Get one list of everything they raised.</h1>
-            <p class="subhead">ai-consultants is a free, open-source command-line tool for design reviews, threat models and &ldquo;what am I missing?&rdquo; checks before a hard-to-undo change. It sends your question, and any files you name, to models from different companies (Gemini, GPT, Claude, Mistral and more) at the same time, then merges their answers into one list that shows which model raised each point.</p>
+            <p class="eyebrow k-up">For developers using Claude Code, Codex CLI, Antigravity, or just a terminal</p>
+            <h1 class="k-up">Ask several AI models at once. Get one list of everything they raised.</h1>
+            <p class="subhead k-up">ai-consultants is a free, open-source command-line tool for design reviews, threat models and &ldquo;what am I missing?&rdquo; checks before a hard-to-undo change. It sends your question, and any files you name, to models from different companies (Gemini, GPT, Claude, Mistral and more) at the same time, then merges their answers into one list that shows which model raised each point.</p>
 
             <div class="cta" role="group" aria-labelledby="try-label">
-                <div class="cta-label" id="try-label">Try it in two commands</div>
-                <div class="cmd cmd-hero">
+                <div class="cta-label k-up" id="try-label">Try it in two commands</div>
+                <div class="cmd cmd-hero k-up">
                     <code class="cmd-line"><span class="prompt" aria-hidden="true">$ </span><span class="cmd-text">npx ai-consultants configure</span><span class="cmd-hint"># finds your model CLIs and keys &middot; no model calls</span></code>
                     <button class="copy" type="button" data-copy aria-label="Copy the configure command">Copy</button>
                 </div>
-                <div class="cmd cmd-hero">
+                <div class="cmd cmd-hero k-up">
                     <code class="cmd-line"><span class="prompt" aria-hidden="true">$ </span><span class="cmd-text">npx ai-consultants "What can go wrong when a service retries failed webhook deliveries?"</span><span class="cmd-hint"># asks every model you set up, then merges</span></code>
                     <button class="copy" type="button" data-copy aria-label="Copy the question command">Copy</button>
                 </div>
-                <div class="cta-notes">
+                <div class="cta-notes k-up">
                     <p>You need Node.js, jq, and at least two model CLIs installed and signed in (or two API keys).</p>
                     <p>Each question makes one call per model plus one to merge, billed to your own accounts. Your question and files go to every provider on your panel.</p>
                 </div>
-                <a class="quiet-link" href="#get-started">Set it up in 3 steps &darr;</a>
+                <a class="quiet-link k-up" href="#get-started">Set it up in 3 steps &darr;</a>
             </div>
         </div>
 
-        <figure class="card" id="example" aria-label="A real run: what you ask and what you get back">
-            <div class="card-bar" aria-hidden="true"><i></i><i></i><i></i></div>
-            <video class="card-video" autoplay muted loop playsinline preload="metadata" poster="demo/poster.png" width="1240" height="954" aria-label="Terminal recording of a real run: npx ai-consultants asks Gemini, Codex and Mistral what can go wrong when a service retries failed webhook deliveries, then prints the merged list with the models that raised each point.">
+        <figure class="card k-card" id="example" aria-label="A real run: what you ask and what you get back">
+            <div class="card-bar" aria-hidden="true"><i class="k-pop"></i><i class="k-pop"></i><i class="k-pop"></i></div>
+            <video class="card-video k-fade" autoplay muted loop playsinline preload="metadata" poster="demo/poster.png" width="1240" height="954" aria-label="Terminal recording of a real run: npx ai-consultants asks Gemini, Codex and Mistral what can go wrong when a service retries failed webhook deliveries, then prints the merged list with the models that raised each point.">
                 <source src="demo/run.webm" type="video/webm">
                 <source src="demo/run.mp4" type="video/mp4">
             </video>
             <div class="card-body">
-                <div class="card-label">You get back <span class="fname">&middot; report.md, 4 of 26 points</span></div>
+                <div class="card-label k-up">You get back <span class="fname">&middot; report.md, 4 of 26 points</span></div>
                 <div class="report">
-                    <p class="r-outcome">Outcome: <b>MET</b> (3/3 responded, quorum=2)</p>
-                    <p class="r-gloss">MET: enough models answered, and every point they returned is cited in the list.</p>
-                    <p class="r-head">Coverage Union <span class="r-gloss">&middot; every distinct point, deduplicated</span></p>
-                    <ul class="r-list">
-                        <li><span><span class="kind">risk:</span> <span class="point">Duplicate deliveries remain possible under at-least-once retry; deduplication and ordering responsibility is shifted onto the receiving consumer, which must be idempotent and tolerate concurrent delivery.</span> <span class="by">&mdash; raised by <b>Codex, Gemini, Mistral</b></span></span></li>
-                        <li><span><span class="kind">edge_case:</span> <span class="point">Outbound dispatchers remain exposed to SSRF and DNS rebinding on each retry (the target can re-resolve to a private IP) unless egress goes through a hardened proxy with private-range blocklists.</span> <span class="by">&mdash; raised by <b>Gemini</b> <span class="solo"><span aria-hidden="true">&#9679;</span><span class="sr-only">(raised by only one model)</span></span></span></span></li>
-                        <li><span><span class="kind">risk:</span> <span class="point">Replay attack surface: retrying with retained, long-lived signatures lets a captured delivery be replayed against the receiver.</span> <span class="by">&mdash; raised by <b>Mistral</b> <span class="solo"><span aria-hidden="true">&#9679;</span><span class="sr-only">(raised by only one model)</span></span></span></span></li>
-                        <li class="extra"><span><span class="kind">edge_case:</span> <span class="point">An HTTP success response only confirms what the receiver contract promises, which may be acceptance rather than completed processing, so a 2xx can mask downstream failure.</span> <span class="by">&mdash; raised by <b>Codex</b> <span class="solo"><span aria-hidden="true">&#9679;</span><span class="sr-only">(raised by only one model)</span></span></span></span></li>
-                    </ul>
+                    <p class="r-outcome k-up">Outcome: <b>MET</b> (3/3 responded, quorum=2)</p>
+                    <p class="r-gloss k-up">MET: enough models answered, and every point they returned is cited in the list.</p>
+                    <p class="r-head k-up">Coverage Union <span class="r-gloss">&middot; every distinct point, deduplicated</span></p>
+                    <div class="r-clip"><ul class="r-list">
+                        <li class="k-left"><span><span class="kind">risk:</span> <span class="point">Duplicate deliveries remain possible under at-least-once retry; deduplication and ordering responsibility is shifted onto the receiving consumer, which must be idempotent and tolerate concurrent delivery.</span> <span class="by">&mdash; raised by <b>Codex, Gemini, Mistral</b></span></span></li>
+                        <li class="k-left"><span><span class="kind">edge_case:</span> <span class="point">Outbound dispatchers remain exposed to SSRF and DNS rebinding on each retry (the target can re-resolve to a private IP) unless egress goes through a hardened proxy with private-range blocklists.</span> <span class="by">&mdash; raised by <b>Gemini</b> <span class="solo k-pop"><span aria-hidden="true">&#9679;</span><span class="sr-only">(raised by only one model)</span></span></span></span></li>
+                        <li class="k-left"><span><span class="kind">risk:</span> <span class="point">Replay attack surface: retrying with retained, long-lived signatures lets a captured delivery be replayed against the receiver.</span> <span class="by">&mdash; raised by <b>Mistral</b> <span class="solo k-pop"><span aria-hidden="true">&#9679;</span><span class="sr-only">(raised by only one model)</span></span></span></span></li>
+                        <li class="k-left"><span><span class="kind">edge_case:</span> <span class="point">An HTTP success response only confirms what the receiver contract promises, which may be acceptance rather than completed processing, so a 2xx can mask downstream failure.</span> <span class="by">&mdash; raised by <b>Codex</b> <span class="solo k-pop"><span aria-hidden="true">&#9679;</span><span class="sr-only">(raised by only one model)</span></span></span></span></li>
+                    </ul></div>
                 </div>
-                <button class="show-all" type="button" aria-expanded="false" hidden>Show all</button>
-                <p class="legend"><span class="solo" aria-hidden="true">&#9679;</span> Raised by only one model. It stays in the list; nothing is voted out.</p>
+                <button class="show-all k-up" type="button" aria-expanded="false" hidden>Show all</button>
+                <p class="legend k-up"><span class="solo" aria-hidden="true">&#9679;</span> Raised by only one model. It stays in the list; nothing is voted out.</p>
             </div>
-            <figcaption>A real run on 21 Oct 2026 (ai-consultants 5.3.0 with Gemini, Codex and Mistral). It took about 2&frac12; minutes; the video shortens the waiting. <a href="https://github.com/reasance/aiconsultants.sh/blob/main/demo/report.md" target="_blank" rel="noopener">Read the full report</a>.</figcaption>
+            <figcaption class="k-up">A real run on 21 Oct 2026 (ai-consultants 5.3.0 with Gemini, Codex and Mistral). It took about 2&frac12; minutes; the video shortens the waiting. <a href="https://github.com/reasance/aiconsultants.sh/blob/main/demo/report.md" target="_blank" rel="noopener">Read the full report</a>.</figcaption>
         </figure>
     </div>
 </div>
@@ -729,35 +809,51 @@
         </ol>
 
         <figure class="diagram">
-            <svg viewBox="0 0 720 280" role="img" aria-labelledby="dg-title">
+            <svg viewBox="0 0 1104 304" role="img" aria-labelledby="dg-title">
                 <title id="dg-title">Your question and files go to Google Gemini, OpenAI Codex and Mistral, whose answers merge into one list. Claude is skipped when you run from Claude Code.</title>
-                <rect class="box" x="0.5" y="74.5" width="170" height="70"/>
-                <text class="strong" x="85" y="105" text-anchor="middle">Your question</text>
-                <text class="dim" x="85" y="126" text-anchor="middle">+ files</text>
+                <path class="line in-path" pathLength="1" d="M201 120 C 300 120, 300 40, 400 40"/>
+                <path class="line in-path" pathLength="1" d="M201 120 L 400 120"/>
+                <path class="line in-path" pathLength="1" d="M201 120 C 300 120, 300 200, 400 200"/>
+                <path class="line out-path" pathLength="1" d="M641 40 C 740 40, 740 120, 840 120"/>
+                <path class="line out-path" pathLength="1" d="M641 120 L 840 120"/>
+                <path class="line out-path" pathLength="1" d="M641 200 C 740 200, 740 120, 840 120"/>
 
-                <path class="line" d="M171 110 C 220 110, 220 40, 270 40"/>
-                <path class="line" d="M171 110 L 270 110"/>
-                <path class="line" d="M171 110 C 220 110, 220 180, 270 180"/>
+                <g class="node n-q">
+                    <rect class="box" x="0.5" y="80.5" width="200" height="79"/>
+                    <text class="strong" x="100" y="116" text-anchor="middle">Your question</text>
+                    <text class="dim" x="100" y="138" text-anchor="middle">+ files</text>
+                </g>
 
-                <rect class="box" x="270.5" y="20.5" width="170" height="40"/>
-                <text x="355" y="45" text-anchor="middle">Google Gemini</text>
-                <rect class="box" x="270.5" y="90.5" width="170" height="40"/>
-                <text x="355" y="115" text-anchor="middle">OpenAI Codex</text>
-                <rect class="box" x="270.5" y="160.5" width="170" height="40"/>
-                <text x="355" y="185" text-anchor="middle">Mistral</text>
+                <g class="node n-m n-m1">
+                    <rect class="box" x="400.5" y="16.5" width="240" height="47"/>
+                    <text x="520" y="45" text-anchor="middle">Google Gemini</text>
+                </g>
+                <g class="node n-m n-m2">
+                    <rect class="box" x="400.5" y="96.5" width="240" height="47"/>
+                    <text x="520" y="125" text-anchor="middle">OpenAI Codex</text>
+                </g>
+                <g class="node n-m n-m3">
+                    <rect class="box" x="400.5" y="176.5" width="240" height="47"/>
+                    <text x="520" y="205" text-anchor="middle">Mistral</text>
+                </g>
 
-                <path class="line" d="M441 40 C 490 40, 490 110, 540 110"/>
-                <path class="line" d="M441 110 L 540 110"/>
-                <path class="line" d="M441 180 C 490 180, 490 110, 540 110"/>
+                <g class="node n-out">
+                    <rect class="box" x="840.5" y="48.5" width="262" height="143"/>
+                    <text class="strong" x="971" y="84" text-anchor="middle">One merged list</text>
+                    <line class="track" x1="866" y1="116" x2="1076" y2="116"/>
+                    <line class="track" x1="866" y1="140" x2="1046" y2="140"/>
+                    <line class="track" x1="866" y1="164" x2="1062" y2="164"/>
+                </g>
+                <g class="fills">
+                    <line class="fill" pathLength="1" x1="866" y1="116" x2="1076" y2="116"/>
+                    <line class="fill" pathLength="1" x1="866" y1="140" x2="1046" y2="140"/>
+                    <line class="fill" pathLength="1" x1="866" y1="164" x2="1062" y2="164"/>
+                </g>
 
-                <rect class="box" x="540.5" y="54.5" width="178" height="112"/>
-                <text class="strong" x="629" y="82" text-anchor="middle">One merged list</text>
-                <line class="bar" x1="560" y1="104" x2="698" y2="104"/>
-                <line class="bar" x1="560" y1="124" x2="680" y2="124"/>
-                <line class="bar" x1="560" y1="144" x2="692" y2="144"/>
-
-                <rect class="skip" x="270.5" y="234.5" width="448" height="36"/>
-                <text class="dim" x="494" y="257" text-anchor="middle">Claude: skipped when you run from Claude Code</text>
+                <g class="n-skip k-fade">
+                    <rect class="skip" x="400.5" y="256.5" width="702" height="40"/>
+                    <text class="dim" x="751" y="281" text-anchor="middle">Claude: skipped when you run from Claude Code</text>
+                </g>
             </svg>
         </figure>
 
@@ -804,7 +900,7 @@
                     <li><span class="situation">Threat modeling</span><span class="q">"Enumerate the ways an attacker could abuse this JWT validation." src/auth.ts</span></li>
                     <li><span class="situation">&ldquo;What am I missing?&rdquo; before a risky change</span><span class="q">"Which edge cases does this zero-downtime Postgres migration plan miss?" docs/migration.md</span></li>
                     <li><span class="situation">Alternatives you haven't considered</span><span class="q">"What are the alternatives to polling for this sync job, and what does each trade off?"</span></li>
-                    <li><span class="situation">Hard-to-reverse choices</span><span class="q">"Event log or mutable relational state for this billing service?"</span><span class="q-extra">Add <code>--strategy compare_only</code> to see the answers side by side, with no merged pick.</span></li>
+                    <li><span class="situation">Choices that are hard to reverse</span><span class="q">"Event log or mutable relational state for this billing service?"</span><span class="q-extra">Add <code>--strategy compare_only</code> to see the answers side by side, with no merged pick.</span></li>
                 </ul>
             </div>
             <div>
@@ -991,28 +1087,36 @@
         <div class="section-label">FAQ</div>
         <h2 id="faq-title">Questions developers ask first</h2>
 
-        <div class="faq">
-            <details open>
-                <summary>Why not just ask my own agent?</summary>
-                <p>For a question with one right answer, do. Your agent is one model with one set of habits. Models from other companies, each asked once and separately, often raise points it didn't, and the list shows you which. That's most useful when you're trying to list everything that could go wrong. You still decide what's right.</p>
-            </details>
-            <details>
-                <summary>Is it more accurate than one strong model?</summary>
-                <p>We haven't shown that, and we don't claim it. Two small internal tests found a gain when listing risks and edge cases, and none when hunting planted bugs. The panel shows what several models say and where they agree, and agreement isn't correctness.</p>
-            </details>
-            <details>
-                <summary>Does it vote on one answer?</summary>
-                <p>No. By default it keeps every distinct point and notes who raised it, so a point only one model made isn't averaged away. <code>--strategy compare_only</code> puts the answers side by side with no pick. Other merge styles, including one blended recommendation, are in the docs.</p>
-            </details>
-            <details>
-                <summary>Which models answer, and can I choose?</summary>
-                <p>By default, every model you've set up; you need at least two, or the run won't start. Pick them with <code>npx ai-consultants configure --interactive</code>, or use a mode: <code>--mode fast-check</code> (Gemini and Codex, in cheaper versions), <code>--mode coverage-review</code> (Gemini, Codex and Mistral) or <code>--mode max-coverage</code> (the widest panel at the highest model tier; slowest and most expensive).</p>
-            </details>
-            <details>
-                <summary>Where do the results go?</summary>
-                <p>To a folder under <code>~/.cache/ai-consultants/consultations/</code>. It holds <code>report.md</code>, one JSON file per model with its full answer, <code>synthesis.json</code> with the merged list, and <code>context.md</code> with exactly what was sent. Inside Claude Code, the command also shows a summary of the same report.</p>
-            </details>
-        </div>
+        <dl class="faq">
+            <div class="faq-item">
+                <dt>Why not just ask my own agent?</dt>
+                <dd>For a question with one right answer, do. Your agent is one model with one set of habits. Models from other companies, each asked once and separately, often raise points it didn't, and the list shows you which. That's most useful when you're trying to list everything that could go wrong. You still decide what's right.</dd>
+            </div>
+            <div class="faq-item">
+                <dt>Is it more accurate than one strong model?</dt>
+                <dd>We haven't shown that, and we don't claim it. Two small internal tests found a gain when listing risks and edge cases, and none when hunting planted bugs. The panel shows what several models say and where they agree, and agreement isn't correctness.</dd>
+            </div>
+            <div class="faq-item">
+                <dt>Does it vote on one answer?</dt>
+                <dd>No. By default it keeps every distinct point and notes who raised it, so a point only one model made isn't averaged away. <code>--strategy compare_only</code> puts the answers side by side with no pick. Other merge styles, including one blended recommendation, are in the docs.</dd>
+            </div>
+            <div class="faq-item">
+                <dt>Which models answer, and can I choose?</dt>
+                <dd>By default, every model you've set up; you need at least two, or the run won't start. Pick them with <code>npx ai-consultants configure --interactive</code>, or use a mode: <code>--mode fast-check</code> (Gemini and Codex, in cheaper versions), <code>--mode coverage-review</code> (Gemini, Codex and Mistral) or <code>--mode max-coverage</code> (the widest panel at the highest model tier; slowest and most expensive).</dd>
+            </div>
+            <div class="faq-item">
+                <dt>What does a run cost?</dt>
+                <dd>One call per model plus one to merge, billed to your own accounts, and a failed call may be retried up to twice. Every run prints an estimated cost when it finishes. Asking the same question again within 24 hours reuses saved answers.</dd>
+            </div>
+            <div class="faq-item">
+                <dt>Where do the results go?</dt>
+                <dd>To a folder under <code>~/.cache/ai-consultants/consultations/</code>. It holds <code>report.md</code>, one JSON file per model with its full answer, <code>synthesis.json</code> with the merged list, and <code>context.md</code> with exactly what was sent. Inside Claude Code, the command also shows a summary of the same report.</dd>
+            </div>
+            <div class="faq-item">
+                <dt>Does it change my code or run anything?</dt>
+                <dd>No. It's advice only: the models don't run your code or tests, and nothing in your project changes. You decide what to do with the list.</dd>
+            </div>
+        </dl>
 
         <a class="more-link faq-more" href="https://github.com/reasance/ai-consultants/blob/main/references/configuration.md" target="_blank" rel="noopener">Everything else (modes, presets, merge strategies, model tiers, budgets, routing) is in the configuration reference &rarr;</a>
     </div>
@@ -1051,6 +1155,8 @@
 <script>
 (function () {
     'use strict';
+
+    window.__aicMotion = true;  // tells the failsafe in <head> that this script ran
 
     var toastTimer;
     function showToast(msg) {
@@ -1102,22 +1208,42 @@
         });
     });
 
-    // Mobile menu
+    // Mobile menu: full height panel; links arrive in reading order (CSS)
     var menuBtn = document.querySelector('.menu-btn');
     var navLinks = document.getElementById('nav-links');
     function setMenu(open) {
         navLinks.classList.toggle('open', open);
         menuBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+        document.body.style.overflow = open ? 'hidden' : '';
     }
     menuBtn.addEventListener('click', function () { setMenu(!navLinks.classList.contains('open')); });
     navLinks.querySelectorAll('a').forEach(function (a) { a.addEventListener('click', function () { setMenu(false); }); });
     document.addEventListener('keydown', function (e) {
         if (e.key === 'Escape' && navLinks.classList.contains('open')) { setMenu(false); menuBtn.focus(); }
     });
+    window.matchMedia('(min-width: 860px)').addEventListener('change', function (e) { if (e.matches) setMenu(false); });
+
+    // Current section in the nav
+    var navTargets = Array.prototype.slice.call(navLinks.querySelectorAll('a[href^="#"]'));
+    if ('IntersectionObserver' in window) {
+        var sectionIO = new IntersectionObserver(function (entries) {
+            entries.forEach(function (en) {
+                if (!en.isIntersecting) return;
+                navTargets.forEach(function (a) {
+                    var on = a.getAttribute('href') === '#' + en.target.id;
+                    a.classList.toggle('current', on);
+                    if (on) a.setAttribute('aria-current', 'true'); else a.removeAttribute('aria-current');
+                });
+            });
+        }, { rootMargin: '-45% 0px -50% 0px' });
+        // Every section is watched, so a section without a nav link clears the indicator
+        document.querySelectorAll('main section[id], .hero').forEach(function (s) { sectionIO.observe(s); });
+    }
 
     // Respect reduced motion: no autoplay, show the poster with controls instead
+    var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     var demoVideo = document.querySelector('.card-video');
-    if (demoVideo && window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    if (demoVideo && reduced) {
         demoVideo.removeAttribute('autoplay');
         demoVideo.pause();
         demoVideo.controls = true;
@@ -1126,24 +1252,14 @@
     // Example card: first 3 points on narrow screens, with a Show all toggle
     var card = document.getElementById('example');
     var showAll = card.querySelector('.show-all');
+    var narrowMQ = window.matchMedia('(max-width: 1023px)');
     card.classList.add('collapsed');
     showAll.hidden = false;
     showAll.addEventListener('click', function () {
         var collapsed = card.classList.toggle('collapsed');
         showAll.setAttribute('aria-expanded', collapsed ? 'false' : 'true');
         showAll.textContent = collapsed ? 'Show all' : 'Show fewer';
-    });
-
-    // Pins on the card highlight the matching How it works step on hover/focus
-    document.querySelectorAll('.pin').forEach(function (pin) {
-        var step = document.getElementById('step-' + pin.getAttribute('data-step'));
-        if (!step) return;
-        function on() { step.classList.add('linked'); }
-        function off() { step.classList.remove('linked'); }
-        pin.addEventListener('mouseenter', on);
-        pin.addEventListener('mouseleave', off);
-        pin.addEventListener('focus', on);
-        pin.addEventListener('blur', off);
+        unlockList();
     });
 
     // Tabs (Terminal / Claude Code)
@@ -1169,6 +1285,234 @@
         });
     });
     if (tabs.length) selectTab(tabs[0], false);
+
+    /* ——— MOTION ———
+       html.motion is set in <head> unless the visitor prefers reduced motion. Without it,
+       everything above stays in its final state and no story runs. */
+    var rList = card.querySelector('.r-list');
+    var rClip = card.querySelector('.r-clip');
+    function unlockList() { if (rClip) rClip.style.height = ''; }
+
+    if (!document.documentElement.classList.contains('motion') || !('IntersectionObserver' in window)) return;
+
+    // cubic-bezier(0.65, 0, 0.35, 1) is close enough to an in out cubic for the story tracks
+    function io(t) { return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2; }
+    function clamp01(x) { return x < 0 ? 0 : x > 1 ? 1 : x; }
+    // [[time, value], ...] eased per segment
+    function track(keys, t, ease) {
+        ease = ease || io;
+        if (t <= keys[0][0]) return keys[0][1];
+        for (var i = 1; i < keys.length; i++) {
+            var t1 = keys[i][0], t0 = keys[i - 1][0];
+            if (t <= t1) return keys[i - 1][1] + (keys[i][1] - keys[i - 1][1]) * ease(clamp01((t - t0) / (t1 - t0 || 1)));
+        }
+        return keys[keys.length - 1][1];
+    }
+
+    // Play an intro once when about 30% of el is visible, then hand over to its story
+    function onceVisible(el, threshold, fn) {
+        var obs = new IntersectionObserver(function (entries) {
+            if (entries[0].isIntersecting) { obs.disconnect(); fn(); }
+        }, { threshold: threshold });
+        obs.observe(el);
+    }
+
+    // A story clock that only runs while el is on screen and the tab is visible
+    function storyClock(el, draw) {
+        var t = 0, last = null, raf = null, vis = false, on = false;
+        function frame(now) {
+            if (last !== null) t += Math.min(0.05, (now - last) / 1000);
+            last = now;
+            draw(t);
+            raf = requestAnimationFrame(frame);
+        }
+        function sync() {
+            var run = on && vis && !document.hidden;
+            if (run && raf === null) { last = null; raf = requestAnimationFrame(frame); }
+            if (!run && raf !== null) { cancelAnimationFrame(raf); raf = null; }
+        }
+        new IntersectionObserver(function (e) { vis = e[0].isIntersecting; sync(); }).observe(el);
+        document.addEventListener('visibilitychange', sync);
+        return { start: function () { on = true; sync(); }, running: function () { return on && vis && !document.hidden; } };
+    }
+
+    // Text sections: rise and fade in once, staggered by reading order inside each section
+    var revealIO = new IntersectionObserver(function (entries) {
+        entries.forEach(function (en) {
+            if (en.isIntersecting) { en.target.classList.add('in'); revealIO.unobserve(en.target); }
+        });
+    }, { rootMargin: '0px 0px -10% 0px' });
+    document.querySelectorAll('main section .container > *:not(.diagram), footer .container > *').forEach(function (el) {
+        var i = Array.prototype.indexOf.call(el.parentNode.children, el);
+        el.setAttribute('data-reveal', '');
+        el.style.setProperty('--d', Math.min(i, 4) * 0.08 + 's');
+        revealIO.observe(el);
+    });
+
+    /* Hero: the copy and the card load in on page load. Story: a new point from the real
+       report lands on top of the list, the others step down a slot, the last one leaves.
+       Seven beats bring the list back to the exact four points in the design, then it rests. */
+    var hero = document.querySelector('.hero');
+    var EXTRA = [
+        ['risk', 'Out-of-order delivery: a retried older event can arrive after a newer one and regress receiver state or disrupt sequencing.', 'Mistral'],
+        ['trade_off', 'Backoff and tripped circuit breakers increase delivery latency and introduce eventual-consistency delays for receivers.', 'Codex, Gemini'],
+        ['edge_case', 'Exactly-once business effects cannot be guaranteed by retries alone; they require coordination with every affected downstream system.', 'Codex']
+    ];
+    function pointItem(p) {
+        var li = document.createElement('li');
+        var wrap = document.createElement('span');
+        var kind = document.createElement('span'); kind.className = 'kind'; kind.textContent = p[0] + ':';
+        var point = document.createElement('span'); point.className = 'point'; point.textContent = p[1];
+        var by = document.createElement('span'); by.className = 'by';
+        var b = document.createElement('b'); b.textContent = p[2];
+        by.append('— raised by ', b);
+        if (p[2].indexOf(',') < 0) {
+            var solo = document.createElement('span'); solo.className = 'solo';
+            solo.innerHTML = '<span aria-hidden="true">&#9679;</span><span class="sr-only">(raised by only one model)</span>';
+            by.append(' ', solo);
+        }
+        wrap.append(kind, ' ', point, ' ', by);
+        li.appendChild(wrap);
+        return li;
+    }
+    var originals = Array.prototype.slice.call(rList.children);
+    var sequence = EXTRA.map(pointItem).concat(originals.slice().reverse());
+    var E = 'cubic-bezier(0.16, 1, 0.3, 1)', E2 = 'cubic-bezier(0.33, 1, 0.68, 1)';
+
+    function beat(node) {
+        var items = Array.prototype.slice.call(rList.children);
+        var shown = narrowMQ.matches && card.classList.contains('collapsed') ? 3 : 4;
+        var leaver = items[shown - 1];
+        var stay = items.slice(0, shown - 1);
+        var before = stay.map(function (el) { return el.getBoundingClientRect().top; });
+        rList.insertBefore(node, rList.firstChild);
+        if (leaver) {
+            leaver.classList.add('leave');
+            leaver.animate([{ opacity: 1, filter: 'blur(0)' }, { opacity: 0, filter: 'blur(4px)' }], { duration: 500, easing: E2, fill: 'forwards' })
+                .finished.then(function () {
+                    leaver.getAnimations().forEach(function (a) { a.cancel(); });
+                    leaver.classList.remove('leave');
+                    while (rList.children.length > 4) rList.removeChild(rList.lastChild);
+                });
+        }
+        stay.forEach(function (el, i) {
+            var dy = before[i] - el.getBoundingClientRect().top;
+            if (dy) el.animate([{ transform: 'translateY(' + dy + 'px)' }, { transform: 'none' }], { duration: 1050, easing: E });
+        });
+        node.animate([
+            { opacity: 0, transform: 'translateY(-10px)', filter: 'blur(4px)' },
+            { opacity: 1, transform: 'none', filter: 'blur(0)' }
+        ], { duration: 900, easing: E });
+    }
+
+    var listVisible = false;
+    new IntersectionObserver(function (e) { listVisible = e[0].isIntersecting; }).observe(rList);
+    function runList(step) {
+        if (step === 0) {
+            // A cycle starts on the design: lock the height so the page below never moves
+            rClip.style.height = '';
+            rClip.style.height = rClip.offsetHeight + 'px';
+        }
+        if (!listVisible || document.hidden) { setTimeout(function () { runList(step); }, 600); return; }
+        if (step < sequence.length) {
+            beat(sequence[step]);
+            setTimeout(function () { runList(step + 1); }, 2400);
+        } else {
+            setTimeout(function () { runList(0); }, 4000);  // rest on the exact design
+        }
+    }
+    var resizeT;
+    window.addEventListener('resize', function () { clearTimeout(resizeT); resizeT = setTimeout(unlockList, 150); });
+
+    function startHero() {
+        hero.classList.add('in');
+        setTimeout(function () { runList(0); }, 3600);
+    }
+    // Wait briefly for the web font so text does not swap mid rise
+    var heroStarted = false;
+    function kick() { if (!heroStarted) { heroStarted = true; requestAnimationFrame(startHero); } }
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(kick);
+    setTimeout(kick, 300);
+
+    /* Diagram story: a pulse leaves the question and splits to every model; each model
+       lights up, answers in its own time, and its pulse fills one line of the merged list. */
+    var diagram = document.querySelector('.diagram');
+    if (diagram) {
+        var svg = diagram.querySelector('svg');
+        var q = svg.querySelector('.n-q'), outNode = svg.querySelector('.n-out');
+        var models = Array.prototype.slice.call(svg.querySelectorAll('.n-m'));
+        var ins = Array.prototype.slice.call(svg.querySelectorAll('.in-path'));
+        var outs = Array.prototype.slice.call(svg.querySelectorAll('.out-path'));
+        var fills = Array.prototype.slice.call(svg.querySelectorAll('.fill'));
+        var NS = 'http://www.w3.org/2000/svg';
+        function dot(path) {
+            var g = document.createElementNS(NS, 'g');
+            var halo = document.createElementNS(NS, 'circle'); halo.setAttribute('r', '10'); halo.setAttribute('class', 'halo');
+            var c = document.createElementNS(NS, 'circle'); c.setAttribute('r', '4'); c.setAttribute('class', 'pulse');
+            g.append(halo, c);
+            svg.appendChild(g);
+            return { g: g, halo: halo, c: c, path: path, len: path.getTotalLength() };
+        }
+        function place(d, k, alpha) {
+            var p = d.path.getPointAtLength(d.len * k);
+            d.g.setAttribute('transform', 'translate(' + p.x.toFixed(1) + ' ' + p.y.toFixed(1) + ')');
+            d.c.style.opacity = alpha;
+            d.halo.style.opacity = alpha * 0.18;
+        }
+        var inDots = ins.map(dot), outDots = outs.map(dot);
+        var DEPART = [2.2, 2.9, 3.6];  // Gemini, Codex, Mistral answer in their own time
+        var TRAVEL_IN = [0.5, 1.6], TRAVEL = 0.9, PERIOD = 7.4;
+        function pulseAlpha(k) { return k <= 0 || k >= 1 ? 0 : Math.min(1, k / 0.12, (1 - k) / 0.12); }
+
+        var dClock = storyClock(diagram, function (time) {
+            var t = time % PERIOD;
+            q.classList.toggle('lit', t > 0.3 && t < 1.2);
+            var kin = clamp01((t - TRAVEL_IN[0]) / (TRAVEL_IN[1] - TRAVEL_IN[0]));
+            inDots.forEach(function (d) { place(d, io(kin), pulseAlpha(kin)); });
+            models.forEach(function (m, i) {
+                m.classList.toggle('lit', t > TRAVEL_IN[1] && t < DEPART[i] + 0.2);
+                var k = clamp01((t - DEPART[i]) / TRAVEL);
+                place(outDots[i], io(k), pulseAlpha(k));
+                var arrive = DEPART[i] + TRAVEL;
+                // Lines empty as the question leaves, then each refills when its answer lands
+                var fill = t < 0.4 ? 0 : t < arrive ? 1 : t < arrive + 0.7 ? 1 - (t - arrive) / 0.7 : 0;
+                var alpha = t < 0.4 ? track([[0, 1], [0.4, 0]], t) : 1;
+                fills[i].style.strokeDashoffset = (t < 0.4 ? 0 : io(fill)).toFixed(4);
+                fills[i].style.opacity = alpha;
+            });
+            outNode.classList.toggle('lit', t > DEPART[0] + TRAVEL && t < DEPART[2] + TRAVEL + 1.2);
+        });
+        onceVisible(diagram, 0.3, function () {
+            diagram.classList.add('in');
+            setTimeout(function () {
+                // The intro's CSS transitions hand over to the story's inline values
+                fills.forEach(function (f) { f.style.transition = 'none'; });
+                dClock.start();
+            }, 2400);
+        });
+    }
+
+    /* Pipeline (small screens, where the diagram is hidden): the active step walks the flow */
+    var pipeline = document.querySelector('.pipeline');
+    if (pipeline) {
+        var pSteps = Array.prototype.slice.call(pipeline.querySelectorAll('.pipeline-step'));
+        var pClock = storyClock(pipeline, function (time) {
+            var t = time % 4.8;
+            pSteps.forEach(function (s, i) { s.classList.toggle('lit', t > 0.4 + i * 1.2 && t < 1.6 + i * 1.2); });
+        });
+        onceVisible(pipeline, 0.3, function () { setTimeout(pClock.start, 900); });
+    }
+
+    /* Providers: each one lights up in turn, like a panel being polled */
+    var provRow = document.querySelectorAll('#works-with .chips')[1];
+    if (provRow) {
+        var prov = Array.prototype.slice.call(provRow.children);
+        var prClock = storyClock(provRow, function (time) {
+            var t = time % 6;
+            prov.forEach(function (c, i) { c.classList.toggle('lit', t > 0.4 + i * 0.28 && t < 1.1 + i * 0.28); });
+        });
+        onceVisible(provRow, 0.3, function () { setTimeout(prClock.start, 1000); });
+    }
 })();
 </script>
 
