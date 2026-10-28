@@ -40,7 +40,7 @@
         "applicationCategory": "DeveloperApplication",
         "operatingSystem": "macOS, Linux, Windows (WSL)",
         "description": "Free open-source CLI: ask Gemini, GPT, Claude, Mistral and more the same coding question in parallel, get one merged list showing who raised each point.",
-        "softwareVersion": "5.7.0",
+        "softwareVersion": "5.8.0",
         "license": "https://opensource.org/licenses/MIT",
         "url": "https://aiconsultants.sh",
         "author": {
@@ -733,7 +733,7 @@
             <li><a href="#how-it-works">How it works</a></li>
             <li><a href="#when">When to use it</a></li>
             <li><a href="#get-started">Get started</a></li>
-            <li><a href="https://github.com/reasance/ai-consultants/blob/v5.7.0/README.md" target="_blank" rel="noopener">Docs <span aria-hidden="true">&#8599;</span><span class="sr-only">(README on GitHub, opens in a new tab)</span></a></li>
+            <li><a href="https://github.com/reasance/ai-consultants/blob/v5.8.0/README.md" target="_blank" rel="noopener">Docs <span aria-hidden="true">&#8599;</span><span class="sr-only">(README on GitHub, opens in a new tab)</span></a></li>
             <li><a href="https://github.com/reasance/ai-consultants" target="_blank" rel="noopener">GitHub <span aria-hidden="true">&#9733;</span><img src="https://img.shields.io/github/stars/reasance/ai-consultants?style=flat-square&amp;label=&amp;labelColor=141414&amp;color=1f1f1f" alt="GitHub star count" height="20" loading="lazy"></a></li>
         </ul>
     </nav>
@@ -955,7 +955,7 @@
             </ul>
         </div>
 
-        <p class="works-note">Pick any two or more. Most are reached through that company's own command-line tool, signed in with your account; GLM and DeepSeek need an API key and are off until you add one; Meta is off until you install its Muse Code CLI or add a key. ai-consultants doesn't sell model access: each company bills your usage to you. Current model versions are listed in the <a href="https://github.com/reasance/ai-consultants/blob/v5.7.0/README.md#consultants" target="_blank" rel="noopener">README</a>.</p>
+        <p class="works-note">Pick any two or more. Most are reached through that company's own command-line tool, signed in with your account; GLM and DeepSeek need an API key and are off until you add one; Meta is off until you install its Muse Code CLI or add a key. ai-consultants doesn't sell model access: each company bills your usage to you. Current model versions are listed in the <a href="https://github.com/reasance/ai-consultants/blob/v5.8.0/README.md#consultants" target="_blank" rel="noopener">README</a>.</p>
 
         <p class="small-print">Independent open-source project. Not affiliated with or endorsed by any of these companies.</p>
     </div>
@@ -970,7 +970,7 @@
         <dl class="facts">
             <div class="fact">
                 <dt>Cost</dt>
-                <dd>One call per model plus one to merge, and a failed call may be retried up to twice. Calls through a signed-in CLI count against your plan with that company; API keys are billed per use. Every run prints an estimated cost when it finishes, using the rates in <a href="https://github.com/reasance/ai-consultants/blob/v5.7.0/docs/COST_RATES.md" target="_blank" rel="noopener">docs/COST_RATES.md</a>. Estimates aren't invoices, and models billed by plan or credits are left out (the run says so). A spending cap based on the tool's own estimates is off by default: set <code>ENABLE_BUDGET_LIMIT=true</code>, <code>MAX_SESSION_COST=0.50</code> and <code>BUDGET_ACTION=stop</code>. It can't see usage billed by plan or credits. Asking the same question again within 24 hours reuses saved answers.</dd>
+                <dd>One call per model plus one to merge, and a failed call may be retried up to twice. Calls through a signed-in CLI count against your plan with that company; API keys are billed per use. Every run prints an estimated cost when it finishes, using the rates in <a href="https://github.com/reasance/ai-consultants/blob/v5.8.0/docs/COST_RATES.md" target="_blank" rel="noopener">docs/COST_RATES.md</a>. Estimates aren't invoices, and models billed by plan or credits are left out (the run says so). A spending cap based on the tool's own estimates is off by default: set <code>ENABLE_BUDGET_LIMIT=true</code>, <code>MAX_SESSION_COST=0.50</code> and <code>BUDGET_ACTION=stop</code>. It can't see usage billed by plan or credits. Asking the same question again within 24 hours reuses saved answers.</dd>
             </div>
             <div class="fact">
                 <dt>Time</dt>
@@ -1070,14 +1070,14 @@
                         <div class="cmd"><code class="cmd-line"><span class="cmd-text">/ai-consultants:consult "What could go wrong with this design?" src/webhooks.ts</span></code><button class="copy" type="button" data-copy aria-label="Copy the slash command">Copy</button></div>
                         <p class="panel-text">Claude is left out of the panel and the merge automatically.</p>
                     </div>
-                    <p class="panel-text">Using Codex CLI or Antigravity instead? They load ai-consultants as a skill your agent can call, with no slash commands, and the installer above doesn't set them up. The <a href="https://github.com/reasance/ai-consultants/blob/v5.7.0/docs/SETUP.md" target="_blank" rel="noopener">setup guide</a> shows where to link it. In Codex, approve network access when asked.</p>
+                    <p class="panel-text">Using Codex CLI or Antigravity instead? They load ai-consultants as a skill your agent can call, with no slash commands, and the installer above doesn't set them up. The <a href="https://github.com/reasance/ai-consultants/blob/v5.8.0/docs/SETUP.md" target="_blank" rel="noopener">setup guide</a> shows where to link it. In Codex, approve network access when asked.</p>
                 </div>
             </div>
         </div>
 
         <p class="warn"><span aria-hidden="true">&#9888;</span> <strong>Watch for typos:</strong> any first word after <code>npx ai-consultants</code> that isn't one of its commands (configure, doctor, init, install, update-clis, version, help) is read as a question and starts a real, billed run.</p>
 
-        <a class="more-link" href="https://github.com/reasance/ai-consultants/blob/v5.7.0/docs/SETUP.md" target="_blank" rel="noopener">Other ways to install (SkillPort for Cursor, Copilot and Windsurf; git clone; standalone Bash) &rarr;</a>
+        <a class="more-link" href="https://github.com/reasance/ai-consultants/blob/v5.8.0/docs/SETUP.md" target="_blank" rel="noopener">Other ways to install (SkillPort for Cursor, Copilot and Windsurf; git clone; standalone Bash) &rarr;</a>
     </div>
 </section>
 
@@ -1106,7 +1106,7 @@
             </div>
             <div class="faq-item">
                 <dt>Can I use GPT-6.1 Terra?</dt>
-                <dd>Yes. Version 5.7.0 adds it as an optional Codex model: set <code>CODEX_MODEL=gpt-6.1-terra</code> in your configuration. Existing model tiers keep their defaults. Leave the effort unset to keep the transport default, or choose <code>low</code> through <code>max</code>; API mode also accepts <code>none</code>. See the <a href="https://github.com/reasance/ai-consultants/releases/tag/v5.7.0" target="_blank" rel="noopener">v5.7.0 release notes</a> and <a href="https://github.com/reasance/ai-consultants/blob/v5.7.0/docs/COST_RATES.md" target="_blank" rel="noopener">pricing and configuration details</a>.</dd>
+                <dd>Yes. Version 5.7.0 adds it as an optional Codex model: set <code>CODEX_MODEL=gpt-6.1-terra</code> in your configuration. Terra remains opt-in. Version 5.8.0 refreshes the Claude and OpenAI tier choices following the AA v5 review; explicit effort settings still win. Leave the effort unset to keep the transport default, or choose <code>low</code> through <code>max</code>; API mode also accepts <code>none</code>. See the <a href="https://github.com/reasance/ai-consultants/releases/tag/v5.8.0" target="_blank" rel="noopener">v5.8.0 release notes</a> and <a href="https://github.com/reasance/ai-consultants/blob/v5.8.0/docs/COST_RATES.md" target="_blank" rel="noopener">pricing and configuration details</a>.</dd>
             </div>
             <div class="faq-item">
                 <dt>What does a run cost?</dt>
@@ -1122,7 +1122,7 @@
             </div>
         </dl>
 
-        <a class="more-link faq-more" href="https://github.com/reasance/ai-consultants/blob/v5.7.0/references/configuration.md" target="_blank" rel="noopener">Everything else (modes, presets, merge strategies, model tiers, budgets, routing) is in the configuration reference &rarr;</a>
+        <a class="more-link faq-more" href="https://github.com/reasance/ai-consultants/blob/v5.8.0/references/configuration.md" target="_blank" rel="noopener">Everything else (modes, presets, merge strategies, model tiers, budgets, routing) is in the configuration reference &rarr;</a>
     </div>
 </section>
 
@@ -1134,22 +1134,22 @@
         <div class="footer-main">
             <!-- Refresh these release-pinned documentation links with the release metadata. -->
             <ul class="footer-links">
-                <li><a href="https://github.com/reasance/ai-consultants/blob/v5.7.0/README.md" target="_blank" rel="noopener">Docs (README)</a></li>
-                <li><a href="https://github.com/reasance/ai-consultants/blob/v5.7.0/docs/SETUP.md" target="_blank" rel="noopener">Setup</a></li>
-                <li><a href="https://github.com/reasance/ai-consultants/blob/v5.7.0/docs/RECIPES.md" target="_blank" rel="noopener">Recipes</a></li>
-                <li><a href="https://github.com/reasance/ai-consultants/blob/v5.7.0/references/configuration.md" target="_blank" rel="noopener">Configuration reference</a></li>
-                <li><a href="https://github.com/reasance/ai-consultants/blob/v5.7.0/CHANGELOG.md" target="_blank" rel="noopener">Changelog</a></li>
-                <li><a href="https://github.com/reasance/ai-consultants/releases/tag/v5.7.0" target="_blank" rel="noopener">Release v5.7.0</a></li>
+                <li><a href="https://github.com/reasance/ai-consultants/blob/v5.8.0/README.md" target="_blank" rel="noopener">Docs (README)</a></li>
+                <li><a href="https://github.com/reasance/ai-consultants/blob/v5.8.0/docs/SETUP.md" target="_blank" rel="noopener">Setup</a></li>
+                <li><a href="https://github.com/reasance/ai-consultants/blob/v5.8.0/docs/RECIPES.md" target="_blank" rel="noopener">Recipes</a></li>
+                <li><a href="https://github.com/reasance/ai-consultants/blob/v5.8.0/references/configuration.md" target="_blank" rel="noopener">Configuration reference</a></li>
+                <li><a href="https://github.com/reasance/ai-consultants/blob/v5.8.0/CHANGELOG.md" target="_blank" rel="noopener">Changelog</a></li>
+                <li><a href="https://github.com/reasance/ai-consultants/releases/tag/v5.8.0" target="_blank" rel="noopener">Release v5.8.0</a></li>
                 <li><a href="https://www.npmjs.com/package/ai-consultants" target="_blank" rel="noopener">npm</a></li>
                 <li><a href="https://github.com/reasance/ai-consultants" target="_blank" rel="noopener">GitHub</a></li>
                 <li><a href="https://github.com/reasance/ai-consultants/issues" target="_blank" rel="noopener">Report an issue</a></li>
-                <li><a href="https://github.com/reasance/ai-consultants/blob/v5.7.0/LICENSE" target="_blank" rel="noopener">MIT License</a></li>
+                <li><a href="https://github.com/reasance/ai-consultants/blob/v5.8.0/LICENSE" target="_blank" rel="noopener">MIT License</a></li>
             </ul>
             <div class="shields">
                 <!-- The hidden span is the release-automation marker (sync_site.sh rewrites it); the live npm badge is what visitors see. -->
-                <a href="https://www.npmjs.com/package/ai-consultants" target="_blank" rel="noopener"><img src="https://img.shields.io/npm/v/ai-consultants?style=flat-square&amp;labelColor=141414&amp;color=2a2a2a" alt="npm version" height="20" loading="lazy"><span class="sr-only">Current release: <span class="badge">v5.7.0</span></span></a>
+                <a href="https://www.npmjs.com/package/ai-consultants" target="_blank" rel="noopener"><img src="https://img.shields.io/npm/v/ai-consultants?style=flat-square&amp;labelColor=141414&amp;color=2a2a2a" alt="npm version" height="20" loading="lazy"><span class="sr-only">Current release: <span class="badge">v5.8.0</span></span></a>
                 <a href="https://github.com/reasance/ai-consultants" target="_blank" rel="noopener"><img src="https://img.shields.io/github/stars/reasance/ai-consultants?style=flat-square&amp;labelColor=141414&amp;color=2a2a2a" alt="GitHub stars" height="20" loading="lazy"></a>
-                <a href="https://github.com/reasance/ai-consultants/blob/v5.7.0/LICENSE" target="_blank" rel="noopener"><img src="https://img.shields.io/github/license/reasance/ai-consultants?style=flat-square&amp;labelColor=141414&amp;color=2a2a2a" alt="License" height="20" loading="lazy"></a>
+                <a href="https://github.com/reasance/ai-consultants/blob/v5.8.0/LICENSE" target="_blank" rel="noopener"><img src="https://img.shields.io/github/license/reasance/ai-consultants?style=flat-square&amp;labelColor=141414&amp;color=2a2a2a" alt="License" height="20" loading="lazy"></a>
             </div>
         </div>
         <p class="footer-fine">Independent open-source project, not affiliated with or endorsed by Google, OpenAI, Anthropic, Mistral, Moonshot, Alibaba, xAI, MiniMax, Zhipu, DeepSeek or Meta. Built by <a href="https://github.com/matteoscurati" target="_blank" rel="noopener">Matteo Scurati</a> &middot; &copy; 2026</p>
