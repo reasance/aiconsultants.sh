@@ -1,0 +1,2227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Changelog — ai-consultants</title>
+    <meta name="description" content="Released model documentation for Fable 5.2, Gemini 4 Hydrogen and Carbon, measured with Artificial Analysis v5.0.1.">
+    <meta name="theme-color" content="#000000">
+
+    <!-- SEO -->
+    <link rel="canonical" href="https://aiconsultants.sh/docs/changelog.html">
+    <meta name="robots" content="index, follow">
+    <meta name="author" content="Matteo Scurati">
+    <meta name="keywords" content="ai-consultants, multiple AI models, second opinion, design review, threat modeling, Claude Code skill, Codex, Gemini, Mistral, npx ai-consultants">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://aiconsultants.sh/docs/changelog.html">
+    <meta property="og:site_name" content="ai-consultants">
+    <meta property="og:title" content="Changelog — ai-consultants">
+    <meta property="og:description" content="Released model integration and documentation.">
+    <meta property="og:image" content="https://aiconsultants.sh/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="A real ai-consultants run: one question, answers from Gemini, Codex and Mistral, and one merged list of risks and edge cases tagged with the models that raised each.">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Changelog — ai-consultants">
+    <meta name="twitter:description" content="Released model integration and documentation.">
+    <meta name="twitter:image" content="https://aiconsultants.sh/og-image.png">
+    <meta name="twitter:image:alt" content="A real ai-consultants run: one question, answers from Gemini, Codex and Mistral, and one merged list of risks and edge cases tagged with the models that raised each.">
+
+    <!-- JSON-LD Structured Data (softwareVersion is rewritten at release by sync_site.sh) -->
+    
+
+    <script defer src="https://cloud.umami.is/script.js" data-website-id="ed9fc15a-2479-44ad-b6ff-e32001f8ea1d"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&amp;family=Geist+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet">
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <script>
+        // Motion is opt-in: only without reduced motion, and dropped if the page script never runs
+        if (!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches)) {
+            document.documentElement.classList.add('motion');
+            setTimeout(function () { if (!window.__aicMotion) document.documentElement.classList.remove('motion'); }, 3000);
+        }
+    </script>
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            color-scheme: dark;
+            --bg: #000000;
+            --bg-elevated: #181818;
+            --bg-card: #1F1F1F;
+            --border: #1F1F1F;
+            --border-light: #272727;
+            --border-strong: #313131;
+            --border-bright: #e6e6e6;
+            --text: #f0f0f0;
+            --text-body: #c8c8c8;
+            --text-secondary: #b0b0b0;
+            --text-muted: #9a9a9a;      /* about 7:1 on --bg */
+            --accent: #e9b250;          /* one meaning only: raised by only one model */
+            --font-body: 'Geist', system-ui, -apple-system, sans-serif;
+            --font-mono: 'Geist Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+            --gutter: 24px;
+            /* Motion: --ease for UI states, --e/--e2/--io for the load and story choreography */
+            --ease: cubic-bezier(0.22, 1, 0.36, 1);
+            --e: cubic-bezier(0.16, 1, 0.3, 1);
+            --e2: cubic-bezier(0.33, 1, 0.68, 1);
+            --io: cubic-bezier(0.65, 0, 0.35, 1);
+        }
+
+        html { scroll-behavior: smooth; scroll-padding-top: 96px; -webkit-text-size-adjust: 100%; }
+
+        body {
+            font-family: var(--font-body);
+            font-size: 16px;
+            line-height: 24px;
+            background: var(--bg);
+            color: var(--text-body);
+            -webkit-font-smoothing: antialiased;
+            overflow-wrap: break-word;
+        }
+
+        h1, h2, h3 { text-wrap: balance; }
+        p, li, dd { text-wrap: pretty; }
+
+        a { color: var(--text); text-underline-offset: 3px; transition: color 0.3s var(--ease), border-color 0.3s var(--ease); }
+        strong { color: var(--text); font-weight: 600; }
+
+        code {
+            font-family: var(--font-mono);
+            font-size: 0.875em;
+            color: var(--text);
+            background: var(--bg-elevated);
+            border: 1px solid var(--border-light);
+            padding: 0 4px;
+            overflow-wrap: anywhere;
+        }
+
+        :focus-visible { outline: 2px solid var(--text); outline-offset: 4px; }
+
+        .sr-only {
+            position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+            overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
+        }
+
+        .skip-link {
+            position: absolute; left: 16px; top: -48px; z-index: 300;
+            background: var(--text); color: var(--bg);
+            font-family: var(--font-mono); font-size: 14px; line-height: 20px;
+            padding: 8px 12px; text-decoration: none;
+        }
+        .skip-link:focus { top: 12px; }
+
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 var(--gutter); }
+        .prose { max-width: 680px; }
+
+        /* ——— NAV: floats off the top edge, sized to its content ——— */
+        .site-nav {
+            position: sticky; top: 12px; z-index: 100;
+            margin-top: 12px;
+            padding: 0 var(--gutter);
+        }
+
+        .nav-inner {
+            position: relative; isolation: isolate;
+            display: flex; align-items: center; justify-content: space-between; gap: 48px;
+            width: fit-content; max-width: 100%;
+            height: 56px; margin: 0 auto; padding: 0 16px 0 24px;
+        }
+        /* The blurred surface lives on a pseudo element, so the fixed mobile panel is not trapped by backdrop-filter */
+        .nav-inner::before {
+            content: ""; position: absolute; inset: 0; z-index: -1;
+            background: rgba(0, 0, 0, 0.72);
+            -webkit-backdrop-filter: blur(12px);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--border-light);
+        }
+
+        .wordmark {
+            font-family: var(--font-mono);
+            font-size: 14px; line-height: 20px; font-weight: 600;
+            color: var(--text); text-decoration: none;
+            letter-spacing: -0.02em;
+        }
+
+        .nav-links { display: flex; align-items: center; gap: 24px; list-style: none; }
+
+        .nav-links a {
+            font-family: var(--font-mono);
+            font-size: 14px; line-height: 20px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            display: inline-flex; align-items: center; gap: 8px;
+        }
+        .nav-links a:hover { color: var(--text); }
+        .nav-links a.current { color: var(--text); }
+        .nav-links img { height: 20px; width: auto; display: block; }
+
+        .menu-btn {
+            display: none;
+            align-items: center; gap: 12px;
+            background: none; border: 1px solid var(--border-light);
+            color: var(--text); cursor: pointer;
+            font-family: var(--font-mono); font-size: 14px; line-height: 20px; font-weight: 600;
+            padding: 4px 12px;
+            transition: border-color 0.3s var(--ease), transform 0.3s var(--ease);
+        }
+        .menu-btn:hover { border-color: var(--text-muted); }
+        .menu-btn:active { transform: scale(0.98); }
+        .menu-btn .bars { position: relative; display: block; width: 16px; height: 12px; }
+        .menu-btn .bars span {
+            position: absolute; left: 0; right: 0; height: 2px; background: var(--text);
+            transition: transform 0.5s var(--ease), opacity 0.3s var(--ease);
+        }
+        .menu-btn .bars span:nth-child(1) { top: 0; }
+        .menu-btn .bars span:nth-child(2) { top: 5px; }
+        .menu-btn .bars span:nth-child(3) { top: 10px; }
+        .menu-btn[aria-expanded="true"] .bars span:nth-child(1) { transform: translateY(5px) rotate(45deg); }
+        .menu-btn[aria-expanded="true"] .bars span:nth-child(2) { opacity: 0; }
+        .menu-btn[aria-expanded="true"] .bars span:nth-child(3) { transform: translateY(-5px) rotate(-45deg); }
+
+        /* ——— SHARED ——— */
+        .section-label {
+            font-family: var(--font-mono);
+            font-size: 14px; line-height: 20px; font-weight: 500;
+            color: var(--text-muted);
+            margin-bottom: 16px;
+        }
+
+        section { padding: 80px 0 96px; border-bottom: 1px solid var(--border); }
+
+        section h2 {
+            font-size: 36px; line-height: 40px;
+            font-weight: 600; letter-spacing: -0.025em;
+            color: var(--text);
+            margin-bottom: 24px;
+            max-width: 680px;
+        }
+
+        .lead { font-size: 18px; line-height: 28px; color: var(--text-body); max-width: 680px; margin-bottom: 40px; }
+
+        /* Command block: real text, wraps instead of scrolling, own copy button */
+        .cmd {
+            display: flex; align-items: flex-start; gap: 12px;
+            background: var(--bg-elevated);
+            border: 1px solid var(--border-light);
+            padding: 12px 12px 12px 16px;
+            font-family: var(--font-mono); font-size: 14px; line-height: 20px;
+            color: var(--text);
+        }
+        .cmd-line { flex: 1; min-width: 0; white-space: pre-wrap; overflow-wrap: anywhere; }
+        .cmd code.cmd-line { background: none; border: 0; padding: 0; font-size: inherit; color: inherit; }
+        .prompt { color: var(--text-muted); user-select: none; -webkit-user-select: none; }
+
+        .copy {
+            flex: none;
+            font-family: var(--font-mono); font-size: 12px; line-height: 16px; font-weight: 600;
+            color: var(--text); background: transparent;
+            border: 1px solid var(--border-strong);
+            padding: 2px 8px; cursor: pointer;
+            transition: border-color 0.3s var(--ease), background-color 0.3s var(--ease), transform 0.3s var(--ease);
+        }
+        .copy:hover { border-color: var(--text-muted); background: var(--bg-card); }
+        .copy:active { transform: scale(0.98); }
+
+        /* ——— HERO ——— */
+        .hero { padding: 64px 0 96px; border-bottom: 1px solid var(--border); }
+
+        .hero-grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: 48px; }
+
+        .eyebrow {
+            font-family: var(--font-mono);
+            font-size: 14px; line-height: 20px; color: var(--text-secondary);
+            margin-bottom: 16px; max-width: 46ch;
+        }
+
+        .hero h1 {
+            font-size: 36px; line-height: 40px;
+            font-weight: 600; letter-spacing: -0.03em;
+            color: var(--text);
+            background: linear-gradient(90deg, #FFFFFF, #9B9B9B);
+            -webkit-background-clip: text; background-clip: text;
+            -webkit-text-fill-color: transparent;
+            max-width: 680px;
+            margin-bottom: 24px;
+        }
+
+        .subhead { font-size: 18px; line-height: 28px; color: var(--text-body); margin-bottom: 32px; max-width: 60ch; }
+
+        .cta-label {
+            font-family: var(--font-mono);
+            font-size: 14px; line-height: 20px; font-weight: 500;
+            color: var(--text); margin-bottom: 12px;
+        }
+
+        .cmd-hero {
+            background: var(--bg);
+            border-color: var(--border-bright);
+            color: #fff;
+        }
+        .cmd-hero .copy {
+            font-size: 14px; line-height: 20px;
+            padding: 8px 12px; margin: -4px -4px -4px 0;
+            background: var(--text); color: var(--bg);
+            border-color: var(--text);
+        }
+        .cmd-hero .copy:hover { background: #fff; border-color: #fff; }
+
+        .card-video { display: block; width: 100%; height: auto; background: var(--bg); border-bottom: 1px solid var(--border); }
+        .cmd-hero + .cmd-hero { margin-top: 8px; }
+        .cmd-hint { display: block; color: var(--text-muted); font-size: 12px; line-height: 16px; margin-top: 4px; user-select: none; -webkit-user-select: none; }
+        .r-gloss { color: var(--text-secondary); font-size: 12px; line-height: 16px; font-weight: 400; }
+
+        .cta-notes { margin-top: 16px; display: grid; gap: 8px; max-width: 60ch; }
+        .cta-notes p { font-size: 14px; line-height: 20px; color: var(--text-secondary); }
+
+        .quiet-link {
+            display: inline-block; margin-top: 24px;
+            font-family: var(--font-mono); font-size: 14px; line-height: 20px;
+            color: var(--text-secondary); text-decoration: none;
+            border-bottom: 1px solid var(--border-strong);
+            padding-bottom: 2px;
+        }
+        .quiet-link:hover { color: var(--text); border-color: var(--text-muted); }
+
+        /* Example card: selectable monospace text in a terminal frame */
+        .card {
+            background: var(--bg-elevated);
+            border: 1px solid var(--border-light);
+            min-width: 0;
+        }
+
+        .card-bar {
+            display: flex; align-items: center; gap: 8px;
+            height: 32px; padding: 0 16px;
+            border-bottom: 1px solid var(--border);
+        }
+        .card-bar i { width: 8px; height: 8px; border-radius: 9999px; background: var(--border-strong); display: block; }
+
+        .card-body { padding: 24px; font-family: var(--font-mono); font-size: 14px; line-height: 20px; }
+
+        .card-label {
+            font-size: 12px; line-height: 16px; font-weight: 500;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+        }
+
+        .r-outcome { color: var(--text-body); }
+        .r-outcome b { color: var(--text); font-weight: 500; }
+        .r-head { color: var(--text); font-weight: 500; margin: 16px 0 8px; }
+
+        /* The story keeps the list at its resting height, so the page never shifts */
+        .r-clip { overflow: hidden; }
+        .r-list { list-style: none; display: grid; gap: 12px; }
+        .r-list li { display: grid; grid-template-columns: 16px minmax(0, 1fr); }
+        .r-list li::before { content: "-"; color: var(--text-muted); }
+        .kind { color: var(--text-muted); }
+        .point { color: var(--text-body); }
+        .by { color: var(--text-muted); white-space: nowrap; }
+        .by b { color: var(--text); font-weight: 500; }
+        .solo { color: var(--accent); display: inline-block; }
+
+        .legend { margin-top: 16px; color: var(--text-secondary); font-size: 12px; line-height: 16px; }
+
+        .show-all {
+            margin-top: 16px;
+            font-family: var(--font-mono); font-size: 12px; line-height: 16px; font-weight: 600;
+            color: var(--text); background: none;
+            border: 1px solid var(--border-strong);
+            padding: 4px 8px; cursor: pointer;
+            transition: border-color 0.3s var(--ease), transform 0.3s var(--ease);
+        }
+        .show-all:hover { border-color: var(--text-muted); }
+        .show-all:active { transform: scale(0.98); }
+
+        .card figcaption {
+            border-top: 1px solid var(--border);
+            padding: 12px 24px;
+            font-size: 14px; line-height: 20px; color: var(--text-muted);
+        }
+
+        /* ——— HOW IT WORKS ——— */
+        .pipeline {
+            display: flex; flex-wrap: wrap; gap: 8px; align-items: center;
+            margin-bottom: 40px;
+            font-family: var(--font-mono); font-size: 14px; line-height: 20px;
+            list-style: none;
+        }
+        .pipeline-step {
+            padding: 8px 16px; border: 1px solid var(--border-light); color: var(--text-secondary);
+            transition: border-color 0.3s var(--ease), color 0.3s var(--ease), background-color 0.3s var(--ease);
+        }
+        .pipeline-step.lit { border-color: var(--text-muted); color: var(--text); background: var(--bg-elevated); }
+        .pipeline-arrow { color: var(--text-muted); }
+
+        .diagram { display: none; margin: 0 0 64px; }
+        .diagram svg { width: 100%; height: auto; display: block; overflow: visible; }
+        .diagram .box { fill: var(--bg-elevated); stroke: var(--border-strong); transition: stroke 0.3s var(--ease); }
+        .diagram .lit .box { stroke: var(--text); }
+        .diagram .line { fill: none; stroke: var(--border-strong); stroke-width: 1.5; }
+        .diagram .track { stroke: var(--border-light); stroke-width: 4; }
+        .diagram .fill { stroke: var(--text-muted); stroke-width: 4; }
+        .diagram .skip { fill: none; stroke: var(--border-strong); stroke-dasharray: 6 4; }
+        .diagram text { font-family: var(--font-mono); font-size: 14px; fill: var(--text-body); transition: fill 0.3s var(--ease); }
+        .diagram text.strong, .diagram .lit text { fill: var(--text); }
+        .diagram text.dim { fill: var(--text-muted); }
+        .diagram .pulse { fill: #fff; opacity: 0; }
+        .diagram .halo { fill: #fff; opacity: 0; }
+
+        .steps { list-style: none; display: grid; gap: 32px; }
+        .step { display: grid; grid-template-columns: 48px minmax(0, 1fr); gap: 16px; }
+        .step-num { font-family: var(--font-mono); font-size: 14px; line-height: 20px; color: var(--text-muted); padding-top: 4px; font-variant-numeric: tabular-nums; }
+        .step:target .step-num { color: var(--text); }
+        .step h3 { font-size: 20px; line-height: 28px; font-weight: 600; color: var(--text); margin-bottom: 8px; }
+        .step p { font-size: 16px; line-height: 24px; color: var(--text-body); max-width: 65ch; }
+
+        .footnote {
+            margin-top: 40px; max-width: 768px;
+            font-size: 14px; line-height: 20px; color: var(--text-secondary);
+            border-top: 1px solid var(--border); padding-top: 16px;
+        }
+
+        /* ——— WHEN ——— */
+        .when-grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: 40px; margin-bottom: 40px; }
+
+        .col-title {
+            font-family: var(--font-mono);
+            font-size: 14px; line-height: 20px; font-weight: 500;
+            color: var(--text);
+            padding-bottom: 8px; margin-bottom: 24px;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .use-list, .skip-list { list-style: none; display: grid; gap: 24px; }
+        .use-list li, .skip-list li { position: relative; padding-left: 24px; font-size: 16px; line-height: 24px; }
+        .use-list li::before, .skip-list li::before {
+            position: absolute; left: 0; top: 0;
+            font-family: var(--font-mono); color: var(--text-secondary);
+        }
+        .use-list li::before { content: "\2713"; }
+        .skip-list li::before { content: "\2715"; }
+        .skip-list { gap: 16px; }
+
+        .situation { display: block; color: var(--text); font-weight: 600; margin-bottom: 8px; }
+        .q {
+            display: inline-block;
+            font-family: var(--font-mono); font-size: 12px; line-height: 16px;
+            color: var(--text-body);
+            background: var(--bg-elevated);
+            padding: 8px 12px;
+            overflow-wrap: anywhere;
+        }
+        .q-extra { display: block; margin-top: 8px; color: var(--text-body); }
+
+        .measured { background: var(--bg-elevated); padding: 24px; }
+        .measured h3 { font-size: 16px; line-height: 24px; font-weight: 600; color: var(--text); margin-bottom: 8px; }
+        .measured p { font-size: 16px; line-height: 24px; color: var(--text-body); max-width: 65ch; }
+
+        /* ——— WORKS WITH ——— */
+        .chip-row { display: grid; grid-template-columns: minmax(0, 1fr); gap: 12px; margin-bottom: 32px; }
+        .row-label {
+            font-family: var(--font-mono);
+            font-size: 14px; line-height: 20px; font-weight: 500;
+            color: var(--text-muted);
+            padding-top: 4px;
+        }
+        .chips { list-style: none; display: flex; flex-wrap: wrap; gap: 8px; }
+        .chips li {
+            font-family: var(--font-mono); font-size: 14px; line-height: 20px;
+            color: var(--text);
+            border: 1px solid var(--border-light);
+            padding: 4px 12px;
+            transition: border-color 0.3s var(--ease), background-color 0.3s var(--ease);
+        }
+        .chips li.lit { border-color: var(--text-muted); background: var(--bg-elevated); }
+        .works-note { max-width: 680px; font-size: 16px; line-height: 24px; color: var(--text-body); margin-top: 8px; }
+        .small-print { margin-top: 24px; font-size: 14px; line-height: 20px; color: var(--text-muted); }
+
+        /* ——— BEFORE YOU RUN ——— */
+        .facts { display: grid; gap: 0; border-top: 1px solid var(--border-light); max-width: 900px; }
+        .fact { display: grid; grid-template-columns: minmax(0, 1fr); gap: 8px; padding: 24px 0; border-bottom: 1px solid var(--border-light); }
+        .fact dt {
+            font-family: var(--font-mono);
+            font-size: 14px; line-height: 20px; font-weight: 500;
+            color: var(--text);
+            padding-top: 2px;
+        }
+        .fact dd { font-size: 16px; line-height: 24px; color: var(--text-body); max-width: 70ch; }
+
+        /* ——— GET STARTED ——— */
+        .prereq { background: var(--bg-elevated); padding: 24px; margin-bottom: 32px; max-width: 820px; }
+        .box-label {
+            font-family: var(--font-mono);
+            font-size: 14px; line-height: 20px; font-weight: 500;
+            color: var(--text); margin-bottom: 12px;
+        }
+        .prereq > ul { list-style: none; display: grid; gap: 16px; }
+        .prereq > ul > li { font-size: 16px; line-height: 24px; color: var(--text-body); padding-left: 16px; position: relative; }
+        .prereq > ul > li::before { content: "-"; position: absolute; left: 0; color: var(--text-muted); }
+        .cli-list { display: grid; gap: 12px; margin-top: 12px; }
+        .cli-list > div { display: grid; grid-template-columns: minmax(0, 1fr); gap: 4px; }
+        .cli-list dt { font-family: var(--font-mono); font-size: 14px; line-height: 20px; color: var(--text); }
+        .cli-list dd { font-size: 14px; line-height: 20px; color: var(--text-secondary); }
+        .cli-list .cmd { background: var(--bg); padding: 8px 8px 8px 12px; margin-bottom: 4px; }
+
+        .tabs { max-width: 820px; }
+        .tablist { display: flex; gap: 0; border-bottom: 1px solid var(--border-light); margin-bottom: 24px; flex-wrap: wrap; }
+        .tab {
+            font-family: var(--font-mono); font-size: 14px; line-height: 20px;
+            color: var(--text-secondary); background: none;
+            border: 0; border-bottom: 2px solid transparent;
+            padding: 12px 16px; margin-bottom: -1px;
+            cursor: pointer;
+            transition: color 0.3s var(--ease), border-color 0.3s var(--ease);
+        }
+        .tab[aria-selected="true"] { color: var(--text); border-bottom-color: var(--text); }
+        .tab:hover { color: var(--text); }
+        .no-js .tablist { display: none; }
+        .panel-title { display: none; }
+        .no-js .panel-title { display: block; font-family: var(--font-mono); font-size: 14px; line-height: 20px; color: var(--text); margin: 24px 0 12px; }
+
+        .setup-steps { list-style: none; display: grid; gap: 24px; }
+        .setup-steps li { display: grid; grid-template-columns: 32px minmax(0, 1fr); gap: 8px; }
+        .setup-n { font-family: var(--font-mono); font-size: 14px; line-height: 20px; color: var(--text-muted); padding-top: 12px; font-variant-numeric: tabular-nums; }
+        .setup-steps p, .panel-text { font-size: 14px; line-height: 20px; color: var(--text-secondary); margin-top: 8px; }
+        .cmd-stack { display: grid; gap: 12px; }
+        .panel-text.then { margin: 8px 0 0; color: var(--text-body); }
+
+        .warn {
+            max-width: 820px; margin-top: 32px;
+            background: var(--bg-elevated);
+            padding: 16px 24px;
+            font-size: 16px; line-height: 24px; color: var(--text-body);
+        }
+
+        .more-link {
+            display: inline-block; margin-top: 24px;
+            font-size: 16px; line-height: 24px; color: var(--text); text-decoration: none;
+            border-bottom: 1px solid var(--border-strong);
+        }
+        .more-link:hover { border-color: var(--text); }
+
+        /* ——— FAQ: question and answer side by side, always open ——— */
+        .faq { max-width: 1040px; border-top: 1px solid var(--border-light); }
+        .faq-item { display: grid; grid-template-columns: minmax(0, 1fr); gap: 8px; padding: 24px 0; border-bottom: 1px solid var(--border-light); }
+        .faq dt { font-size: 18px; line-height: 28px; font-weight: 600; color: var(--text); }
+        .faq dd { font-size: 16px; line-height: 24px; color: var(--text-body); max-width: 65ch; }
+        .faq-more { margin-top: 32px; }
+
+        /* ——— FOOTER ——— */
+        footer { padding: 48px 0 64px; }
+        .footer-main { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-start; gap: 24px; margin-bottom: 24px; }
+        .footer-links { display: flex; flex-wrap: wrap; gap: 8px 24px; list-style: none; max-width: 680px; }
+        .footer-links a {
+            font-family: var(--font-mono); font-size: 14px; line-height: 20px;
+            color: var(--text-secondary); text-decoration: none;
+        }
+        .footer-links a:hover { color: var(--text); }
+        .shields { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+        .shields a { display: inline-flex; }
+        .shields img { height: 20px; width: auto; display: block; }
+        .footer-fine { font-size: 12px; line-height: 16px; color: var(--text-muted); max-width: 820px; }
+        .footer-fine a { color: var(--text-secondary); }
+
+        /* ——— TOAST ——— */
+        .toast {
+            position: fixed; bottom: 24px; left: 50%;
+            transform: translateX(-50%) translateY(16px);
+            width: max-content; max-width: calc(100vw - 32px);
+            font-family: var(--font-mono); font-size: 14px; line-height: 20px;
+            color: var(--text); background: var(--bg-card);
+            border: 1px solid var(--border-strong);
+            padding: 8px 16px;
+            opacity: 0; pointer-events: none;
+            transition: opacity 0.3s var(--ease), transform 0.5s var(--ease);
+            z-index: 200;
+        }
+        .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+        /* ——— MOTION ———
+           Only active when JS added html.motion (never under reduced motion), so without JS
+           every element sits in its final state. */
+
+        /* Page load: the hero copy and the example card rise and resolve from blur */
+        .motion .k-up, .motion .k-left, .motion .k-pop, .motion .k-card, .motion .k-fade {
+            transition: transform 1.05s var(--e) var(--d, 0s), opacity 0.75s var(--e2) var(--d, 0s), filter 0.75s var(--e2) var(--d, 0s);
+        }
+        .motion .k-card { transition-duration: 0.9s, 0.6s, 0.6s; }
+        .motion .hero:not(.in) .k-up { opacity: 0; transform: translateY(10px); filter: blur(4px); }
+        .motion .hero:not(.in) .k-left { opacity: 0; transform: translateX(-10px); filter: blur(4px); }
+        .motion .hero:not(.in) .k-pop { opacity: 0; transform: scale(0.86); filter: blur(4px); }
+        .motion .hero:not(.in) .k-card { opacity: 0; transform: translateY(24px) scale(0.985); filter: blur(6px); }
+        .motion .hero:not(.in) .k-fade { opacity: 0; }
+
+        .hero .eyebrow { --d: 0s; }
+        .hero h1 { --d: 0.08s; }
+        .hero .subhead { --d: 0.16s; }
+        .hero .cta > :nth-child(1) { --d: 0.26s; }
+        .hero .cta > :nth-child(2) { --d: 0.32s; }
+        .hero .cta > :nth-child(3) { --d: 0.38s; }
+        .hero .cta > :nth-child(4) { --d: 0.46s; }
+        .hero .cta > :nth-child(5) { --d: 0.52s; }
+        .hero .card { --d: 0.18s; }
+        .hero .card-bar i:nth-child(1) { --d: 0.34s; }
+        .hero .card-bar i:nth-child(2) { --d: 0.38s; }
+        .hero .card-bar i:nth-child(3) { --d: 0.42s; }
+        .hero .card-video { --d: 0.4s; }
+        .hero .card-label { --d: 0.5s; }
+        .hero .r-outcome { --d: 0.56s; }
+        .hero .r-gloss { --d: 0.6s; }
+        .hero .r-head { --d: 0.64s; }
+        .hero .r-list > li:nth-child(1) { --d: 0.7s; }
+        .hero .r-list > li:nth-child(2) { --d: 0.76s; }
+        .hero .r-list > li:nth-child(3) { --d: 0.82s; }
+        .hero .r-list > li:nth-child(4) { --d: 0.88s; }
+        .hero .r-list > li:nth-child(2) .solo { --d: 0.86s; }
+        .hero .r-list > li:nth-child(3) .solo { --d: 0.92s; }
+        .hero .r-list > li:nth-child(4) .solo { --d: 0.98s; }
+        .hero .legend, .hero .show-all { --d: 1s; }
+        .hero figcaption { --d: 1.06s; }
+
+        /* Diagram: nodes pop in reading order, connectors draw on, the merged list fills like progress */
+        .motion .diagram .node { transform-box: fill-box; transform-origin: center; transition: transform 1.05s var(--e) var(--d, 0s), opacity 0.75s var(--e2) var(--d, 0s); }
+        .motion .diagram:not(.in) .node { opacity: 0; transform: scale(0.86); }
+        .motion .diagram .line, .motion .diagram .fill { stroke-dasharray: 1; transition: stroke-dashoffset 0.9s var(--io) var(--d, 0s); }
+        .motion .diagram .fill { transition-duration: 0.7s; }
+        .motion .diagram:not(.in) .line, .motion .diagram:not(.in) .fill { stroke-dashoffset: 1; }
+        .motion .diagram .k-fade { transition: opacity 0.75s var(--e2) var(--d, 0s); }
+        .motion .diagram:not(.in) .k-fade { opacity: 0; }
+        .diagram .n-q { --d: 0s; }
+        .diagram .in-path { --d: 0.12s; }
+        .diagram .n-m1 { --d: 0.3s; }
+        .diagram .n-m2 { --d: 0.36s; }
+        .diagram .n-m3 { --d: 0.42s; }
+        .diagram .out-path { --d: 0.5s; }
+        .diagram .n-out { --d: 0.78s; }
+        .diagram .fill:nth-of-type(1) { --d: 1s; }
+        .diagram .fill:nth-of-type(2) { --d: 1.08s; }
+        .diagram .fill:nth-of-type(3) { --d: 1.16s; }
+        .diagram .n-skip { --d: 1.3s; }
+
+        /* Text sections: rise and fade in once as they enter the viewport */
+        .motion [data-reveal] { transition: opacity 0.7s var(--ease) var(--d, 0s), transform 0.7s var(--ease) var(--d, 0s); }
+        .motion [data-reveal]:not(.in) { opacity: 0; transform: translateY(16px); }
+
+        /* ——— RESPONSIVE ——— */
+        @media (min-width: 640px) {
+            code { white-space: nowrap; }
+            .cmd code.cmd-line { white-space: pre-wrap; }
+        }
+
+        @media (min-width: 720px) {
+            .cli-list > div { grid-template-columns: 72px minmax(0, 1fr); gap: 12px; }
+            .cli-list dt { padding-top: 8px; }
+            .chip-row { grid-template-columns: 168px minmax(0, 1fr); gap: 16px; }
+            .fact { grid-template-columns: 168px minmax(0, 1fr); gap: 24px; }
+        }
+
+        @media (min-width: 860px) {
+            .when-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 64px; }
+            .faq-item { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 48px; }
+        }
+
+        @media (min-width: 900px) {
+            .diagram { display: block; }
+            .pipeline { display: none; }
+        }
+
+        @media (min-width: 1024px) {
+            .hero { padding-top: 80px; }
+            .hero-grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 64px; align-items: start; }
+            .hero h1 { font-size: 48px; line-height: 1; }
+            .show-all { display: none; }
+        }
+
+        @media (max-width: 1023px) {
+            .card.collapsed .r-list > li:nth-child(n+4):not(.leave) { display: none; }
+        }
+
+        @media (max-width: 859px) {
+            .nav-inner { width: 100%; }
+            .menu-btn { display: inline-flex; }
+            .nav-links {
+                position: fixed; inset: 0; z-index: -2;
+                display: flex; flex-direction: column; align-items: flex-start; gap: 24px;
+                background: var(--bg);
+                padding: 96px var(--gutter) 48px;
+                opacity: 0; visibility: hidden;
+                transition: opacity 0.3s var(--ease), visibility 0s linear 0.3s;
+            }
+            .nav-links a { font-family: var(--font-body); font-size: 24px; line-height: 32px; font-weight: 600; color: var(--text); }
+            .nav-links li { opacity: 0; transform: translateY(8px); transition: opacity 0.3s var(--ease), transform 0.5s var(--ease); }
+            .nav-links.open { opacity: 1; visibility: visible; transition: opacity 0.3s var(--ease), visibility 0s; }
+            .nav-links.open li { opacity: 1; transform: none; }
+            .nav-links.open li:nth-child(2) { transition-delay: 60ms; }
+            .nav-links.open li:nth-child(3) { transition-delay: 120ms; }
+            .nav-links.open li:nth-child(4) { transition-delay: 180ms; }
+            .nav-links.open li:nth-child(5) { transition-delay: 240ms; }
+            .no-js .nav-links { position: static; z-index: auto; opacity: 1; visibility: visible; flex-direction: row; flex-wrap: wrap; gap: 16px; padding: 0 0 12px; background: none; }
+            .no-js .nav-links li { opacity: 1; transform: none; }
+            .no-js .nav-links a { font-family: var(--font-mono); font-size: 14px; line-height: 20px; font-weight: 400; }
+            .no-js .nav-inner { flex-wrap: wrap; height: auto; padding-top: 12px; }
+            .no-js .menu-btn { display: none; }
+        }
+
+        @media (max-width: 639px) {
+            :root { --gutter: 16px; }
+            section { padding: 64px 0 80px; }
+            section h2 { font-size: 30px; line-height: 36px; }
+            .hero { padding: 48px 0 80px; }
+            .subhead { font-size: 16px; line-height: 24px; }
+            .lead { font-size: 16px; line-height: 24px; }
+            .cmd-hero { padding: 12px; }
+            .card-body { padding: 16px; }
+            .card figcaption { padding: 12px 16px; }
+            .by { white-space: normal; }
+            .prereq { padding: 16px; }
+            .measured { padding: 16px; }
+            .warn { padding: 16px; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            html { scroll-behavior: auto; }
+            *, *::before, *::after { transition: none !important; }
+        }
+    </style>
+<style>.preview{padding-top:48px;padding-bottom:80px;max-width:960px}.preview nav{margin:24px 0;line-height:2}.preview article{line-height:1.7;overflow-wrap:anywhere}.preview h1{font-size:2.5rem;line-height:1.2}.preview h2,.preview h3{margin:36px 0 14px}.preview p,.preview ul,.preview ol,.preview blockquote{margin:16px 0}.preview ul,.preview ol{padding-left:24px}.preview pre{overflow:auto;padding:16px;border:1px solid var(--border);margin:16px 0;white-space:pre}.preview table{border-collapse:collapse;min-width:600px;font-size:14px}.preview th,.preview td{padding:10px;text-align:left;border-bottom:1px solid var(--border)}.preview .table-scroll{overflow-x:auto}.preview blockquote{border-left:2px solid var(--text-muted);padding-left:16px}.preview a{text-decoration:underline}.preview code{font-size:.9em}.preview pre code{font-size:13px}</style></head><body><a class="skip-link" href="#main">Skip to content</a><main id="main" class="container preview"><a href="/">← ai-consultants</a><nav aria-label="Documentation"><a href="/docs/">Models and benchmarks</a> · <a href="/docs/overview.html">Project overview</a> · <a href="/docs/setup.html">Setup</a> · <a href="/docs/configuration.html">Configuration</a> · <a href="/docs/routing.html">Smart routing</a> · <a href="/docs/changelog.html" aria-current="page">Changelog</a></nav><article><p>Documentation for <a href="https://github.com/reasance/ai-consultants/releases/tag/v5.9.0">v5.9.0</a>. Benchmark snapshot: November 15, 2026, Artificial Analysis Intelligence Index v5.0.1.</p>
+<h1 id="changelog">Changelog</h1>
+<p>All notable changes to this project are documented in this file.</p>
+<p>The format is based on <a href="https://keepachangelog.com/en/1.0.0/">Keep a Changelog</a>,
+and this project adheres to <a href="https://semver.org/spec/v2.0.0.html">Semantic Versioning</a>.</p>
+<p>For longer-form release notes (rationale, upgrade guides, performance numbers), see <code>docs/releases/v&#x3C;VERSION>.md</code>.</p>
+<h2 id="590---2026-11-15">[5.9.0] - 2026-11-15</h2>
+<h3 id="added">Added</h3>
+<ul>
+<li>Opt into Carbon/high for maximum quality through Antigravity with <code>GEMINI_FRONTIER_CLI_MODEL=gemini-4-carbon-high</code> and <code>GEMINI_USE_API=false</code>. The exact model ID must be visible to the account before dispatch.</li>
+<li>Publish effort-specific AA v5.0.1 benchmark and serving-contract references, including Fable 5.2, Hydrogen and optional Carbon.</li>
+</ul>
+<h3 id="changed">Changed</h3>
+<ul>
+<li>Claude premium uses Fable 5.2/high and maximum uses Fable/max; standard stays Opus 5.5/medium. Fable requires Claude Code 2.1.321 or later and uses verified standard API rates of $8/$40 per million tokens.</li>
+<li>Google tiers use Hydrogen/medium for economy, high for standard, and xhigh for premium and the default maximum. Only marked managed defaults migrate; active unmarked choices, model pins and explicit efforts remain user-owned.</li>
+</ul>
+<h3 id="fixed">Fixed</h3>
+<ul>
+<li>Hydrogen API economy requests use the intended effort even though economy and premium share one API model ID. Confidence escalation can raise effort on that same ID, while explicit effort pins still win.</li>
+<li>Cache identity includes the effective economy effort, preventing an answer obtained at another effort from satisfying the request.</li>
+<li>Explicit Carbon selections stay pinned across automatic routing, escalation and synthesis. Unavailable or non-exact account inventory fails before dispatch without substituting another model or the API.</li>
+</ul>
+<h2 id="580---2026-10-28">[5.8.0] - 2026-10-28</h2>
+<h3 id="changed-1">Changed</h3>
+<ul>
+<li>Refresh Claude panel choices following the Artificial Analysis Intelligence Index v5 review: Opus 5.5 uses max for maximum, xhigh for premium, and medium for standard. Fable 5.1 remains opt-in.</li>
+<li>Make OpenAI tier effort explicit: Astra/max for maximum, Sol/max for premium, and Sol/high for standard. Economy models and Terra’s opt-in status remain unchanged.</li>
+</ul>
+<h3 id="fixed-1">Fixed</h3>
+<ul>
+<li>Cache keys include the selected tier, so Opus answers at maximum effort cannot be reused as standard-tier answers or vice versa. Existing cache entries expire from use through a key-version bump.</li>
+<li>Explicit effort settings win over tier defaults on both CLI and API transports, including the final synthesis CLI. Switching tiers cannot leak an injected maximum effort into an economy run.</li>
+<li>Configure migrates only the managed Fable default to Opus. Current unmarked and pinned Fable choices remain user-owned.</li>
+</ul>
+<p>These are advisory preset choices, not a qualification of review quality or a prediction of repository task cost.</p>
+<h2 id="570---2026-10-27">[5.7.0] - 2026-10-27</h2>
+<h3 id="added-1">Added</h3>
+<ul>
+<li>GPT-6.1 Terra is available as an opt-in Codex model with verified prices; configure migrates GPT-5.6 Terra to its same-line successor.</li>
+</ul>
+<h3 id="fixed-2">Fixed</h3>
+<ul>
+<li>Terra effort is validated per transport: API accepts <code>none</code>, CLI rejects it, and both reject <code>minimal</code> before dispatch. An unset effort keeps the transport default.</li>
+<li>Terra cost estimates apply the full-request long-context rates above 272K input tokens. Built-in rates now also cover priced opt-in models when the JSON catalog is unavailable.</li>
+</ul>
+<p>Default model tiers stay unchanged.</p>
+<h2 id="560---2026-10-25">[5.6.0] - 2026-10-25</h2>
+<h3 id="changed-2">Changed</h3>
+<ul>
+<li><strong>Gemini on <code>agy</code> is addressed by model ID</strong>: <code>gemini-4-argon-high</code> (default, premium and maximum), <code>gemini-3.8-flash-high</code> (standard) and <code>gemini-3.8-flash-low</code> (economy), the IDs <code>agy models</code> prints before each display name. A display name still works, and <code>configure</code> moves an unpinned managed display-name default to its ID. An authorized <code>query_gemini.sh</code> smoke by ID passed on 2026-10-25. The tiers, rates and built-in rates are generated by controller-models from its registry.</li>
+<li><strong>Sonnet retirements</strong> map to <code>claude-sonnet-5-5</code>, which now has a rate.</li>
+<li><strong>Every rate re-checked</strong> on its provider’s official page on 2026-10-25; no figure changed. Mistral notes cite the model cards that carry the prices.</li>
+</ul>
+<h3 id="fixed-3">Fixed</h3>
+<ul>
+<li><strong>Claude API mode sends the effort.</strong> <code>CLAUDE_REASONING_EFFORT</code> goes out as <code>output_config.effort</code> (low|medium|high|xhigh|max). Before, the API path warned and dropped it, so the model default applied. <code>none</code> and <code>minimal</code> are rejected before the request.</li>
+<li><strong>Qwen on DashScope caps its output.</strong> <code>QWEN3_API_MAX_TOKENS</code> (default 16384) goes out as <code>parameters.max_tokens</code>. Before, the DashScope wire sent no cap.</li>
+</ul>
+<h2 id="551---2026-10-24">[5.5.1] - 2026-10-24</h2>
+<h3 id="changed-3">Changed</h3>
+<ul>
+<li><strong>The repository moved to the <code>reasance</code> organization</strong>: <a href="https://github.com/reasance/ai-consultants">https://github.com/reasance/ai-consultants</a>. The old <code>matteoscurati/ai-consultants</code> URLs redirect, so existing clones and links keep working.</li>
+<li>The npm package metadata (repository, homepage, issues) now points to <code>reasance/ai-consultants</code>. <code>scripts/install.sh</code> clones from the new URL, and the README, setup guide, help commands and past release notes link there.</li>
+<li>This is the first release published to npm from <code>reasance/ai-consultants</code> through Trusted Publishing, with provenance.</li>
+</ul>
+<h2 id="550---2026-10-24">[5.5.0] - 2026-10-24</h2>
+<h3 id="added-2">Added</h3>
+<ul>
+<li><strong>Meta (Muse), the eleventh consultant</strong>, with The Systems Thinker persona. It is opt-in (<code>ENABLE_META=false</code>; <code>configure</code> enables it when it finds the <code>muse</code> CLI or <code>META_API_KEY</code>). Muse Wonder (<code>muse-wonder-1.0</code>, preview) serves the default, premium and maximum tiers; Muse Spark 1.3 (<code>muse-spark-1.3</code>) serves standard and economy. <code>max_quality</code> now has 11 consultants and runs Meta at <code>max</code> effort.</li>
+<li>CLI mode runs Muse Code (<code>muse exec</code>) advisory-only: a private empty workspace, no shell, workspace writes, web tools, sandbox network, personal rules or session log, and the prompt through <code>--prompt-file</code>. Its flags are checked before any request.</li>
+<li>API mode uses the Meta Model API (<code>META_API_KEY</code>, selected automatically when set) with <code>max_completion_tokens</code>. <code>META_REASONING_EFFORT</code> defaults to <code>high</code>; <code>none</code> is rejected before anything is billed.</li>
+</ul>
+<h3 id="changed-4">Changed</h3>
+<ul>
+<li><strong>Superseded models are retired.</strong> Tiers, the rate catalog, tests and docs now hold current models only. The economy tier moves to Claude Haiku 5.5, GPT-6 Luna, Grok 4.7 and GLM-5.3-Flash; standard Codex to GPT-6.1 Sol (there is no GPT-6 mid model); the Gemini API standard/economy tiers to <code>gemini-3.8-flash</code>.</li>
+<li><code>configure</code> replaces a persisted retired model with its family’s current one, pinned or not: the marker is kept and <code>migrated-from=&#x3C;old></code> is recorded. <code>configure --set</code> refuses a retired model and names the replacement.</li>
+<li>A retired or unknown model chosen at run time (for example through an environment variable) still runs, with a warning, and the session report lists it as unpriced instead of applying a fallback rate.</li>
+<li>An HTTP 504 <code>gateway_timeout</code> is no longer retried, since the same request would run past the provider’s time limit again.</li>
+</ul>
+<h3 id="privacy">Privacy</h3>
+<ul>
+<li>Meta never runs in Contributor mode by default. Muse Code subscriptions turn Contributor mode on, which lets Meta train on prompts, code and responses; every CLI run passes <code>--contributor-mode off</code>. A <code>*-contributor</code> model must be pinned by hand and logs a warning on every run.</li>
+</ul>
+<h3 id="costs">Costs</h3>
+<ul>
+<li>Every price was checked against the official pricing pages on 2026-10-24. DeepSeek V4 Pro moves to $1.32/$3.96 per 1M (was $0.435/$0.87). Meta: Muse Wonder $4/$20, Muse Spark 1.3 $1.25/$4.25, Contributor variant $0.10/$0.20 per 1M; cached input is excluded.</li>
+</ul>
+<h3 id="verification">Verification</h3>
+<ul>
+<li><code>npm test</code> 36/36 plus lint, locally and in CI. Authorized live smokes on 2026-10-24, one call each with no retry: Meta through Muse Code 1.4.12 (Muse Wonder, structured, 12 s), Claude Haiku 5.5 and GPT-6 Luna through their CLIs (structured). The Meta API transport and the Gemini API tier change are offline-tested only.</li>
+</ul>
+<h2 id="540---2026-10-23">[5.4.0] - 2026-10-23</h2>
+<h3 id="changed-5">Changed</h3>
+<ul>
+<li><strong>Kimi K3.1 Pro</strong> (released 2026-10-23) serves every Kimi tier, including <code>max_quality</code> (previously <code>kimi-code/k3</code> for premium/standard/economy and <code>kimi-code/k3-256k</code> for maximum). The alias is <code>kimi-code/k3.1-pro</code>, with a 1M-token context; it needs a Kimi Code Plus plan or higher. If the Kimi CLI does not list it yet, run <code>kimi</code> once and <code>/login</code> to refresh the model list.</li>
+<li><code>configure</code> migrates unpinned <code>kimi-code/k3</code> (the value <code>.env.example</code> has shipped since 2.21.1) and <code>kimi-code/k3-256k</code>; pinned values and other aliases are kept.</li>
+</ul>
+<h3 id="added-3">Added</h3>
+<ul>
+<li><code>KIMI_REASONING_EFFORT</code> (default <code>max</code>) sets Kimi’s thinking effort. The Kimi CLI has no effort flag, so the value is validated like the other efforts and passed as <code>KIMI_MODEL_THINKING_EFFORT</code>, the CLI’s documented override of <code>[thinking] effort</code> in <code>~/.kimi-code/config.toml</code>. Every consultation therefore runs at max regardless of the user’s Kimi settings. An empty value keeps the CLI’s own effort; an invalid one fails before any request.</li>
+</ul>
+<h3 id="costs-1">Costs</h3>
+<ul>
+<li>K3.1 Pro is catalogued as explicitly unpriced: Moonshot has published no rate. Reports disclose it instead of presenting it as free. K3 rates stay for pinned models and past responses.</li>
+</ul>
+<h3 id="verification-1">Verification</h3>
+<ul>
+<li>One authorized live Kimi smoke (2026-10-23, no retry) returned a structured answer with The Eastern Sage persona and confidence 10 in about 13.5 s; Kimi’s own session state recorded model <code>k3.1-pro</code> and thinking effort <code>max</code>. PR #34 CI and the release gate passed 35/35 suites plus lint. The new tests fail on the previous code.</li>
+</ul>
+<h2 id="532---2026-10-21">[5.3.2] - 2026-10-21</h2>
+<h3 id="fixed-4">Fixed</h3>
+<ul>
+<li>The report’s Coverage Union now says which of three things happened: the strategy makes no union (for example <code>majority</code>), the synthesis returned no points, or <code>synthesis.json</code> could not be read. The jq error is shown in the report and logged as a warning. Before, all three printed “coverage data unavailable”, and a jq error was silenced.</li>
+</ul>
+<h3 id="privacy-1">Privacy</h3>
+<ul>
+<li>Context chunking no longer leaves a copy of your files in <code>~/.cache/ai-consultants/chunks</code>. Every large file it chunked was saved there as JSON, the copy was never read and never removed, and it piled up across runs. Chunks now travel only in memory. <code>CHUNK_TEMP_DIR</code> is still accepted but unused. Existing copies are not deleted automatically: remove <code>~/.cache/ai-consultants/chunks</code> if you want them gone.</li>
+</ul>
+<h3 id="testing">Testing</h3>
+<ul>
+<li><code>npm test</code> now fails on any jq compile error during the run. <code>test_all.sh</code> puts a jq shim on PATH that records compile errors even when the caller discards stderr, the way the 5.3.0 Coverage Union bug hid. Runtime errors are not recorded. A sweep of the whole suite found no other compile error. Set <code>AI_CONSULTANTS_TEST_NO_JQ_GUARD=1</code> to run without it.</li>
+</ul>
+<h3 id="verification-2">Verification</h3>
+<ul>
+<li>PR #33 CI (jq 1.7) and the 5.3.2 release gate passed 35/35 suites plus lint with the jq guard active. Each regression test fails on the previous code.</li>
+</ul>
+<h2 id="531---2026-10-21">[5.3.1] - 2026-10-21</h2>
+<h3 id="fixed-5">Fixed</h3>
+<ul>
+<li><code>report.md</code> printed “coverage data unavailable” under Coverage Union even when <code>synthesis.json</code> held the merged points. The jq filter that renders them escaped its quotes inside a string interpolation, which jq 1.8 rejects, and the error was silenced. Each point now prints with its kind and the consultants that raised it. Found while recording the site demo; a regression test renders the section through <code>consult_all.sh</code>.</li>
+<li>A terminal Ctrl-C could report a consultant it ended as failed (<code>Error (code: 1)</code>) instead of stopped, when the interrupt landed after the run had checked for host requests in that polling pass. The run now records such a consultant as stopped. This race made the e2e Ctrl-C test flaky on slower CI runners.</li>
+</ul>
+<h3 id="documentation">Documentation</h3>
+<ul>
+<li>README “Why AI Consultants?” no longer says the union “covers what any one misses” or covers “materially more” than one strong model. It now states the internal evidence (three open-ended tasks) and its limits, matching the redesigned aiconsultants.sh.</li>
+</ul>
+<h3 id="verification-3">Verification</h3>
+<ul>
+<li>After the 5.3.0 release, one authorized MiniMax API smoke (MiniMax-M3.1-Flash, no retry) returned HTTP 200 and a structured answer with a provider-reported model identity, so the API transport is no longer offline-tested only.</li>
+<li>PR #32 CI and the 5.3.1 release gate passed 34/34 suites plus lint. The Ctrl-C race was reproduced by moving the interrupt into the window between the host check and collection: the old loop failed 3 times out of 3, the fixed loop passed 3 times out of 3.</li>
+</ul>
+<h2 id="530---2026-10-20">[5.3.0] - 2026-10-20</h2>
+<h3 id="changed-6">Changed</h3>
+<ul>
+<li><strong>MiniMax-M3.1-Flash</strong> (released 2026-10-19) serves every MiniMax tier, including <code>max_quality</code> (previously M3 maximum, M2.7 premium/standard and M2.5 economy). It always reasons: effort is <code>low</code>..<code>max</code> (provider default <code>max</code>) and <code>none</code> cannot be requested. API mode passes <code>MINIMAX_REASONING_EFFORT</code> as <code>reasoning_effort</code> and rejects <code>none</code>/<code>minimal</code> before the request; the <code>mmx</code> CLI has no effort flag, so it uses the provider default. Its reasoning shares the completion budget, so the defaults grow to 16,384 tokens (<code>MINIMAX_MAX_TOKENS</code>, <code>MINIMAX_API_MAX_TOKENS</code>) and <code>MINIMAX_MAX_QUALITY_TOKENS</code>, the <code>mmx</code> budget in <code>max_quality</code>, to 32,768; API calls in <code>max_quality</code> keep the shared <code>MAX_QUALITY_API_MAX_TOKENS</code> (16,384). <code>configure</code> migrates unpinned <code>MiniMax-M2.5</code>/<code>MiniMax-M2.7</code> and the generated 4096/4096/16384 budgets; pins and other values (such as an explicit <code>MiniMax-M3</code>) are kept. Estimates use the list price ($0.15/$0.60 per 1M).</li>
+</ul>
+<h3 id="verification-4">Verification</h3>
+<ul>
+<li>Offline gate: 34/34 suites, lint, Bash 3.2/5 syntax and generated docs; new tests cover the tier catalog, list rate, <code>configure</code> migration and pins, the default <code>mmx</code> arguments, and the API effort (<code>reasoning_effort</code> on the wire, <code>none</code>/<code>minimal</code> rejected before the request).</li>
+<li>One authorized <code>mmx</code> CLI smoke on 2026-10-20 (no retry, 16,384-token budget, provider-default effort): a structured answer with The Pragmatic Optimizer persona and confidence 10 in 30 s for a short code question with context. Identity remains <code>requested-only</code> and tokens are estimated, because <code>mmx</code> text output reports neither. The API transport is offline-tested only: no MiniMax API key is configured.</li>
+<li>PR #31 CI and the 5.3.0 release gate passed 34/34 suites plus lint.</li>
+</ul>
+<h2 id="520---2026-10-19">[5.2.0] - 2026-10-19</h2>
+<h3 id="fixed-6">Fixed</h3>
+<ul>
+<li>Host consultations (slash commands <code>cd</code> into the skill root) now build the context from the caller’s <code>--context-root</code>: the “Working Directory” and “Project Structure” sections previously described the ai-consultants installation instead of the user’s project. A home directory (or <code>/</code>) is never listed as the project tree.</li>
+<li>GLM, DeepSeek, MiniMax (API mode) and custom API agents now receive their persona and the JSON response contract. They previously answered in prose, always landed in the fallback envelope, and could never contribute attributable coverage findings. MiniMax CLI receives the same contract through its native system channel instead of a Markdown-only instruction.</li>
+<li>The semantic cache key includes each consultant’s model, transport, reasoning effort and persona settings, so a <code>max_quality</code> run can no longer be served answers cached by a <code>fast</code> run (and vice versa). Existing cache entries are ignored once.</li>
+<li>Consultant answers are canonicalized by <code>scripts/lib/response_canonicalize.jq</code> before validation: wrapper keys, flat answers, nested or bare <code>confidence</code> (including GLM 5.3 Flash’s observed one-brace-short form), scores such as <code>"8/10"</code>/<code>0.8</code>/<code>85</code>/<code>"high"</code>, string lists, and answer objects embedded in prose are repaired deterministically instead of being discarded; <code>{"response": "&#x3C;prose>"}</code> becomes a fallback. Truncated or genuinely malformed JSON still fails closed (also when pretty-printed over several lines, or when an answer holds more than one JSON value) and now keeps a bounded <code>metadata.raw_excerpt</code> for diagnosis.</li>
+<li><code>synthesis.json</code> is canonicalized to a documented contract (<code>scripts/lib/synthesis_canonicalize.jq</code>): risk levels, action items, recommendation and string lists get stable types; <code>timestamp</code> and <code>consultants_analyzed</code> are local; every artifact (including failed-closed replacements) records <code>synthesis_provider</code>. A non-coverage strategy without a coverage list is no longer a structural failure.</li>
+<li>A synthesis wrapped in a Markdown code fence, or surrounded by prose, is accepted instead of being replaced by the manual-review fallback.</li>
+<li>The synthesis call is included in the session cost and budget checks (as a labeled estimate); the pre-synthesis budget estimate uses the actual synthesis model.</li>
+<li><code>followup.sh</code>: <code>--session &#x3C;id></code> restores the full original question (history now stores it); whole-panel follow-ups are recorded on the original session and point at the directory holding the new responses; non-consultant artifacts no longer appear as “Unknown” consultants in follow-up context.</li>
+<li><code>--query-file</code> questions are passed to the classifier, context builder and synthesizer through stdin rather than argv. CLIs that only accept the prompt as an argument (agy, vibe, kimi) fail fast with a clear diagnostic above the single-argument limit, and synthesis skips agy above it.</li>
+<li>The runtime <code>.env</code> loader removes quotes from a quoted value followed by an inline marker such as <code># ai-consultants:pin</code>, matching <code>configure</code>.</li>
+<li><code>ai-consultants install</code> from an npm/npx installation points the slash commands at the package root instead of the non-existent <code>~/.claude/skills/ai-consultants</code>, and warns when running from the npx cache. When a complete <code>curl | bash</code> installation already exists there, it installs that installation’s own commands unchanged (so they match the scripts they run, and survive npm clearing its cache) and suggests <code>scripts/install.sh --update</code> when its version differs from the package.</li>
+<li>A non-boolean flag value such as <code>ENABLE_SEMANTIC_CACHE=TRUE</code> no longer aborts the run after the consultants were queried.</li>
+<li>API keys and request bodies reach curl through pipes, never argv (process list, 128 KiB per-argument limit on Linux) or a temporary file that a stopped query could leave behind; request bodies are built from the prompt on stdin, so API mode also works for prompts above that limit. <code>doctor</code> API connectivity checks pass the key the same way and are bounded by curl’s own time limit, so they work without GNU <code>timeout</code>.</li>
+<li>The POSIX <code>run_with_timeout</code> fallback (no <code>timeout</code>/<code>gtimeout</code>) no longer blocks on an interactive terminal.</li>
+<li><code>SYNTHESIS_STRATEGY</code> from the environment is honored (below <code>--strategy</code> and a <code>--mode</code> default) and validated; <code>{AGENT}_PERSONA</code> and <code>{AGENT}_PERSONA_NAME</code> overrides take effect.</li>
+<li>The <code>cost-capped</code> preset keeps an explicitly configured <code>MAX_SESSION_COST</code> and lowers only the stock <code>$1.00</code> cap.</li>
+<li>Cost-aware model overrides and escalation target the model variable of the active transport (Gemini API, Mistral Vibe). Escalation skips error and fallback envelopes, never re-asks the same model or leaves a maximum-tier target, and respects the budget. Smart routing honors cost-aware panel sizing.</li>
+<li>The pattern classifier checks SECURITY first with word-bounded patterns (dependency, constructor or field injection is not a security question); LLM classification is bounded, stateless, tool-free, uses the economy Claude model and is skipped for a Claude host.</li>
+<li><code>install.sh --uninstall</code> refuses to delete a directory that is not an ai-consultants checkout; <code>--branch</code> without a value fails cleanly.</li>
+<li><code>scripts/lib/grok_sandbox.sh</code> is committed executable like the other libraries (the entry point no longer flips its mode at runtime).</li>
+<li><code>doctor</code> validates the affinity matrix routing actually loads and reports the synthesis provider that would be used.</li>
+<li>Agent hosts: the <code>SKILL.md</code> contract takes the skill root from the directory that holds <code>SKILL.md</code> (Codex and Antigravity find the skill in <code>~/.agents/skills</code> or <code>&#x3C;project>/.agents/skills</code>, not only in <code>~/.codex/skills</code>/<code>~/.gemini/skills</code>), says that a sandboxed shell needs network access, and notes that Codex rejects <code>rm -f</code> for the question-file cleanup. <code>INVOKING_AGENT=agy</code> (or <code>antigravity</code>) excludes the Gemini consultant like <code>gemini</code>. The README and setup guide no longer promise slash commands in Codex or the Gemini CLI (Codex has none; the Gemini CLI loads only <code>.toml</code> commands), document Antigravity (<code>agy</code>) as the Gemini host and mark the Gemini CLI as legacy.</li>
+<li>The context’s “Optimization Details” table shows real file paths (<code>src/cache.py</code>, not <code>src/cache/py</code>).</li>
+<li>A terminal Ctrl-C, which signals the whole process group, now continues with the answers received as documented. The interrupted poll <code>sleep</code> used to end the run with status 130 under <code>set -e</code> before the trap could continue it, and consultant CLIs kept running unobserved. Every consultant, escalation and synthesis job now ignores SIGINT explicitly (Bash 3.2 does so for background jobs, Bash 5 does not, and an adapter killed by the Ctrl-C orphaned its CLI), so only the run decides what a Ctrl-C means. A consultant CLI that the Ctrl-C ends itself (Node and Go CLIs restore SIGINT) is reported as stopped, not failed, and any unexpected exit while waiting stops every consultant still running.</li>
+<li>The report’s <strong>Directory</strong> line names the caller’s project (<code>--context-root</code>) instead of the skill root.</li>
+<li>Failure reasons name the real cause. <code>run_query</code> reports the stderr line that names an error, skipping CLI warnings and stack frames, instead of the first line (a Kimi config deprecation warning was shown as the reason). API consultants report the network cause (<code>network error: could not resolve the host (DNS) (curl exit 6)</code>), timeout, rate limit or server status instead of <code>last HTTP: 000</code>. An agy model-inventory failure states agy’s own message (for example <code>bind: operation not permitted</code> inside a sandbox) instead of “timed out, failed, or requires login”. Report reasons drop the log prefix, and when every failure is a network error the console and the report say so and mention the sandbox case.</li>
+<li>agy can print its whole answer and then never exit: a live synthesis closed its conversation stream and idled for 16 minutes, so the no-timeout run waited forever. <code>scripts/lib/agy_exit_guard.sh</code> now runs every agy consultation and synthesis; when the output is one complete JSON object unchanged for <code>AGY_EXIT_GRACE_SECONDS</code> (default 60, 0 = off) it ends agy and keeps the answer. Prose or partial output still waits for agy to exit.</li>
+</ul>
+<h3 id="changed-7">Changed</h3>
+<ul>
+<li><strong>No generation timeout by default.</strong> Every consultant <code>*_TIMEOUT</code>, the maximum-tier <code>QWEN3_MAX_QUALITY_TIMEOUT</code>/<code>DEEPSEEK_MAX_QUALITY_TIMEOUT</code>, and <code>SYNTHESIS_TIMEOUT</code>/<code>SYNTHESIS_TOTAL_TIMEOUT</code> now default to 0 (no limit; previously 180/240/480/600 s). A call cut off by a client timeout was usually still billed while its answer was lost, and reasoning models (Gemini 4 Argon, Mistral Large 4) routinely approach the old limits. A positive value restores a hard limit; <code>0</code> also works for API transports (curl gets no <code>-m</code>). <code>configure</code> migrates the unpinned fixed values it generated through 5.1.2; pinned and custom values remain limits. Probe limits (model inventory, auth, health gate, doctor, LLM classifier) are unchanged.</li>
+<li><strong>The invoking host decides when to stop waiting.</strong> <code>consult_all.sh</code> polls its consultants instead of blocking on each in turn, logs <code>Still waiting after Ns for: &#x3C;names></code> every <code>WAIT_HEARTBEAT_SECONDS</code> (default 30, 0 = silent), and accepts a <em>proceed</em> request (<code>touch &#x3C;output dir>/.proceed</code>, <code>kill -USR1 &#x3C;pid></code>, or a first Ctrl-C) that stops the current phase and continues with the answers received, and an <em>abort</em> request (<code>touch &#x3C;output dir>/.abort</code>, SIGTERM/SIGHUP, or a second Ctrl-C) that ends the run with exit 130/143/129. Stopped consultants are reported as <code>stopped</code> (they count against quorum but not against reliability), their partial output is discarded, and they are excluded from synthesis and cost with a billing caveat; a proceed during synthesis skips it and the report says so. Escalation re-queries follow the same control: a proceed ends the escalation phase. A proceed that arrives after a phase has already finished does not stop the next one. Stopped work ends with its whole process tree (<code>kill_process_tree</code>), so no consultant CLI keeps running. Host commands and <code>SKILL.md</code> tell the invoking agent to run the consultation in the background, watch the heartbeat, and choose when to proceed.</li>
+<li>Qwen defaults to <strong>Qwen3.8-Max</strong> (default, premium and <code>max_quality</code> on every Qwen transport; the Token Plan-only gate is removed) and <strong>Qwen3.8-Flash</strong> serves standard and economy. <code>max_quality</code> applies <code>QWEN3_MAX_QUALITY_TIMEOUT</code> (default 0, no limit) on every Qwen transport and adds <code>xhigh</code> effort only on the OpenAI-compatible wire. <code>configure</code> migrates unpinned <code>qwen3.7-max</code> and the retired <code>qwen3.8-max-preview</code> to <code>qwen3.8-max</code>. Both models are listed as unpriced (Token Plan quota).</li>
+<li>GLM’s <code>max_quality</code> target is the <strong>GLM-5.3</strong> flagship; GLM-5.3-Flash keeps premium and standard.</li>
+<li>Mistral API mode (<code>MISTRAL_USE_API=true</code>) targets <strong>Mistral Large 4</strong> (<code>mistral-large-4</code>, public preview) in every tier. <code>configure</code> migrates an unpinned <code>mistral-large-3</code>; pin it to keep the old target. Estimates use the list rate ($1.36/$4.18 per 1M), not the 50% preview price. One authorized <code>query_mistral.sh</code> smoke returned a structured answer with the provider-reported model <code>mistral-large-4</code>. The preview is absent from <code>GET /v1/models</code>, so that listing is not an access check. The Vibe CLI default (<code>mistral-medium-3.5</code>) is unchanged.</li>
+<li>Gemini 4 Argon (GA 2026-10-13) is the Gemini default and maximum target: <code>Gemini 4 Argon (High)</code> on <code>agy</code> and <code>gemini-4-argon</code> on the API. Standard and economy keep Gemini 3.8 Flash (High/Low) on the CLI and <code>gemini-3.1-pro-preview</code> on the API. <code>configure</code> migrates an unpinned <code>Gemini 3.8 Flash (High)</code> (and the older Pro 3.1 / Flash 3.7 High defaults) and an unpinned <code>gemini-3.1-pro-preview</code>; pin them to keep the old targets. Estimates use the list rate ($4/$20 per 1M), not the introductory price through 2026-11-30. One authorized <code>agy</code> consultation smoke returned a structured, schema-valid answer with capability-probed identity (about 49 s for a short question). The API transport is offline-tested only; Google excludes Argon from the Free tier and the AI Pro plan.</li>
+<li>Gemini API requests carry <code>GEMINI_API_MAX_TOKENS</code> (default 32768, was a fixed 4096) because thinking tokens count toward <code>maxOutputTokens</code>. <code>gemini-4-argon</code> accepts low|medium|high thinking and defaults to <code>high</code>, matching its CLI target. <code>parse_google_ai_response</code> joins every visible text part and skips thought parts instead of reading only the first part.</li>
+<li>The Vibe economy tier uses <code>mistral-medium-3.5</code> instead of <code>devstral-small-2</code>: Mistral retired Devstral and current Vibe configurations no longer define that alias.</li>
+<li>Mistral API answers from reasoning models (Large 4) arrive as content chunks (<code>thinking</code> then <code>text</code>); <code>parse_openai_response</code> keeps only the text chunks instead of passing the whole array to the JSON contract. <code>MISTRAL_API_MAX_TOKENS</code> defaults to 16384 (was 4096) because the thinking chunks share that budget.</li>
+<li>Codex defaults to <strong>GPT-6.1 Sol</strong> (<code>gpt-6.1-sol</code>) for the default and premium tiers: near-Astra coding at one fifth of its token price ($2/$10 per 1M). <code>max_quality</code> keeps <code>gpt-6-astra</code>; standard/economy keep Terra/Luna. Sol gets <code>high</code> effort unless configured and rejects <code>none</code>/<code>minimal</code> before dispatch, like Astra. <code>configure</code> migrates exact unpinned <code>gpt-5.5</code>, <code>gpt-5.6-sol</code> and <code>gpt-6-astra</code> values (keeping the earliest <code>migrated-from</code> origin); pins, environment overrides and <code>--set</code> are kept. Cost estimates include Sol’s rates and long-context pricing (>272K input: 2x input, 1.5x output).</li>
+<li>Gemini (agy), Qwen and Kimi CLIs run from a private empty working directory (<code>CLI_WORKSPACE_ISOLATION=false</code> restores the previous behavior).</li>
+<li><code>.env.example</code> no longer writes <code>ENABLE_GLM=false</code>/<code>ENABLE_DEEPSEEK=false</code>, which <code>init</code> turned into durable preset opt-outs.</li>
+<li><code>ENABLE_RESPONSE_LIMITS</code>/<code>MAX_RESPONSE_TOKENS_BY_CATEGORY</code> are documented as deprecated no-ops (no adapter ever applied them). <code>templates/*.md</code> are marked as reference copies.</li>
+<li><code>npm test</code> isolates user configuration by itself; <code>npm run lint</code> matches CI and also covers <code>bin/</code> and the benchmark harness.</li>
+<li>New settings: <code>CLI_WORKSPACE_ISOLATION</code>, <code>ARGV_PROMPT_MAX_BYTES</code>, <code>CLASSIFICATION_TIMEOUT</code>, <code>AGY_EXIT_GRACE_SECONDS</code>.</li>
+<li><code>scripts/lib/schema.json</code> (v3) matches the envelopes actually written (error envelopes, fallback, metadata fields such as <code>raw_excerpt</code>, <code>transport</code>, <code>provider_cost_usd</code>, <code>cache_metadata</code>; open consultant/persona names) and defines <code>synthesis_artifact</code> and <code>coverage_integrity</code>. <code>scripts/lib/json_schema_check.jq</code> checks documents against it with jq alone (an unknown definition or unresolvable <code>$ref</code> is reported, never a silent pass); the tests validate every envelope and synthesis shape.</li>
+<li>Pre-run cost estimates price the models the run will use (preset tier and active transport) instead of the catalog’s premium defaults; the Mistral catalog fallback is the CLI default <code>mistral-medium-3.5</code>.</li>
+</ul>
+<h3 id="documentation-1">Documentation</h3>
+<ul>
+<li><code>docs/JSON_SCHEMA.md</code> documents both contracts, the canonicalization rules and jq-based validation (removed debate/<code>critiques</code> and retired-persona leftovers).</li>
+<li>README/CONTRIBUTING state the real Bash 3.2 requirement; host commands document <code>--mode</code>, the XDG output path and consultant timeouts; the budget recipe matches runtime behavior.</li>
+<li>Documentation pass against the current code: the README explains waiting and stopping; <code>docs/SETUP.md</code> no longer asks for Bash 4 and lists the real Qwen endpoint default; <code>docs/SMART_ROUTING.md</code> lists the classifier’s actual keywords and order; <code>docs/COST_RATES.md</code> replaces the outdated per-session estimate with measured session reports and the XDG cost-file path; <code>.env.example</code> and CONTRIBUTING point to the private user configuration instead of a project <code>.env</code> (which is never read); recipes use current models and private query files. The run log now shows the cost estimate for the selected panel instead of a generic four-consultant figure.</li>
+</ul>
+<h3 id="verification-5">Verification</h3>
+<ul>
+<li>Hermetic <code>npm test</code>, CI ShellCheck, Bash 3.2 and 5 syntax, generated-doc drift and <code>npm pack</code> (70-file manifest: the previous 66 plus the three new <code>scripts/lib/*.jq</code> programs and <code>scripts/lib/agy_exit_guard.sh</code>) are green. The new regression tests for the context root, synthesis extraction, API contract/transport, follow-up sessions and the timeout fallback were confirmed to fail on 5.1.2.</li>
+<li>Live checks on 2026-10-02 (one call each, no retry): GLM-5.3 and GLM-5.3-Flash structured with provider-reported identity; Qwen3.8-Max structured through the Token Plan API (provider-reported) and the <code>qwen</code> CLI, Qwen3.8-Flash through the CLI (both CLI runs inside the isolated workspace).</li>
+<li>One authorized Codex CLI smoke with <code>gpt-6.1-sol</code>: structured envelope, The Pragmatist persona, measured 18,783 input (7,168 cached) / 313 output tokens; identity remains <code>requested-only</code> for a CLI <code>-m</code> selection.</li>
+<li>Authorized live smokes after the offline gate: DeepSeek (<code>deepseek-flash</code>, provider-reported) and MiniMax CLI (<code>MiniMax-M3</code>) returned structured envelopes with their personas. GLM (<code>glm-5.3-flash</code>) returned the nested/one-brace-short shape twice (the second call was an authorized diagnostic); the captured payload normalizes offline.</li>
+<li>Live panels on 2026-10-19, after the final review fixes (default models, no retry, cache off): the <code>balanced</code> panel (Gemini 4 Argon High, GPT-6.1 Sol, Mistral Large 4 API) and a panel with every consultant enabled returned structured answers with their personas. In the full panel Kimi first failed on an expired CLI login (its CLI stopped before the model call) and returned a structured answer in a separate single call after re-login. The agy and kimi runs used the isolated workspace (Qwen ran in API mode); the synthesis (Claude Fable 5.1) represented all 83 finding IDs and is schema-valid. Both runs finished without a host stop; the waiting heartbeat was observed in Round 1 and during synthesis. The stop controls were exercised live afterwards (see below).</li>
+<li>Host harnesses on 2026-10-19 (one headless run each, <code>--preset minimal</code>, pointed at this branch): Claude Code 2.1.303 (<code>/ai-consultants:consult</code>), Codex CLI 0.163 (<code>codex exec</code>, skill found in <code>~/.agents/skills</code>, full-access sandbox) and Antigravity 1.4.2 (<code>agy -p</code>, skill found in <code>&#x3C;project>/.agents/skills</code>). All three discovered the skill or command, staged the caller’s file through <code>--context-root</code>, used a private question file, excluded themselves from the panel and the synthesis, and read the results; agy ran the consultation in the background and followed the heartbeat. Codex’s first launch was rejected because of the <code>rm -f</code> cleanup and was retried with another removal method; Codex also chose on its own to skip synthesis. The Gemini CLI was not tested (no longer served to individual accounts).</li>
+<li>Live host-control and harness checks on 2026-10-19 (<code>balanced</code>, cache off, no retry, against this branch). Direct runs: <code>.proceed</code> in Round 1 then <code>kill -USR1</code> during the synthesis (exit 0, Gemini reported as stopped, synthesis skipped), <code>.abort</code> (130), SIGTERM (143) and SIGHUP (129) all ended with no process left. A terminal Ctrl-C (SIGINT to the process group) ended the run with 130 and left the Mistral request running; after the fix a first Ctrl-C stopped Gemini (agy) and Mistral as <code>stopped</code> and a second one during the synthesis aborted with 130 and no process left. Hosts: Claude Code wrote <code>.proceed</code> two seconds after the second answer when asked for two answers only (host cost $0.80), then waited on the agy synthesis that never exited (the reason for the exit guard); agy 1.4.2 found the skill in <code>~/.gemini/config/skills</code> alone and wrote <code>.abort</code> after the first answer (run ended within 2 s); Codex 0.163 in <code>workspace-write</code> without approvals ran the skill but every consultant failed on the blocked network and it reported 0/3; with <code>--approve-for-me</code> the automatic reviewer rejected sending the file to external providers and Codex asked the user. The Gemini CLI 0.64 cannot be a host for this account: Google rejects it for individual accounts (<code>UNSUPPORTED_CLIENT</code>). One live agy consultation through the guard exited normally (structured, 82 s).</li>
+</ul>
+<h2 id="512---2026-09-28">[5.1.2] - 2026-09-28</h2>
+<h3 id="changed-8">Changed</h3>
+<ul>
+<li>Grok defaults to 4.7 for premium/maximum, while standard/economy remain 4.5.</li>
+<li>Claude standard/medium selects Opus 5.5; Fable 5.1 remains the default/premium/maximum model and Haiku remains economy.</li>
+<li>Gemini CLI selects 3.8 Flash High for the main tiers and Low for economy; Medium is an explicit choice. Gemini API Pro 3.1 remains the default, with Flash 3.8 available as an explicit opt-in.</li>
+<li>Managed Grok and Gemini defaults migrate without overriding pins, environment settings, <code>--set</code>, or unrelated model IDs.</li>
+<li>Estimates include Grok 4.7 long-context pricing, Opus 5.5 rates and Gemini 3.8 promotional rates, with cache/service/subscription limitations disclosed.</li>
+</ul>
+<h3 id="fixed-7">Fixed</h3>
+<ul>
+<li>Google API output usage includes thinking tokens without adding cached input twice.</li>
+<li>Quoted configuration values followed by provenance comments are parsed correctly during migration.</li>
+</ul>
+<h2 id="511---2026-09-10">[5.1.1] - 2026-09-10</h2>
+<h3 id="changed-9">Changed</h3>
+<ul>
+<li>DeepSeek defaults to the official <code>deepseek-flash</code> API alias (V4.1 Flash) in every tier. Existing Chat Completions transport, output budget and <code>max_quality</code> reasoning effort remain unchanged.</li>
+<li><code>configure</code> migrates exact unpinned <code>deepseek-v4-pro</code> and <code>deepseek-v4-flash</code> values; pins, environment overrides, <code>--set</code> and unrelated models remain authoritative.</li>
+<li>DeepSeek Flash estimates use peak cache-miss rates and disclose excluded cache/off-peak discounts. Retired Flash and Flash Vision Exp aliases use their new upstream Flash rates.</li>
+</ul>
+<h3 id="verification-6">Verification</h3>
+<ul>
+<li>One authorized DeepSeek API smoke passed on the implementation commit, with a structured answer and provider-reported <code>deepseek-flash</code> identity. The alias is retained without inventing a version-specific attestation. The frozen P1.6 benchmark is unchanged.</li>
+</ul>
+<h2 id="510---2026-09-09">[5.1.0] - 2026-09-09</h2>
+<h3 id="changed-10">Changed</h3>
+<ul>
+<li>Claude defaults to <code>claude-fable-5-1</code> for premium/maximum, with <code>claude-opus-5</code> at standard/medium and Haiku at economy. Codex defaults to <code>gpt-6-astra</code> with implicit high effort, retaining Terra/Luna for standard/economy and Sol as an explicit override.</li>
+<li><code>configure</code> migrates exact unpinned persisted Codex defaults <code>gpt-5.5</code> and <code>gpt-5.6-sol</code> directly to Astra with migration provenance; pins, environment overrides and <code>--set</code> remain authoritative.</li>
+<li>Codex API requests use a dedicated Chat Completions builder with <code>reasoning_effort</code> and <code>max_completion_tokens</code>; the default completion budget is 16,384 tokens. Other providers retain their request builders.</li>
+<li>Astra cost estimates use Standard rates with the full-request long-context multiplier, with cache/service adjustments explicitly excluded.</li>
+</ul>
+<h3 id="fixed-8">Fixed</h3>
+<ul>
+<li>Claude CLI reads stream JSON, attests content identity from response-bearing assistant messages, records billing participants separately and requires successful terminal completion. Available tokens and provider cost survive failed responses.</li>
+<li>Codex CLI separates token events from its final answer and rejects failed or unfinished turns; requested model selection remains explicitly distinct from provider attestation.</li>
+<li>Claude and Codex write JSON error envelopes when API-key validation fails before dispatch.</li>
+<li>Grok adapter and doctor detect incompatible runtime socket symlinks passively. Sandbox refusal or non-application cannot trigger retry or API fallback, including when paired with authentication failures or exit zero.</li>
+<li>Hidden Grok advisory flags are validated through native parser probes; memory remains disabled in actual requests. Metadata temporary-file failures preserve the result envelope and original adapter status.</li>
+<li>Fable cost fallbacks match its catalog rates, and lower-cost Claude configuration guidance survives repeated <code>configure</code> runs.</li>
+</ul>
+<h3 id="added-4">Added</h3>
+<ul>
+<li>Maintainer-only Breadth v1 preregistered harness and offline regression checks, excluded from npm. Frozen roster and preregistration are unchanged; no completed live benchmark or measured coverage improvement is claimed.</li>
+</ul>
+<h3 id="verification-scope">Verification scope</h3>
+<ul>
+<li>Release live acceptance is CLI-only. API implementations retain automated coverage, but API transports are not claimed live-verified on this release candidate.</li>
+</ul>
+<h2 id="500---2026-09-01">[5.0.0] - 2026-09-01</h2>
+<h3 id="added-5">Added</h3>
+<ul>
+<li>Three public workflows: <code>--mode fast-check</code>, <code>--mode coverage-review</code>, and <code>--mode max-coverage</code>. Each selects a documented preset and defaults to the coverage strategy; an explicit <code>--strategy</code> still wins.</li>
+<li>Locally assigned <code>response.findings[]</code> source IDs, per-item synthesis <code>source_ids</code>, and <code>coverage_integrity</code> metadata that audits missing, unknown, duplicated, and non-normalizable sources without removing legacy response or synthesis fields.</li>
+<li>Explicit <code>coverage_input_truncated</code> and <code>truncated_consultants</code> metadata. Atomic findings are never clipped; capped fallback context is disclosed in JSON and Markdown.</li>
+<li>A Bash 3.2-safe executable registry for modes, presets, aliases, targets, and strategies, plus generated README/SKILL/reference tables with a read-only drift check.</li>
+</ul>
+<h3 id="changed-11">Changed</h3>
+<ul>
+<li>Presets retain their effective cardinality after host self-exclusion by filling from statically configured canonical transports. <code>max_quality</code> advertises ten consultants and has an effective target of nine under a canonical invoking host.</li>
+<li>Preset capacity now fails closed with promised, selected, and missing counts instead of silently running a smaller panel. Explicit <code>ENABLE_&#x3C;CONSULTANT>=false</code> choices remain opt-outs during preset fallback.</li>
+<li>Coverage synthesis uses locally normalized atomic fields as its attributable input. Usable fallback prose remains visible as manual-review context but cannot support an audited coverage claim.</li>
+<li>Fresh <code>init</code> scaffolding no longer forces <code>DEFAULT_PRESET=balanced</code>; <code>coverage</code> remains the sole default strategy.</li>
+</ul>
+<h3 id="fixed-9">Fixed</h3>
+<ul>
+<li>The README strategy table now derives its single default from the runtime registry, preventing the previous false <code>majority</code> default claim.</li>
+<li>Empty source arrays, invented source IDs, malformed/non-object/empty synthesis output, zero-finding successful envelopes, and incomplete unions can no longer produce a <code>MET</code> or comprehensive coverage claim.</li>
+<li>Fallback truncation is Unicode-code-point safe and compatible with the jq version shipped by the Ubuntu release runner.</li>
+<li><code>doctor --suggest-preset</code> no longer recommends a three-or-more-consultant preset when only two effective transports are available.</li>
+</ul>
+<h3 id="breaking-changes">Breaking Changes</h3>
+<ul>
+<li>An explicitly selected preset now aborts before provider dispatch when its effective promised panel cannot be assembled. Automations that relied on a silently smaller degraded panel must configure enough transports or select a smaller preset/mode.</li>
+<li>Coverage-mode synthesis no longer treats free-form structured <code>detailed</code> text as source-attributable. Consumers must inspect <code>coverage_integrity</code>; fallback-only or otherwise non-normalizable input is explicitly degraded.</li>
+</ul>
+<h2 id="404---2026-08-31">[4.0.4] - 2026-08-31</h2>
+<h3 id="changed-12">Changed</h3>
+<ul>
+<li>The previously excluded <code>test_functions.sh</code> harness is replaced by a focused, auto-discovered <code>test_common.sh</code> suite using the shared test framework; the full gate now runs 24 suites.</li>
+<li>Active setup, routing, output-path, and contributor documentation now points to maintained commands and the XDG consultation directory.</li>
+<li><code>package.json#files</code> is the single npm package allowlist. The tarball keeps active documentation while excluding the GitHub release-note archive, tests, fixtures, and maintainer release tooling.</li>
+<li>Six settings with no runtime reader are explicitly marked as deprecated no-ops while remaining accepted throughout v4.x: <code>SESSION_CLEANUP_DAYS</code>, <code>ENABLE_PROGRESS_BARS</code>, <code>ENABLE_EARLY_TERMINATION</code>, <code>USE_COMPACT_PROMPTS</code>, <code>ENABLE_SELECTIVE_CONTEXT</code>, and <code>MAX_FILES_PER_CONSULTANT</code>.</li>
+</ul>
+<h3 id="removed">Removed</h3>
+<ul>
+<li>Uncalled internal Bash helpers for API keys/rate-limit cleanup, cache invalidation, token estimates, persona display, routing summaries, reliability display, and session cleanup/display. Documented routing mode/count/timeout helpers remain available for compatibility.</li>
+<li>The stale README changelog copy and redundant <code>.npmignore</code>.</li>
+</ul>
+<h2 id="403---2026-08-29">[4.0.3] - 2026-08-29</h2>
+<h3 id="changed-13">Changed</h3>
+<ul>
+<li><strong>GLM now defaults to <code>glm-5.3-flash</code> for maximum, premium, and standard tiers.</strong> The <code>max_quality</code> preset keeps <code>reasoning_effort=max</code>; economy remains on <code>glm-4-flash</code>.</li>
+<li>Existing unpinned managed <code>glm-5.2</code> and <code>glm-5.3</code> values migrate to Flash when <code>configure</code> rewrites the user configuration, while explicit <code># ai-consultants:pin</code> values remain untouched.</li>
+<li>GLM 5.3 Flash is explicitly unpriced on the Coding Plan transport; legacy <code>glm-5.3</code> pins remain unpriced instead of falling through to an invented default rate.</li>
+</ul>
+<h2 id="402---2026-08-28">[4.0.2] - 2026-08-28</h2>
+<h3 id="added-6">Added</h3>
+<ul>
+<li><code>GROK_OAUTH_MODE=shared|serialized</code>: shared is the concurrency-safe default for the parallel panel, while serialized retains a full-run diagnostic fallback.</li>
+<li>A persistent runner-owned Grok OAuth generation under the XDG data directory, with recoverable locks, atomic policy/credential publication, SHA-256 CAS, and legacy-generation migration.</li>
+</ul>
+<h3 id="fixed-10">Fixed</h3>
+<ul>
+<li><strong>Parallel Grok CLI calls no longer discard or race rotating OAuth refresh state.</strong> Concurrent runs share only controlled <code>GROK_HOME</code>; HOME, workspace, prompt, output, permissions, and agent state remain isolated per invocation.</li>
+<li>External <code>grok login</code> changes always win the credential CAS; malformed, superseded, or unpersistible refresh state fails closed without a separately billed API fallback.</li>
+<li>Grok 1.0.4 first-use initialization, capability parsing, and authenticated inventory are bounded and isolated without treating unstable display prose as authentication evidence.</li>
+<li>Provider-owned <code>config.toml</code> is preserved; runner restrictions are reconciled atomically in <code>.ai-consultants-policy.json</code> and enforced by per-run CLI arguments.</li>
+<li>Normal Grok errors no longer echo provider stderr into logs or error envelopes, preventing token-shaped output from escaping temporary storage.</li>
+</ul>
+<h2 id="401---2026-08-24">[4.0.1] - 2026-08-24</h2>
+<h3 id="fixed-11">Fixed</h3>
+<ul>
+<li><strong>The installer banner no longer claims the obsolete version <code>v2.10</code>.</strong> It is now intentionally version-neutral, so future package releases cannot make the banner stale again.</li>
+<li>The hermetic installer suite now renders the banner and rejects any hardcoded package SemVer in it; the suite grows from 45 checks in v4.0.0 to 47 checks.</li>
+</ul>
+<h2 id="400---2026-08-24">[4.0.0] - 2026-08-24</h2>
+<h3 id="added-7">Added</h3>
+<ul>
+<li><strong>Agent hosts now have an executable skill contract.</strong> Claude Code, Codex, and Gemini commands hand questions through a private <code>--query-file</code>, preserve <code>--preset</code>/<code>--strategy</code>, set <code>INVOKING_AGENT</code>, dispatch through the orchestrator, and fail validation if the host appears as either a consultant artifact or synthesis provider. A real Claude branch-command launch used the private query-file path and returned Gemini 3.7 High plus Codex 5.6 Sol with no Claude artifact.</li>
+<li>Dedicated Gemini, follow-up, host-execution, context-staging, and synthesis regression coverage; the full gate grows to 23 suites and 452 core checks.</li>
+</ul>
+<h3 id="changed-14">Changed</h3>
+<ul>
+<li><strong>Gemini 3.7 Flash High is promoted after an exact authenticated <code>agy</code> adapter smoke.</strong> It serves CLI maximum, premium, and standard tiers; Low serves CLI economy. The distinct, unverified Google API transport remains on Gemini 3.1 Pro by default.</li>
+<li><code>max_quality</code> enables all ten consultants and applies the strongest supported provider-specific effort and response budgets, including GLM and DeepSeek at <code>max</code> and Grok at its highest supported setting.</li>
+<li>Agent-host context files retain their caller-project identities while being staged privately under <code>$TMPDIR</code>; synthesis and fallback output use the coverage union only.</li>
+</ul>
+<h3 id="removed-1">Removed</h3>
+<ul>
+<li><strong>Cursor is removed from the consultant panel.</strong> The project remains usable from Cursor as a SkillPort host, but it no longer dispatches Cursor as a provider.</li>
+<li>Stale Codex/Gemini <code>debate</code> and <code>roster-audit</code> command files are removed; all three host command sets now expose only the current <code>consult</code> and <code>help</code> workflows.</li>
+</ul>
+<h3 id="fixed-12">Fixed</h3>
+<ul>
+<li><code>configure</code> removes obsolete Cursor settings and migrates only the exact managed historical values <code>GEMINI_MODEL=Gemini 3.1 Pro (High)</code>, <code>GLM_MODEL=glm-5.2</code>, and <code>GROK_MODEL=grok-4.5</code>; values carrying <code># ai-consultants:pin</code> remain untouched.</li>
+<li>Active Claude instructions no longer advertise the panic, voting, peer-review, debate, or consensus machinery removed in v3.0.</li>
+<li><code>--query-file</code> now accepts separately quoted <code>@PRIMARY</code>/<code>@CONTEXT</code> file arguments, and targeted follow-ups reject the invoking consultant before dispatch. Follow-up text supports the same private query-file handoff, including apostrophes without shell interpolation.</li>
+<li>Agent hosts preserve the caller project through <code>--context-root</code>; the runtime accepts only regular non-symlink files inside that canonical root, stages them privately under <code>$TMPDIR</code>, and removes the staging directory after building context. This keeps the strict absolute-path allowlist while making real external-project files usable.</li>
+<li>Uninstall cleanup is confined to <code>ai-consultants:*.md</code>; generic <code>consult*.md</code> commands belonging to other tools are no longer in scope.</li>
+<li>Live and fallback synthesis now emit coverage items instead of fabricated consensus, comparison, and debate-evolution fields; current response schema/docs and shipped templates match the coverage-only runtime.</li>
+<li>Cross-family Opus 5/max review of agent-host execution went <code>NO_SHIP</code> → <code>NO_SHIP</code> → <code>SHIP</code>; all blocking findings and the final review’s remaining low-severity fidelity/strategy/argv findings were resolved before commit.</li>
+</ul>
+<h2 id="350---2026-08-21">[3.5.0] - 2026-08-21</h2>
+<h3 id="added-8">Added</h3>
+<ul>
+<li><strong>A separate <code>maximum</code> tier powers <code>max_quality</code> without changing normal premium runs.</strong> It selects the exact-transport-smoked Kimi K3-256k and MiniMax M3 targets, plus Qwen3.8-Max only when an authenticated Token Plan endpoint is already configured; otherwise Qwen remains on 3.7-Max.</li>
+<li>Responses now record <code>metadata.requested_model</code> and <code>metadata.model_identity_source</code> (<code>provider-reported</code>, <code>capability-probed</code>, or <code>requested-only</code>) while the top-level <code>model</code> remains the strongest effective identifier the transport can attest.</li>
+<li>Dedicated Cursor, Mistral, and MiniMax adapter suites plus transport, retry, migration, identity, pricing, and catalog-parity coverage; the full gate now runs 22 suites and 443 core checks.</li>
+</ul>
+<h3 id="changed-15">Changed</h3>
+<ul>
+<li><strong>Mistral Vibe now uses its own model namespace.</strong> <code>MISTRAL_CLI_MODEL=mistral-medium-3.5</code> is passed through <code>VIBE_ACTIVE_MODEL</code>; <code>MISTRAL_MODEL</code> remains the API-only setting. Vibe runs its read-only <code>plan</code> agent for one bounded turn in a temporary workspace.</li>
+<li><strong>The promoted defaults move to GLM 5.3 and Grok 4.6.</strong> Cursor stays on Composer 2.5 across tiers and now uses the unambiguous <code>cursor-agent</code> executable.</li>
+<li>Pricing and unpriced disclosures now cover Fable 5, Gemini 3.7 Flash, Mistral Medium 3.5/Large 3/Small 4, Grok 4.6, MiniMax M3/M2.7/M2.5, GLM 5.3, Qwen3.8-Max, and K3-256k. Provider-reported revisions use the requested catalog model for billing without relabeling effective identity.</li>
+<li>Gemini 3.7 Flash, the new Mistral API IDs, and Claude Fable 5 remain explicit opt-ins because their exact ai-consultants transport smoke could not authenticate or complete. No alternate credential, model, or transport was substituted.</li>
+</ul>
+<h3 id="fixed-13">Fixed</h3>
+<ul>
+<li><strong>Cursor no longer resolves the unrelated <code>agent</code> binary (Grok on affected machines).</strong> The adapter and doctor validate Cursor’s interface and account model inventory, use <code>--mode ask --trust</code> only for an ephemeral workspace, and never use force-allow mode.</li>
+<li>Capability and inventory probes for Cursor, Gemini, and Mistral are bounded; a missing model is distinguished from an unavailable/auth-required inventory, and static diagnostics no longer risk <code>grep -q</code>/SIGPIPE false negatives.</li>
+<li>Empty HTTP 200 responses consume a finite retry and fail closed instead of spinning forever; provider-returned model IDs are syntax-validated before they can become response or billing identity.</li>
+<li><code>configure</code> migrates only the exact managed historical values <code>CURSOR_CMD=agent</code>, <code>GLM_MODEL=glm-5.2</code>, and <code>GROK_MODEL=grok-4.5</code>; values carrying <code># ai-consultants:pin</code> remain untouched.</li>
+</ul>
+<h2 id="340---2026-08-05">[3.4.0] - 2026-08-05</h2>
+<h3 id="fixed-14">Fixed</h3>
+<ul>
+<li><strong>Gemini consultations from an SSH session no longer fail to authenticate.</strong> The Antigravity CLI switches to a file-based token store whenever it sees <code>SSH_CLIENT</code>, <code>SSH_CONNECTION</code>, or <code>SSH_TTY</code>, and then never consults the macOS Keychain — so a user who signed in locally lost Gemini entirely over SSH, and signing in again could not help. Those markers are now stripped for every <code>agy</code> invocation.</li>
+<li><strong>The Codex consultant no longer inherits your local Codex environment.</strong> Your <code>~/.codex/config.toml</code>, the repository’s <code>AGENTS.md</code>, your hooks, MCP servers, and execpolicy rules previously reached into what is meant to be an independent second opinion.</li>
+<li>Very large contexts no longer break the Codex consultant: the prompt is delivered on stdin instead of argv, removing both the <code>ARG_MAX</code> ceiling and the process-list exposure.</li>
+<li>A Codex timeout, authentication error, or exhausted retry is now always reported as a failure, even when a partial answer reached disk.</li>
+<li><code>ai-consultants configure</code> upgrades the historical generated <code>CODEX_MODEL=gpt-5.5</code> default, so existing installations actually receive the new model instead of silently keeping the old one. An explicit pin is preserved.</li>
+</ul>
+<h3 id="changed-16">Changed</h3>
+<ul>
+<li><strong>Model catalog refresh</strong>, verified live against the installed CLIs: Codex moves to <code>gpt-5.6-sol</code> / <code>gpt-5.6-terra</code> / <code>gpt-5.6-luna</code>, Claude’s standard tier to <code>claude-sonnet-5</code>, and Gemini’s standard/economy tiers to <code>Gemini 3.6 Flash (High)</code> / <code>(Low)</code>. Gemini’s premium tier stays on <code>Gemini 3.1 Pro (High)</code> — there is no 3.6 Pro. Cost rates ship with the new ids; superseded ids remain catalogued for pinned configurations and historical responses.</li>
+<li>Codex CLI mode runs under an ephemeral HOME and working directory with a read-only sandbox. Authentication is unaffected — <code>CODEX_HOME</code> still resolves to your real auth store.</li>
+<li>The opt-in Qwen Token Plan model is referenced as <code>qwen3.8-max</code>. Both it and <code>qwen3.8-max-preview</code> remain served and catalogued; the shipped premium Qwen model is still <code>qwen3.7-max</code>.</li>
+</ul>
+<h3 id="added-9">Added</h3>
+<ul>
+<li><strong><code>*_REASONING_EFFORT</code> now works in CLI mode</strong> for the three consultants whose CLI exposes the control: <code>CODEX_REASONING_EFFORT</code>, <code>CLAUDE_REASONING_EFFORT</code>, and <code>GEMINI_REASONING_EFFORT</code>. The setting was previously honored in API mode only, which meant it did nothing in the default CLI-first configuration. Consultants whose CLI has no such flag still warn.</li>
+<li>Regression suites for the Gemini and Codex adapters (<code>test_query_gemini.sh</code>, <code>test_query_codex.sh</code>); <code>npm test</code> is now 19 suites.</li>
+</ul>
+<h2 id="330---2026-07-29">[3.3.0] - 2026-07-29</h2>
+<h3 id="added-10">Added</h3>
+<ul>
+<li>Grok and Kimi CLI responses now record the observed <code>cli_version</code> and a <code>cli_compatibility</code> result, so downstream tooling can distinguish provenance from compatibility.</li>
+</ul>
+<h3 id="changed-17">Changed</h3>
+<ul>
+<li><strong>Grok and Kimi compatibility is now capability-based.</strong> Before dispatch, each adapter checks the required headless arguments, structured-output mode, provider/model inventory, and requested model instead of treating a visible CLI or version string as sufficient.</li>
+<li>Compatible future or vendor-custom CLI versions are accepted when they expose the complete required interface. Grok’s <code>--no-auto-update</code> remains an optional capability and is used only when advertised.</li>
+</ul>
+<h3 id="fixed-15">Fixed</h3>
+<ul>
+<li>Incompatible Grok and Kimi installations now fail before a model request starts, with regression coverage for alternate compatible versions, missing interfaces, and missing requested models.</li>
+</ul>
+<h2 id="320---2026-07-25">[3.2.0] - 2026-07-25</h2>
+<h3 id="changed-18">Changed</h3>
+<ul>
+<li><strong>Claude’s premium default is now Opus 5.</strong> <code>CLAUDE_MODEL</code>, the premium/max/best tier, standalone adapter fallback, examples, and cost mappings use the official <code>claude-opus-5</code> ID. Pricing is unchanged at $5/$25 per million tokens; Opus 4.8 remains in the legacy catalog for pinned configurations and historical responses.</li>
+<li>Claude CLI mode now consumes its JSON result envelope and provider-reported <code>costUSD</code>, so adaptive-thinking and cache charges are included instead of estimating cost from visible text. API mode selects visible text blocks after thinking blocks, defaults <code>CLAUDE_API_MAX_TOKENS</code> to 16,384, and rejects <code>stop_reason=max_tokens</code> as truncated.</li>
+<li><code>ai-consultants configure</code> migrates the historical generated <code>CLAUDE_MODEL=claude-opus-4-8</code> default to Opus 5. Explicit model overrides receive an <code># ai-consultants:pin</code> marker and survive later rewrites.</li>
+</ul>
+<h2 id="311---2026-07-24">[3.1.1] - 2026-07-24</h2>
+<h3 id="fixed-16">Fixed</h3>
+<ul>
+<li><strong><code>doctor</code> now completes its diagnosis when an enabled CLI or API credential is missing.</strong> Failed health checks are recorded and reported in the final human or JSON summary instead of aborting early under <code>set -e</code>. The JSON regression test now rejects empty output and covers a missing Grok Build installation explicitly.</li>
+</ul>
+<h2 id="310---2026-07-24">[3.1.0] - 2026-07-24</h2>
+<h3 id="added-11">Added</h3>
+<ul>
+<li><strong>Grok 4.5 now runs through the official Grok Build CLI by default.</strong> Configuration, setup, diagnostics, and <code>update-clis</code> treat Grok as a switchable CLI/API consultant while preserving the existing xAI API path for installations without a usable CLI.</li>
+</ul>
+<h3 id="changed-19">Changed</h3>
+<ul>
+<li><strong>Every Grok CLI consultation is isolated and tool-free.</strong> Prompts use a private <code>--prompt-file</code>; HOME and CWD are ephemeral; built-in tools, web access, MCP tools, memory, subagents, plugins, hooks, skills, and project instructions are excluded; permissions fail closed under the strict sandbox.</li>
+<li><strong>The API fallback is now narrowly classified.</strong> It runs only when Grok Build is missing, cannot execute, or lacks usable authentication. Timeouts, model errors, empty output, and other failures after launch are surfaced without silently creating a separately billed API request.</li>
+</ul>
+<h3 id="fixed-17">Fixed</h3>
+<ul>
+<li><strong>Large Grok contexts no longer fail at the operating system argument limit or appear in process listings.</strong> The full consultation is delivered through a mode-600 prompt file instead of the <code>-p</code> command-line argument.</li>
+</ul>
+<h2 id="300---2026-07-23">[3.0.0] - 2026-07-23</h2>
+<p>A held-out experiment settled a question two independent reviews had raised: does the panel beat a single strong model? The answer is <strong>task-dependent</strong>. On convergent defect-finding a single strong model saturates (it caught 19/19 hard bugs, including CVEs and a concurrency bug found by formal verification), so the panel adds nothing. On <strong>breadth</strong> questions — “what could go wrong with this design?”, enumerate the risks — a diverse cross-vendor panel covers materially more than one model (measured rubric coverage: one model 51%, self-consistency 70%, the panel <strong>93%</strong>), and it wins as a raw <strong>union of distinct answers</strong>, not through deliberation. So this release keeps the diverse fan-out and cuts the machinery that averaged it away.</p>
+<h3 id="changed-20">Changed</h3>
+<ul>
+<li><strong>The default output is now the coverage union, not a voted recommendation.</strong> <code>DEFAULT_STRATEGY</code> defaults to the new <code>coverage</code> strategy: the deduplicated union of every distinct point, recommendation, risk, and edge case raised across the panel, preserving what only one model raised. <code>compare_only</code> (side-by-side), <code>majority</code> (a single blended recommendation), <code>risk_averse</code>, <code>security_first</code>, and <code>cost_capped</code> remain available via <code>--strategy</code>.</li>
+<li><strong>The pipeline is now classify → route → parallel fan-out → coverage synthesis.</strong> No deliberation rounds, no consensus scoring.</li>
+<li><strong>Presets choose only the consultant set and model tier</strong> — they no longer enable debate or peer review.</li>
+</ul>
+<h3 id="removed-breaking">Removed (breaking)</h3>
+<ul>
+<li><strong>Multi-round debate and dynamic orchestration</strong> — <code>ENABLE_DEBATE</code>, <code>DEBATE_ROUNDS</code>, <code>ORCHESTRATION_MODE</code>, <code>CONVERGENCE_*</code>, <code>ENABLE_DEBATE_OPTIMIZATION</code>, the orchestration shapes (quick/converge/adversarial/tournament/exhaustive), and the <code>debate</code> slash command.</li>
+<li><strong>Voting and consensus scoring</strong> — the voted recommendation, the 1–10 final score, consensus %/level, and the <code>voting.json</code> output.</li>
+<li><strong>Capability weighting and routing</strong> — <code>ENABLE_CAPABILITY_WEIGHTING</code>, <code>ENABLE_CAPABILITY_ROUTING</code>, <code>CAPABILITY_*</code>, and the capability axes in <code>affinity.json</code> (category-affinity routing is unchanged).</li>
+<li><strong>Panic mode</strong> — <code>ENABLE_PANIC_MODE</code>, <code>PANIC_*</code>, and <code>panic_diagnosis.json</code>.</li>
+<li><strong>Peer review</strong> — <code>ENABLE_PEER_REVIEW</code>, <code>PEER_REVIEW_MIN_RESPONSES</code> (it ran after synthesis and could not change the recommendation).</li>
+<li><strong>Stance consensus</strong> — <code>ENABLE_STANCE_CONSENSUS</code>, <code>STANCE_*</code>.</li>
+<li><strong>The capability-calibration tooling</strong> — <code>roster_audit.sh</code>, <code>roster_calibrate.sh</code>, <code>run_calibration.sh</code>, <code>taste_elo.sh</code>, <code>doctor --roster-audit</code>, and the <code>roster-audit</code> slash command (they existed only to feed the removed weighting).</li>
+<li>Setting any removed variable via <code>configure --set</code> now fails closed; installers prune the removed slash commands.</li>
+</ul>
+<h3 id="kept">Kept</h3>
+<ul>
+<li>The diverse parallel fan-out to all 11 consultants, category-affinity smart routing, <code>doctor</code> (including <code>--live</code>, <code>--suggest-preset</code>, <code>--suggest-config</code>), cost tracking and budgets, quorum grading and the opt-in health gate, semantic caching, and every CLI/API adapter.</li>
+</ul>
+<h3 id="upgrade">Upgrade</h3>
+<ul>
+<li>No configuration change is required. If you relied on a debate/consensus setting, remove it — the tool now fans out and returns the coverage union by default. See <code>docs/releases/v3.0.0.md</code>.</li>
+</ul>
+<h2 id="2252---2026-07-22">[2.25.2] - 2026-07-22</h2>
+<h3 id="fixed-18">Fixed</h3>
+<ul>
+<li><strong><code>doctor</code> no longer reports “healthy” from static checks alone.</strong> The default <code>doctor</code> confirms a CLI is installed and a key is present — not that a consultant can actually answer. A consultant with an expired key or an exhausted quota passed every static check, yet <code>doctor</code> printed “All systems healthy!” and its JSON reported <code>status: "healthy"</code>. Measured: static <code>doctor</code> called all 11 consultants healthy while only 8 responded to a real query. A static-only run now says so explicitly and points to <code>doctor --live</code>; the word “healthy” is reserved for a <code>--live</code> run that actually pinged them. The <code>--json</code> output gains a <code>verified: "live"|"static"</code> field and a <code>static_ok</code> status, so tooling can tell a real all-clear from an unverified one. <code>--live</code> behavior is unchanged, and a plain <code>doctor</code> still makes no billed calls.</li>
+</ul>
+<h2 id="2251---2026-07-21">[2.25.1] - 2026-07-21</h2>
+<h3 id="fixed-19">Fixed</h3>
+<ul>
+<li><strong>The final score reported 2/10 even when every consultant agreed.</strong> The recommendation was emitted as a key with spaces and punctuation stripped, while scoring compared each consultant’s original answer against that stripped version — so nothing ever matched and everyone was counted as a dissenter. Three consultants unanimous at confidence 9 on “Use JWT with rotating sessions” scored 2/10; the same panel on “JWT” scored 10/10. Real answers are multiword, so the headline number was wrong on essentially every consultation. The same stripping also merged genuinely different answers: “Use JWT + sessions” and “Use JWT sessions” became one option.</li>
+<li><strong>Peer-review artifacts were billed as consultations.</strong> The recursive scan v2.25.0 introduced to catch debate rounds also reached everything peer review writes: anonymized copies keep the original token counts, and bookkeeping files fall back to 1000 tokens each. A run whose real cost was $0.125 reported $0.244. Billing now covers only the responses and debate rounds, and a response is recognised by its structure rather than by its filename.</li>
+<li><strong>Smart routing queried consultants you had disabled.</strong> <code>ENABLE_*</code> and self-exclusion were applied only on the non-smart path, so with <code>ENABLE_SMART_ROUTING=true</code> a disabled consultant — or the agent invoking the skill — could still be sent the question and billed for it. Custom API agents were excluded from smart routing entirely; they are now included.</li>
+<li><strong>Gemini in API mode was costed as the wrong model.</strong> The request used <code>GEMINI_API_MODEL</code> while the response recorded <code>GEMINI_MODEL</code>, mispricing by 2.24x at the shipped rates.</li>
+<li><strong>Peer review crashed on the stock macOS shell.</strong> Two bash 4 constructs (an uppercase expansion and a negative array index) ran under <code>/bin/bash</code> 3.2, which <code>doctor</code> explicitly reports as supported.</li>
+<li><strong>Consensus reported 100% for panels that disagreed.</strong> Answers were grouped transitively, so A resembling B and B resembling C put A and C in one group even when they had nothing in common. Consensus now requires the members of a group to resemble each other, which also stops a convergence loop from ending early on false agreement.</li>
+<li><strong><code>estimate_tokens ""</code> could hang.</strong> Given an explicit empty string it read standard input instead of returning zero, so a caller with an open pipe on stdin blocked indefinitely. It now returns zero for an empty argument and reads stdin only when called with no argument at all.</li>
+</ul>
+<h2 id="2250---2026-07-21">[2.25.0] - 2026-07-21</h2>
+<h3 id="fixed-20">Fixed</h3>
+<ul>
+<li>
+<p><strong>The reported session cost measured how many pipeline stages ran, not what you spent.</strong> <code>build_response_metadata</code> hardcoded <code>tokens_used: 0</code> on every response it ever wrote, and <code>calculate_session_cost</code> multiplies that field by the model rate — so every real consultant contributed exactly $0.00, in both transports. The figure you saw came entirely from the pipeline’s own metadata files (<code>voting.json</code>, <code>orchestration.json</code>, <code>optimization_metrics.json</code>), which carry no token count at all and so fell to a 1000-token fallback at the default rate, roughly $0.009 each. Measured on a realistic three-consultant run: v2.24 reported <strong>$0.0270</strong> — three phantom files, zero real consultations. In API mode the real figure was even being computed and then discarded: <code>run_api_mode_query</code> extracted the provider’s usage numbers, logged them at debug level, and threw them away. Responses now carry a real count, and a new <code>metadata.tokens_source</code> field records where it came from. <strong>If you tuned <code>MAX_SESSION_COST</code> against the old always-zero reports, revisit it</strong> — the same direction of advice as v2.14.2, opposite sign.</p>
+</li>
+<li>
+<p><strong>The <code>*_FORMAT</code> settings did nothing.</strong> <code>QWEN3_FORMAT</code>, <code>GLM_FORMAT</code>, <code>GROK_FORMAT</code>, <code>DEEPSEEK_FORMAT</code> and <code>MINIMAX_FORMAT</code> have been declared in <code>config.sh</code> and documented in <code>.env.example</code> since v2.6, but <code>get_api_format()</code> hardcoded the wire format per consultant and never read them. All five are now honored. An unrecognized value falls back to the consultant’s default with a warning rather than building a malformed request.</p>
+</li>
+<li>
+<p><strong>Two consultants mislabeled the model they had just used.</strong> <code>query_qwen3.sh</code> recorded <code>qwen3.6-plus</code> and <code>query_codex.sh</code> recorded <code>gpt-5.3-codex</code> when their <code>*_MODEL</code> variable was empty, neither of which had been the default for several releases. Qwen now records <code>unknown</code> in that case, which is the honest answer: with no model passed, the CLI uses its own configured one and the script cannot know which.</p>
+</li>
+<li>
+<p><code>query_qwen3.sh</code> in API mode now rejects an empty <code>QWEN3_MODEL</code> up front instead of sending <code>"model": ""</code> and taking a 400 from the provider.</p>
+</li>
+<li>
+<p><strong>Session costs were wrong in five further ways, each harmless only while the token count was zero.</strong> Pipeline files (<code>voting.json</code> and friends) were priced as phantom 1000-token consultants (~2.8x inflation on a small run); a cache hit was billed at full price despite making no API call; debate and peer-review rounds were invisible because they live in subdirectories; an escalated consultant was billed twice; and the provider’s real prompt/completion split was collapsed to a total and re-derived 60/40, overstating API-mode cost roughly 2.7x while still labelling it “measured”. Responses now record <code>tokens_input</code>/<code>tokens_output</code> when the provider reports them, and cost is computed on the real split.</p>
+</li>
+<li>
+<p><strong><code>QWEN3_REASONING_EFFORT</code> did nothing on Qwen’s default API configuration.</strong> The setting was only read on the OpenAI-compatible wire format, but Qwen defaults to DashScope’s own format — so following the documented “API mode only” instruction produced no effect, no warning, and no validation of the value. Effort is now resolved for every consultant and every wire format, and the formats that cannot carry it say so. An invalid value also used to kill the query script outright, leaving an empty file and dropping the consultant from the panel with no explanation; it now produces a proper error response.</p>
+</li>
+<li>
+<p><strong><code>roster_calibrate.sh</code> would have ranked a credit-billed model as the panel’s cheapest consultant.</strong> It falls back to a default rate only when a model is absent from the cost catalog; adding <code>qwen3.8-max-preview</code> at zero made the lookup succeed and return zero, and the cost axis normalizes “cheapest” to the maximum score. With <code>--write</code> that would have been persisted into <code>references/affinity.json</code>, preferentially routing questions to a model whose real consumption the calibrator cannot see. Credit-billed models are now excluded from the measured cost axis. <strong>If you ran a calibration with <code>--write</code> against a build carrying that entry, re-check the <code>cost</code> values in your affinity file.</strong></p>
+</li>
+<li>
+<p><strong>Setting a reasoning effort in CLI mode only warned for Qwen.</strong> Six consultants accept the setting in API mode; all of them now warn when it cannot be applied.</p>
+</li>
+<li>
+<p><strong>Three test suites could fail depending on your <code>LOG_LEVEL</code>.</strong> Assertions that match on warning output are silent at <code>LOG_LEVEL=ERROR</code>, so <code>test_context_optimization.sh</code>, <code>test_update_clis.sh</code> and the new <code>test_api_transport.sh</code> failed for anyone running with that level and passed for everyone else. Two of the affected assertions are the v2.17.2 secret-exfiltration guards. All three suites now pin the level themselves.</p>
+</li>
+</ul>
+<h3 id="added-12">Added</h3>
+<ul>
+<li><strong>Opt-in support for Qwen Cloud Token Plan</strong>, including <code>qwen3.8-max-preview</code>. Token Plan is a separate subscription with its own OpenAI-compatible endpoint and its own key — it is not served by DashScope — so this is configuration, not a default change. The premium Qwen model remains <code>qwen3.7-max</code>. See the new recipe in <code>docs/RECIPES.md</code>.</li>
+<li><strong><code>QWEN3_REASONING_EFFORT</code></strong> — reasoning depth for API mode, accepting the provider’s own enum (<code>none|minimal|low|medium|high|xhigh|max</code>). <strong>API mode only</strong>: the <code>qwen</code> CLI has no effort flag, so in CLI mode the setting is ignored and says so, rather than looking effective. The valid subset is model-specific and enforced by the provider, not guessed locally.</li>
+<li><strong><code>metadata.tokens_source</code></strong> on every response: <code>measured</code> (the provider’s own figures, API mode), <code>estimated</code> (a local 4-chars-per-token approximation, CLI mode, which exposes no counts), or <code>unknown</code>.</li>
+<li>Credit-billed models can be declared in <code>docs/cost_rates.json</code> under <code>unpriced_models</code>. They contribute 0 to the total and the session-cost line names them, instead of an absent catalog entry silently falling through to the default rate — which for <code>qwen3.8-max-preview</code> would have been roughly 4x the real Qwen premium input rate, presented as a confident number.</li>
+</ul>
+<h3 id="changed-21">Changed</h3>
+<ul>
+<li>The session-cost line now states what its number is built on, e.g. <code>Session cost: $0.0550 [token counts estimated for 3 of 3]</code>. A total resting partly on approximations is not a measurement, and CLI mode — the default transport — can only approximate.</li>
+<li>Budget enforcement projections now include actual accumulated spend. The pre-run checks were always driven by a context-size estimate and worked; the pre-debate and pre-synthesis checks added <code>CURRENT_COST</code>, which was always zero.</li>
+</ul>
+<h2 id="2240---2026-07-20">[2.24.0] - 2026-07-20</h2>
+<h3 id="fixed-21">Fixed</h3>
+<ul>
+<li><strong>Installing or updating now removes slash commands this project no longer ships.</strong> Both entry points only ever copied commands in, so one deleted upstream stayed in <code>~/.claude/commands</code> forever. The v2.10.0 command consolidation dropped ten of them, which means every installation predating it still carries all ten — and they remain invocable. One is actively wrong: <code>ai-consultants:config-features</code> instructs you to set <code>ENABLE_REFLECTION</code>, which v2.23.0 removed and <code>ai-consultants configure --set</code> now rejects with a non-zero exit. Both <code>scripts/install.sh</code> (the <code>curl | bash</code> path) and <code>ai-consultants install</code> (the npx path) now prune before copying, and report how many they removed.</li>
+</ul>
+<h3 id="changed-22">Changed</h3>
+<ul>
+<li><strong>The prune removes any <code>ai-consultants:*.md</code> this project does not ship — including one you wrote yourself under that prefix.</strong> There is no way to distinguish a command you authored in this namespace from one of ours that was deleted upstream. If you have custom commands, rename them out of the <code>ai-consultants:</code> prefix before upgrading. Commands belonging to other tools are never considered.</li>
+<li><code>scripts/release.sh</code> is no longer included in the npm package. It is maintainer-only version-bump automation, is not routed by <code>bin/ai-consultants</code>, and nothing shipped invokes it.</li>
+</ul>
+<h2 id="2230---2026-07-20">[2.23.0] - 2026-07-20</h2>
+<h3 id="removed-2">Removed</h3>
+<ul>
+<li><strong><code>ENABLE_REFLECTION</code> and <code>REFLECTION_CYCLES</code> are gone, along with <code>lib/reflection.sh</code>.</strong> The self-reflection module was never sourced or called by any script, so neither setting had ever affected a consultation. The v2.16 dynamic orchestration engine covers the same ground: its <code>converge</code> and <code>adversarial</code> shapes run critique-refine driven by measured consensus rather than a fixed cycle count. <strong>Action required if you set either key</strong>: <code>ai-consultants configure</code> derives its accepted parameters from <code>.env.example</code>, so <code>--set ENABLE_REFLECTION=...</code> now exits non-zero instead of being accepted, and both keys are dropped (without warning) the next time an existing user <code>.env</code> is rewritten. Remove them from provisioning scripts and <code>.env</code> files. No runtime behavior changes — the flags controlled nothing.</li>
+</ul>
+<h3 id="fixed-22">Fixed</h3>
+<ul>
+<li><strong><code>KNOWN_FEATURE_FLAGS</code> no longer enrolls feature flags as phantom consultants.</strong> The registry that <code>_discover_custom_api_agents</code> uses to tell feature flags apart from custom API agents had drifted 18 flags out of date, so an <code>ENABLE_&#x3C;FLAG>=true</code> paired with a <code>&#x3C;FLAG>_API_URL</code> in the environment could be added to the panel as a consultant — <code>ENABLE_PEER_REVIEW</code> among them. All 27 non-consultant flags are now registered, and a test derives the expected set from <code>config.sh</code> so the next added flag fails the build instead of drifting silently.</li>
+<li><strong><code>test_functions.sh</code> was under-reporting failures.</strong> A test function is scored by its exit status, i.e. that of its last command, so a failing assertion followed by a passing one printed <code>FAIL</code> yet counted as a pass and the suite still exited 0. 8 of 13 test functions ran more than one assertion and were exposed. The <code>assert_*</code> helpers now flag failures globally and the runner honors that flag, so <code>npm test</code> reflects what actually failed.</li>
+<li><strong>The release gate could not go green.</strong> <code>scripts/release.sh</code> sources <code>lib/common.sh</code> (and therefore <code>config.sh</code>) before running <code>npm test</code>, so the exported configuration leaked into two suites and failed them deterministically — meaning no release since 2.22.0 could pass its own gate. <code>test_user_config.sh</code> leaked <code>AI_CONSULTANTS_CONFIG_DIR</code> between tests and asserted on variable names an ambient environment overrides; <code>test_configure.sh</code> scrubbed the nine API keys but not the settings, so an exported <code>DEFAULT_PRESET</code> overrode the file its preservation tests assert on. Both suites now derive their isolation from the same contract they test against.</li>
+<li><code>test_user_config.sh</code> no longer fails against a real user configuration. The suite leaked <code>AI_CONSULTANTS_CONFIG_DIR</code> between tests and asserted on config variable names that an ambient environment can override, so <code>npm test</code> — and therefore the <code>release.sh</code> gate, which sources <code>config.sh</code> first — failed for anyone who had run <code>ai-consultants configure</code>.</li>
+</ul>
+<h3 id="changed-23">Changed</h3>
+<ul>
+<li>Preset documentation now reflects what the presets actually pin. The tier tables no longer claim a fixed debate/peer-review depth per preset: under the default <code>ORCHESTRATION_MODE=auto</code> the planner chooses per question, and a <code>SECURITY</code> question runs peer review regardless of preset. <code>max_quality</code> is described as 8 of 11 consultants rather than “all”.</li>
+</ul>
+<h2 id="2220---2026-07-17">[2.22.0] - 2026-07-17</h2>
+<h3 id="added-13">Added</h3>
+<ul>
+<li><strong><code>ai-consultants configure</code>.</strong> The public automatic configurator detects the complete 11-consultant roster, selects CLI/API transports, preserves existing settings and secrets, writes private XDG configuration with backups, and accepts every persistent parameter through repeatable <code>--set KEY=VALUE</code> arguments or an exhaustive <code>--advanced</code> review.</li>
+</ul>
+<h3 id="fixed-23">Fixed</h3>
+<ul>
+<li>The npm package now includes the full <code>.env.example</code>, so <code>init</code> no longer falls back to a partial five-setting template.</li>
+<li>Gemini API setup now consistently uses the runtime-supported <code>GEMINI_API_KEY</code>; <code>.env</code> inline comments are parsed correctly, and the starter template no longer pins obsolete <code>/tmp</code> storage paths.</li>
+<li>Repeatable <code>--set</code> values now participate in transport detection with final precedence, including intentional empty values. Auto-selected transports carry provenance so later runs can adapt when CLIs or credentials change without overriding user-authored pins.</li>
+<li>Existing <code>export KEY=value</code> settings survive rewrites, <code>.env.example</code> is safely sourceable, and <code>--dry-run</code> no longer creates the persistent config directory while redacting credentials.</li>
+<li>The stale v2.0 setup wizard now forwards to the maintained configurator instead of advertising removed consultants and incomplete authentication checks.</li>
+<li><code>configure --interactive</code> no longer exits without saving the moment you press Enter to keep a value.</li>
+<li><code>configure --advanced</code> no longer writes wrong values: each prompt was reading the next parameter’s name instead of your answer.</li>
+<li><code>init</code> followed by <code>configure</code> no longer disables Codex, Claude, Mistral, and Qwen3 when only an API key is available — the starter template’s transport switches are commented out, so auto-detection stays in charge until you deliberately set one. An installed CLI still takes precedence over an API key.</li>
+<li>Configuration backups can no longer overwrite each other when two runs land in the same second.</li>
+</ul>
+<h2 id="2211---2026-07-16">[2.21.1] - 2026-07-16</h2>
+<h3 id="changed-24">Changed</h3>
+<ul>
+<li><strong>Kimi now runs on K3.</strong> The default and every quality tier use the <code>kimi-code/k3</code> alias. The query adapter now passes <code>--model "$KIMI_MODEL"</code> explicitly, so the configured project model is actually used instead of silently inheriting the user’s Kimi CLI default.</li>
+<li><strong>The supported panel is now 11 consultants.</strong> Kilo, Aider, Amp, and Ollama have been removed from the runtime roster, presets, routing, personas, doctor/preflight checks, debate and synthesis paths, CLI updater, configuration surfaces, tests, and current documentation. Their query adapters are no longer shipped in the npm package.</li>
+</ul>
+<h3 id="removed-3">Removed</h3>
+<ul>
+<li><strong>Kilo</strong> (<code>kilocode</code>, <code>ENABLE_KILO</code>, <code>KILO_*</code>).</li>
+<li><strong>Aider</strong> (<code>aider</code>, <code>ENABLE_AIDER</code>, <code>AIDER_*</code>).</li>
+<li><strong>Amp</strong> (<code>amp</code>, <code>ENABLE_AMP</code>, <code>AMP_*</code>).</li>
+<li><strong>Ollama</strong> (<code>ollama</code>, <code>ENABLE_OLLAMA</code>, <code>OLLAMA_*</code>, including the <code>local</code> preset).</li>
+</ul>
+<p>Existing environments may keep obsolete variables safely, but they are ignored. Remove them from user configuration; use one of the remaining 11 consultants instead.</p>
+<h2 id="2210---2026-07-14">[2.21.0] - 2026-07-14</h2>
+<h3 id="added-14">Added</h3>
+<ul>
+<li><strong>CLI-first transport (now the default principle).</strong> Any consultant that ships a CLI uses it by default; API mode is opt-in — for CLI-less models or an explicit <code>*_USE_API=true</code>. Amp and Claude are enabled by default.</li>
+<li><strong>MiniMax via the <code>mmx</code> CLI.</strong> MiniMax was API-only; it now runs through the <code>mmx</code> CLI by default. <code>MINIMAX_USE_API</code> auto-resolves to API mode only when <code>MINIMAX_API_KEY</code> is set, so a pre-2.21 API-only setup keeps working on upgrade.</li>
+<li><strong><code>ai-consultants update-clis</code>.</strong> For each CLI-backed consultant, detect how its CLI was installed (brew formula/cask, npm, uv, pipx, pip, self-updating binary, curl installer) and update it via the matching method. <code>--dry-run</code> and <code>--only &#x3C;cli></code> supported.</li>
+<li><strong>Stance-based semantic consensus</strong> (opt-in, <code>ENABLE_STANCE_CONSENSUS</code>). One LLM call enumerates a small set of mutually-exclusive stance options for the question; each consultant picks one verbatim; consensus becomes the plurality stance’s share of the panel — exact-match agreement, immune to paraphrasing. Degrades to the lexical cluster on any failure. Tunables: <code>STANCE_MAX_OPTIONS</code>, <code>STANCE_TIMEOUT</code>.</li>
+<li><strong>Reliability tracking</strong>, a <code>scripts/release.sh</code> version-bump automation, and an offline end-to-end integration test.</li>
+</ul>
+<h3 id="fixed-24">Fixed</h3>
+<ul>
+<li><strong>CLI adapters</strong> (surfaced by a full-panel smoke test): Gemini (<code>agy -p "$QUERY"</code>, not the broken <code>-p -</code>), Kimi (<code>--output-format stream-json</code> + a hardened extractor), and Kilo (strip the ```json fence) now return structured responses instead of degrading to the unstructured fallback.</li>
+<li><strong>Metadata pollution</strong> in voting / synthesis / peer-review: pipeline files (<code>voting.json</code>, <code>orchestration.json</code>, <code>stance_options.json</code>, …) are filtered out of every responses-dir glob, so they can no longer become phantom votes, peer-review reviewees, or synthesis inputs. Consensus is the largest agreeing cluster (single-linkage over Jaccard).</li>
+<li><strong>Orchestration</strong>: a lexical “stalled” is relabeled “stable” when the panel’s own per-round signal says positions stopped moving (now <code>set -e</code>-safe on a malformed round summary); a debate round’s refined stance is validated before it is grafted.</li>
+<li><strong>GLM and DeepSeek personas were transposed at runtime</strong> — each consultant ran under the other’s persona name and prompt.</li>
+<li><strong>Calibration</strong>: diagnosable peer-review failures + cost-only calibration path.</li>
+</ul>
+<h3 id="changed-25">Changed</h3>
+<ul>
+<li><code>npm test</code> now runs 18 suites. The v2.21 changeset was hardened by a multi-agent <code>/code-review max</code> pass.</li>
+</ul>
+<h2 id="2200---2026-07-12">[2.20.0] - 2026-07-12</h2>
+<h3 id="added-15">Added</h3>
+<ul>
+<li><strong>Capability-aware voting &#x26; panel composition (opt-in).</strong> Beyond category <em>fit</em> (the affinity matrix), <code>references/affinity.json</code> v1.1 adds a per-consultant <code>capabilities</code> score on three axes — intelligence, taste, cost — and a <code>category_axis</code> map naming the quality axis each category stresses. With <code>ENABLE_CAPABILITY_WEIGHTING</code>, a consultant’s vote weight becomes <code>confidence × (S + capability) / S</code> on that axis; with <code>ENABLE_CAPABILITY_ROUTING</code>, eligible consultants are ranked by <code>affinity + capability</code>. <code>cost</code> is a composition/budget axis only, never a vote weight (tie-break: intelligence > taste > cost). Both default off — behavior is unchanged until enabled.</li>
+<li><strong>Roster audit — uncorrelated value.</strong> <code>scripts/roster_audit.sh</code> (also <code>doctor.sh --roster-audit</code> and the <code>/ai-consultants:roster-audit</code> slash command) scores each consultant’s distinctiveness across past consultations: one that only echoes the panel is flagged redundant; one that often proposes a distinct approach earns its seat. Read-only.</li>
+<li><strong>Measured calibration — replace the heuristic seeds with data.</strong> <code>scripts/roster_calibrate.sh</code> (Tier A) derives intelligence/taste from blind peer-review sliced by axis, and cost from observed <code>tokens_used</code> × catalog rate. <code>scripts/taste_elo.sh</code> (Tier B) refines taste via pairwise LLM-as-judge Elo. <code>scripts/run_calibration.sh</code> + <code>references/calibration_benchmark.json</code> (50 balanced questions) collect the data; both calibrators can <code>--write</code> measured scores into <code>affinity.json</code>.</li>
+</ul>
+<h3 id="changed-26">Changed</h3>
+<ul>
+<li><code>npm test</code> now runs 12 suites (added <code>test_capability_weighting</code>, <code>test_roster_audit</code>, <code>test_roster_calibrate</code>, <code>test_taste_elo</code>).</li>
+</ul>
+<h3 id="notes">Notes</h3>
+<ul>
+<li>All new behavior is opt-in and additive; the shipped <code>capabilities</code> scores are subjective seeds (Claude/Codex grounded on the model-routing table, the rest heuristic) — run the calibration workflow to measure them for your panel.</li>
+</ul>
+<h2 id="2192---2026-07-11">[2.19.2] - 2026-07-11</h2>
+<h3 id="fixed-25">Fixed</h3>
+<ul>
+<li><strong>Cost tracking is no longer silently lost on a fresh install.</strong> <code>track_session_cost</code> wrote to <code>costs.json</code> in the XDG data dir (<code>~/.local/share/ai-consultants/</code>) without creating that directory first, so on a fresh install every session failed with “No such file or directory” and cumulative cost tracking never accumulated. The parent directory is now created on demand.</li>
+<li><strong>A corrupt <code>costs.json</code> now self-heals</strong> instead of wedging every future update: it is set aside as <code>costs.json.corrupt</code> and reset, rather than failing the <code>jq</code> update forever.</li>
+</ul>
+<h3 id="changed-27">Changed</h3>
+<ul>
+<li><strong><code>track_session_cost</code> is now concurrency-safe and strictly best-effort.</strong> The read-modify-write of <code>costs.json</code> is serialized with a portable <code>mkdir</code> lock (bounded 5s wait, then proceeds unlocked — bookkeeping must never block a run) and writes go through a unique <code>mktemp</code> temp file instead of a shared <code>.tmp</code> sibling. Every failure path degrades to a warning and returns success, so cost bookkeeping can never abort a consultation under <code>set -e</code>.</li>
+</ul>
+<h2 id="2191---2026-06-27">[2.19.1] - 2026-06-27</h2>
+<h3 id="fixed-26">Fixed</h3>
+<ul>
+<li><strong>Diagnosed Failures report table no longer breaks when a failure reason contains a <code>|</code></strong> (e.g. a CLI error mentioning a piped command). The pipe is now escaped in the markdown table.</li>
+<li><strong>Health gate is cache-aware</strong>: it no longer sends a billed ping to a consultant whose response is already cached.</li>
+</ul>
+<h3 id="changed-28">Changed</h3>
+<ul>
+<li>Internal cleanup from code review: a single <code>render_diagnosed_failure</code> helper now renders both the console and report surfaces (no duplicated decode); <code>ping_consultant</code> takes the already-lowercased id (one fewer fork per consultant). Documented the health gate’s pre-run startup latency.</li>
+</ul>
+<h2 id="2190---2026-06-26">[2.19.0] - 2026-06-26</h2>
+<h3 id="added-16">Added</h3>
+<ul>
+<li><strong>Quorum grading + Diagnosed Failures report.</strong> A consultation is now graded MET / DEGRADED / FAILED by how many consultants actually responded (vs <code>QUORUM_MIN</code>, default 2), and the report lists each failed consultant with its diagnosed reason — so a panel that silently shrank no longer presents as authoritative. <code>QUORUM_ACTION=stop</code> aborts below quorum (default <code>warn</code> continues with a banner).</li>
+<li><strong>Health gate (<code>ENABLE_HEALTH_GATE</code>, opt-in).</strong> Pings each selected consultant in parallel before the run and drops the non-responsive ones (installed-but-unauthenticated CLIs), so the panel only spends the full run on consultants that work. Costs one tiny query per consultant; <code>HEALTH_GATE_TIMEOUT</code> default 30s.</li>
+</ul>
+<h2 id="2180---2026-06-26">[2.18.0] - 2026-06-26</h2>
+<h3 id="added-17">Added</h3>
+<ul>
+<li><strong><code>doctor.sh --live</code></strong> — sends a real ping query to each enabled consultant and reports which actually respond, catching CLIs that are installed but not authenticated (the static check reports those as healthy). Opt-in; costs one tiny query per consultant. Timeout via <code>DOCTOR_LIVE_TIMEOUT</code> (default 45s).</li>
+</ul>
+<h3 id="changed-29">Changed</h3>
+<ul>
+<li><strong>Consultant failures now show why.</strong> Previously a failed consultant produced a bare “Failed” with its error discarded. The run now captures each consultant’s stderr and surfaces a one-line reason (e.g. “CLI not found”, “401 Unauthorized”) so you can tell <em>not installed</em> from <em>not authenticated</em> from <em>transient</em>. <code>run_query</code> also embeds the CLI’s real error in its failure log.</li>
+</ul>
+<h2 id="2172---2026-06-25">[2.17.2] - 2026-06-25</h2>
+<h3 id="security">Security</h3>
+<ul>
+<li><strong>Context files could read arbitrary absolute paths and send them to external AI providers.</strong> v2.17.1 widened <code>build_context.sh</code> to accept any absolute context path behind a small prefix blocklist that did not cover home secrets — so a context argument pointing at <code>~/.ssh/id_rsa</code>, <code>~/.aws/credentials</code>, <code>~/.netrc</code>, etc. would be read and forwarded to the consultant models. Context files are now restricted to relative in-tree paths or recognized temp roots (<code>/tmp</code>, <code>/private/tmp</code>, <code>$TMPDIR</code>); arbitrary absolute paths are rejected. The original macOS <code>/private/tmp</code> scratch-file fix is preserved. v2.17.1 was never published to npm; <strong>use 2.17.2</strong>.</li>
+</ul>
+<h3 id="fixed-27">Fixed</h3>
+<ul>
+<li><code>build_context.sh</code> output-path validation no longer short-circuits past the traversal/sensitive-path guards for <code>/tmp</code> outputs.</li>
+</ul>
+<h2 id="2171---2026-06-25">[2.17.1] - 2026-06-25</h2>
+<h3 id="fixed-28">Fixed</h3>
+<ul>
+<li><strong>Context files at absolute paths outside <code>/tmp</code> were silently dropped.</strong> <code>build_context.sh</code> only accepted relative paths or a literal <code>/tmp/*</code> prefix, so an absolute context file — notably macOS scratch files at <code>/private/tmp/...</code> (where <code>/tmp</code> is a symlink) — was skipped and a generic auto-context substituted, without the consultants ever receiving the intended context. Absolute paths are now accepted (the sensitive-path / traversal / null-byte guards still apply).</li>
+</ul>
+<h2 id="2170---2026-06-24">[2.17.0] - 2026-06-24</h2>
+<h3 id="changed-30">Changed</h3>
+<ul>
+<li><strong>Refreshed every consultant’s models (June 2026) across premium / standard / economy, with updated cost rates.</strong> CLI-based agents were verified against the installed CLIs; API/provider models and pricing were researched against official sources.
+<ul>
+<li>Codex → <code>gpt-5.5</code> / <code>gpt-5.4</code> / <code>gpt-5.4-nano</code></li>
+<li>Cursor → <code>composer-2.5</code> / <code>composer-2</code> / <code>gemini-3-flash</code></li>
+<li>DeepSeek → <code>deepseek-v4-pro</code> / <code>deepseek-v4-flash</code> (×2; <code>deepseek-chat</code>/<code>deepseek-reasoner</code> are being deprecated)</li>
+<li>GLM → <code>glm-5.2</code></li>
+<li>Grok → <code>grok-4.3</code> / <code>grok-4.1-fast</code> (×2)</li>
+<li>Qwen3 → <code>qwen3.7-max</code> (premium)</li>
+<li>Aider → <code>qwen3-coder:free</code></li>
+<li>Ollama → <code>hf.co/prithivMLmods/VibeThinker-3B-GGUF</code></li>
+<li>Claude, Gemini, Mistral, MiniMax, Kimi: verified current, unchanged.</li>
+</ul>
+</li>
+<li>Corrected several cost rates to verified provider pricing (notably <code>gpt-5.5</code>, which was understated). Set <code>ORCHESTRATION_MODE</code>/per-agent <code>*_MODEL</code> env vars to override any default.</li>
+</ul>
+<h2 id="2160---2026-06-22">[2.16.0] - 2026-06-22</h2>
+<h3 id="added-18">Added</h3>
+<ul>
+<li><strong>Dynamic orchestration.</strong> Instead of a fixed pipeline, a planner now picks an orchestration <em>shape</em> for each question and runs debate as a <strong>convergence loop</strong> — iterating until the panel’s answers converge rather than for a fixed number of rounds. Shapes: <code>quick</code> (simple questions, no debate), <code>converge</code> (debate to consensus), <code>adversarial</code> (security: forced critique round + anonymous peer-review refutation gate), <code>tournament</code> (compare approaches, then pick one winner), <code>exhaustive</code> (find-all: loop until no new angle surfaces).</li>
+<li>New settings: <code>ORCHESTRATION_MODE</code> (<code>auto</code> default / <code>fixed</code> / a specific shape), <code>CONVERGENCE_MAX_ROUNDS</code>, <code>CONVERGENCE_TARGET_CONSENSUS</code>, <code>CONVERGENCE_STALL_EPSILON</code>, <code>ENABLE_ADVERSARIAL_VERIFY</code>.</li>
+</ul>
+<h3 id="changed-31">Changed</h3>
+<ul>
+<li>The default deliberation is now adaptive (<code>ORCHESTRATION_MODE=auto</code>): complex or contested questions iterate further toward consensus, simple ones short-circuit. Budget limits (<code>MAX_SESSION_COST</code>) still cap every round. Set <code>ORCHESTRATION_MODE=fixed</code> to keep the previous fixed-round behavior exactly.</li>
+</ul>
+<h2 id="2151---2026-06-22">[2.15.1] - 2026-06-22</h2>
+<h3 id="fixed-29">Fixed</h3>
+<ul>
+<li><strong>Gemini responses are no longer degraded.</strong> The default model (<code>Gemini 3.1 Pro (High)</code>) returns its JSON wrapped in a <code>```json</code> markdown fence, which v2.15.0 failed to parse — every Gemini reply collapsed to a generic “Unstructured response” with confidence 5 and empty pros/cons. Responses are now de-fenced and parsed correctly (bare-JSON models like Flash are unaffected). The fix covers all paths that consume Gemini output: the main response processor, self-reflection/refinement, and synthesis.</li>
+<li><strong>Synthesis no longer hangs when Gemini (agy) is the synthesizer.</strong> The agy CLI was invoked without its non-interactive flag, so it launched an interactive session instead of reading the prompt; it now runs in print mode like the other synthesizers.</li>
+<li><strong>Gemini now works out-of-the-box for <code>npx</code> users.</strong> The Gemini consultant defaulted to the agy (Antigravity) CLI, which can’t be installed via npm and needs interactive OAuth — so fresh <code>npx ai-consultants</code> runs silently dropped Gemini even when <code>GEMINI_API_KEY</code> was set. The transport is now auto-resolved: with <code>GEMINI_USE_API</code> unset, API mode is selected when a <code>GEMINI_API_KEY</code> is present, CLI mode otherwise. An explicit <code>GEMINI_USE_API=true/false</code> is still honored.</li>
+<li><code>doctor</code> no longer reports a missing agy CLI as a failure when Gemini runs in API mode, and now suggests setting <code>GEMINI_API_KEY</code> (no CLI install needed) when agy is missing in CLI mode.</li>
+</ul>
+<h3 id="changed-32">Changed</h3>
+<ul>
+<li>Just export <code>GEMINI_API_KEY</code> to use Gemini over the API — no need to also set <code>GEMINI_USE_API=true</code>.</li>
+</ul>
+<h2 id="2150---2026-06-19">[2.15.0] - 2026-06-19</h2>
+<h3 id="changed-33">Changed</h3>
+<ul>
+<li><strong>Gemini consultant now runs on the Antigravity CLI (<code>agy</code>)</strong> instead of the deprecated Gemini CLI. Google retired the Gemini CLI for individual/Pro/Ultra users on 2026-06-18. The consultant is still called “Gemini” (The Architect) — only the underlying CLI changed. Install: <code>curl -fsSL https://antigravity.google/cli/install.sh | bash</code>, then run <code>agy</code> once to sign in (OAuth).</li>
+<li>Default Gemini models are now agy display names: premium <code>Gemini 3.1 Pro (High)</code>, standard <code>Gemini 3.5 Flash (High)</code>, economy <code>Gemini 3.5 Flash (Low)</code>. Override with <code>GEMINI_MODEL</code>.</li>
+<li>API mode (<code>GEMINI_USE_API=true</code>) is unchanged but now reads its model ID from the new <code>GEMINI_API_MODEL</code> (default <code>gemini-3.1-pro-preview</code>), keeping it independent of the CLI display name.</li>
+<li><code>cost_rates.json</code> / <code>COST_RATES.md</code> updated with the new Gemini model names (old API IDs retained for API mode and historical lookups).</li>
+</ul>
+<h3 id="migration">Migration</h3>
+<ul>
+<li>Install <code>agy</code> and sign in once (<code>agy</code>). No config changes needed if you use defaults. To pin a model, set <code>GEMINI_MODEL="Gemini 3.1 Pro (High)"</code> (see <code>agy models</code> for options). Enterprise users who still have the Gemini CLI can keep it by setting <code>GEMINI_CMD=gemini</code> and <code>GEMINI_MODEL=&#x3C;api-id></code>.</li>
+</ul>
+<h3 id="not-included">Not included</h3>
+<ul>
+<li>Running ai-consultants <em>from</em> Gemini CLI as a slash-command host is affected by the same deprecation but is <strong>not</strong> migrated in this release — only the Gemini consultant (the model being queried) was changed.</li>
+</ul>
+<h2 id="2142---2026-05-29">[2.14.2] - 2026-05-29</h2>
+<h3 id="changed-34">Changed</h3>
+<ul>
+<li>Claude premium tier upgraded from <code>claude-opus-4-7</code> to <code>claude-opus-4-8</code> (Opus 4.8 release). The default <code>CLAUDE_MODEL</code> and the <code>max_quality</code>/<code>premium</code> tier now resolve to <code>claude-opus-4-8</code>. Standard (<code>claude-sonnet-4-6</code>) and economy (<code>claude-haiku-4-5</code>) tiers unchanged.</li>
+<li><code>docs/cost_rates.json</code>: added a <code>claude-opus-4-8</code> entry; repointed Claude premium fallback + tier to it; moved <code>claude-opus-4-7</code> to the legacy block for historical cost lookups.</li>
+</ul>
+<h3 id="fixed-30">Fixed</h3>
+<ul>
+<li><strong>Cost reporting was ~1000× too high for premium/standard models.</strong> <code>lib/costs.sh</code> treats every rate in <code>cost_rates.json</code> as USD <strong>per-1K tokens</strong>, but the premium/standard blocks held <strong>per-MTok</strong> figures (e.g. <code>claude-opus-4-7: 5.00</code>, <code>gpt-5.5: 3.00</code>), so a ~1k-token Opus query was reported as <strong>$30</strong> instead of <strong>$0.03</strong>. Normalized the entire catalog (premium/standard/legacy/<code>default_rate</code>) to per-1K; economy entries (incl. <code>claude-haiku-4-5</code>) were already correct and unchanged. Added a <code>_comment_units</code> note + a regression test to prevent recurrence. <strong>If you tuned <code>MAX_SESSION_COST</code> or cost-aware-routing thresholds against the old inflated numbers, revisit them.</strong></li>
+<li><code>docs/COST_RATES.md</code>: Claude rows synced to the corrected per-1K values and relabeled to <code>claude-opus-4-8</code> (non-Claude rows may still lag; <code>cost_rates.json</code> is the source of truth).</li>
+<li>Stale short-alias defaults replaced with canonical IDs: <code>opus-4.6</code> in <code>scripts/query_claude.sh</code>, <code>.env.example</code>, <code>references/configuration.md</code>, and the README “Models by Tier” table → <code>claude-opus-4-8</code>; <code>sonnet-4.6</code> fallback in <code>lib/api.sh::build_anthropic_request</code> → <code>claude-sonnet-4-6</code>.</li>
+</ul>
+<h2 id="2141---2026-05-13">[2.14.1] - 2026-05-13</h2>
+<h3 id="added-19">Added</h3>
+<ul>
+<li><strong>Pre-commit hook</strong> (<code>scripts/hooks/pre-commit</code>) runs <code>shellcheck</code> on staged <code>.sh</code> files under <code>scripts/</code> using the exact CI invocation (<code>-S warning -x -e SC1091,SC1090,SC2034,SC2155</code>). Install once per checkout via <code>npm run install-hooks</code> (or <code>bash scripts/install-hooks.sh</code>). No-ops gracefully when <code>shellcheck</code> isn’t installed or no <code>.sh</code> files are staged. Bypass with <code>git commit --no-verify</code>.</li>
+<li><code>scripts/install-hooks.sh</code> installer: idempotent, backs up any pre-existing hook to <code>.git/hooks/pre-commit.backup.&#x3C;timestamp></code> (or <code>FORCE=1</code> to skip backup). Silent no-op outside a git checkout (safe for npm tarball consumption).</li>
+<li><code>package.json</code> scripts: <code>npm run install-hooks</code> and <code>npm run lint</code> (full-repo shellcheck for ad-hoc verification).</li>
+</ul>
+<h3 id="fixed-31">Fixed</h3>
+<ul>
+<li>CI fail in v2.14.0 due to shellcheck SC2164 in <code>scripts/test_context_optimization.sh:18</code> (<code>cd "$PROJECT_ROOT"</code> without <code>|| exit</code>). Fixed pre-release in the same v2.14.0 cycle; the pre-commit hook prevents this class of issue locally going forward.</li>
+</ul>
+<h2 id="2140---2026-05-13">[2.14.0] - 2026-05-13</h2>
+<h3 id="added-20">Added</h3>
+<ul>
+<li><strong>Context handoff: AST optimization now engages on the slash-command path</strong> — slash commands now pass file paths as positional args instead of inlining contents, letting <code>build_context.sh</code> run the previously-dead <code>lib/code_optimizer.sh</code> + <code>lib/chunking.sh</code> + <code>lib/symbol_map.sh</code> pipeline</li>
+<li><strong>File relevance tags</strong>: <code>path/to/file@PRIMARY</code> (focus) vs <code>path/to/file@CONTEXT</code> (ambient). Default <code>PRIMARY</code> when omitted; unknown tags fall back to <code>PRIMARY</code> with a <code>log_warn</code></li>
+<li><strong>Category-aware project tree</strong>: <code>build_context.sh</code> reads <code>QUESTION_CATEGORY</code> (already exported by <code>consult_all.sh</code>) and skips the 100-file project listing for <code>SECURITY</code>, <code>QUICK_SYNTAX</code>, <code>ALGORITHM</code>, <code>BUG_DEBUG</code>, <code>DATABASE</code>, <code>TESTING</code></li>
+<li><strong><code>FORCE_PROJECT_TREE=true</code></strong> env var to bypass the category filter</li>
+<li><strong><code>--query-file &#x3C;path></code></strong> flag on <code>consult_all.sh</code> for queries exceeding shell <code>ARG_MAX</code> (~256KB) or containing awkward quoting; conflicts with positional question</li>
+<li><strong>First test coverage</strong> for <code>lib/code_optimizer.sh</code> and <code>lib/chunking.sh</code> via new <code>scripts/test_context_optimization.sh</code> (17 assertions, 14 tests)</li>
+<li><strong>Test fixtures</strong>: <code>scripts/test_fixtures/context/{sample.py,sample.sh,sample.json,sample.txt}</code></li>
+<li><strong>Documentation</strong>: <code>docs/releases/v2.14.0.md</code> release note; <code>references/configuration.md</code> § Context Handoff section; <code>references/details.md</code> bash usage examples</li>
+</ul>
+<h3 id="changed-35">Changed</h3>
+<ul>
+<li>Slash commands <code>.{claude,codex,gemini}/commands/ai-consultants:{consult,debate}.md</code> rewritten: file detection delegated to agent reasoning (replaces hardcoded extension regex that missed <code>Makefile</code>/<code>Dockerfile</code>/dotfiles and false-matched URLs)</li>
+<li><code>.claude/commands/ai-consultants:consult.md</code> adds Claude-only note: don’t pass <code>Read</code> tool output (<code>N\t</code> line-number prefix) — <code>build_context.sh</code> reads files itself</li>
+<li><code>build_context.sh</code> help text documents <code>QUESTION_CATEGORY</code>, <code>FORCE_PROJECT_TREE</code>, and <code>@TAG</code> syntax</li>
+<li><code>consult_all.sh --help</code> documents <code>--query-file</code> and <code>@TAG</code> examples</li>
+<li>Total test assertions: 510 across 7 suites (was 493/6)</li>
+</ul>
+<h3 id="known-issues-documented-not-introduced">Known issues (documented, not introduced)</h3>
+<ul>
+<li><code>_supports_ast_extraction</code> declares 13 languages but <code>lib/code_optimizer.sh</code> has dedicated extractors for only 4 (Python, JS/TS, Bash, Go); the other 9 fall back to a <code>grep</code>-based generic extractor</li>
+</ul>
+<h2 id="2131---2026-05-04">[2.13.1] - 2026-05-04</h2>
+<h3 id="changed-36">Changed</h3>
+<ul>
+<li><strong>Perf</strong>: XDG roots resolved once at first <code>config.sh</code> source and exported as <code>_AI_CONSULTANTS_XDG_{CACHE,STATE,DATA}</code> — eliminates ~84 forks per consultation (~200-400ms on macOS)</li>
+<li><strong>Perf</strong>: <code>apply_launch_stagger()</code> switched from <code>awk</code> to pure-bash <code>printf</code> — 14 forks eliminated (~50-70ms)</li>
+<li><strong>Perf</strong>: <code>_count_available_consultants</code> entries pre-uppercased — 15 <code>to_upper</code> subshells eliminated per <code>--suggest-preset</code></li>
+<li><strong>DRY</strong>: extracted <code>scripts/lib/test_helpers.sh</code> (~80 LOC): <code>assert_eq</code>, <code>assert_match</code>, <code>run_test</code>, <code>test_summary</code>, <code>_reset_state</code></li>
+<li><strong>CI</strong>: <code>scripts/test_all.sh</code> now includes <code>test_suite.sh</code> (258 library assertions). Total: 6 suites, ~493 assertions</li>
+<li><strong>Style</strong>: 37 → 0 shellcheck warnings under project exclusions</li>
+</ul>
+<h3 id="fixed-32">Fixed</h3>
+<ul>
+<li><strong>Latent</strong>: 5 <code>lib/*.sh</code> files had hardcoded <code>/tmp/...</code> defaults that drifted from v2.13 XDG migration; now reference <code>${_AI_CONSULTANTS_XDG_*}</code></li>
+<li><strong>Latent</strong>: <code>lib/session.sh::cleanup_old_sessions</code> no longer hardcodes <code>/tmp/ai_consultations</code> — uses <code>$DEFAULT_OUTPUT_DIR_BASE</code></li>
+</ul>
+<h2 id="2130---2026-05-04">[2.13.0] - 2026-05-04</h2>
+<h3 id="added-21">Added</h3>
+<ul>
+<li><strong><code>doctor --suggest-preset --question "..."</code></strong> recommends a preset + strategy combo for a question, based on category classification and available consultant count</li>
+<li><strong><code>--json</code></strong> output mode for <code>--suggest-preset</code> (schema_version: 1, recommended_command field)</li>
+<li><strong><code>scripts/test_all.sh</code></strong> master runner aggregates all standalone test suites</li>
+<li><strong><code>scripts/test_doctor.sh</code></strong> with 31 assertions covering <code>--suggest-preset</code> paths</li>
+<li><strong><code>lib/user_config.sh::get_xdg_dir()</code></strong> helper as single source of truth for XDG resolution</li>
+</ul>
+<h3 id="changed-37">Changed</h3>
+<ul>
+<li><strong>XDG Base Directory compliance</strong> per freedesktop.org spec:
+<ul>
+<li><code>DEFAULT_OUTPUT_DIR_BASE</code>: <code>/tmp/ai_consultations</code> → <code>$XDG_CACHE_HOME/ai-consultants/consultations</code></li>
+<li><code>CACHE_DIR</code>, <code>RATE_LIMIT_DIR</code>, <code>CHUNK_TEMP_DIR</code> → <code>$XDG_CACHE_HOME/ai-consultants/{cache,ratelimit,chunks}</code></li>
+<li><code>SESSION_DIR</code> → <code>$XDG_STATE_HOME/ai-consultants/sessions</code></li>
+<li><code>COST_TRACKING_FILE</code> → <code>$XDG_DATA_HOME/ai-consultants/costs.json</code></li>
+</ul>
+</li>
+<li><strong><code>ENABLE_DEBATE_OPTIMIZATION</code></strong> promoted from opt-in to default <code>true</code> (debate auto-skipped when confidence spread is low; SECURITY/ARCHITECTURE remain mandatory)</li>
+<li>README slimmed: env-var section now points to <code>references/configuration.md</code></li>
+<li>Classifier failures surface explicitly as <code>Warning: classification of your question failed</code> instead of silent degradation to <code>GENERAL</code></li>
+</ul>
+<h3 id="fixed-33">Fixed</h3>
+<ul>
+<li><code>_count_available_consultants()</code> self-exclusion was dead code due to UPPERCASE vs MixedCase mismatch — now uppercases entry names; <code>INVOKING_AGENT</code> correctly drops 1</li>
+<li><code>_count_available_consultants()</code> now respects <code>ENABLE_*</code> flags</li>
+<li><code>--suggest-preset</code> short-circuits with install hint when fewer than 2 consultants are usable</li>
+<li><code>config.sh</code> hard-fails with <code>FATAL</code> if <code>lib/user_config.sh</code> is missing (was silently regressing to <code>/tmp/...</code>)</li>
+</ul>
+<h2 id="2120---2026-05-04">[2.12.0] - 2026-05-04</h2>
+<h3 id="added-22">Added</h3>
+<ul>
+<li><strong>Persistent user-config dir</strong> at <code>~/.config/ai-consultants/</code> (XDG-compliant; honors <code>AI_CONSULTANTS_CONFIG_DIR</code> and <code>XDG_CONFIG_HOME</code>)</li>
+<li><strong><code>lib/user_config.sh::load_user_config()</code></strong> sourced from <code>config.sh</code> before any defaults; idempotent via <code>_AI_CONSULTANTS_USER_CONFIG_LOADED</code> guard</li>
+<li><strong><code>ai-consultants init [--force]</code></strong> subcommand scaffolds <code>.env</code> (chmod 600) and <code>config.sh</code> template</li>
+<li><strong><code>.env</code> parser</strong> supports <code>KEY=value</code>, <code>export KEY=value</code>, comments, indented lines, quoted values</li>
+<li><code>lib/routing.sh::_load_affinity_data</code> searches <code>~/.config/ai-consultants/affinity.json</code> as well as bundled default</li>
+<li><code>doctor.sh::check_user_config()</code> reports dir presence, files loaded, and warns on lax <code>.env</code> permissions</li>
+<li><code>scripts/test_user_config.sh</code> (20 assertions, 11 tests) and <code>scripts/test_bin.sh</code> (10 assertions, 8 tests)</li>
+</ul>
+<h3 id="fixed-34">Fixed</h3>
+<ul>
+<li><code>.env</code> parser <strong>strips trailing CR</strong> so Windows CR-LF line endings don’t corrupt values</li>
+<li><code>bin/ai-consultants</code> no longer hardcodes version (was stuck at 2.10.0); reads from <code>config.sh</code> and validates as semver; falls back to <code>vunknown</code> on parse failure</li>
+<li><code>get_user_config_dir</code> returns empty + exit 1 when both <code>HOME</code> and <code>XDG_CONFIG_HOME</code> are unset (distroless containers)</li>
+<li><code>init</code> refuses to scaffold into symlinked dirs (security: prevents hostile symlink follow)</li>
+</ul>
+<h2 id="2110---2026-05-03">[2.11.0] - 2026-05-03</h2>
+<h3 id="changed-38">Changed</h3>
+<ul>
+<li><strong>Externalized routing affinity matrix</strong> from nested <code>case</code> statements in <code>lib/routing.sh</code> to <code>references/affinity.json</code> (~190 lines bash → 60 lines JSON)</li>
+<li>Custom matrix via <code>AFFINITY_FILE=/path/to/custom.json</code></li>
+<li><code>get_affinity()</code> uses two-level cache: file content cached on first read, per-(category, consultant) result cached after first lookup</li>
+<li><code>docs/SMART_ROUTING.md</code> rewritten: removed stale per-consultant table; documents JSON schema + override</li>
+</ul>
+<h3 id="added-23">Added</h3>
+<ul>
+<li><code>doctor.sh</code> adds 3 new checks: affinity file presence, JSON schema validity, coverage</li>
+<li><code>scripts/test_routing_parity.sh</code> golden parity test (144 assertions: 9 categories × 14 consultants + edge cases)</li>
+<li><code>scripts/test_set_e_safety.sh</code> static + dynamic lint for <code>((var++))</code> and <code>let var++</code> abort patterns</li>
+</ul>
+<h3 id="fixed-35">Fixed</h3>
+<ul>
+<li>Cache key uses leading-space delimiter to prevent substring collisions (e.g. <code>DEBUG|X=</code> would have falsely matched a cached <code>BUG_DEBUG|X=10</code>)</li>
+<li><code>consult_all.sh</code> ENABLE_PREFLIGHT path no longer swallows doctor output — diagnostic captured to tmpfile and dumped on failure</li>
+<li>Cleaned <code>((attempt++)) || true || true</code> artifacts in <code>lib/api.sh</code></li>
+</ul>
+<h2 id="2109---2026-05-03">[2.10.9] - 2026-05-03</h2>
+<h3 id="fixed-36">Fixed</h3>
+<ul>
+<li><strong>CRITICAL</strong>: silent failure of <code>preflight_check.sh</code> under <code>set -euo pipefail</code> — helper functions returned non-zero on missing CLIs without <code>|| true</code>, script aborted after “Checking CLI installations…” with no diagnostic</li>
+<li>Defensive sweep: 15 latent <code>((var++))</code> increments across <code>peer_review.sh</code>, <code>setup_wizard.sh</code>, <code>lib/api.sh</code>, <code>lib/common.sh</code>, <code>lib/reflection.sh</code>, <code>doctor.sh</code> protected with <code>|| true</code></li>
+<li>SC2059 unsafe printf format string in <code>lib/progress.sh</code></li>
+<li>SC2012 <code>ls | wc -l</code> race in <code>install.sh</code> (replaced with <code>find</code>)</li>
+</ul>
+<h3 id="deprecated">Deprecated</h3>
+<ul>
+<li><code>preflight_check.sh</code> deprecated in favor of <code>doctor.sh</code> (stale v2.0 script covering only 6/15 consultants); now a thin wrapper that prints a warning and execs <code>doctor.sh</code></li>
+</ul>
+<h3 id="changed-39">Changed</h3>
+<ul>
+<li>Ported <code>--suggest-config</code> from <code>preflight_check.sh</code> to <code>doctor.sh</code>; coverage expanded from 6 to 15 consultants (now also detects API-only consultants via API key presence)</li>
+<li><code>doctor.sh</code> accepts <code>--quick</code> flag as no-op for backward compat</li>
+</ul>
+<h2 id="2108---2026-05-03">[2.10.8] - 2026-05-03</h2>
+<h3 id="fixed-37">Fixed</h3>
+<ul>
+<li><code>docs/cost_rates.json</code> drift introduced by v2.10.6: <code>consultant_fallbacks</code> (used at runtime by <code>lib/costs.sh</code>) and <code>model_tiers</code> were still pointing at old IDs (<code>opus-4.6</code>, <code>gpt-5.3-codex</code>, <code>composer-1.5</code>, <code>deepseek-reasoner</code>, <code>sonnet-4.6</code>, <code>haiku-4.5</code>)</li>
+</ul>
+<h3 id="added-24">Added</h3>
+<ul>
+<li>Price entries for v2.10.6 model IDs: <code>claude-opus-4-7</code>, <code>claude-sonnet-4-6</code>, <code>claude-haiku-4-5</code>, <code>gpt-5.5</code>, <code>composer-2</code>, <code>deepseek-v4-pro</code>, <code>nvidia/nemotron-3-super-120b-a12b:free</code></li>
+<li>Moved superseded IDs to legacy section in cost catalog</li>
+</ul>
+<h3 id="changed-40">Changed</h3>
+<ul>
+<li>Synced <code>COST_RATES.md</code> tables to match</li>
+<li>Pricing for <code>nvidia/nemotron-3-super-120b-a12b:free</code> set to $0/$0 (OpenRouter free tier)</li>
+</ul>
+<h2 id="2107---2026-05-02">[2.10.7] - 2026-05-02</h2>
+<h3 id="changed-41">Changed</h3>
+<ul>
+<li><strong>Grok premium upgraded</strong> from <code>grok-4.20-0309-reasoning</code> to <code>grok-4.3</code> (released 2026-04-30)</li>
+<li>~75% cheaper input ($1.25/M vs $5.00/M), ~83% cheaper output ($2.50/M vs $15.00/M)</li>
+<li>1M-token context window</li>
+<li>Moved <code>grok-4.20-0309-reasoning</code> to legacy section</li>
+<li>Standard (<code>grok-3</code>) and economy (<code>grok-3-mini</code>) tiers unchanged</li>
+</ul>
+<h2 id="2106---2026-05-02">[2.10.6] - 2026-05-02</h2>
+<h3 id="changed-42">Changed</h3>
+<ul>
+<li><strong>Codex premium</strong> upgraded from <code>gpt-5.3-codex</code> to <code>gpt-5.5</code></li>
+<li><strong>Cursor premium</strong> upgraded from <code>composer-1.5</code> to <code>composer-2</code></li>
+<li><strong>DeepSeek premium</strong> upgraded from <code>deepseek-reasoner</code> to <code>deepseek-v4-pro</code></li>
+<li><strong>Aider</strong> switched provider: <code>gpt-5.3-codex</code> → <code>nvidia/nemotron-3-super-120b-a12b:free</code> (free tier)</li>
+<li><strong>Claude model IDs</strong> migrated from short aliases to canonical: <code>opus-4.6</code> → <code>claude-opus-4-7</code>, <code>sonnet-4.6</code> → <code>claude-sonnet-4-6</code>, <code>haiku-4.5</code> → <code>claude-haiku-4-5</code></li>
+</ul>
+<h3 id="fixed-38">Fixed</h3>
+<ul>
+<li>Kilo SIGPIPE abort under <code>set -euo pipefail</code> (replaced <code>head -c</code> with parameter expansion)</li>
+</ul>
+<h2 id="2105---2026-04-16">[2.10.5] - 2026-04-16</h2>
+<h3 id="changed-43">Changed</h3>
+<ul>
+<li><strong>Qwen3 premium</strong> upgraded from <code>qwen3.5-plus</code> to <code>qwen3.6-plus</code> ($0.325/$1.95 per M tokens)</li>
+<li><strong>Qwen3 standard</strong> tier now uses open-weight <code>qwen3.6-35b-a3b</code> (MoE, 35B total / 3B active)</li>
+<li>Refactored <code>get_economic_model()</code> to delegate to <code>get_model_for_tier()</code>, eliminating stale hardcoded mappings</li>
+<li>Moved <code>qwen3.5-plus</code> to legacy section in cost catalog</li>
+</ul>
+<h3 id="fixed-39">Fixed</h3>
+<ul>
+<li><code>AI_CONSULTANTS_VERSION</code> in <code>config.sh</code> (was stuck at <code>2.10.0</code>)</li>
+</ul>
+<h2 id="2104---2026-04-10">[2.10.4] - 2026-04-10</h2>
+<h3 id="changed-44">Changed</h3>
+<ul>
+<li><strong>GLM premium/standard</strong> upgraded from <code>glm-5</code> to <code>glm-5.1</code></li>
+<li>Collapsed 5-stage ANSI stripping pipeline into single sed invocation in <code>query_kilo.sh</code></li>
+<li>Updated <code>.env.example</code> GLM signup URL to <code>open.z.ai</code></li>
+</ul>
+<h3 id="fixed-40">Fixed</h3>
+<ul>
+<li>Kilo CLI hanging indefinitely in non-TTY mode (query via stdin instead of CLI argument)</li>
+<li>Kilo CLI picking wrong provider when other consultants’ API keys were in the environment</li>
+<li>Overly aggressive markdown fence filter in <code>query_kilo.sh</code> (only strips standalone ``` lines now)</li>
+</ul>
+<h2 id="2103---2026-03-21">[2.10.3] - 2026-03-21</h2>
+<h3 id="changed-45">Changed</h3>
+<ul>
+<li><strong>Grok premium</strong> upgraded to <code>grok-4.20-0309-reasoning</code> (replaces <code>grok-4-1-fast-reasoning</code>)</li>
+<li><strong>GLM API endpoint</strong> migrated from <code>open.bigmodel.cn</code> to <code>api.z.ai/api/coding/paas/v4</code></li>
+</ul>
+<h3 id="removed-4">Removed</h3>
+<ul>
+<li>Non-functional MiniMax highspeed models (<code>MiniMax-M2.7-highspeed</code>, <code>MiniMax-M2.5-highspeed</code>)</li>
+<li>Legacy <code>grok-beta</code> from cost catalog</li>
+</ul>
+<h3 id="fixed-41">Fixed</h3>
+<ul>
+<li>GLM URL fallback in <code>common.sh</code> and <code>configure.sh</code> (were still using old endpoint)</li>
+<li>Duplicate <code>minimax-m2.5</code> entry with conflicting rates in <code>cost_rates.json</code></li>
+</ul>
+<h2 id="2102---2026-03-19">[2.10.2] - 2026-03-19</h2>
+<h3 id="changed-46">Changed</h3>
+<ul>
+<li><strong>MiniMax M2.7 upgrade</strong>: premium/standard now use <code>MiniMax-M2.7</code>, economy uses <code>MiniMax-M2.5</code></li>
+</ul>
+<h2 id="2101---2026-03-15">[2.10.1] - 2026-03-15</h2>
+<h3 id="changed-47">Changed</h3>
+<ul>
+<li>Slash command quality improvements: file context handling, result presentation templates, error recovery guidance</li>
+<li><code>debate_round.sh</code> hardening: Amp/Kimi/MiniMax case entries, <code>((count++)) || true</code> fixes, <code>*</code> default case, stderr to <code>.err</code> files, ROUND_NUMBER validation</li>
+<li>Token efficiency: SKILL.md trimmed (-17%), <code>help.md</code> slimmed (-77%), content moved to <code>references/details.md</code></li>
+<li>Self-exclusion consistency in slash command descriptions</li>
+</ul>
+<h2 id="2100---2026-03-04">[2.10.0] - 2026-03-04</h2>
+<h3 id="added-25">Added</h3>
+<ul>
+<li><strong>MiniMax M2.5 API support</strong> via OpenAI-compatible endpoint</li>
+<li><strong>New consultant</strong>: MiniMax with “The Pragmatic Optimizer” persona (ID: 21)</li>
+<li><strong>npx distribution</strong>: <code>npx ai-consultants "question"</code> (zero dependencies)</li>
+<li>New <code>bin/ai-consultants</code> wrapper with symlink resolution and subcommand routing (<code>doctor</code>, <code>install</code>, <code>version</code>, <code>help</code>)</li>
+<li>New environment variables: <code>ENABLE_MINIMAX</code>, <code>MINIMAX_API_KEY</code>, <code>MINIMAX_MODEL</code>, <code>MINIMAX_API_URL</code></li>
+<li>Model tiers: premium (<code>MiniMax-M2.5</code>), standard (<code>MiniMax-M2.1</code>), economy (<code>MiniMax-M2.5</code>)</li>
+</ul>
+<h3 id="changed-48">Changed</h3>
+<ul>
+<li>Consultant count: 14 → 15</li>
+<li>npm package metadata updated (zero runtime dependencies preserved)</li>
+</ul>
+<h2 id="291---2026-02-05">[2.9.1] - 2026-02-05</h2>
+<h3 id="fixed-42">Fixed</h3>
+<ul>
+<li><strong>Gemini model names</strong>: Updated to real API model names
+<ul>
+<li>Premium: <code>gemini-3.1-pro-preview</code> (was fictional <code>gemini-3.0-pro</code>)</li>
+<li>Standard: <code>gemini-3-flash-preview</code> (was fictional <code>gemini-3.0-flash</code>)</li>
+<li>Economy: <code>gemini-2.0-flash</code> (was fictional <code>gemini-2.0-flash-lite</code>)</li>
+</ul>
+</li>
+</ul>
+<h2 id="290---2026-02-05">[2.9.0] - 2026-02-05</h2>
+<h3 id="added-26">Added</h3>
+<ul>
+<li><strong>Kimi CLI Consultant</strong>: New “The Eastern Sage” consultant via Kimi CLI (MoonshotAI)
+<ul>
+<li>New script: <code>scripts/query_kimi.sh</code></li>
+<li>Persona ID 20: Focus on holistic understanding, balance of perspectives, wisdom from diverse viewpoints</li>
+<li>CLI command: <code>kimi --quiet --input-format text</code> for non-interactive execution</li>
+<li>Installation: <code>curl -L code.kimi.com/install.sh | bash</code></li>
+<li>Configuration: <code>ENABLE_KIMI</code>, <code>KIMI_MODEL</code>, <code>KIMI_TIMEOUT</code>, <code>KIMI_CMD</code></li>
+<li>Default model: <code>kimi-code/kimi-for-coding</code></li>
+</ul>
+</li>
+</ul>
+<h3 id="changed-49">Changed</h3>
+<ul>
+<li>Updated <code>scripts/config.sh</code> with Kimi configuration</li>
+<li>Updated <code>scripts/lib/personas.sh</code> with PERSONA_KIMI (ID 20)</li>
+<li>Updated <code>scripts/lib/common.sh</code> with KIMI in known CLI agents and self-exclusion</li>
+<li>Updated <code>scripts/lib/routing.sh</code> with Kimi affinity scores (also added missing Amp/Claude)</li>
+<li>Updated <code>scripts/doctor.sh</code> with Kimi CLI checks</li>
+<li>Reordered <code>_consultant_map</code> in consult_all.sh to match <code>ALL_CONSULTANTS</code> order</li>
+<li>Consultant count: 13 → 14</li>
+</ul>
+<h2 id="281---2026-01-30">[2.8.1] - 2026-01-30</h2>
+<h3 id="fixed-43">Fixed</h3>
+<ul>
+<li><strong>CRITICAL</strong>: <code>((count++))</code> abort under <code>set -e</code> in consult_all.sh (SUCCESS_COUNT, ESCALATED_COUNT) and routing.sh</li>
+<li><strong>HIGH</strong>: Missing integer validation for jq confidence values in escalation</li>
+<li><strong>HIGH</strong>: Amp missing from <code>_consultant_map</code> in consult_all.sh</li>
+<li>Hardcoded <code>"claude"</code> in synthesize.sh now uses <code>$CLAUDE_CMD</code></li>
+</ul>
+<h3 id="security-1">Security</h3>
+<ul>
+<li>Variable name validation before <code>export</code> in escalation and cost-aware routing blocks</li>
+</ul>
+<h3 id="changed-50">Changed</h3>
+<ul>
+<li>Rewrote <code>query_kilo.sh</code> using <code>process_consultant_response()</code> (224 to 94 lines)</li>
+<li>Rewrote <code>query_cursor.sh</code> using <code>process_consultant_response()</code> (165 to 72 lines)</li>
+<li>Added <code>get_model_for_tier()</code> as single source of truth for model tier mappings (config.sh)</li>
+<li>Simplified <code>apply_model_tier()</code> to iterate via <code>get_model_for_tier()</code></li>
+<li>Simplified <code>get_premium_model()</code> to delegate to <code>get_model_for_tier()</code></li>
+<li>Removed hardcoded version numbers from script headers (source of truth: <code>config.sh:AI_CONSULTANTS_VERSION</code>)</li>
+</ul>
+<h2 id="280---2026-01-21">[2.8.0] - 2026-01-21</h2>
+<h3 id="added-27">Added</h3>
+<ul>
+<li><strong>Amp CLI Consultant</strong>: New “The Systems Thinker” consultant via Amp CLI
+<ul>
+<li>New script: <code>scripts/query_amp.sh</code></li>
+<li>Persona ID 19: Focus on system design, component interactions, emergent behaviors</li>
+<li>CLI command: <code>amp -x</code> for non-interactive execution</li>
+<li>Installation: <code>curl -fsSL https://ampcode.com/install.sh | bash</code></li>
+<li>Configuration: <code>ENABLE_AMP</code>, <code>AMP_MODEL</code>, <code>AMP_TIMEOUT</code>, <code>AMP_CMD</code></li>
+</ul>
+</li>
+</ul>
+<h3 id="changed-51">Changed</h3>
+<ul>
+<li>Updated <code>scripts/config.sh</code> with Amp configuration</li>
+<li>Updated <code>scripts/lib/personas.sh</code> with PERSONA_AMP (ID 19)</li>
+<li>Updated <code>scripts/lib/common.sh</code> with AMP in known CLI agents</li>
+<li>Updated <code>scripts/doctor.sh</code> with Amp CLI checks</li>
+<li>Consultant count: 12 → 13</li>
+</ul>
+<h2 id="270---2026-01-21">[2.7.0] - 2026-01-21</h2>
+<h3 id="added-28">Added</h3>
+<ul>
+<li><strong>Qwen CLI Support</strong>: CLI/API mode switching for Qwen3 consultant
+<ul>
+<li>New environment variable: <code>QWEN3_USE_API</code> (default: true for backward compatibility)</li>
+<li>CLI mode uses <code>qwen-code</code> via <code>qwen -p -</code> command</li>
+<li>Installation: <code>npm install -g @qwen-code/qwen-code@latest</code></li>
+<li>Configuration: <code>QWEN3_CMD</code> for custom command path</li>
+</ul>
+</li>
+</ul>
+<h3 id="changed-52">Changed</h3>
+<ul>
+<li>Rewrote <code>scripts/query_qwen3.sh</code> with CLI/API mode branching</li>
+<li>Moved Qwen3 from <code>API_CONSULTANTS</code> to <code>CLI_CONSULTANTS</code> array</li>
+<li>Updated <code>scripts/lib/common.sh</code> with Qwen3 in <code>KNOWN_CLI_AGENTS</code></li>
+<li>Updated <code>scripts/doctor.sh</code> with Qwen3 CLI mode checks</li>
+</ul>
+<h2 id="260---2026-01-20">[2.6.0] - 2026-01-20</h2>
+<h3 id="added-29">Added</h3>
+<ul>
+<li>
+<p><strong>CLI/API Mode Switching</strong>: Four consultants can switch between CLI and API mode</p>
+<ul>
+<li>Gemini: <code>GEMINI_USE_API</code> (CLI: <code>gemini</code>, API: Google AI)</li>
+<li>Codex: <code>CODEX_USE_API</code> (CLI: <code>codex</code>, API: OpenAI)</li>
+<li>Claude: <code>CLAUDE_USE_API</code> (CLI: <code>claude</code>, API: Anthropic)</li>
+<li>Mistral: <code>MISTRAL_USE_API</code> (CLI: <code>vibe</code>, API: Mistral)</li>
+</ul>
+</li>
+<li>
+<p><strong>New API Mode Library</strong>: <code>scripts/lib/api_query.sh</code></p>
+<ul>
+<li>Unified API query execution for all formats</li>
+<li>Request builders: OpenAI, Anthropic, Google AI</li>
+<li>Response parsers: All API formats</li>
+</ul>
+</li>
+<li>
+<p><strong>API Configuration</strong>: New environment variables</p>
+<ul>
+<li><code>*_USE_API</code> - Enable API mode (default: false)</li>
+<li><code>*_API_URL</code> - Custom API endpoints</li>
+<li><code>*_API_KEY</code> - API keys for authentication</li>
+</ul>
+</li>
+</ul>
+<h3 id="changed-53">Changed</h3>
+<ul>
+<li>Rewrote <code>scripts/query_gemini.sh</code> with CLI/API branching</li>
+<li>Rewrote <code>scripts/query_codex.sh</code> with CLI/API branching</li>
+<li>Rewrote <code>scripts/query_claude.sh</code> with CLI/API branching</li>
+<li>Rewrote <code>scripts/query_mistral.sh</code> with CLI/API branching</li>
+<li>Updated <code>scripts/lib/common.sh</code> with mode checking functions</li>
+<li>Updated <code>scripts/doctor.sh</code> with CLI/API mode diagnostics</li>
+</ul>
+<h2 id="250---2026-01-19">[2.5.0] - 2026-01-19</h2>
+<h3 id="added-30">Added</h3>
+<ul>
+<li>
+<p><strong>Model Quality Tiers</strong>: Three tiers for model selection</p>
+<ul>
+<li><code>premium</code> - Latest flagship models (default)</li>
+<li><code>standard</code> - Good quality at reasonable cost</li>
+<li><code>economy</code> - Optimized for speed and low cost</li>
+</ul>
+</li>
+<li>
+<p><strong>Quality Tier Presets</strong>: New presets using model tiers</p>
+<ul>
+<li><code>max_quality</code> - All + premium models + debate</li>
+<li><code>medium</code> - 4 consultants + standard models</li>
+<li><code>fast</code> - 2 consultants + economy models</li>
+</ul>
+</li>
+<li>
+<p><strong>New function</strong>: <code>apply_model_tier()</code> for programmatic tier selection</p>
+</li>
+</ul>
+<h3 id="changed-54">Changed</h3>
+<ul>
+<li>
+<p><strong>Premium Model Defaults</strong> (January 2026):</p>
+<ul>
+<li>Claude: <code>claude-opus-4-5-20251124</code></li>
+<li>Gemini: <code>gemini-3.1-pro-preview</code></li>
+<li>Codex: <code>gpt-5.2-codex</code></li>
+<li>Mistral: <code>mistral-large-3</code></li>
+<li>DeepSeek: <code>deepseek-reasoner</code></li>
+<li>GLM: <code>glm-4.7</code></li>
+<li>Grok: <code>grok-4.20-0309-reasoning</code></li>
+<li>Qwen3: <code>qwen3-max</code></li>
+<li>Aider: <code>gpt-5.2-codex</code></li>
+<li>Ollama: <code>qwen2.5-coder:32b</code></li>
+</ul>
+</li>
+<li>
+<p>Updated <code>docs/cost_rates.json</code> with tier-based model rates</p>
+</li>
+</ul>
+<h2 id="240---2026-01-18">[2.4.0] - 2026-01-18</h2>
+<h3 id="added-31">Added</h3>
+<ul>
+<li>
+<p><strong>Budget Enforcement</strong> (opt-in): Configurable cost limits</p>
+<ul>
+<li>New environment variable: <code>ENABLE_BUDGET_LIMIT</code> (default: false)</li>
+<li><code>BUDGET_ACTION</code> - Action on budget exceeded: <code>warn</code> or <code>stop</code></li>
+<li>Budget checks at 4 enforcement points:
+<ol>
+<li>Before Round 1 - Check estimated cost</li>
+<li>After Round 1 - Check actual cost vs warning threshold</li>
+<li>Before Debate - Check cumulative + debate estimate</li>
+<li>Before Synthesis - Check cumulative + synthesis estimate</li>
+</ol>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>New functions in <code>lib/costs.sh</code></strong>:</p>
+<ul>
+<li><code>is_budget_enabled()</code> - Check if budget enforcement is enabled</li>
+<li><code>enforce_budget()</code> - Check budget and take action</li>
+<li><code>get_remaining_budget()</code> - Get remaining budget</li>
+<li><code>format_budget_status()</code> - Format budget status for display</li>
+<li><code>estimate_phase_cost()</code> - Estimate cost for a specific phase</li>
+</ul>
+</li>
+<li>
+<p><strong>New slash command</strong>: <code>/ai-consultants:config-budget</code></p>
+</li>
+</ul>
+<h3 id="changed-55">Changed</h3>
+<ul>
+<li>Updated <code>scripts/doctor.sh</code> to display budget status</li>
+<li>Updated <code>scripts/consult_all.sh</code> with budget enforcement points</li>
+</ul>
+<h2 id="230---2026-01-17">[2.3.0] - 2026-01-17</h2>
+<h3 id="added-32">Added</h3>
+<h4 id="token-cost-optimization">Token Cost Optimization</h4>
+<ul>
+<li>
+<p><strong>Semantic Caching</strong>: Cache responses based on query + context fingerprints</p>
+<ul>
+<li>New library: <code>scripts/lib/cache.sh</code></li>
+<li>Functions: <code>generate_fingerprint()</code>, <code>check_cache()</code>, <code>store_cache()</code>, <code>cleanup_cache()</code></li>
+<li>Configuration: <code>ENABLE_SEMANTIC_CACHE</code>, <code>CACHE_TTL_HOURS</code>, <code>CACHE_DIR</code></li>
+<li>Estimated savings: 15-25% on repeated/similar queries</li>
+</ul>
+</li>
+<li>
+<p><strong>Response Length Limits</strong>: Limit output tokens by question category</p>
+<ul>
+<li>Functions: <code>get_max_response_tokens()</code>, <code>is_response_limits_enabled()</code></li>
+<li>Configuration: <code>ENABLE_RESPONSE_LIMITS</code> (default: false, opt-in)</li>
+<li>Per-category limits: <code>MAX_RESPONSE_TOKENS_BY_CATEGORY</code></li>
+<li>Estimated savings: 15-25% on output tokens</li>
+</ul>
+</li>
+<li>
+<p><strong>Cost-Aware Routing</strong>: Route simple queries to cheaper models</p>
+<ul>
+<li>Functions: <code>select_consultants_cost_aware()</code>, <code>get_cost_aware_model()</code>, <code>calculate_query_complexity()</code></li>
+<li>Configuration: <code>ENABLE_COST_AWARE_ROUTING</code>, <code>COMPLEXITY_THRESHOLD_SIMPLE</code>, <code>COMPLEXITY_THRESHOLD_MEDIUM</code></li>
+<li>Model tier functions: <code>get_economic_model()</code>, <code>get_model_tier()</code></li>
+<li>Estimated savings: 30-50% on simple queries</li>
+</ul>
+</li>
+<li>
+<p><strong>Fallback Escalation</strong>: Re-query with premium model if confidence too low</p>
+<ul>
+<li>Functions: <code>needs_escalation()</code>, <code>get_premium_model()</code>, <code>get_escalation_summary()</code></li>
+<li>Configuration: <code>FALLBACK_CONFIDENCE_THRESHOLD</code> (default: 7)</li>
+<li>Prevents low-quality responses from economic models</li>
+</ul>
+</li>
+<li>
+<p><strong>Debate Optimization</strong>: Skip debate if confidence spread is low</p>
+<ul>
+<li>Functions: <code>should_skip_debate()</code>, <code>is_mandatory_debate_category()</code>, <code>extract_compact_summary()</code></li>
+<li>Configuration: <code>ENABLE_DEBATE_OPTIMIZATION</code> (default: false, opt-in)</li>
+<li><code>DEBATE_CONFIDENCE_SPREAD_THRESHOLD</code> (default: 2)</li>
+<li>Category exceptions: SECURITY and ARCHITECTURE always trigger debate</li>
+<li>Estimated savings: 40-60% on debate tokens</li>
+</ul>
+</li>
+<li>
+<p><strong>Quality Monitoring</strong>: Track optimization metrics</p>
+<ul>
+<li>New output file: <code>optimization_metrics.json</code></li>
+<li>Logs: cache hits, consensus score, optimization settings</li>
+<li>Debug mode: <code>LOG_LEVEL=DEBUG</code> shows detailed metrics</li>
+</ul>
+</li>
+<li>
+<p><strong>Compact Reports</strong>: Shorter reports by default</p>
+<ul>
+<li>Configuration: <code>ENABLE_COMPACT_REPORT</code> (default: true)</li>
+<li><code>REPORT_MAX_JSON_LINES</code> for truncation control</li>
+</ul>
+</li>
+</ul>
+<h3 id="changed-56">Changed</h3>
+<ul>
+<li><code>scripts/config.sh</code> - Added v2.3 token optimization settings, version 2.3.0</li>
+<li><code>scripts/lib/costs.sh</code> - Added response limits and complexity scoring</li>
+<li><code>scripts/lib/routing.sh</code> - Added cost-aware routing, fallback escalation, <code>_ensure_costs_sourced()</code> helper</li>
+<li><code>scripts/debate_round.sh</code> - Added debate optimization, category exceptions</li>
+<li><code>scripts/consult_all.sh</code> - Integrated cache, quality monitoring with <code>jq</code> for JSON generation</li>
+</ul>
+<h3 id="improved">Improved</h3>
+<ul>
+<li>Extracted <code>_ensure_costs_sourced()</code> helper to reduce code duplication</li>
+<li>Replaced echo-based JSON with <code>jq -n</code> for cleaner generation</li>
+<li>Conservative defaults for risky optimizations (opt-in)</li>
+</ul>
+<h2 id="220---2026-01-16">[2.2.0] - 2026-01-16</h2>
+<h3 id="added-33">Added</h3>
+<h4 id="quick-configuration">Quick Configuration</h4>
+<ul>
+<li>
+<p><strong>Configuration Presets</strong>: Use <code>--preset</code> flag for instant setup</p>
+<ul>
+<li><code>minimal</code> (2 models): Gemini + Codex - fast, cheap</li>
+<li><code>balanced</code> (4 models): + Mistral + Kilo - good coverage</li>
+<li><code>thorough</code> (5 models): + Cursor - comprehensive</li>
+<li><code>high-stakes</code> (all + debate): maximum rigor</li>
+<li><code>local</code> (Ollama): full privacy, zero API cost</li>
+<li><code>security</code> (security-focused): + debate for security reviews</li>
+<li><code>cost-capped</code> (budget-conscious): minimal API costs</li>
+</ul>
+</li>
+<li>
+<p><strong>Doctor Command</strong>: Diagnostic and auto-fix tool (<code>scripts/doctor.sh</code>)</p>
+<ul>
+<li><code>--fix</code> flag to auto-correct common issues</li>
+<li><code>--json</code> for machine-readable output</li>
+<li><code>--verbose</code> for detailed diagnostics</li>
+<li>Checks CLIs, API keys, Ollama server, configuration</li>
+</ul>
+</li>
+</ul>
+<h4 id="synthesis-and-analysis">Synthesis and Analysis</h4>
+<ul>
+<li>
+<p><strong>Multiple Synthesis Strategies</strong>: Use <code>--strategy</code> flag</p>
+<ul>
+<li><code>majority</code> - most common answer wins (default)</li>
+<li><code>risk_averse</code> - weight conservative responses higher</li>
+<li><code>security_first</code> - prioritize security considerations</li>
+<li><code>cost_capped</code> - prefer simpler solutions</li>
+<li><code>compare_only</code> - no recommendation, just comparison</li>
+</ul>
+</li>
+<li>
+<p><strong>Confidence Intervals</strong>: Statistical confidence ranges</p>
+<ul>
+<li>Shows “8 ± 1.2” instead of just “8”</li>
+<li>New functions: <code>calculate_confidence_stddev()</code>, <code>calculate_confidence_interval()</code>, <code>format_confidence_range()</code></li>
+<li>High variance detection with <code>has_high_confidence_variance()</code></li>
+</ul>
+</li>
+<li>
+<p><strong>Anonymous Peer Review</strong>: Unbiased evaluation (<code>scripts/peer_review.sh</code>)</p>
+<ul>
+<li>Anonymizes all responses before review</li>
+<li>Each consultant ranks others without knowing source</li>
+<li>Aggregates peer scores to identify strongest arguments</li>
+<li>De-anonymizes in final report with peer scores</li>
+</ul>
+</li>
+</ul>
+<h4 id="local-model-support">Local Model Support</h4>
+<ul>
+<li><strong>Ollama Integration</strong>: Run consultations 100% locally
+<ul>
+<li>New script: <code>scripts/query_ollama.sh</code></li>
+<li>Configuration: <code>ENABLE_OLLAMA</code>, <code>OLLAMA_MODEL</code>, <code>OLLAMA_HOST</code></li>
+<li>Default model: llama3.2</li>
+<li>Zero API cost, full privacy</li>
+<li>Use with <code>--preset local</code></li>
+</ul>
+</li>
+</ul>
+<h4 id="reliability-features">Reliability Features</h4>
+<ul>
+<li>
+<p><strong>Panic Button Mode</strong>: Automatic rigor when uncertainty detected</p>
+<ul>
+<li>Triggers on low average confidence (&#x3C; 5)</li>
+<li>Triggers on uncertainty keywords (“maybe”, “not sure”, “unclear”)</li>
+<li>Automatically adds debate rounds</li>
+<li>Configuration: <code>ENABLE_PANIC_MODE</code>, <code>PANIC_CONFIDENCE_THRESHOLD</code></li>
+</ul>
+</li>
+<li>
+<p><strong>Judge Step</strong>: Overconfidence detection in self-reflection</p>
+<ul>
+<li>New functions: <code>judge_response()</code>, <code>judge_all_responses()</code></li>
+<li>Heuristic fallback: <code>heuristic_overconfidence_check()</code></li>
+<li>Flags responses where confidence exceeds evidence quality</li>
+</ul>
+</li>
+</ul>
+<h4 id="installation">Installation</h4>
+<ul>
+<li><strong>One-liner Install</strong>: <code>curl -fsSL https://...install.sh | bash</code></li>
+<li><strong>Install script improvements</strong>:
+<ul>
+<li><code>--update</code> flag to update existing installation</li>
+<li><code>--uninstall</code> flag to remove completely</li>
+<li><code>--branch</code> flag to install from specific branch</li>
+<li><code>--no-commands</code> to skip slash command installation</li>
+</ul>
+</li>
+</ul>
+<h4 id="new-scripts">New Scripts</h4>
+<ul>
+<li><code>scripts/doctor.sh</code> - Diagnostic and auto-fix tool</li>
+<li><code>scripts/peer_review.sh</code> - Anonymous peer review system</li>
+<li><code>scripts/query_ollama.sh</code> - Ollama local model wrapper</li>
+</ul>
+<h3 id="changed-57">Changed</h3>
+<ul>
+<li><code>scripts/config.sh</code> - Added presets, Ollama config, panic mode settings</li>
+<li><code>scripts/consult_all.sh</code> - Added <code>--preset</code>, <code>--strategy</code>, <code>--help</code> flags</li>
+<li><code>scripts/synthesize.sh</code> - Multiple synthesis strategies</li>
+<li><code>scripts/lib/voting.sh</code> - Confidence intervals</li>
+<li><code>scripts/lib/common.sh</code> - Panic mode detection functions</li>
+<li><code>scripts/lib/reflection.sh</code> - Judge step functions</li>
+<li><code>scripts/install.sh</code> - One-liner support and new flags</li>
+</ul>
+<h3 id="improved-1">Improved</h3>
+<ul>
+<li>Helper functions to reduce code duplication</li>
+<li>Simplified strategy instructions (single-line format)</li>
+<li>Compact consultant selection loop</li>
+<li>Better error messages and diagnostics</li>
+</ul>
+<h2 id="210---2026-01-15">[2.1.0] - 2026-01-15</h2>
+<h3 id="added-34">Added</h3>
+<ul>
+<li><strong>New CLI consultant</strong>: Aider (The Pair Programmer)</li>
+<li><strong>New API consultant</strong>: DeepSeek (The Code Specialist)</li>
+<li>Added 2 new personas (17 total)</li>
+<li>Token optimization with AST-based extraction (~60% savings)</li>
+</ul>
+<h3 id="changed-58">Changed</h3>
+<ul>
+<li>Simplified <code>consult_all.sh</code> with convention-based script discovery</li>
+<li>Updated routing affinities for all 10 consultants</li>
+<li>Improved token usage with semantic chunking</li>
+</ul>
+<h2 id="200---2026-01-14">[2.0.0] - 2026-01-14</h2>
+<h3 id="added-35">Added</h3>
+<h4 id="core-features">Core Features</h4>
+<ul>
+<li>
+<p><strong>Personas System</strong>: Each consultant has a unique persona</p>
+<ul>
+<li>Gemini: The Architect (design, scalability, enterprise)</li>
+<li>Codex: The Pragmatist (simplicity, quick wins, YAGNI)</li>
+<li>Mistral: The Devil’s Advocate (problems, edge cases, vulnerabilities)</li>
+<li>Kilo: The Innovator (creativity, unconventional approaches)</li>
+</ul>
+</li>
+<li>
+<p><strong>Confidence Scoring</strong>: 1-10 score on every response with reasoning</p>
+</li>
+<li>
+<p><strong>Auto-Synthesis</strong>: Automatic synthesis with Claude CLI</p>
+<ul>
+<li>Confidence-weighted recommendation</li>
+<li>Consultant comparison table</li>
+<li>Risk assessment</li>
+<li>Action items</li>
+</ul>
+</li>
+<li>
+<p><strong>Multi-Agent Debate (MAD)</strong>: Cross-critique between consultants</p>
+<ul>
+<li>Multiple deliberation rounds</li>
+<li>Position change tracking</li>
+<li>Critiques categorized by severity</li>
+</ul>
+</li>
+<li>
+<p><strong>Smart Routing</strong>: Consultant selection by category</p>
+<ul>
+<li>10x4 affinity matrix (categories x consultants)</li>
+<li>10 categories: CODE_REVIEW, BUG_DEBUG, ARCHITECTURE, etc.</li>
+<li>Routing modes: full, selective, single</li>
+<li>Optimized timeouts per category</li>
+</ul>
+</li>
+<li>
+<p><strong>Session Management</strong>: Follow-up and continuity</p>
+<ul>
+<li>Persistent session state</li>
+<li>Follow-up to all or single consultant</li>
+<li>Session history</li>
+</ul>
+</li>
+<li>
+<p><strong>Cost Tracking</strong>: Budget estimation and management</p>
+<ul>
+<li>Per-model rates (input/output)</li>
+<li>Configurable budget limits</li>
+<li>Warning thresholds</li>
+<li>Cumulative cost reports</li>
+</ul>
+</li>
+</ul>
+<h4 id="new-scripts-1">New Scripts</h4>
+<ul>
+<li><code>scripts/preflight_check.sh</code> - CLI and API health check</li>
+<li><code>scripts/classify_question.sh</code> - Question classifier</li>
+<li><code>scripts/synthesize.sh</code> - Auto-synthesis engine</li>
+<li><code>scripts/debate_round.sh</code> - MAD implementation</li>
+<li><code>scripts/followup.sh</code> - Follow-up queries</li>
+<li><code>scripts/build_context.sh</code> - Context builder</li>
+</ul>
+<h4 id="new-libraries">New Libraries</h4>
+<ul>
+<li><code>scripts/lib/personas.sh</code> - Persona definitions</li>
+<li><code>scripts/lib/schema.json</code> - JSON output schema v2.0</li>
+<li><code>scripts/lib/voting.sh</code> - Confidence-weighted voting</li>
+<li><code>scripts/lib/routing.sh</code> - Smart routing</li>
+<li><code>scripts/lib/session.sh</code> - Session management</li>
+<li><code>scripts/lib/costs.sh</code> - Cost tracking</li>
+<li><code>scripts/lib/progress.sh</code> - Interactive progress bars</li>
+<li><code>scripts/lib/reflection.sh</code> - Self-reflection (experimental)</li>
+</ul>
+<h4 id="documentation-2">Documentation</h4>
+<ul>
+<li><code>.env.example</code> - Environment variables template</li>
+<li><code>CONTRIBUTING.md</code> - Contributing guide</li>
+<li><code>docs/COST_RATES.md</code> - Rates documentation</li>
+<li><code>docs/SMART_ROUTING.md</code> - Routing documentation</li>
+<li><code>docs/JSON_SCHEMA.md</code> - Output schema documentation</li>
+</ul>
+<h3 id="changed-59">Changed</h3>
+<ul>
+<li><strong>Output Format</strong>: Structured JSON with defined schema</li>
+<li><strong>Report Template</strong>: Updated for v2.0 with synthesis and debate</li>
+<li><strong>Query Wrappers</strong>: All updated for personas and JSON output</li>
+<li><strong>Config</strong>: Centralized with new feature flags</li>
+</ul>
+<h3 id="breaking-changes-1">Breaking Changes</h3>
+<ul>
+<li>Output files now in JSON format (no longer TXT for some consultants)</li>
+<li>Report includes Synthesis section instead of empty template</li>
+<li>Response schema modified (see <code>docs/JSON_SCHEMA.md</code>)</li>
+</ul>
+<h2 id="100---2025-12-01">[1.0.0] - 2025-12-01</h2>
+<h3 id="added-36">Added</h3>
+<ul>
+<li>Initial release</li>
+<li>4 consultants: Gemini, Codex, Mistral, Kilo</li>
+<li>Parallel queries</li>
+<li>Markdown report</li>
+<li>Automatic context from files</li>
+</ul>
+<hr>
+<h2 id="types-of-changes">Types of Changes</h2>
+<ul>
+<li><code>Added</code> for new features</li>
+<li><code>Changed</code> for changes in existing functionality</li>
+<li><code>Deprecated</code> for soon-to-be removed features</li>
+<li><code>Removed</code> for now removed features</li>
+<li><code>Fixed</code> for bug fixes</li>
+<li><code>Security</code> for vulnerabilities</li>
+</ul></article><p><a href="/docs/snapshot.json">Snapshot provenance</a> · Published npm version: 5.9.0</p></main></body></html>

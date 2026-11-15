@@ -1,0 +1,951 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart routing — ai-consultants</title>
+    <meta name="description" content="Released model documentation for Fable 5.2, Gemini 4 Hydrogen and Carbon, measured with Artificial Analysis v5.0.1.">
+    <meta name="theme-color" content="#000000">
+
+    <!-- SEO -->
+    <link rel="canonical" href="https://aiconsultants.sh/docs/routing.html">
+    <meta name="robots" content="index, follow">
+    <meta name="author" content="Matteo Scurati">
+    <meta name="keywords" content="ai-consultants, multiple AI models, second opinion, design review, threat modeling, Claude Code skill, Codex, Gemini, Mistral, npx ai-consultants">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://aiconsultants.sh/docs/routing.html">
+    <meta property="og:site_name" content="ai-consultants">
+    <meta property="og:title" content="Smart routing — ai-consultants">
+    <meta property="og:description" content="Released model integration and documentation.">
+    <meta property="og:image" content="https://aiconsultants.sh/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="A real ai-consultants run: one question, answers from Gemini, Codex and Mistral, and one merged list of risks and edge cases tagged with the models that raised each.">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Smart routing — ai-consultants">
+    <meta name="twitter:description" content="Released model integration and documentation.">
+    <meta name="twitter:image" content="https://aiconsultants.sh/og-image.png">
+    <meta name="twitter:image:alt" content="A real ai-consultants run: one question, answers from Gemini, Codex and Mistral, and one merged list of risks and edge cases tagged with the models that raised each.">
+
+    <!-- JSON-LD Structured Data (softwareVersion is rewritten at release by sync_site.sh) -->
+    
+
+    <script defer src="https://cloud.umami.is/script.js" data-website-id="ed9fc15a-2479-44ad-b6ff-e32001f8ea1d"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&amp;family=Geist+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet">
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <script>
+        // Motion is opt-in: only without reduced motion, and dropped if the page script never runs
+        if (!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches)) {
+            document.documentElement.classList.add('motion');
+            setTimeout(function () { if (!window.__aicMotion) document.documentElement.classList.remove('motion'); }, 3000);
+        }
+    </script>
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            color-scheme: dark;
+            --bg: #000000;
+            --bg-elevated: #181818;
+            --bg-card: #1F1F1F;
+            --border: #1F1F1F;
+            --border-light: #272727;
+            --border-strong: #313131;
+            --border-bright: #e6e6e6;
+            --text: #f0f0f0;
+            --text-body: #c8c8c8;
+            --text-secondary: #b0b0b0;
+            --text-muted: #9a9a9a;      /* about 7:1 on --bg */
+            --accent: #e9b250;          /* one meaning only: raised by only one model */
+            --font-body: 'Geist', system-ui, -apple-system, sans-serif;
+            --font-mono: 'Geist Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+            --gutter: 24px;
+            /* Motion: --ease for UI states, --e/--e2/--io for the load and story choreography */
+            --ease: cubic-bezier(0.22, 1, 0.36, 1);
+            --e: cubic-bezier(0.16, 1, 0.3, 1);
+            --e2: cubic-bezier(0.33, 1, 0.68, 1);
+            --io: cubic-bezier(0.65, 0, 0.35, 1);
+        }
+
+        html { scroll-behavior: smooth; scroll-padding-top: 96px; -webkit-text-size-adjust: 100%; }
+
+        body {
+            font-family: var(--font-body);
+            font-size: 16px;
+            line-height: 24px;
+            background: var(--bg);
+            color: var(--text-body);
+            -webkit-font-smoothing: antialiased;
+            overflow-wrap: break-word;
+        }
+
+        h1, h2, h3 { text-wrap: balance; }
+        p, li, dd { text-wrap: pretty; }
+
+        a { color: var(--text); text-underline-offset: 3px; transition: color 0.3s var(--ease), border-color 0.3s var(--ease); }
+        strong { color: var(--text); font-weight: 600; }
+
+        code {
+            font-family: var(--font-mono);
+            font-size: 0.875em;
+            color: var(--text);
+            background: var(--bg-elevated);
+            border: 1px solid var(--border-light);
+            padding: 0 4px;
+            overflow-wrap: anywhere;
+        }
+
+        :focus-visible { outline: 2px solid var(--text); outline-offset: 4px; }
+
+        .sr-only {
+            position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+            overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
+        }
+
+        .skip-link {
+            position: absolute; left: 16px; top: -48px; z-index: 300;
+            background: var(--text); color: var(--bg);
+            font-family: var(--font-mono); font-size: 14px; line-height: 20px;
+            padding: 8px 12px; text-decoration: none;
+        }
+        .skip-link:focus { top: 12px; }
+
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 var(--gutter); }
+        .prose { max-width: 680px; }
+
+        /* ——— NAV: floats off the top edge, sized to its content ——— */
+        .site-nav {
+            position: sticky; top: 12px; z-index: 100;
+            margin-top: 12px;
+            padding: 0 var(--gutter);
+        }
+
+        .nav-inner {
+            position: relative; isolation: isolate;
+            display: flex; align-items: center; justify-content: space-between; gap: 48px;
+            width: fit-content; max-width: 100%;
+            height: 56px; margin: 0 auto; padding: 0 16px 0 24px;
+        }
+        /* The blurred surface lives on a pseudo element, so the fixed mobile panel is not trapped by backdrop-filter */
+        .nav-inner::before {
+            content: ""; position: absolute; inset: 0; z-index: -1;
+            background: rgba(0, 0, 0, 0.72);
+            -webkit-backdrop-filter: blur(12px);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--border-light);
+        }
+
+        .wordmark {
+            font-family: var(--font-mono);
+            font-size: 14px; line-height: 20px; font-weight: 600;
+            color: var(--text); text-decoration: none;
+            letter-spacing: -0.02em;
+        }
+
+        .nav-links { display: flex; align-items: center; gap: 24px; list-style: none; }
+
+        .nav-links a {
+            font-family: var(--font-mono);
+            font-size: 14px; line-height: 20px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            display: inline-flex; align-items: center; gap: 8px;
+        }
+        .nav-links a:hover { color: var(--text); }
+        .nav-links a.current { color: var(--text); }
+        .nav-links img { height: 20px; width: auto; display: block; }
+
+        .menu-btn {
+            display: none;
+            align-items: center; gap: 12px;
+            background: none; border: 1px solid var(--border-light);
+            color: var(--text); cursor: pointer;
+            font-family: var(--font-mono); font-size: 14px; line-height: 20px; font-weight: 600;
+            padding: 4px 12px;
+            transition: border-color 0.3s var(--ease), transform 0.3s var(--ease);
+        }
+        .menu-btn:hover { border-color: var(--text-muted); }
+        .menu-btn:active { transform: scale(0.98); }
+        .menu-btn .bars { position: relative; display: block; width: 16px; height: 12px; }
+        .menu-btn .bars span {
+            position: absolute; left: 0; right: 0; height: 2px; background: var(--text);
+            transition: transform 0.5s var(--ease), opacity 0.3s var(--ease);
+        }
+        .menu-btn .bars span:nth-child(1) { top: 0; }
+        .menu-btn .bars span:nth-child(2) { top: 5px; }
+        .menu-btn .bars span:nth-child(3) { top: 10px; }
+        .menu-btn[aria-expanded="true"] .bars span:nth-child(1) { transform: translateY(5px) rotate(45deg); }
+        .menu-btn[aria-expanded="true"] .bars span:nth-child(2) { opacity: 0; }
+        .menu-btn[aria-expanded="true"] .bars span:nth-child(3) { transform: translateY(-5px) rotate(-45deg); }
+
+        /* ——— SHARED ——— */
+        .section-label {
+            font-family: var(--font-mono);
+            font-size: 14px; line-height: 20px; font-weight: 500;
+            color: var(--text-muted);
+            margin-bottom: 16px;
+        }
+
+        section { padding: 80px 0 96px; border-bottom: 1px solid var(--border); }
+
+        section h2 {
+            font-size: 36px; line-height: 40px;
+            font-weight: 600; letter-spacing: -0.025em;
+            color: var(--text);
+            margin-bottom: 24px;
+            max-width: 680px;
+        }
+
+        .lead { font-size: 18px; line-height: 28px; color: var(--text-body); max-width: 680px; margin-bottom: 40px; }
+
+        /* Command block: real text, wraps instead of scrolling, own copy button */
+        .cmd {
+            display: flex; align-items: flex-start; gap: 12px;
+            background: var(--bg-elevated);
+            border: 1px solid var(--border-light);
+            padding: 12px 12px 12px 16px;
+            font-family: var(--font-mono); font-size: 14px; line-height: 20px;
+            color: var(--text);
+        }
+        .cmd-line { flex: 1; min-width: 0; white-space: pre-wrap; overflow-wrap: anywhere; }
+        .cmd code.cmd-line { background: none; border: 0; padding: 0; font-size: inherit; color: inherit; }
+        .prompt { color: var(--text-muted); user-select: none; -webkit-user-select: none; }
+
+        .copy {
+            flex: none;
+            font-family: var(--font-mono); font-size: 12px; line-height: 16px; font-weight: 600;
+            color: var(--text); background: transparent;
+            border: 1px solid var(--border-strong);
+            padding: 2px 8px; cursor: pointer;
+            transition: border-color 0.3s var(--ease), background-color 0.3s var(--ease), transform 0.3s var(--ease);
+        }
+        .copy:hover { border-color: var(--text-muted); background: var(--bg-card); }
+        .copy:active { transform: scale(0.98); }
+
+        /* ——— HERO ——— */
+        .hero { padding: 64px 0 96px; border-bottom: 1px solid var(--border); }
+
+        .hero-grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: 48px; }
+
+        .eyebrow {
+            font-family: var(--font-mono);
+            font-size: 14px; line-height: 20px; color: var(--text-secondary);
+            margin-bottom: 16px; max-width: 46ch;
+        }
+
+        .hero h1 {
+            font-size: 36px; line-height: 40px;
+            font-weight: 600; letter-spacing: -0.03em;
+            color: var(--text);
+            background: linear-gradient(90deg, #FFFFFF, #9B9B9B);
+            -webkit-background-clip: text; background-clip: text;
+            -webkit-text-fill-color: transparent;
+            max-width: 680px;
+            margin-bottom: 24px;
+        }
+
+        .subhead { font-size: 18px; line-height: 28px; color: var(--text-body); margin-bottom: 32px; max-width: 60ch; }
+
+        .cta-label {
+            font-family: var(--font-mono);
+            font-size: 14px; line-height: 20px; font-weight: 500;
+            color: var(--text); margin-bottom: 12px;
+        }
+
+        .cmd-hero {
+            background: var(--bg);
+            border-color: var(--border-bright);
+            color: #fff;
+        }
+        .cmd-hero .copy {
+            font-size: 14px; line-height: 20px;
+            padding: 8px 12px; margin: -4px -4px -4px 0;
+            background: var(--text); color: var(--bg);
+            border-color: var(--text);
+        }
+        .cmd-hero .copy:hover { background: #fff; border-color: #fff; }
+
+        .card-video { display: block; width: 100%; height: auto; background: var(--bg); border-bottom: 1px solid var(--border); }
+        .cmd-hero + .cmd-hero { margin-top: 8px; }
+        .cmd-hint { display: block; color: var(--text-muted); font-size: 12px; line-height: 16px; margin-top: 4px; user-select: none; -webkit-user-select: none; }
+        .r-gloss { color: var(--text-secondary); font-size: 12px; line-height: 16px; font-weight: 400; }
+
+        .cta-notes { margin-top: 16px; display: grid; gap: 8px; max-width: 60ch; }
+        .cta-notes p { font-size: 14px; line-height: 20px; color: var(--text-secondary); }
+
+        .quiet-link {
+            display: inline-block; margin-top: 24px;
+            font-family: var(--font-mono); font-size: 14px; line-height: 20px;
+            color: var(--text-secondary); text-decoration: none;
+            border-bottom: 1px solid var(--border-strong);
+            padding-bottom: 2px;
+        }
+        .quiet-link:hover { color: var(--text); border-color: var(--text-muted); }
+
+        /* Example card: selectable monospace text in a terminal frame */
+        .card {
+            background: var(--bg-elevated);
+            border: 1px solid var(--border-light);
+            min-width: 0;
+        }
+
+        .card-bar {
+            display: flex; align-items: center; gap: 8px;
+            height: 32px; padding: 0 16px;
+            border-bottom: 1px solid var(--border);
+        }
+        .card-bar i { width: 8px; height: 8px; border-radius: 9999px; background: var(--border-strong); display: block; }
+
+        .card-body { padding: 24px; font-family: var(--font-mono); font-size: 14px; line-height: 20px; }
+
+        .card-label {
+            font-size: 12px; line-height: 16px; font-weight: 500;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+        }
+
+        .r-outcome { color: var(--text-body); }
+        .r-outcome b { color: var(--text); font-weight: 500; }
+        .r-head { color: var(--text); font-weight: 500; margin: 16px 0 8px; }
+
+        /* The story keeps the list at its resting height, so the page never shifts */
+        .r-clip { overflow: hidden; }
+        .r-list { list-style: none; display: grid; gap: 12px; }
+        .r-list li { display: grid; grid-template-columns: 16px minmax(0, 1fr); }
+        .r-list li::before { content: "-"; color: var(--text-muted); }
+        .kind { color: var(--text-muted); }
+        .point { color: var(--text-body); }
+        .by { color: var(--text-muted); white-space: nowrap; }
+        .by b { color: var(--text); font-weight: 500; }
+        .solo { color: var(--accent); display: inline-block; }
+
+        .legend { margin-top: 16px; color: var(--text-secondary); font-size: 12px; line-height: 16px; }
+
+        .show-all {
+            margin-top: 16px;
+            font-family: var(--font-mono); font-size: 12px; line-height: 16px; font-weight: 600;
+            color: var(--text); background: none;
+            border: 1px solid var(--border-strong);
+            padding: 4px 8px; cursor: pointer;
+            transition: border-color 0.3s var(--ease), transform 0.3s var(--ease);
+        }
+        .show-all:hover { border-color: var(--text-muted); }
+        .show-all:active { transform: scale(0.98); }
+
+        .card figcaption {
+            border-top: 1px solid var(--border);
+            padding: 12px 24px;
+            font-size: 14px; line-height: 20px; color: var(--text-muted);
+        }
+
+        /* ——— HOW IT WORKS ——— */
+        .pipeline {
+            display: flex; flex-wrap: wrap; gap: 8px; align-items: center;
+            margin-bottom: 40px;
+            font-family: var(--font-mono); font-size: 14px; line-height: 20px;
+            list-style: none;
+        }
+        .pipeline-step {
+            padding: 8px 16px; border: 1px solid var(--border-light); color: var(--text-secondary);
+            transition: border-color 0.3s var(--ease), color 0.3s var(--ease), background-color 0.3s var(--ease);
+        }
+        .pipeline-step.lit { border-color: var(--text-muted); color: var(--text); background: var(--bg-elevated); }
+        .pipeline-arrow { color: var(--text-muted); }
+
+        .diagram { display: none; margin: 0 0 64px; }
+        .diagram svg { width: 100%; height: auto; display: block; overflow: visible; }
+        .diagram .box { fill: var(--bg-elevated); stroke: var(--border-strong); transition: stroke 0.3s var(--ease); }
+        .diagram .lit .box { stroke: var(--text); }
+        .diagram .line { fill: none; stroke: var(--border-strong); stroke-width: 1.5; }
+        .diagram .track { stroke: var(--border-light); stroke-width: 4; }
+        .diagram .fill { stroke: var(--text-muted); stroke-width: 4; }
+        .diagram .skip { fill: none; stroke: var(--border-strong); stroke-dasharray: 6 4; }
+        .diagram text { font-family: var(--font-mono); font-size: 14px; fill: var(--text-body); transition: fill 0.3s var(--ease); }
+        .diagram text.strong, .diagram .lit text { fill: var(--text); }
+        .diagram text.dim { fill: var(--text-muted); }
+        .diagram .pulse { fill: #fff; opacity: 0; }
+        .diagram .halo { fill: #fff; opacity: 0; }
+
+        .steps { list-style: none; display: grid; gap: 32px; }
+        .step { display: grid; grid-template-columns: 48px minmax(0, 1fr); gap: 16px; }
+        .step-num { font-family: var(--font-mono); font-size: 14px; line-height: 20px; color: var(--text-muted); padding-top: 4px; font-variant-numeric: tabular-nums; }
+        .step:target .step-num { color: var(--text); }
+        .step h3 { font-size: 20px; line-height: 28px; font-weight: 600; color: var(--text); margin-bottom: 8px; }
+        .step p { font-size: 16px; line-height: 24px; color: var(--text-body); max-width: 65ch; }
+
+        .footnote {
+            margin-top: 40px; max-width: 768px;
+            font-size: 14px; line-height: 20px; color: var(--text-secondary);
+            border-top: 1px solid var(--border); padding-top: 16px;
+        }
+
+        /* ——— WHEN ——— */
+        .when-grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: 40px; margin-bottom: 40px; }
+
+        .col-title {
+            font-family: var(--font-mono);
+            font-size: 14px; line-height: 20px; font-weight: 500;
+            color: var(--text);
+            padding-bottom: 8px; margin-bottom: 24px;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .use-list, .skip-list { list-style: none; display: grid; gap: 24px; }
+        .use-list li, .skip-list li { position: relative; padding-left: 24px; font-size: 16px; line-height: 24px; }
+        .use-list li::before, .skip-list li::before {
+            position: absolute; left: 0; top: 0;
+            font-family: var(--font-mono); color: var(--text-secondary);
+        }
+        .use-list li::before { content: "\2713"; }
+        .skip-list li::before { content: "\2715"; }
+        .skip-list { gap: 16px; }
+
+        .situation { display: block; color: var(--text); font-weight: 600; margin-bottom: 8px; }
+        .q {
+            display: inline-block;
+            font-family: var(--font-mono); font-size: 12px; line-height: 16px;
+            color: var(--text-body);
+            background: var(--bg-elevated);
+            padding: 8px 12px;
+            overflow-wrap: anywhere;
+        }
+        .q-extra { display: block; margin-top: 8px; color: var(--text-body); }
+
+        .measured { background: var(--bg-elevated); padding: 24px; }
+        .measured h3 { font-size: 16px; line-height: 24px; font-weight: 600; color: var(--text); margin-bottom: 8px; }
+        .measured p { font-size: 16px; line-height: 24px; color: var(--text-body); max-width: 65ch; }
+
+        /* ——— WORKS WITH ——— */
+        .chip-row { display: grid; grid-template-columns: minmax(0, 1fr); gap: 12px; margin-bottom: 32px; }
+        .row-label {
+            font-family: var(--font-mono);
+            font-size: 14px; line-height: 20px; font-weight: 500;
+            color: var(--text-muted);
+            padding-top: 4px;
+        }
+        .chips { list-style: none; display: flex; flex-wrap: wrap; gap: 8px; }
+        .chips li {
+            font-family: var(--font-mono); font-size: 14px; line-height: 20px;
+            color: var(--text);
+            border: 1px solid var(--border-light);
+            padding: 4px 12px;
+            transition: border-color 0.3s var(--ease), background-color 0.3s var(--ease);
+        }
+        .chips li.lit { border-color: var(--text-muted); background: var(--bg-elevated); }
+        .works-note { max-width: 680px; font-size: 16px; line-height: 24px; color: var(--text-body); margin-top: 8px; }
+        .small-print { margin-top: 24px; font-size: 14px; line-height: 20px; color: var(--text-muted); }
+
+        /* ——— BEFORE YOU RUN ——— */
+        .facts { display: grid; gap: 0; border-top: 1px solid var(--border-light); max-width: 900px; }
+        .fact { display: grid; grid-template-columns: minmax(0, 1fr); gap: 8px; padding: 24px 0; border-bottom: 1px solid var(--border-light); }
+        .fact dt {
+            font-family: var(--font-mono);
+            font-size: 14px; line-height: 20px; font-weight: 500;
+            color: var(--text);
+            padding-top: 2px;
+        }
+        .fact dd { font-size: 16px; line-height: 24px; color: var(--text-body); max-width: 70ch; }
+
+        /* ——— GET STARTED ——— */
+        .prereq { background: var(--bg-elevated); padding: 24px; margin-bottom: 32px; max-width: 820px; }
+        .box-label {
+            font-family: var(--font-mono);
+            font-size: 14px; line-height: 20px; font-weight: 500;
+            color: var(--text); margin-bottom: 12px;
+        }
+        .prereq > ul { list-style: none; display: grid; gap: 16px; }
+        .prereq > ul > li { font-size: 16px; line-height: 24px; color: var(--text-body); padding-left: 16px; position: relative; }
+        .prereq > ul > li::before { content: "-"; position: absolute; left: 0; color: var(--text-muted); }
+        .cli-list { display: grid; gap: 12px; margin-top: 12px; }
+        .cli-list > div { display: grid; grid-template-columns: minmax(0, 1fr); gap: 4px; }
+        .cli-list dt { font-family: var(--font-mono); font-size: 14px; line-height: 20px; color: var(--text); }
+        .cli-list dd { font-size: 14px; line-height: 20px; color: var(--text-secondary); }
+        .cli-list .cmd { background: var(--bg); padding: 8px 8px 8px 12px; margin-bottom: 4px; }
+
+        .tabs { max-width: 820px; }
+        .tablist { display: flex; gap: 0; border-bottom: 1px solid var(--border-light); margin-bottom: 24px; flex-wrap: wrap; }
+        .tab {
+            font-family: var(--font-mono); font-size: 14px; line-height: 20px;
+            color: var(--text-secondary); background: none;
+            border: 0; border-bottom: 2px solid transparent;
+            padding: 12px 16px; margin-bottom: -1px;
+            cursor: pointer;
+            transition: color 0.3s var(--ease), border-color 0.3s var(--ease);
+        }
+        .tab[aria-selected="true"] { color: var(--text); border-bottom-color: var(--text); }
+        .tab:hover { color: var(--text); }
+        .no-js .tablist { display: none; }
+        .panel-title { display: none; }
+        .no-js .panel-title { display: block; font-family: var(--font-mono); font-size: 14px; line-height: 20px; color: var(--text); margin: 24px 0 12px; }
+
+        .setup-steps { list-style: none; display: grid; gap: 24px; }
+        .setup-steps li { display: grid; grid-template-columns: 32px minmax(0, 1fr); gap: 8px; }
+        .setup-n { font-family: var(--font-mono); font-size: 14px; line-height: 20px; color: var(--text-muted); padding-top: 12px; font-variant-numeric: tabular-nums; }
+        .setup-steps p, .panel-text { font-size: 14px; line-height: 20px; color: var(--text-secondary); margin-top: 8px; }
+        .cmd-stack { display: grid; gap: 12px; }
+        .panel-text.then { margin: 8px 0 0; color: var(--text-body); }
+
+        .warn {
+            max-width: 820px; margin-top: 32px;
+            background: var(--bg-elevated);
+            padding: 16px 24px;
+            font-size: 16px; line-height: 24px; color: var(--text-body);
+        }
+
+        .more-link {
+            display: inline-block; margin-top: 24px;
+            font-size: 16px; line-height: 24px; color: var(--text); text-decoration: none;
+            border-bottom: 1px solid var(--border-strong);
+        }
+        .more-link:hover { border-color: var(--text); }
+
+        /* ——— FAQ: question and answer side by side, always open ——— */
+        .faq { max-width: 1040px; border-top: 1px solid var(--border-light); }
+        .faq-item { display: grid; grid-template-columns: minmax(0, 1fr); gap: 8px; padding: 24px 0; border-bottom: 1px solid var(--border-light); }
+        .faq dt { font-size: 18px; line-height: 28px; font-weight: 600; color: var(--text); }
+        .faq dd { font-size: 16px; line-height: 24px; color: var(--text-body); max-width: 65ch; }
+        .faq-more { margin-top: 32px; }
+
+        /* ——— FOOTER ——— */
+        footer { padding: 48px 0 64px; }
+        .footer-main { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-start; gap: 24px; margin-bottom: 24px; }
+        .footer-links { display: flex; flex-wrap: wrap; gap: 8px 24px; list-style: none; max-width: 680px; }
+        .footer-links a {
+            font-family: var(--font-mono); font-size: 14px; line-height: 20px;
+            color: var(--text-secondary); text-decoration: none;
+        }
+        .footer-links a:hover { color: var(--text); }
+        .shields { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+        .shields a { display: inline-flex; }
+        .shields img { height: 20px; width: auto; display: block; }
+        .footer-fine { font-size: 12px; line-height: 16px; color: var(--text-muted); max-width: 820px; }
+        .footer-fine a { color: var(--text-secondary); }
+
+        /* ——— TOAST ——— */
+        .toast {
+            position: fixed; bottom: 24px; left: 50%;
+            transform: translateX(-50%) translateY(16px);
+            width: max-content; max-width: calc(100vw - 32px);
+            font-family: var(--font-mono); font-size: 14px; line-height: 20px;
+            color: var(--text); background: var(--bg-card);
+            border: 1px solid var(--border-strong);
+            padding: 8px 16px;
+            opacity: 0; pointer-events: none;
+            transition: opacity 0.3s var(--ease), transform 0.5s var(--ease);
+            z-index: 200;
+        }
+        .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+        /* ——— MOTION ———
+           Only active when JS added html.motion (never under reduced motion), so without JS
+           every element sits in its final state. */
+
+        /* Page load: the hero copy and the example card rise and resolve from blur */
+        .motion .k-up, .motion .k-left, .motion .k-pop, .motion .k-card, .motion .k-fade {
+            transition: transform 1.05s var(--e) var(--d, 0s), opacity 0.75s var(--e2) var(--d, 0s), filter 0.75s var(--e2) var(--d, 0s);
+        }
+        .motion .k-card { transition-duration: 0.9s, 0.6s, 0.6s; }
+        .motion .hero:not(.in) .k-up { opacity: 0; transform: translateY(10px); filter: blur(4px); }
+        .motion .hero:not(.in) .k-left { opacity: 0; transform: translateX(-10px); filter: blur(4px); }
+        .motion .hero:not(.in) .k-pop { opacity: 0; transform: scale(0.86); filter: blur(4px); }
+        .motion .hero:not(.in) .k-card { opacity: 0; transform: translateY(24px) scale(0.985); filter: blur(6px); }
+        .motion .hero:not(.in) .k-fade { opacity: 0; }
+
+        .hero .eyebrow { --d: 0s; }
+        .hero h1 { --d: 0.08s; }
+        .hero .subhead { --d: 0.16s; }
+        .hero .cta > :nth-child(1) { --d: 0.26s; }
+        .hero .cta > :nth-child(2) { --d: 0.32s; }
+        .hero .cta > :nth-child(3) { --d: 0.38s; }
+        .hero .cta > :nth-child(4) { --d: 0.46s; }
+        .hero .cta > :nth-child(5) { --d: 0.52s; }
+        .hero .card { --d: 0.18s; }
+        .hero .card-bar i:nth-child(1) { --d: 0.34s; }
+        .hero .card-bar i:nth-child(2) { --d: 0.38s; }
+        .hero .card-bar i:nth-child(3) { --d: 0.42s; }
+        .hero .card-video { --d: 0.4s; }
+        .hero .card-label { --d: 0.5s; }
+        .hero .r-outcome { --d: 0.56s; }
+        .hero .r-gloss { --d: 0.6s; }
+        .hero .r-head { --d: 0.64s; }
+        .hero .r-list > li:nth-child(1) { --d: 0.7s; }
+        .hero .r-list > li:nth-child(2) { --d: 0.76s; }
+        .hero .r-list > li:nth-child(3) { --d: 0.82s; }
+        .hero .r-list > li:nth-child(4) { --d: 0.88s; }
+        .hero .r-list > li:nth-child(2) .solo { --d: 0.86s; }
+        .hero .r-list > li:nth-child(3) .solo { --d: 0.92s; }
+        .hero .r-list > li:nth-child(4) .solo { --d: 0.98s; }
+        .hero .legend, .hero .show-all { --d: 1s; }
+        .hero figcaption { --d: 1.06s; }
+
+        /* Diagram: nodes pop in reading order, connectors draw on, the merged list fills like progress */
+        .motion .diagram .node { transform-box: fill-box; transform-origin: center; transition: transform 1.05s var(--e) var(--d, 0s), opacity 0.75s var(--e2) var(--d, 0s); }
+        .motion .diagram:not(.in) .node { opacity: 0; transform: scale(0.86); }
+        .motion .diagram .line, .motion .diagram .fill { stroke-dasharray: 1; transition: stroke-dashoffset 0.9s var(--io) var(--d, 0s); }
+        .motion .diagram .fill { transition-duration: 0.7s; }
+        .motion .diagram:not(.in) .line, .motion .diagram:not(.in) .fill { stroke-dashoffset: 1; }
+        .motion .diagram .k-fade { transition: opacity 0.75s var(--e2) var(--d, 0s); }
+        .motion .diagram:not(.in) .k-fade { opacity: 0; }
+        .diagram .n-q { --d: 0s; }
+        .diagram .in-path { --d: 0.12s; }
+        .diagram .n-m1 { --d: 0.3s; }
+        .diagram .n-m2 { --d: 0.36s; }
+        .diagram .n-m3 { --d: 0.42s; }
+        .diagram .out-path { --d: 0.5s; }
+        .diagram .n-out { --d: 0.78s; }
+        .diagram .fill:nth-of-type(1) { --d: 1s; }
+        .diagram .fill:nth-of-type(2) { --d: 1.08s; }
+        .diagram .fill:nth-of-type(3) { --d: 1.16s; }
+        .diagram .n-skip { --d: 1.3s; }
+
+        /* Text sections: rise and fade in once as they enter the viewport */
+        .motion [data-reveal] { transition: opacity 0.7s var(--ease) var(--d, 0s), transform 0.7s var(--ease) var(--d, 0s); }
+        .motion [data-reveal]:not(.in) { opacity: 0; transform: translateY(16px); }
+
+        /* ——— RESPONSIVE ——— */
+        @media (min-width: 640px) {
+            code { white-space: nowrap; }
+            .cmd code.cmd-line { white-space: pre-wrap; }
+        }
+
+        @media (min-width: 720px) {
+            .cli-list > div { grid-template-columns: 72px minmax(0, 1fr); gap: 12px; }
+            .cli-list dt { padding-top: 8px; }
+            .chip-row { grid-template-columns: 168px minmax(0, 1fr); gap: 16px; }
+            .fact { grid-template-columns: 168px minmax(0, 1fr); gap: 24px; }
+        }
+
+        @media (min-width: 860px) {
+            .when-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 64px; }
+            .faq-item { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 48px; }
+        }
+
+        @media (min-width: 900px) {
+            .diagram { display: block; }
+            .pipeline { display: none; }
+        }
+
+        @media (min-width: 1024px) {
+            .hero { padding-top: 80px; }
+            .hero-grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 64px; align-items: start; }
+            .hero h1 { font-size: 48px; line-height: 1; }
+            .show-all { display: none; }
+        }
+
+        @media (max-width: 1023px) {
+            .card.collapsed .r-list > li:nth-child(n+4):not(.leave) { display: none; }
+        }
+
+        @media (max-width: 859px) {
+            .nav-inner { width: 100%; }
+            .menu-btn { display: inline-flex; }
+            .nav-links {
+                position: fixed; inset: 0; z-index: -2;
+                display: flex; flex-direction: column; align-items: flex-start; gap: 24px;
+                background: var(--bg);
+                padding: 96px var(--gutter) 48px;
+                opacity: 0; visibility: hidden;
+                transition: opacity 0.3s var(--ease), visibility 0s linear 0.3s;
+            }
+            .nav-links a { font-family: var(--font-body); font-size: 24px; line-height: 32px; font-weight: 600; color: var(--text); }
+            .nav-links li { opacity: 0; transform: translateY(8px); transition: opacity 0.3s var(--ease), transform 0.5s var(--ease); }
+            .nav-links.open { opacity: 1; visibility: visible; transition: opacity 0.3s var(--ease), visibility 0s; }
+            .nav-links.open li { opacity: 1; transform: none; }
+            .nav-links.open li:nth-child(2) { transition-delay: 60ms; }
+            .nav-links.open li:nth-child(3) { transition-delay: 120ms; }
+            .nav-links.open li:nth-child(4) { transition-delay: 180ms; }
+            .nav-links.open li:nth-child(5) { transition-delay: 240ms; }
+            .no-js .nav-links { position: static; z-index: auto; opacity: 1; visibility: visible; flex-direction: row; flex-wrap: wrap; gap: 16px; padding: 0 0 12px; background: none; }
+            .no-js .nav-links li { opacity: 1; transform: none; }
+            .no-js .nav-links a { font-family: var(--font-mono); font-size: 14px; line-height: 20px; font-weight: 400; }
+            .no-js .nav-inner { flex-wrap: wrap; height: auto; padding-top: 12px; }
+            .no-js .menu-btn { display: none; }
+        }
+
+        @media (max-width: 639px) {
+            :root { --gutter: 16px; }
+            section { padding: 64px 0 80px; }
+            section h2 { font-size: 30px; line-height: 36px; }
+            .hero { padding: 48px 0 80px; }
+            .subhead { font-size: 16px; line-height: 24px; }
+            .lead { font-size: 16px; line-height: 24px; }
+            .cmd-hero { padding: 12px; }
+            .card-body { padding: 16px; }
+            .card figcaption { padding: 12px 16px; }
+            .by { white-space: normal; }
+            .prereq { padding: 16px; }
+            .measured { padding: 16px; }
+            .warn { padding: 16px; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            html { scroll-behavior: auto; }
+            *, *::before, *::after { transition: none !important; }
+        }
+    </style>
+<style>.preview{padding-top:48px;padding-bottom:80px;max-width:960px}.preview nav{margin:24px 0;line-height:2}.preview article{line-height:1.7;overflow-wrap:anywhere}.preview h1{font-size:2.5rem;line-height:1.2}.preview h2,.preview h3{margin:36px 0 14px}.preview p,.preview ul,.preview ol,.preview blockquote{margin:16px 0}.preview ul,.preview ol{padding-left:24px}.preview pre{overflow:auto;padding:16px;border:1px solid var(--border);margin:16px 0;white-space:pre}.preview table{border-collapse:collapse;min-width:600px;font-size:14px}.preview th,.preview td{padding:10px;text-align:left;border-bottom:1px solid var(--border)}.preview .table-scroll{overflow-x:auto}.preview blockquote{border-left:2px solid var(--text-muted);padding-left:16px}.preview a{text-decoration:underline}.preview code{font-size:.9em}.preview pre code{font-size:13px}</style></head><body><a class="skip-link" href="#main">Skip to content</a><main id="main" class="container preview"><a href="/">← ai-consultants</a><nav aria-label="Documentation"><a href="/docs/">Models and benchmarks</a> · <a href="/docs/overview.html">Project overview</a> · <a href="/docs/setup.html">Setup</a> · <a href="/docs/configuration.html">Configuration</a> · <a href="/docs/routing.html" aria-current="page">Smart routing</a> · <a href="/docs/changelog.html">Changelog</a></nav><article><p>Documentation for <a href="https://github.com/reasance/ai-consultants/releases/tag/v5.9.0">v5.9.0</a>. Benchmark snapshot: November 15, 2026, Artificial Analysis Intelligence Index v5.0.1.</p>
+<h1 id="ai-consultants-smart-routing">AI Consultants Smart Routing</h1>
+<p>The Smart Routing system automatically selects the most suitable consultants based on the question category.</p>
+<h2 id="enabling">Enabling</h2>
+<pre><code class="language-bash"># Enable classification (required)
+ENABLE_CLASSIFICATION=true
+
+# Enable smart routing
+ENABLE_SMART_ROUTING=true
+
+# Minimum affinity to include a consultant (1-10)
+MIN_AFFINITY=7
+</code></pre>
+<h2 id="affinity-matrix">Affinity Matrix</h2>
+<p>Consultant-category affinity scores (scale 1-10) live in
+<code>references/affinity.json</code> — the single source
+of truth at runtime. Prior to v2.11.0 the matrix was hard-coded as nested
+case statements in <code>scripts/lib/routing.sh</code>; it was extracted to JSON to make
+customization possible without editing bash.</p>
+<p><strong>Highlights from the default matrix:</strong></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-scroll"><table><thead><tr><th>Category</th><th>Best match</th><th>Why</th></tr></thead><tbody><tr><td>CODE_REVIEW</td><td>Codex (10), DeepSeek (10)</td><td>Code-specialist personas</td></tr><tr><td>BUG_DEBUG</td><td>Codex (10)</td><td>Pragmatic debugger</td></tr><tr><td>ARCHITECTURE</td><td>Gemini (10), Kimi (9)</td><td>Big-picture design</td></tr><tr><td>ALGORITHM</td><td>DeepSeek (10)</td><td>Algorithm specialist</td></tr><tr><td>SECURITY</td><td>Mistral (10)</td><td>Devil’s Advocate persona</td></tr><tr><td>QUICK_SYNTAX</td><td>Gemini (10)</td><td>Fast turnaround</td></tr><tr><td>API_DESIGN</td><td>Gemini (10)</td><td>API/system design</td></tr><tr><td>TESTING</td><td>Codex (10), GLM (10)</td><td>Test generation</td></tr></tbody></table></div>
+<p><strong>Legend:</strong></p>
+<ul>
+<li><strong>10</strong>: Perfect match</li>
+<li>7-9: Good match</li>
+<li>5-6: Medium match</li>
+<li>1-4: Poor match</li>
+</ul>
+<h3 id="schema">Schema</h3>
+<pre><code class="language-json">{
+  "version": "1.1",
+  "default_score": 5,
+  "general_score": 8,
+  "known_consultants": ["Gemini", "Codex", "..."],
+  "categories": {
+    "CODE_REVIEW": { "Gemini": 7, "Codex": 10, "..." },
+    "BUG_DEBUG":   { "..." }
+  }
+}
+</code></pre>
+<p>Lookup logic in <code>get_affinity(category, consultant)</code>:</p>
+<ol>
+<li>If <code>consultant</code> is not in <code>known_consultants</code> → <code>default_score</code></li>
+<li>Else if <code>category</code> is not in <code>categories</code> (e.g. <code>GENERAL</code> or unrecognized) → <code>general_score</code></li>
+<li>Else → <code>categories[category][consultant]</code>, falling back to <code>default_score</code> if missing</li>
+</ol>
+<h3 id="custom-matrix-override">Custom Matrix Override</h3>
+<p>Override the matrix at runtime by pointing <code>AFFINITY_FILE</code> at a custom JSON
+file with the same schema:</p>
+<pre><code class="language-bash">AFFINITY_FILE=~/my-affinity.json ./scripts/consult_all.sh "your question"
+</code></pre>
+<p>This is useful for:</p>
+<ul>
+<li>Tweaking scores for a specific project (e.g., favoring DeepSeek for
+algorithm-heavy codebases)</li>
+<li>Disabling consultants for a category by setting their score below
+<code>MIN_AFFINITY</code></li>
+<li>Experimenting with new categories before upstreaming them</li>
+</ul>
+<p><code>./scripts/doctor.sh</code> validates the JSON schema and reports coverage gaps
+(consultants missing from a category).</p>
+<p>The matrix is loaded once per shell and cached in memory — no jq overhead
+on subsequent calls.</p>
+<h2 id="cost-aware-routing-v23">Cost-Aware Routing (v2.3+)</h2>
+<p>When <code>ENABLE_COST_AWARE_ROUTING=true</code>, selected consultants use economy models
+for simple questions and can retry low-confidence responses with their premium
+model. Consultant selection itself continues to use the affinity matrix above.</p>
+<pre><code class="language-bash">ENABLE_COST_AWARE_ROUTING=true
+COMPLEXITY_THRESHOLD_SIMPLE=3    # Score 1-3 = use economy models
+COMPLEXITY_THRESHOLD_MEDIUM=6    # Score 4-6 = use standard models
+                                 # Score 7-10 = use premium models
+</code></pre>
+<p>See COST_RATES.md for model pricing by tier.</p>
+<p>For Hydrogen on the native API, economy and premium share the model ID
+<code>gemini-4-hydrogen</code> and differ by thinking effort: medium versus xhigh.
+Cost-aware requests carry the economy effort only in the request subshell;
+a valid low-confidence structured answer can escalate to the premium effort.
+Explicit <code>GEMINI_REASONING_EFFORT</code> pins win, and cache identity records the
+effective economy effort so it cannot be confused with a premium request.</p>
+<p>An explicitly selected Carbon CLI model stays pinned. Automatic cost-aware
+routing and confidence escalation do not replace it with Hydrogen or another
+model. Its exact account inventory check still applies before dispatch.</p>
+<h2 id="supported-categories">Supported Categories</h2>
+<p>Pattern classification (<code>scripts/classify_question.sh</code>) checks the categories
+in the order below and returns the first match. Keywords are matched
+case-insensitively, mostly as substrings.</p>
+<h3 id="security">SECURITY</h3>
+<ul>
+<li>Vulnerabilities</li>
+<li>Authentication</li>
+<li>Authorization</li>
+</ul>
+<p><strong>Keywords (whole words):</strong> security, secure, vulnerab…, exploit…, CVE-…, XSS,
+CSRF, SSRF, SQLi, JWT, OAuth, auth/authn/authz, authenticat…, authoriz…,
+password, encrypt…/decrypt…, secret, sanitiz…; also injection, access token,
+API key. Checked first, because security questions often also say “fix”,
+“design” or “review”. Dependency, constructor, setter, field, property,
+method, interface and fault injection are design or testing terms, not
+security.</p>
+<h3 id="code_review">CODE_REVIEW</h3>
+<ul>
+<li>Code quality review</li>
+<li>Best practices</li>
+</ul>
+<p><strong>Keywords:</strong> review, check, analyze … code, quality</p>
+<h3 id="bug_debug">BUG_DEBUG</h3>
+<ul>
+<li>Debugging</li>
+<li>Error fixing</li>
+<li>Troubleshooting</li>
+</ul>
+<p><strong>Keywords:</strong> bug, error, crash, fix, debug, problem, issue, not working, fails,
+exception, traceback</p>
+<h3 id="architecture">ARCHITECTURE</h3>
+<ul>
+<li>System design</li>
+<li>Design patterns</li>
+<li>Scalability</li>
+</ul>
+<p><strong>Keywords:</strong> architect, design, pattern, structure, microservic, monolit,
+scalabil, refactor, organiz, system design</p>
+<h3 id="algorithm">ALGORITHM</h3>
+<ul>
+<li>Algorithms</li>
+<li>Data structures</li>
+<li>Complexity and performance</li>
+</ul>
+<p><strong>Keywords:</strong> algorithm, optimi, performance, complexit, O(, big-o, efficien,
+sort, search, data structure</p>
+<h3 id="quick_syntax">QUICK_SYNTAX</h3>
+<ul>
+<li>Quick syntax</li>
+<li>Snippets</li>
+</ul>
+<p><strong>Keywords:</strong> syntax, how to write, example of, snippet, one-liner</p>
+<h3 id="database">DATABASE</h3>
+<ul>
+<li>SQL queries</li>
+<li>Schema design</li>
+<li>DB optimization</li>
+</ul>
+<p><strong>Keywords:</strong> database, SQL, query, MongoDB, Postgres, MySQL, Redis, index,
+migration, schema</p>
+<h3 id="api_design">API_DESIGN</h3>
+<ul>
+<li>REST API</li>
+<li>GraphQL</li>
+<li>Endpoint design</li>
+</ul>
+<p><strong>Keywords:</strong> API, REST, GraphQL, endpoint, request, response, HTTP, webhook</p>
+<h3 id="testing">TESTING</h3>
+<ul>
+<li>Unit test</li>
+<li>Integration test</li>
+<li>Test strategy</li>
+</ul>
+<p><strong>Keywords:</strong> test, testing, unit test, integration, mock, stub, coverage, TDD,
+BDD</p>
+<h3 id="general">GENERAL</h3>
+<ul>
+<li>Default for everything else</li>
+</ul>
+<h2 id="classification-modes">Classification Modes</h2>
+<h3 id="pattern-based-default">Pattern-based (default)</h3>
+<pre><code class="language-bash">CLASSIFICATION_MODE=pattern
+</code></pre>
+<ul>
+<li>Fast, no API call</li>
+<li>Regex matching on keywords</li>
+<li>Good accuracy for clear questions</li>
+</ul>
+<h3 id="llm-based">LLM-based</h3>
+<pre><code class="language-bash">CLASSIFICATION_MODE=llm
+</code></pre>
+<ul>
+<li>More accurate, at the cost of one small call</li>
+<li>Uses the Claude CLI on the economy model, stateless and tool-free, bounded by
+<code>CLASSIFICATION_TIMEOUT</code> (default 30 s)</li>
+<li>Falls back to pattern matching when Claude is unavailable, is the invoking
+host, or returns an unknown category</li>
+</ul>
+<h2 id="usage-example">Usage Example</h2>
+<pre><code class="language-bash"># Consultation with smart routing
+ENABLE_SMART_ROUTING=true \
+./scripts/consult_all.sh "How can I improve the security of my API?"
+
+# Output:
+# [INFO] Category: SECURITY
+# [INFO] Smart routing for category SECURITY...
+# [INFO] Selected consultants: Mistral Codex ...
+</code></pre>
+<h2 id="api-functions">API Functions</h2>
+<p>Functions are exported from <code>scripts/lib/routing.sh</code>:</p>
+<pre><code class="language-bash">source scripts/lib/routing.sh
+
+# Get affinity
+get_affinity "SECURITY" "Mistral"  # → 10
+
+# Select consultants
+select_consultants "SECURITY" 7    # → Enabled consultants with affinity ≥ 7
+
+# Check recommendation
+is_recommended "SECURITY" "Claude" 7 &#x26;&#x26; echo "Recommended"
+
+# Cost-aware model selection (v2.3)
+get_cost_aware_model "codex" 2  # → Economy model when enabled
+</code></pre></article><p><a href="/docs/snapshot.json">Snapshot provenance</a> · Published npm version: 5.9.0</p></main></body></html>
