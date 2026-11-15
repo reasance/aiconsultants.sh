@@ -1,0 +1,37 @@
+{
+  "project": "ai-consultants",
+  "status": "unreleased",
+  "capturedAt": "2026-11-14",
+  "benchmarkSnapshot": "2026-11-13",
+  "benchmarkVersion": "5.0.1",
+  "publishedNpmVersion": "5.8.0",
+  "sourceBranch": "models/hydrogen-carbon-cli",
+  "sourceHead": "1d79d97bf6520f7c856d88e09665526f0998314c",
+  "sourceDirty": true,
+  "files": {
+    "docs/MODEL_BENCHMARKS.md": {
+      "sha256": "3e89dd30ec74c834498a0db04a5afcab431d1793a677eca97319a980ed9cb3fc",
+      "page": "/next/"
+    },
+    "README.md": {
+      "sha256": "6d4263fefcfea1cec50cf83a8d4ef5f94f1ae9ffa6c512a5e8ad81ae27594d6f",
+      "page": "/next/overview.html"
+    },
+    "docs/SETUP.md": {
+      "sha256": "9c9c2a98255da99fdd5ac987ab48cba888e927c55ba0008bc0565b6016c44fbe",
+      "page": "/next/setup.html"
+    },
+    "references/configuration.md": {
+      "sha256": "a0055eca21334447633a640246fd3603c5bf548bbd9e480a3a59a5254e8ec9cd",
+      "page": "/next/configuration.html"
+    },
+    "docs/SMART_ROUTING.md": {
+      "sha256": "d5c0398891133ca366b3deccd71f6b4e34cb60df7fe2a11b7a9ed822827d0df8",
+      "page": "/next/routing.html"
+    },
+    "CHANGELOG.md": {
+      "sha256": "0354990ef95f706b172eacf32561b529412b24c0f8ae65e2c9606e0535f1589f",
+      "page": "/next/changelog.html"
+    }
+  }
+}

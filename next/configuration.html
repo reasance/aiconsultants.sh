@@ -1,0 +1,1227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Configuration preview — ai-consultants</title>
+    <meta name="description" content="Unreleased documentation preview: Fable 5.2, Gemini 4 Hydrogen and Carbon, measured with Artificial Analysis v5.0.1.">
+    <meta name="theme-color" content="#000000">
+
+    <!-- SEO -->
+    <link rel="canonical" href="https://aiconsultants.sh/next/configuration.html">
+    <meta name="robots" content="index, follow">
+    <meta name="author" content="Matteo Scurati">
+    <meta name="keywords" content="ai-consultants, multiple AI models, second opinion, design review, threat modeling, Claude Code skill, Codex, Gemini, Mistral, npx ai-consultants">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://aiconsultants.sh/next/configuration.html">
+    <meta property="og:site_name" content="ai-consultants">
+    <meta property="og:title" content="Configuration preview — ai-consultants">
+    <meta property="og:description" content="Unreleased model integration and documentation preview.">
+    <meta property="og:image" content="https://aiconsultants.sh/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="A real ai-consultants run: one question, answers from Gemini, Codex and Mistral, and one merged list of risks and edge cases tagged with the models that raised each.">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Configuration preview — ai-consultants">
+    <meta name="twitter:description" content="Unreleased model integration and documentation preview.">
+    <meta name="twitter:image" content="https://aiconsultants.sh/og-image.png">
+    <meta name="twitter:image:alt" content="A real ai-consultants run: one question, answers from Gemini, Codex and Mistral, and one merged list of risks and edge cases tagged with the models that raised each.">
+
+    <!-- JSON-LD Structured Data (softwareVersion is rewritten at release by sync_site.sh) -->
+    
+
+    <script defer src="https://cloud.umami.is/script.js" data-website-id="ed9fc15a-2479-44ad-b6ff-e32001f8ea1d"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&amp;family=Geist+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet">
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <script>
+        // Motion is opt-in: only without reduced motion, and dropped if the page script never runs
+        if (!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches)) {
+            document.documentElement.classList.add('motion');
+            setTimeout(function () { if (!window.__aicMotion) document.documentElement.classList.remove('motion'); }, 3000);
+        }
+    </script>
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            color-scheme: dark;
+            --bg: #000000;
+            --bg-elevated: #181818;
+            --bg-card: #1F1F1F;
+            --border: #1F1F1F;
+            --border-light: #272727;
+            --border-strong: #313131;
+            --border-bright: #e6e6e6;
+            --text: #f0f0f0;
+            --text-body: #c8c8c8;
+            --text-secondary: #b0b0b0;
+            --text-muted: #9a9a9a;      /* about 7:1 on --bg */
+            --accent: #e9b250;          /* one meaning only: raised by only one model */
+            --font-body: 'Geist', system-ui, -apple-system, sans-serif;
+            --font-mono: 'Geist Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+            --gutter: 24px;
+            /* Motion: --ease for UI states, --e/--e2/--io for the load and story choreography */
+            --ease: cubic-bezier(0.22, 1, 0.36, 1);
+            --e: cubic-bezier(0.16, 1, 0.3, 1);
+            --e2: cubic-bezier(0.33, 1, 0.68, 1);
+            --io: cubic-bezier(0.65, 0, 0.35, 1);
+        }
+
+        html { scroll-behavior: smooth; scroll-padding-top: 96px; -webkit-text-size-adjust: 100%; }
+
+        body {
+            font-family: var(--font-body);
+            font-size: 16px;
+            line-height: 24px;
+            background: var(--bg);
+            color: var(--text-body);
+            -webkit-font-smoothing: antialiased;
+            overflow-wrap: break-word;
+        }
+
+        h1, h2, h3 { text-wrap: balance; }
+        p, li, dd { text-wrap: pretty; }
+
+        a { color: var(--text); text-underline-offset: 3px; transition: color 0.3s var(--ease), border-color 0.3s var(--ease); }
+        strong { color: var(--text); font-weight: 600; }
+
+        code {
+            font-family: var(--font-mono);
+            font-size: 0.875em;
+            color: var(--text);
+            background: var(--bg-elevated);
+            border: 1px solid var(--border-light);
+            padding: 0 4px;
+            overflow-wrap: anywhere;
+        }
+
+        :focus-visible { outline: 2px solid var(--text); outline-offset: 4px; }
+
+        .sr-only {
+            position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+            overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
+        }
+
+        .skip-link {
+            position: absolute; left: 16px; top: -48px; z-index: 300;
+            background: var(--text); color: var(--bg);
+            font-family: var(--font-mono); font-size: 14px; line-height: 20px;
+            padding: 8px 12px; text-decoration: none;
+        }
+        .skip-link:focus { top: 12px; }
+
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 var(--gutter); }
+        .prose { max-width: 680px; }
+
+        /* ——— NAV: floats off the top edge, sized to its content ——— */
+        .site-nav {
+            position: sticky; top: 12px; z-index: 100;
+            margin-top: 12px;
+            padding: 0 var(--gutter);
+        }
+
+        .nav-inner {
+            position: relative; isolation: isolate;
+            display: flex; align-items: center; justify-content: space-between; gap: 48px;
+            width: fit-content; max-width: 100%;
+            height: 56px; margin: 0 auto; padding: 0 16px 0 24px;
+        }
+        /* The blurred surface lives on a pseudo element, so the fixed mobile panel is not trapped by backdrop-filter */
+        .nav-inner::before {
+            content: ""; position: absolute; inset: 0; z-index: -1;
+            background: rgba(0, 0, 0, 0.72);
+            -webkit-backdrop-filter: blur(12px);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--border-light);
+        }
+
+        .wordmark {
+            font-family: var(--font-mono);
+            font-size: 14px; line-height: 20px; font-weight: 600;
+            color: var(--text); text-decoration: none;
+            letter-spacing: -0.02em;
+        }
+
+        .nav-links { display: flex; align-items: center; gap: 24px; list-style: none; }
+
+        .nav-links a {
+            font-family: var(--font-mono);
+            font-size: 14px; line-height: 20px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            display: inline-flex; align-items: center; gap: 8px;
+        }
+        .nav-links a:hover { color: var(--text); }
+        .nav-links a.current { color: var(--text); }
+        .nav-links img { height: 20px; width: auto; display: block; }
+
+        .menu-btn {
+            display: none;
+            align-items: center; gap: 12px;
+            background: none; border: 1px solid var(--border-light);
+            color: var(--text); cursor: pointer;
+            font-family: var(--font-mono); font-size: 14px; line-height: 20px; font-weight: 600;
+            padding: 4px 12px;
+            transition: border-color 0.3s var(--ease), transform 0.3s var(--ease);
+        }
+        .menu-btn:hover { border-color: var(--text-muted); }
+        .menu-btn:active { transform: scale(0.98); }
+        .menu-btn .bars { position: relative; display: block; width: 16px; height: 12px; }
+        .menu-btn .bars span {
+            position: absolute; left: 0; right: 0; height: 2px; background: var(--text);
+            transition: transform 0.5s var(--ease), opacity 0.3s var(--ease);
+        }
+        .menu-btn .bars span:nth-child(1) { top: 0; }
+        .menu-btn .bars span:nth-child(2) { top: 5px; }
+        .menu-btn .bars span:nth-child(3) { top: 10px; }
+        .menu-btn[aria-expanded="true"] .bars span:nth-child(1) { transform: translateY(5px) rotate(45deg); }
+        .menu-btn[aria-expanded="true"] .bars span:nth-child(2) { opacity: 0; }
+        .menu-btn[aria-expanded="true"] .bars span:nth-child(3) { transform: translateY(-5px) rotate(-45deg); }
+
+        /* ——— SHARED ——— */
+        .section-label {
+            font-family: var(--font-mono);
+            font-size: 14px; line-height: 20px; font-weight: 500;
+            color: var(--text-muted);
+            margin-bottom: 16px;
+        }
+
+        section { padding: 80px 0 96px; border-bottom: 1px solid var(--border); }
+
+        section h2 {
+            font-size: 36px; line-height: 40px;
+            font-weight: 600; letter-spacing: -0.025em;
+            color: var(--text);
+            margin-bottom: 24px;
+            max-width: 680px;
+        }
+
+        .lead { font-size: 18px; line-height: 28px; color: var(--text-body); max-width: 680px; margin-bottom: 40px; }
+
+        /* Command block: real text, wraps instead of scrolling, own copy button */
+        .cmd {
+            display: flex; align-items: flex-start; gap: 12px;
+            background: var(--bg-elevated);
+            border: 1px solid var(--border-light);
+            padding: 12px 12px 12px 16px;
+            font-family: var(--font-mono); font-size: 14px; line-height: 20px;
+            color: var(--text);
+        }
+        .cmd-line { flex: 1; min-width: 0; white-space: pre-wrap; overflow-wrap: anywhere; }
+        .cmd code.cmd-line { background: none; border: 0; padding: 0; font-size: inherit; color: inherit; }
+        .prompt { color: var(--text-muted); user-select: none; -webkit-user-select: none; }
+
+        .copy {
+            flex: none;
+            font-family: var(--font-mono); font-size: 12px; line-height: 16px; font-weight: 600;
+            color: var(--text); background: transparent;
+            border: 1px solid var(--border-strong);
+            padding: 2px 8px; cursor: pointer;
+            transition: border-color 0.3s var(--ease), background-color 0.3s var(--ease), transform 0.3s var(--ease);
+        }
+        .copy:hover { border-color: var(--text-muted); background: var(--bg-card); }
+        .copy:active { transform: scale(0.98); }
+
+        /* ——— HERO ——— */
+        .hero { padding: 64px 0 96px; border-bottom: 1px solid var(--border); }
+
+        .hero-grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: 48px; }
+
+        .eyebrow {
+            font-family: var(--font-mono);
+            font-size: 14px; line-height: 20px; color: var(--text-secondary);
+            margin-bottom: 16px; max-width: 46ch;
+        }
+
+        .hero h1 {
+            font-size: 36px; line-height: 40px;
+            font-weight: 600; letter-spacing: -0.03em;
+            color: var(--text);
+            background: linear-gradient(90deg, #FFFFFF, #9B9B9B);
+            -webkit-background-clip: text; background-clip: text;
+            -webkit-text-fill-color: transparent;
+            max-width: 680px;
+            margin-bottom: 24px;
+        }
+
+        .subhead { font-size: 18px; line-height: 28px; color: var(--text-body); margin-bottom: 32px; max-width: 60ch; }
+
+        .cta-label {
+            font-family: var(--font-mono);
+            font-size: 14px; line-height: 20px; font-weight: 500;
+            color: var(--text); margin-bottom: 12px;
+        }
+
+        .cmd-hero {
+            background: var(--bg);
+            border-color: var(--border-bright);
+            color: #fff;
+        }
+        .cmd-hero .copy {
+            font-size: 14px; line-height: 20px;
+            padding: 8px 12px; margin: -4px -4px -4px 0;
+            background: var(--text); color: var(--bg);
+            border-color: var(--text);
+        }
+        .cmd-hero .copy:hover { background: #fff; border-color: #fff; }
+
+        .card-video { display: block; width: 100%; height: auto; background: var(--bg); border-bottom: 1px solid var(--border); }
+        .cmd-hero + .cmd-hero { margin-top: 8px; }
+        .cmd-hint { display: block; color: var(--text-muted); font-size: 12px; line-height: 16px; margin-top: 4px; user-select: none; -webkit-user-select: none; }
+        .r-gloss { color: var(--text-secondary); font-size: 12px; line-height: 16px; font-weight: 400; }
+
+        .cta-notes { margin-top: 16px; display: grid; gap: 8px; max-width: 60ch; }
+        .cta-notes p { font-size: 14px; line-height: 20px; color: var(--text-secondary); }
+
+        .quiet-link {
+            display: inline-block; margin-top: 24px;
+            font-family: var(--font-mono); font-size: 14px; line-height: 20px;
+            color: var(--text-secondary); text-decoration: none;
+            border-bottom: 1px solid var(--border-strong);
+            padding-bottom: 2px;
+        }
+        .quiet-link:hover { color: var(--text); border-color: var(--text-muted); }
+
+        /* Example card: selectable monospace text in a terminal frame */
+        .card {
+            background: var(--bg-elevated);
+            border: 1px solid var(--border-light);
+            min-width: 0;
+        }
+
+        .card-bar {
+            display: flex; align-items: center; gap: 8px;
+            height: 32px; padding: 0 16px;
+            border-bottom: 1px solid var(--border);
+        }
+        .card-bar i { width: 8px; height: 8px; border-radius: 9999px; background: var(--border-strong); display: block; }
+
+        .card-body { padding: 24px; font-family: var(--font-mono); font-size: 14px; line-height: 20px; }
+
+        .card-label {
+            font-size: 12px; line-height: 16px; font-weight: 500;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+        }
+
+        .r-outcome { color: var(--text-body); }
+        .r-outcome b { color: var(--text); font-weight: 500; }
+        .r-head { color: var(--text); font-weight: 500; margin: 16px 0 8px; }
+
+        /* The story keeps the list at its resting height, so the page never shifts */
+        .r-clip { overflow: hidden; }
+        .r-list { list-style: none; display: grid; gap: 12px; }
+        .r-list li { display: grid; grid-template-columns: 16px minmax(0, 1fr); }
+        .r-list li::before { content: "-"; color: var(--text-muted); }
+        .kind { color: var(--text-muted); }
+        .point { color: var(--text-body); }
+        .by { color: var(--text-muted); white-space: nowrap; }
+        .by b { color: var(--text); font-weight: 500; }
+        .solo { color: var(--accent); display: inline-block; }
+
+        .legend { margin-top: 16px; color: var(--text-secondary); font-size: 12px; line-height: 16px; }
+
+        .show-all {
+            margin-top: 16px;
+            font-family: var(--font-mono); font-size: 12px; line-height: 16px; font-weight: 600;
+            color: var(--text); background: none;
+            border: 1px solid var(--border-strong);
+            padding: 4px 8px; cursor: pointer;
+            transition: border-color 0.3s var(--ease), transform 0.3s var(--ease);
+        }
+        .show-all:hover { border-color: var(--text-muted); }
+        .show-all:active { transform: scale(0.98); }
+
+        .card figcaption {
+            border-top: 1px solid var(--border);
+            padding: 12px 24px;
+            font-size: 14px; line-height: 20px; color: var(--text-muted);
+        }
+
+        /* ——— HOW IT WORKS ——— */
+        .pipeline {
+            display: flex; flex-wrap: wrap; gap: 8px; align-items: center;
+            margin-bottom: 40px;
+            font-family: var(--font-mono); font-size: 14px; line-height: 20px;
+            list-style: none;
+        }
+        .pipeline-step {
+            padding: 8px 16px; border: 1px solid var(--border-light); color: var(--text-secondary);
+            transition: border-color 0.3s var(--ease), color 0.3s var(--ease), background-color 0.3s var(--ease);
+        }
+        .pipeline-step.lit { border-color: var(--text-muted); color: var(--text); background: var(--bg-elevated); }
+        .pipeline-arrow { color: var(--text-muted); }
+
+        .diagram { display: none; margin: 0 0 64px; }
+        .diagram svg { width: 100%; height: auto; display: block; overflow: visible; }
+        .diagram .box { fill: var(--bg-elevated); stroke: var(--border-strong); transition: stroke 0.3s var(--ease); }
+        .diagram .lit .box { stroke: var(--text); }
+        .diagram .line { fill: none; stroke: var(--border-strong); stroke-width: 1.5; }
+        .diagram .track { stroke: var(--border-light); stroke-width: 4; }
+        .diagram .fill { stroke: var(--text-muted); stroke-width: 4; }
+        .diagram .skip { fill: none; stroke: var(--border-strong); stroke-dasharray: 6 4; }
+        .diagram text { font-family: var(--font-mono); font-size: 14px; fill: var(--text-body); transition: fill 0.3s var(--ease); }
+        .diagram text.strong, .diagram .lit text { fill: var(--text); }
+        .diagram text.dim { fill: var(--text-muted); }
+        .diagram .pulse { fill: #fff; opacity: 0; }
+        .diagram .halo { fill: #fff; opacity: 0; }
+
+        .steps { list-style: none; display: grid; gap: 32px; }
+        .step { display: grid; grid-template-columns: 48px minmax(0, 1fr); gap: 16px; }
+        .step-num { font-family: var(--font-mono); font-size: 14px; line-height: 20px; color: var(--text-muted); padding-top: 4px; font-variant-numeric: tabular-nums; }
+        .step:target .step-num { color: var(--text); }
+        .step h3 { font-size: 20px; line-height: 28px; font-weight: 600; color: var(--text); margin-bottom: 8px; }
+        .step p { font-size: 16px; line-height: 24px; color: var(--text-body); max-width: 65ch; }
+
+        .footnote {
+            margin-top: 40px; max-width: 768px;
+            font-size: 14px; line-height: 20px; color: var(--text-secondary);
+            border-top: 1px solid var(--border); padding-top: 16px;
+        }
+
+        /* ——— WHEN ——— */
+        .when-grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: 40px; margin-bottom: 40px; }
+
+        .col-title {
+            font-family: var(--font-mono);
+            font-size: 14px; line-height: 20px; font-weight: 500;
+            color: var(--text);
+            padding-bottom: 8px; margin-bottom: 24px;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .use-list, .skip-list { list-style: none; display: grid; gap: 24px; }
+        .use-list li, .skip-list li { position: relative; padding-left: 24px; font-size: 16px; line-height: 24px; }
+        .use-list li::before, .skip-list li::before {
+            position: absolute; left: 0; top: 0;
+            font-family: var(--font-mono); color: var(--text-secondary);
+        }
+        .use-list li::before { content: "\2713"; }
+        .skip-list li::before { content: "\2715"; }
+        .skip-list { gap: 16px; }
+
+        .situation { display: block; color: var(--text); font-weight: 600; margin-bottom: 8px; }
+        .q {
+            display: inline-block;
+            font-family: var(--font-mono); font-size: 12px; line-height: 16px;
+            color: var(--text-body);
+            background: var(--bg-elevated);
+            padding: 8px 12px;
+            overflow-wrap: anywhere;
+        }
+        .q-extra { display: block; margin-top: 8px; color: var(--text-body); }
+
+        .measured { background: var(--bg-elevated); padding: 24px; }
+        .measured h3 { font-size: 16px; line-height: 24px; font-weight: 600; color: var(--text); margin-bottom: 8px; }
+        .measured p { font-size: 16px; line-height: 24px; color: var(--text-body); max-width: 65ch; }
+
+        /* ——— WORKS WITH ——— */
+        .chip-row { display: grid; grid-template-columns: minmax(0, 1fr); gap: 12px; margin-bottom: 32px; }
+        .row-label {
+            font-family: var(--font-mono);
+            font-size: 14px; line-height: 20px; font-weight: 500;
+            color: var(--text-muted);
+            padding-top: 4px;
+        }
+        .chips { list-style: none; display: flex; flex-wrap: wrap; gap: 8px; }
+        .chips li {
+            font-family: var(--font-mono); font-size: 14px; line-height: 20px;
+            color: var(--text);
+            border: 1px solid var(--border-light);
+            padding: 4px 12px;
+            transition: border-color 0.3s var(--ease), background-color 0.3s var(--ease);
+        }
+        .chips li.lit { border-color: var(--text-muted); background: var(--bg-elevated); }
+        .works-note { max-width: 680px; font-size: 16px; line-height: 24px; color: var(--text-body); margin-top: 8px; }
+        .small-print { margin-top: 24px; font-size: 14px; line-height: 20px; color: var(--text-muted); }
+
+        /* ——— BEFORE YOU RUN ——— */
+        .facts { display: grid; gap: 0; border-top: 1px solid var(--border-light); max-width: 900px; }
+        .fact { display: grid; grid-template-columns: minmax(0, 1fr); gap: 8px; padding: 24px 0; border-bottom: 1px solid var(--border-light); }
+        .fact dt {
+            font-family: var(--font-mono);
+            font-size: 14px; line-height: 20px; font-weight: 500;
+            color: var(--text);
+            padding-top: 2px;
+        }
+        .fact dd { font-size: 16px; line-height: 24px; color: var(--text-body); max-width: 70ch; }
+
+        /* ——— GET STARTED ——— */
+        .prereq { background: var(--bg-elevated); padding: 24px; margin-bottom: 32px; max-width: 820px; }
+        .box-label {
+            font-family: var(--font-mono);
+            font-size: 14px; line-height: 20px; font-weight: 500;
+            color: var(--text); margin-bottom: 12px;
+        }
+        .prereq > ul { list-style: none; display: grid; gap: 16px; }
+        .prereq > ul > li { font-size: 16px; line-height: 24px; color: var(--text-body); padding-left: 16px; position: relative; }
+        .prereq > ul > li::before { content: "-"; position: absolute; left: 0; color: var(--text-muted); }
+        .cli-list { display: grid; gap: 12px; margin-top: 12px; }
+        .cli-list > div { display: grid; grid-template-columns: minmax(0, 1fr); gap: 4px; }
+        .cli-list dt { font-family: var(--font-mono); font-size: 14px; line-height: 20px; color: var(--text); }
+        .cli-list dd { font-size: 14px; line-height: 20px; color: var(--text-secondary); }
+        .cli-list .cmd { background: var(--bg); padding: 8px 8px 8px 12px; margin-bottom: 4px; }
+
+        .tabs { max-width: 820px; }
+        .tablist { display: flex; gap: 0; border-bottom: 1px solid var(--border-light); margin-bottom: 24px; flex-wrap: wrap; }
+        .tab {
+            font-family: var(--font-mono); font-size: 14px; line-height: 20px;
+            color: var(--text-secondary); background: none;
+            border: 0; border-bottom: 2px solid transparent;
+            padding: 12px 16px; margin-bottom: -1px;
+            cursor: pointer;
+            transition: color 0.3s var(--ease), border-color 0.3s var(--ease);
+        }
+        .tab[aria-selected="true"] { color: var(--text); border-bottom-color: var(--text); }
+        .tab:hover { color: var(--text); }
+        .no-js .tablist { display: none; }
+        .panel-title { display: none; }
+        .no-js .panel-title { display: block; font-family: var(--font-mono); font-size: 14px; line-height: 20px; color: var(--text); margin: 24px 0 12px; }
+
+        .setup-steps { list-style: none; display: grid; gap: 24px; }
+        .setup-steps li { display: grid; grid-template-columns: 32px minmax(0, 1fr); gap: 8px; }
+        .setup-n { font-family: var(--font-mono); font-size: 14px; line-height: 20px; color: var(--text-muted); padding-top: 12px; font-variant-numeric: tabular-nums; }
+        .setup-steps p, .panel-text { font-size: 14px; line-height: 20px; color: var(--text-secondary); margin-top: 8px; }
+        .cmd-stack { display: grid; gap: 12px; }
+        .panel-text.then { margin: 8px 0 0; color: var(--text-body); }
+
+        .warn {
+            max-width: 820px; margin-top: 32px;
+            background: var(--bg-elevated);
+            padding: 16px 24px;
+            font-size: 16px; line-height: 24px; color: var(--text-body);
+        }
+
+        .more-link {
+            display: inline-block; margin-top: 24px;
+            font-size: 16px; line-height: 24px; color: var(--text); text-decoration: none;
+            border-bottom: 1px solid var(--border-strong);
+        }
+        .more-link:hover { border-color: var(--text); }
+
+        /* ——— FAQ: question and answer side by side, always open ——— */
+        .faq { max-width: 1040px; border-top: 1px solid var(--border-light); }
+        .faq-item { display: grid; grid-template-columns: minmax(0, 1fr); gap: 8px; padding: 24px 0; border-bottom: 1px solid var(--border-light); }
+        .faq dt { font-size: 18px; line-height: 28px; font-weight: 600; color: var(--text); }
+        .faq dd { font-size: 16px; line-height: 24px; color: var(--text-body); max-width: 65ch; }
+        .faq-more { margin-top: 32px; }
+
+        /* ——— FOOTER ——— */
+        footer { padding: 48px 0 64px; }
+        .footer-main { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-start; gap: 24px; margin-bottom: 24px; }
+        .footer-links { display: flex; flex-wrap: wrap; gap: 8px 24px; list-style: none; max-width: 680px; }
+        .footer-links a {
+            font-family: var(--font-mono); font-size: 14px; line-height: 20px;
+            color: var(--text-secondary); text-decoration: none;
+        }
+        .footer-links a:hover { color: var(--text); }
+        .shields { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+        .shields a { display: inline-flex; }
+        .shields img { height: 20px; width: auto; display: block; }
+        .footer-fine { font-size: 12px; line-height: 16px; color: var(--text-muted); max-width: 820px; }
+        .footer-fine a { color: var(--text-secondary); }
+
+        /* ——— TOAST ——— */
+        .toast {
+            position: fixed; bottom: 24px; left: 50%;
+            transform: translateX(-50%) translateY(16px);
+            width: max-content; max-width: calc(100vw - 32px);
+            font-family: var(--font-mono); font-size: 14px; line-height: 20px;
+            color: var(--text); background: var(--bg-card);
+            border: 1px solid var(--border-strong);
+            padding: 8px 16px;
+            opacity: 0; pointer-events: none;
+            transition: opacity 0.3s var(--ease), transform 0.5s var(--ease);
+            z-index: 200;
+        }
+        .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+        /* ——— MOTION ———
+           Only active when JS added html.motion (never under reduced motion), so without JS
+           every element sits in its final state. */
+
+        /* Page load: the hero copy and the example card rise and resolve from blur */
+        .motion .k-up, .motion .k-left, .motion .k-pop, .motion .k-card, .motion .k-fade {
+            transition: transform 1.05s var(--e) var(--d, 0s), opacity 0.75s var(--e2) var(--d, 0s), filter 0.75s var(--e2) var(--d, 0s);
+        }
+        .motion .k-card { transition-duration: 0.9s, 0.6s, 0.6s; }
+        .motion .hero:not(.in) .k-up { opacity: 0; transform: translateY(10px); filter: blur(4px); }
+        .motion .hero:not(.in) .k-left { opacity: 0; transform: translateX(-10px); filter: blur(4px); }
+        .motion .hero:not(.in) .k-pop { opacity: 0; transform: scale(0.86); filter: blur(4px); }
+        .motion .hero:not(.in) .k-card { opacity: 0; transform: translateY(24px) scale(0.985); filter: blur(6px); }
+        .motion .hero:not(.in) .k-fade { opacity: 0; }
+
+        .hero .eyebrow { --d: 0s; }
+        .hero h1 { --d: 0.08s; }
+        .hero .subhead { --d: 0.16s; }
+        .hero .cta > :nth-child(1) { --d: 0.26s; }
+        .hero .cta > :nth-child(2) { --d: 0.32s; }
+        .hero .cta > :nth-child(3) { --d: 0.38s; }
+        .hero .cta > :nth-child(4) { --d: 0.46s; }
+        .hero .cta > :nth-child(5) { --d: 0.52s; }
+        .hero .card { --d: 0.18s; }
+        .hero .card-bar i:nth-child(1) { --d: 0.34s; }
+        .hero .card-bar i:nth-child(2) { --d: 0.38s; }
+        .hero .card-bar i:nth-child(3) { --d: 0.42s; }
+        .hero .card-video { --d: 0.4s; }
+        .hero .card-label { --d: 0.5s; }
+        .hero .r-outcome { --d: 0.56s; }
+        .hero .r-gloss { --d: 0.6s; }
+        .hero .r-head { --d: 0.64s; }
+        .hero .r-list > li:nth-child(1) { --d: 0.7s; }
+        .hero .r-list > li:nth-child(2) { --d: 0.76s; }
+        .hero .r-list > li:nth-child(3) { --d: 0.82s; }
+        .hero .r-list > li:nth-child(4) { --d: 0.88s; }
+        .hero .r-list > li:nth-child(2) .solo { --d: 0.86s; }
+        .hero .r-list > li:nth-child(3) .solo { --d: 0.92s; }
+        .hero .r-list > li:nth-child(4) .solo { --d: 0.98s; }
+        .hero .legend, .hero .show-all { --d: 1s; }
+        .hero figcaption { --d: 1.06s; }
+
+        /* Diagram: nodes pop in reading order, connectors draw on, the merged list fills like progress */
+        .motion .diagram .node { transform-box: fill-box; transform-origin: center; transition: transform 1.05s var(--e) var(--d, 0s), opacity 0.75s var(--e2) var(--d, 0s); }
+        .motion .diagram:not(.in) .node { opacity: 0; transform: scale(0.86); }
+        .motion .diagram .line, .motion .diagram .fill { stroke-dasharray: 1; transition: stroke-dashoffset 0.9s var(--io) var(--d, 0s); }
+        .motion .diagram .fill { transition-duration: 0.7s; }
+        .motion .diagram:not(.in) .line, .motion .diagram:not(.in) .fill { stroke-dashoffset: 1; }
+        .motion .diagram .k-fade { transition: opacity 0.75s var(--e2) var(--d, 0s); }
+        .motion .diagram:not(.in) .k-fade { opacity: 0; }
+        .diagram .n-q { --d: 0s; }
+        .diagram .in-path { --d: 0.12s; }
+        .diagram .n-m1 { --d: 0.3s; }
+        .diagram .n-m2 { --d: 0.36s; }
+        .diagram .n-m3 { --d: 0.42s; }
+        .diagram .out-path { --d: 0.5s; }
+        .diagram .n-out { --d: 0.78s; }
+        .diagram .fill:nth-of-type(1) { --d: 1s; }
+        .diagram .fill:nth-of-type(2) { --d: 1.08s; }
+        .diagram .fill:nth-of-type(3) { --d: 1.16s; }
+        .diagram .n-skip { --d: 1.3s; }
+
+        /* Text sections: rise and fade in once as they enter the viewport */
+        .motion [data-reveal] { transition: opacity 0.7s var(--ease) var(--d, 0s), transform 0.7s var(--ease) var(--d, 0s); }
+        .motion [data-reveal]:not(.in) { opacity: 0; transform: translateY(16px); }
+
+        /* ——— RESPONSIVE ——— */
+        @media (min-width: 640px) {
+            code { white-space: nowrap; }
+            .cmd code.cmd-line { white-space: pre-wrap; }
+        }
+
+        @media (min-width: 720px) {
+            .cli-list > div { grid-template-columns: 72px minmax(0, 1fr); gap: 12px; }
+            .cli-list dt { padding-top: 8px; }
+            .chip-row { grid-template-columns: 168px minmax(0, 1fr); gap: 16px; }
+            .fact { grid-template-columns: 168px minmax(0, 1fr); gap: 24px; }
+        }
+
+        @media (min-width: 860px) {
+            .when-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 64px; }
+            .faq-item { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 48px; }
+        }
+
+        @media (min-width: 900px) {
+            .diagram { display: block; }
+            .pipeline { display: none; }
+        }
+
+        @media (min-width: 1024px) {
+            .hero { padding-top: 80px; }
+            .hero-grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 64px; align-items: start; }
+            .hero h1 { font-size: 48px; line-height: 1; }
+            .show-all { display: none; }
+        }
+
+        @media (max-width: 1023px) {
+            .card.collapsed .r-list > li:nth-child(n+4):not(.leave) { display: none; }
+        }
+
+        @media (max-width: 859px) {
+            .nav-inner { width: 100%; }
+            .menu-btn { display: inline-flex; }
+            .nav-links {
+                position: fixed; inset: 0; z-index: -2;
+                display: flex; flex-direction: column; align-items: flex-start; gap: 24px;
+                background: var(--bg);
+                padding: 96px var(--gutter) 48px;
+                opacity: 0; visibility: hidden;
+                transition: opacity 0.3s var(--ease), visibility 0s linear 0.3s;
+            }
+            .nav-links a { font-family: var(--font-body); font-size: 24px; line-height: 32px; font-weight: 600; color: var(--text); }
+            .nav-links li { opacity: 0; transform: translateY(8px); transition: opacity 0.3s var(--ease), transform 0.5s var(--ease); }
+            .nav-links.open { opacity: 1; visibility: visible; transition: opacity 0.3s var(--ease), visibility 0s; }
+            .nav-links.open li { opacity: 1; transform: none; }
+            .nav-links.open li:nth-child(2) { transition-delay: 60ms; }
+            .nav-links.open li:nth-child(3) { transition-delay: 120ms; }
+            .nav-links.open li:nth-child(4) { transition-delay: 180ms; }
+            .nav-links.open li:nth-child(5) { transition-delay: 240ms; }
+            .no-js .nav-links { position: static; z-index: auto; opacity: 1; visibility: visible; flex-direction: row; flex-wrap: wrap; gap: 16px; padding: 0 0 12px; background: none; }
+            .no-js .nav-links li { opacity: 1; transform: none; }
+            .no-js .nav-links a { font-family: var(--font-mono); font-size: 14px; line-height: 20px; font-weight: 400; }
+            .no-js .nav-inner { flex-wrap: wrap; height: auto; padding-top: 12px; }
+            .no-js .menu-btn { display: none; }
+        }
+
+        @media (max-width: 639px) {
+            :root { --gutter: 16px; }
+            section { padding: 64px 0 80px; }
+            section h2 { font-size: 30px; line-height: 36px; }
+            .hero { padding: 48px 0 80px; }
+            .subhead { font-size: 16px; line-height: 24px; }
+            .lead { font-size: 16px; line-height: 24px; }
+            .cmd-hero { padding: 12px; }
+            .card-body { padding: 16px; }
+            .card figcaption { padding: 12px 16px; }
+            .by { white-space: normal; }
+            .prereq { padding: 16px; }
+            .measured { padding: 16px; }
+            .warn { padding: 16px; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            html { scroll-behavior: auto; }
+            *, *::before, *::after { transition: none !important; }
+        }
+    </style>
+<style>.preview{padding-top:48px;padding-bottom:80px;max-width:960px}.preview nav{margin:24px 0;line-height:2}.preview article{line-height:1.7;overflow-wrap:anywhere}.preview h1{font-size:2.5rem;line-height:1.2}.preview h2,.preview h3{margin:36px 0 14px}.preview p,.preview ul,.preview ol,.preview blockquote{margin:16px 0}.preview ul,.preview ol{padding-left:24px}.preview pre{overflow:auto;padding:16px;border:1px solid var(--border);margin:16px 0;white-space:pre}.preview table{border-collapse:collapse;min-width:600px;font-size:14px}.preview th,.preview td{padding:10px;text-align:left;border-bottom:1px solid var(--border)}.preview .table-scroll{overflow-x:auto}.preview blockquote{border-left:2px solid var(--text-muted);padding-left:16px}.preview a{text-decoration:underline}.preview code{font-size:.9em}.preview pre code{font-size:13px}</style></head><body><a class="skip-link" href="#main">Skip to content</a><main id="main" class="container preview"><a href="/">← ai-consultants</a><nav aria-label="Preview documentation"><a href="/next/">Next release preview</a> · <a href="/next/overview.html">Project overview</a> · <a href="/next/setup.html">Setup preview</a> · <a href="/next/configuration.html" aria-current="page">Configuration preview</a> · <a href="/next/routing.html">Smart routing preview</a> · <a href="/next/changelog.html">Changelog preview</a></nav><article><blockquote>
+<p><strong>Unreleased preview.</strong> These model changes are in development and are not included in the published npm package (5.8.0). Installation commands below require the unreleased checkout. This is a documentation snapshot, not evidence of a live model run. Benchmark data: November 13, 2026, AA v5.0.1. <a href="/#get-started">Published documentation</a>.</p>
+</blockquote>
+<h1 id="ai-consultants---full-configuration-reference">AI Consultants - Full Configuration Reference</h1>
+<p>Configuration sources, in order of precedence (highest wins):</p>
+<ol>
+<li><strong>CLI flags</strong> — <code>--preset</code>, <code>--strategy</code>, etc.</li>
+<li><strong>Existing env vars</strong> — <code>export FOO=bar</code> before invoking</li>
+<li><strong>User config dir</strong> (v2.12+) — <code>~/.config/ai-consultants/{config.sh,.env}</code></li>
+<li><strong><code>config.sh</code> defaults</strong> — the <code>${VAR:-default}</code> fallbacks</li>
+<li><strong>Hardcoded defaults</strong> in individual scripts</li>
+</ol>
+<p>For goal-oriented, copy-paste configurations, start with
+<code>docs/RECIPES.md</code>. This file is the variable reference;
+<code>scripts/config.sh</code> is the executable source of truth.</p>
+<h2 id="automatic-configurator">Automatic Configurator</h2>
+<p>The public configurator detects all 11 supported consultants, chooses CLI or API
+transport from the available CLI binaries and credentials, and writes the
+persistent XDG configuration:</p>
+<pre><code class="language-bash">ai-consultants configure
+</code></pre>
+<p>It preserves existing custom values and secrets, refreshes <code>ENABLE_*</code> flags from
+detected availability, creates a timestamped backup, writes the result with mode
+<code>600</code>, and warns when fewer than two consultants are usable. Pin an availability
+decision with a final <code>--set ENABLE_&#x3C;NAME>=true|false</code> override.
+Automatically chosen <code>*_USE_API</code> modes are stored with an
+<code># ai-consultants:auto</code> marker and are recalculated on later runs. Remove the
+marker or use an environment variable/<code>--set</code> to pin a transport explicitly.
+It never performs a billed authentication probe; use <code>ai-consultants doctor --live</code> when you explicitly want a live provider check.</p>
+<pre><code class="language-bash"># Guided consultant and transport review
+ai-consultants configure --interactive
+
+# Review every supported persistent parameter
+ai-consultants configure --advanced
+
+# Fully automated, repeatable configuration
+ai-consultants configure \
+  --set DEFAULT_PRESET=security \
+  --set ENABLE_HEALTH_GATE=true \
+  --set QUORUM_ACTION=stop
+
+# Discover the exact accepted keys or preview without exposing secrets
+ai-consultants configure --show-parameters
+ai-consultants configure --dry-run
+</code></pre>
+<p><code>--set KEY=VALUE</code> is repeatable and fails closed for unknown or removed keys.
+Use the hidden interactive credential prompts (or exported environment variables)
+for API keys; command-line arguments may be visible in shell history and process
+inspection.
+Model defaults carry an <code># ai-consultants:default</code> marker. On rewrite,
+<code>configure</code> upgrades the exact historical defaults it generated, marked or
+unmarked, unless they are pinned: <code>CLAUDE_MODEL=claude-opus-4-8</code>/<code>claude-opus-5</code>
+to Opus 5.5, plus the previous Gemini (CLI and API), Codex, Mistral API, Qwen,
+GLM, Grok and DeepSeek defaults, and the fixed timeouts described under
+<a href="#timeouts-waiting-and-retries">Timeouts, Waiting and Retries</a>. An explicit
+model override supplied with <code>--set</code> is stored with <code># ai-consultants:pin</code>, so
+<code>--set CLAUDE_MODEL=claude-opus-5-5</code> keeps Opus 5.5 (the standard/medium
+target) as the default.
+Retired models (5.5.0, listed with their replacements under <code>retired_models</code>
+in <code>docs/cost_rates.json</code>) are replaced even when pinned: the marker is kept,
+the old value is recorded as <code>migrated-from=</code>, and <code>--set</code> refuses them. A
+retired or uncatalogued model selected at run time still runs, with a warning,
+and its cost is reported as unpriced.
+The exhaustive parameter contract is <code>.env.example</code>; the
+configurator derives its accepted keys from that template, while
+<code>scripts/config.sh</code> remains the runtime source of truth.
+A regression test fails when a persistent runtime default is missing from the
+configurator.</p>
+<h2 id="user-config-dir-v212">User Config Dir (v2.12+)</h2>
+<p>Persistent overrides live in <code>~/.config/ai-consultants/</code>. The directory and starter files are scaffolded by:</p>
+<pre><code class="language-bash">ai-consultants init           # creates the dir + .env + config.sh
+ai-consultants init --force   # overwrites existing files
+</code></pre>
+<p><code>init</code> only scaffolds files for manual editing. Prefer <code>configure</code> when you want
+automatic detection and a ready-to-use panel.</p>
+<p>Search order for the directory:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-scroll"><table><thead><tr><th>Priority</th><th>Source</th></tr></thead><tbody><tr><td>1</td><td><code>$AI_CONSULTANTS_CONFIG_DIR</code></td></tr><tr><td>2</td><td><code>$XDG_CONFIG_HOME/ai-consultants</code></td></tr><tr><td>3</td><td><code>$HOME/.config/ai-consultants</code></td></tr></tbody></table></div>
+<p>Files loaded from that dir (in order, both optional):</p>
+<ul>
+<li><strong><code>.env</code></strong> — KEY=value lines, parsed and exported. Existing env vars are NOT overridden. <code>export</code> prefix and <code># comments</code> supported. Recommended chmod 600 (contains API keys).</li>
+<li><strong><code>config.sh</code></strong> — full bash, sourced after <code>.env</code>. Use <code>${VAR:-default}</code> to defer to env.</li>
+<li><strong><code>affinity.json</code></strong> — picked up by <code>lib/routing.sh</code> if present (overrides bundled matrix; superseded by <code>AFFINITY_FILE</code>).</li>
+</ul>
+<p><code>./scripts/doctor.sh</code> reports which user config files are loaded under “Checking User Config (v2.12)”.</p>
+<h2 id="defaults">Defaults</h2>
+<pre><code class="language-bash">DEFAULT_PRESET=              # Preset when --preset is not given; empty = every enabled consultant
+DEFAULT_STRATEGY=coverage    # Strategy when --strategy is not given
+</code></pre>
+<p><code>.env.example</code> leaves <code>DEFAULT_PRESET=balanced</code> commented out; set it (for
+example with <code>configure --set DEFAULT_PRESET=balanced</code>) to run three
+consultants by default instead of every enabled one.</p>
+<h2 id="context-handoff-v214">Context Handoff (v2.14+)</h2>
+<p>The way file context flows from the invoking agent to the consultants. Agents pass file paths as positional arguments to <code>consult_all.sh</code> rather than inlining file contents into the query string — this is what lets <code>build_context.sh</code> run the AST/chunking optimizer.</p>
+<h3 id="file-path-syntax--pathtag">File path syntax — <code>path@TAG</code></h3>
+<p>When passing files to <code>consult_all.sh</code> (directly or via slash command), each path may carry a <code>@TAG</code> suffix:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-scroll"><table><thead><tr><th>Tag</th><th>Meaning</th></tr></thead><tbody><tr><td><code>@PRIMARY</code></td><td>Focus of the question; what consultants should critique. Default if <code>@TAG</code> omitted.</td></tr><tr><td><code>@CONTEXT</code></td><td>Ambient reference; read but not the target of the critique.</td></tr></tbody></table></div>
+<pre><code class="language-bash">./scripts/consult_all.sh "Why does auth fail under load?" \
+    src/auth.ts@PRIMARY src/cache.ts@CONTEXT src/logger.ts@CONTEXT
+</code></pre>
+<p>Unknown tags fall back to <code>PRIMARY</code> with a <code>log_warn</code> message. The tag appears in the rendered <code>### File: ... (TAG)</code> header so consultants can weigh files differently.</p>
+<h3 id="--query-file-path-flag"><code>--query-file &#x3C;path></code> flag</h3>
+<p>Use it when the question would exceed the shell’s argument limits (128 KiB per argument on Linux, about 1 MiB in total on macOS), contains awkward quoting (JSON, Python dicts with mixed quotes), or should stay out of the process list. Conflicts with a positional question argument.</p>
+<pre><code class="language-bash">q=$(mktemp) &#x26;&#x26; chmod 600 "$q"
+printf '%s\n' "Long multi-paragraph question..." > "$q"
+./scripts/consult_all.sh --query-file "$q" src/big.py@PRIMARY
+rm -f "$q"
+</code></pre>
+<h3 id="category-aware-project-tree">Category-aware project tree</h3>
+<p><code>build_context.sh</code> reads <code>QUESTION_CATEGORY</code> (already exported by <code>consult_all.sh</code> after <code>classify_question.sh</code> runs) to decide whether to include the project-tree listing.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-scroll"><table><thead><tr><th>Category</th><th>Project tree included?</th></tr></thead><tbody><tr><td><code>ARCHITECTURE</code>, <code>CODE_REVIEW</code>, <code>API_DESIGN</code>, <code>GENERAL</code></td><td>Yes</td></tr><tr><td><code>SECURITY</code>, <code>QUICK_SYNTAX</code>, <code>ALGORITHM</code>, <code>BUG_DEBUG</code>, <code>DATABASE</code>, <code>TESTING</code></td><td>No</td></tr><tr><td>Unknown category</td><td>Yes (conservative default)</td></tr></tbody></table></div>
+<p>The tree is never listed when the context root is a home directory or <code>/</code>:
+walking it is slow and would send personal file names to every consultant.</p>
+<p>Override:</p>
+<pre><code class="language-bash">FORCE_PROJECT_TREE=true ./scripts/consult_all.sh "..."   # Always include
+</code></pre>
+<h3 id="token-optimization-mode-v22-now-actually-engaged">Token optimization mode (v2.2+, now actually engaged)</h3>
+<pre><code class="language-bash">TOKEN_OPTIMIZATION_MODE=ast      # none, basic, ast (default), full
+ENABLE_AST_EXTRACTION=true       # AST-based code skeleton
+ENABLE_SYMBOL_COMPRESSION=false  # Symbol compression (opt-in)
+ENABLE_SEMANTIC_CHUNKING=true    # Semantic chunking for large files
+MAX_CONTEXT_FILE_BYTES=8000      # Threshold before optimization kicks in
+</code></pre>
+<p>AST extractors are dedicated for <strong>Python, JavaScript, TypeScript, Bash, Go</strong>. Other declared languages (Rust, Java, C, C++, C#, Ruby, PHP, Swift) fall back to a <code>grep</code>-based generic extractor.</p>
+<h2 id="core-features">Core Features</h2>
+<pre><code class="language-bash">ENABLE_PERSONA=true          # Give each consultant its configured role
+ENABLE_SYNTHESIS=true        # Automatic synthesis
+SYNTHESIS_CMD=claude         # CLI used to synthesize the panel
+SYNTH_DETAIL_MAX_CHARS=4000  # Per-response detail included in synthesis
+SYNTHESIS_TIMEOUT=0          # Per synthesis CLI; 0 = no limit (default)
+SYNTHESIS_TOTAL_TIMEOUT=0    # All provider attempts together; 0 = no limit
+ENABLE_SMART_ROUTING=false   # Category-based consultant selection
+ENABLE_COST_TRACKING=true    # Track API usage costs
+</code></pre>
+<p><code>SYNTHESIS_CMD</code> may be <code>claude</code>, <code>codex</code>, or <code>gemini</code>. The invoking agent is excluded automatically;
+set <code>INVOKING_AGENT</code> only for direct integrations that need to declare their
+host explicitly.</p>
+<h2 id="classification-and-smart-routing">Classification and Smart Routing</h2>
+<pre><code class="language-bash">ENABLE_CLASSIFICATION=true      # Classify every question before routing
+CLASSIFICATION_MODE=pattern     # pattern (fast) | llm (more accurate, costs a call)
+ENABLE_SMART_ROUTING=false      # Select consultants using the affinity matrix
+MIN_AFFINITY=7                  # Minimum category score, from 1 to 10
+</code></pre>
+<p>The bundled matrix lives in <code>references/affinity.json</code>. Set
+<code>AFFINITY_FILE</code> or place <code>affinity.json</code> in the user config directory to
+override it.</p>
+<h2 id="cliapi-mode-switching-v26">CLI/API Mode Switching (v2.6+)</h2>
+<p>Seven consultants support switching between CLI and API mode. <strong>The default is the CLI</strong> for every consultant that has one. Grok additionally falls back to the xAI API after a failed CLI launch when a key is available. When API mode is explicitly enabled, the CLI is not used.</p>
+<p><strong>Gemini auto-resolution (v2.15.1):</strong> leave <code>GEMINI_USE_API</code> unset and the mode is chosen for you — API mode when <code>GEMINI_API_KEY</code> is present (no <code>agy</code> install or OAuth needed; ideal for <code>npx</code>), CLI mode (<code>agy</code>) otherwise. Set <code>GEMINI_USE_API</code> explicitly only to force a mode (an explicit value disables auto-detection).</p>
+<pre><code class="language-bash"># GEMINI_USE_API unset = auto (API if GEMINI_API_KEY set, else agy CLI)
+GEMINI_USE_API=false         # Force agy CLI; set true to force Google AI API
+CODEX_USE_API=false          # Use OpenAI API instead of codex CLI
+CLAUDE_USE_API=false         # Use Anthropic API instead of claude CLI
+MISTRAL_USE_API=false        # Use Mistral API instead of vibe CLI
+QWEN3_USE_API=false          # Use qwen CLI (default) or DashScope API
+GROK_USE_API=false           # Use Grok Build (default); API is fallback
+MINIMAX_USE_API=false        # Use mmx CLI (default) or MiniMax API
+# META_USE_API unset = auto (API if META_API_KEY set, else muse CLI)
+</code></pre>
+<h3 id="api-keys">API Keys</h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-scroll"><table><thead><tr><th>Agent</th><th>API Key Variable</th><th>Notes</th></tr></thead><tbody><tr><td>Gemini</td><td><code>GEMINI_API_KEY</code></td><td>Google AI API key</td></tr><tr><td>Codex</td><td><code>OPENAI_API_KEY</code></td><td>OpenAI API key</td></tr><tr><td>Claude</td><td><code>ANTHROPIC_API_KEY</code></td><td>Anthropic API key</td></tr><tr><td>Mistral</td><td><code>MISTRAL_API_KEY</code></td><td>Mistral API key</td></tr><tr><td>Qwen3</td><td><code>QWEN3_API_KEY</code></td><td>DashScope API key</td></tr><tr><td>MiniMax</td><td><code>MINIMAX_API_KEY</code></td><td>MiniMax API key (API mode only; the mmx CLI uses OAuth)</td></tr><tr><td>Meta</td><td><code>META_API_KEY</code></td><td>Meta Model API key (<code>LLM_...</code>); Muse Code also reads it headless</td></tr><tr><td>GLM</td><td><code>GLM_API_KEY</code></td><td>Required when <code>ENABLE_GLM=true</code></td></tr><tr><td>Grok</td><td><code>GROK_API_KEY</code></td><td>xAI API fallback key; Grok Build CLI uses its own login</td></tr><tr><td>DeepSeek</td><td><code>DEEPSEEK_API_KEY</code></td><td>Required when <code>ENABLE_DEEPSEEK=true</code></td></tr></tbody></table></div>
+<h2 id="consultant-toggles-and-models">Consultant Toggles and Models</h2>
+<pre><code class="language-bash"># Consultants enabled by default
+ENABLE_GEMINI=true
+ENABLE_CODEX=true
+ENABLE_MISTRAL=true
+ENABLE_KIMI=true             # Kimi CLI - The Eastern Sage
+ENABLE_QWEN3=true            # Qwen CLI/API - The Analyst
+ENABLE_GROK=true             # Grok Build CLI/API fallback - The Provocateur
+ENABLE_MINIMAX=true          # MiniMax CLI/API (mmx) - The Pragmatic Optimizer
+ENABLE_CLAUDE=true           # Claude CLI - The Synthesizer (auto-excluded under Claude Code)
+
+# API-only consultants (off by default - require API keys)
+ENABLE_GLM=false
+ENABLE_DEEPSEEK=false
+
+# Opt-in: Meta (muse CLI or META_API_KEY) - The Systems Thinker
+ENABLE_META=false
+</code></pre>
+<h3 id="model-overrides">Model Overrides</h3>
+<pre><code class="language-bash">GEMINI_MODEL=gemini-4-hydrogen-xhigh # premium; exact agy ID
+GEMINI_API_MODEL=gemini-4-hydrogen   # API only; explicit tier thinking level
+GEMINI_API_MAX_TOKENS=32768           # API thinking + visible output
+GEMINI_FRONTIER_CLI_MODEL=             # optional Carbon maximum; CLI-only
+CODEX_MODEL=gpt-6.1-sol    # max_quality uses gpt-6-astra
+CODEX_API_MAX_TOKENS=16384
+CLAUDE_MODEL=claude-fable-5-2
+# Matching Claude tier defaults: Fable 5.2/max, Fable 5.2/high, Opus 5.5/medium.
+# CLAUDE_REASONING_EFFORT overrides the tier effort; Fable 5.1 remains opt-in.
+CLAUDE_API_MAX_TOKENS=16384  # API only: adaptive thinking + visible output
+MISTRAL_MODEL=mistral-large-4
+MISTRAL_CLI_MODEL=mistral-medium-3.5
+MISTRAL_MAX_TURNS=4
+MISTRAL_API_MAX_TOKENS=16384  # API only: Large 4 thinking + visible output
+KIMI_MODEL=kimi-code/k3.1-pro
+KIMI_REASONING_EFFORT=max   # passed as KIMI_MODEL_THINKING_EFFORT; empty = CLI default
+QWEN3_MODEL=qwen3.8-max     # standard/economy tiers use qwen3.8-flash
+QWEN3_MAX_QUALITY_TIMEOUT=0  # 0 = no limit
+QWEN3_API_MAX_TOKENS=16384
+GLM_MODEL=glm-5.3-flash
+GLM_API_MAX_TOKENS=16384
+GLM_REASONING_EFFORT=       # max_quality sets max
+GROK_MODEL=grok-4.7
+GROK_MAX_TURNS=4
+GROK_API_MAX_TOKENS=4096
+GROK_REASONING_EFFORT=      # max_quality sets xhigh (Grok Build maximum)
+GROK_OAUTH_MODE=shared      # shared (parallel default) | serialized (diagnostic)
+DEEPSEEK_MODEL=deepseek-flash  # DeepSeek-V4.1-Flash API alias
+DEEPSEEK_API_MAX_TOKENS=16384
+DEEPSEEK_MAX_QUALITY_TIMEOUT=0  # 0 = no limit
+DEEPSEEK_REASONING_EFFORT=  # max_quality sets max
+MINIMAX_MODEL=MiniMax-M3.1-Flash  # every tier; always reasons
+MINIMAX_API_MAX_TOKENS=16384    # reasoning shares the completion budget
+MINIMAX_MAX_TOKENS=16384
+MINIMAX_MAX_QUALITY_TOKENS=32768
+MINIMAX_REASONING_EFFORT=       # API only: low|medium|high|xhigh|max (default max)
+MAX_QUALITY_API_MAX_TOKENS=16384
+META_CMD=muse
+META_MODEL=muse-wonder-1.0      # standard/economy: muse-spark-1.3; always reasons
+META_REASONING_EFFORT=high      # minimal..max (none rejected); max_quality sets max
+META_API_MAX_TOKENS=32768       # reasoning shares the completion budget
+META_API_URL=https://api.meta.ai/v1/chat/completions
+</code></pre>
+<p>Meta always runs in Standard mode, where Meta does not train on the content:
+the <code>muse</code> CLI gets <code>--contributor-mode off</code> on every run (subscriptions
+default to Contributor mode). <code>muse-spark-1.3-contributor</code> is a catalogued
+opt-in for the API and logs a warning whenever it is pinned.</p>
+<p>Anthropic counts adaptive thinking and visible response tokens against the same
+<code>CLAUDE_API_MAX_TOKENS</code> limit. The default is 16,384; a response that reaches
+that limit is rejected as truncated instead of entering synthesis as a complete
+answer.</p>
+<p><code>GROK_MODEL</code> is passed explicitly to <code>grok -m</code>. The default transport is the
+headless Grok Build CLI using a private <code>--prompt-file</code> inside an isolated,
+tool-free strict sandbox. If the CLI is missing, cannot execute, or has no
+usable authentication, the same query and model fall back to <code>GROK_API_URL</code>
+when <code>GROK_API_KEY</code> is set. Failures after a request launches (including
+timeouts, model errors, and empty output) are returned without API fallback.
+Set <code>GROK_USE_API=true</code> only to force the API path. The adapter accepts any CLI
+version that exposes the complete required headless interface and requested
+model; <code>metadata.cli_version</code> is provenance, not a version pin.</p>
+<p><code>GROK_OAUTH_MODE=shared</code> is the normal CLI path because ai-consultants launches
+consultants in parallel. Each Grok invocation keeps a private HOME, workspace,
+prompt, output, permissions, and tool-free agent policy. Concurrent Grok
+processes share only a runner-owned persistent <code>GROK_HOME</code> generation under
+<code>$XDG_DATA_HOME/ai-consultants/grok-shared-oauth</code> (or the standard XDG data
+fallback). Grok Build’s own auth lock coordinates refreshes inside that shared
+generation; a short ai-consultants lock protects seeding, adoption, atomic
+runner-policy reconciliation, and atomic publication back to the ambient
+<code>~/.grok/auth.json</code>. An external <code>grok login</code> always wins the digest-based CAS:
+the affected consultation fails temporarily and never overwrites the new login
+or falls back to a separately billed API request. Malformed credentials and
+unpersisted refreshes fail closed. Use <code>GROK_OAUTH_MODE=serialized</code> only to hold
+the adapter lock across the complete CLI run for diagnostic comparison. Forced
+API mode is stateless and never creates or reads the shared OAuth generation.
+Each new generation also performs exactly one model-inventory bootstrap under
+the short lock because Grok 1.0.4 lazily initializes home metadata; all later
+inventory probes and every inference remain concurrent.
+Grok 1.0.4 retains ownership of its generated <code>config.toml</code>; ai-consultants does
+not replace provider-required sections. Instead it atomically reconciles a
+separate <code>.ai-consultants-policy.json</code>, while the actual enforced surface stays
+pinned by the per-invocation CLI arguments.</p>
+<p><code>max_quality</code> sets <code>GROK_REASONING_EFFORT=xhigh</code> (the highest value accepted by
+Grok Build),
+<code>GLM_REASONING_EFFORT=max</code>, and <code>DEEPSEEK_REASONING_EFFORT=max</code>. Grok passes
+the value to the CLI as <code>--reasoning-effort</code>; the API transports include the
+standard <code>reasoning_effort</code> field. Unsupported values or CLI capability gaps
+fail explicitly rather than silently reducing effort. A provider-rejected CLI
+value fails after launch and never triggers API fallback.</p>
+<p>Those three effort values are tier-managed: <code>max_quality</code> temporarily overrides
+an ambient lower pin and restores it when another tier is applied. Qwen is the
+intentional exception because Token Plan access is separately configured: an
+explicit <code>QWEN3_REASONING_EFFORT</code> pin is preserved in the maximum tier.</p>
+<p>The preset gives Mistral and Grok four bounded advisory turns, applies
+<code>QWEN3_MAX_QUALITY_TIMEOUT</code> and <code>DEEPSEEK_MAX_QUALITY_TIMEOUT</code> (default 0, no
+limit) to Qwen3.8-Max and DeepSeek, sets Meta to <code>max</code> effort, and uses the configured
+per-consultant <code>*_API_MAX_TOKENS</code> budget. Maximum temporarily raises Codex,
+Mistral, Grok, and MiniMax API budgets to <code>MAX_QUALITY_API_MAX_TOKENS</code> and
+restores them when leaving the tier; Qwen, GLM, and DeepSeek already default to
+their proven 16,384-token budgets. OpenAI-compatible responses ending with
+<code>finish_reason=length</code> fail closed rather than entering synthesis as partial
+answers. Claude CLI mode is preflighted and dispatched without session
+persistence, ambient setting sources, tools, or MCP servers.</p>
+<p><code>KIMI_MODEL</code> is passed directly to <code>kimi --model</code>, so <code>kimi-code/k3.1-pro</code> overrides
+any older default stored in the user’s Kimi CLI configuration. The Kimi CLI has
+no effort flag: <code>KIMI_REASONING_EFFORT</code> (default <code>max</code>) is validated like the
+other efforts and exported to the CLI as <code>KIMI_MODEL_THINKING_EFFORT</code>, its
+documented override of <code>[thinking] effort</code> in <code>~/.kimi-code/config.toml</code>. Set
+it to an empty value to leave the CLI’s own effort in place. Kimi CLI
+compatibility is also capability-probed: prompt mode, <code>stream-json</code>, provider
+inventory, and the requested model must be present. No numeric CLI version is
+used as a gate.</p>
+<p><code>MISTRAL_MODEL</code> is used only by the HTTP API. Vibe receives
+<code>MISTRAL_CLI_MODEL</code> through <code>VIBE_ACTIVE_MODEL</code> and runs its read-only <code>plan</code>
+agent in a temporary workspace. The current Vibe default is
+<code>mistral-medium-3.5</code>. The API default for every tier is <code>mistral-large-4</code>
+(public preview since 2026-10-06). An authorized consultation smoke returned a
+structured answer with the provider-reported model <code>mistral-large-4</code> on
+2026-10-15. The
+preview is absent from <code>GET /v1/models</code> even for keys that can call it, so that
+listing is not an access check. Mistral Large 3 is retired. The official API
+IDs <code>mistral-medium-3-5</code> and <code>mistral-small-2603</code> remain catalogued opt-ins
+until an authenticated API smoke passes in this project.</p>
+<p>Hydrogen is the Google default: xhigh for premium and default maximum,
+high for standard and medium for economy. CLI and API keep separate IDs.
+Carbon is an explicit CLI-only maximum option on eligible accounts, controlled
+by <code>GEMINI_FRONTIER_CLI_MODEL=gemini-4-carbon-high</code> with <code>GEMINI_USE_API=false</code>.
+Missing exact account inventory fails before dispatch; no substitute is chosen.
+Existing active pins are preserved. See <a href="/next/">model contracts and benchmarks</a>.</p>
+<p>The current Vibe CLI exposes only <code>--prompt TEXT</code>, not stdin or a prompt-file
+surface, and the same holds for <code>agy</code> and <code>kimi</code>. Their adapters keep an
+isolated workspace, but the prompt remains visible in the CLI process argv, and
+a prompt above the single-argument limit (<code>ARGV_PROMPT_MAX_BYTES</code>, computed by
+default) fails before dispatch. Avoid secrets in consultation context until
+those CLIs ship a non-argv input mode. Agentic CLIs (<code>agy</code>, <code>qwen</code>, <code>kimi</code>) run
+from a private empty directory unless <code>CLI_WORKSPACE_ISOLATION=false</code>.</p>
+<p><code>metadata.requested_model</code> records what ai-consultants asked for, while
+<code>metadata.model_identity_source</code> is <code>provider-reported</code>, <code>capability-probed</code>,
+or <code>requested-only</code>. The top-level <code>model</code> remains the strongest effective
+identifier the transport can honestly attest.</p>
+<h2 id="model-quality-tiers-v25">Model Quality Tiers (v2.5)</h2>
+<pre><code class="language-bash"># Set all consultants to a tier programmatically
+source scripts/config.sh
+apply_model_tier "premium"   # Latest flagship models
+apply_model_tier "maximum"   # max_quality-only / separate-plan models
+apply_model_tier "standard"  # Good quality at reasonable cost
+apply_model_tier "economy"   # Optimized for speed and low cost
+</code></pre>
+<h2 id="budget-management-v24">Budget Management (v2.4)</h2>
+<pre><code class="language-bash">ENABLE_BUDGET_LIMIT=false
+MAX_SESSION_COST=1.00        # Maximum cost in USD
+BUDGET_ACTION=warn           # warn or stop
+</code></pre>
+<h2 id="caching-and-optimization-v23">Caching and Optimization (v2.3)</h2>
+<pre><code class="language-bash">ENABLE_SEMANTIC_CACHE=true   # Cache responses by query, context and consultant model/transport/persona
+CACHE_TTL_HOURS=24           # Cache expiration
+ENABLE_RESPONSE_LIMITS=false # Deprecated no-op (never applied); use *_API_MAX_TOKENS
+ENABLE_COST_AWARE_ROUTING=false  # Route simple queries to cheaper models
+ENABLE_COMPACT_REPORT=true   # Summaries only in reports
+</code></pre>
+<h2 id="health-gate-quorum-and-retries">Health Gate, Quorum, and Retries</h2>
+<pre><code class="language-bash">ENABLE_HEALTH_GATE=false     # Ping each selected consultant before Round 1
+HEALTH_GATE_TIMEOUT=30       # Maximum seconds for each parallel ping
+QUORUM_MIN=2                 # Fewer successful responses => failed quorum
+QUORUM_ACTION=warn           # warn | stop
+MAX_RETRIES=2
+RETRY_DELAY_SECONDS=5
+</code></pre>
+<p>The health gate adds one small call per selected consultant. It drops dead or
+unauthenticated consultants before the full query; <code>QUORUM_ACTION=stop</code> aborts
+when the remaining panel is smaller than <code>QUORUM_MIN</code>.</p>
+<h2 id="timeouts-waiting-and-retries">Timeouts, Waiting and Retries</h2>
+<p>Consultants and synthesis have <strong>no time limit by default</strong> (every <code>*_TIMEOUT</code>
+is 0). Reasoning models can legitimately take minutes, and a call cut off by a
+client timeout is usually still billed while its answer is lost. The invoking
+host decides when to stop waiting instead. While <code>consult_all.sh</code> waits it logs
+<code>Output: &#x3C;dir></code> at the start and <code>Still waiting after Ns for: &#x3C;names></code> every
+<code>WAIT_HEARTBEAT_SECONDS</code> (0 = silent), and it accepts:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-scroll"><table><thead><tr><th>Request</th><th>How</th><th>Effect</th></tr></thead><tbody><tr><td>Proceed</td><td><code>touch &#x3C;dir>/.proceed</code>, <code>kill -USR1 &#x3C;pid></code>, or a first Ctrl-C</td><td>Stop the current phase and continue with the answers received. During Round 1 the consultants still running are stopped and reported as <code>stopped</code>; during synthesis the synthesis is skipped.</td></tr><tr><td>Abort</td><td><code>touch &#x3C;dir>/.abort</code>, SIGTERM/SIGHUP, or a second Ctrl-C</td><td>End the run (exit 130, 143 or 129) and keep the partial output directory.</td></tr></tbody></table></div>
+<p>Stopped work ends with its whole process tree, so no consultant CLI keeps
+running. Its partial output is discarded and excluded from synthesis and cost;
+the provider may still bill what it generated. Do not stop a run with SIGKILL:
+the shell cannot clean up, so consultant CLIs would keep running. Probes keep
+short limits because they detect a dead service rather than cut paid
+generation: model inventory, auth status, <code>HEALTH_GATE_TIMEOUT</code>,
+<code>DOCTOR_LIVE_TIMEOUT</code> and the LLM classifier’s <code>CLASSIFICATION_TIMEOUT</code> (which
+falls back to pattern classification).</p>
+<p>agy can print its whole answer and then never exit (seen with agy 1.4.2, as
+a synthesizer). When agy’s output is one complete JSON object that has not
+changed for <code>AGY_EXIT_GRACE_SECONDS</code> (default 60), the run ends agy and keeps
+the answer; prose or a partial answer still waits for agy to exit. 0 disables
+this and always waits for the exit.</p>
+<pre><code class="language-bash">MAX_RETRIES=2
+RETRY_DELAY_SECONDS=5
+WAIT_HEARTBEAT_SECONDS=30
+AGY_EXIT_GRACE_SECONDS=60  # keep a complete agy answer when agy never exits
+GEMINI_TIMEOUT=0       # 0 = no limit; a positive value restores a hard limit
+CODEX_TIMEOUT=0
+MISTRAL_TIMEOUT=0
+MISTRAL_MAX_TURNS=4
+KIMI_TIMEOUT=0
+CLAUDE_TIMEOUT=0
+QWEN3_TIMEOUT=0
+QWEN3_MAX_QUALITY_TIMEOUT=0
+MINIMAX_TIMEOUT=0
+META_TIMEOUT=0
+GLM_TIMEOUT=0
+GROK_TIMEOUT=0
+GROK_MAX_TURNS=4
+DEEPSEEK_TIMEOUT=0
+DEEPSEEK_MAX_QUALITY_TIMEOUT=0
+</code></pre>
+<p><code>configure</code> migrates the fixed limits it generated through 5.1.2 (180 s per
+consultant, 240 s for Claude and synthesis, 480 s synthesis total, 600 s for
+maximum-tier Qwen/DeepSeek) to 0. A value marked <code># ai-consultants:pin</code>, or any
+other custom value, stays a hard limit.</p></article><p><a href="/next/snapshot.json">Snapshot provenance</a> · Published npm version: 5.8.0</p></main></body></html>

@@ -1,0 +1,1682 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Setup preview — ai-consultants</title>
+    <meta name="description" content="Unreleased documentation preview: Fable 5.2, Gemini 4 Hydrogen and Carbon, measured with Artificial Analysis v5.0.1.">
+    <meta name="theme-color" content="#000000">
+
+    <!-- SEO -->
+    <link rel="canonical" href="https://aiconsultants.sh/next/setup.html">
+    <meta name="robots" content="index, follow">
+    <meta name="author" content="Matteo Scurati">
+    <meta name="keywords" content="ai-consultants, multiple AI models, second opinion, design review, threat modeling, Claude Code skill, Codex, Gemini, Mistral, npx ai-consultants">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://aiconsultants.sh/next/setup.html">
+    <meta property="og:site_name" content="ai-consultants">
+    <meta property="og:title" content="Setup preview — ai-consultants">
+    <meta property="og:description" content="Unreleased model integration and documentation preview.">
+    <meta property="og:image" content="https://aiconsultants.sh/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="A real ai-consultants run: one question, answers from Gemini, Codex and Mistral, and one merged list of risks and edge cases tagged with the models that raised each.">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Setup preview — ai-consultants">
+    <meta name="twitter:description" content="Unreleased model integration and documentation preview.">
+    <meta name="twitter:image" content="https://aiconsultants.sh/og-image.png">
+    <meta name="twitter:image:alt" content="A real ai-consultants run: one question, answers from Gemini, Codex and Mistral, and one merged list of risks and edge cases tagged with the models that raised each.">
+
+    <!-- JSON-LD Structured Data (softwareVersion is rewritten at release by sync_site.sh) -->
+    
+
+    <script defer src="https://cloud.umami.is/script.js" data-website-id="ed9fc15a-2479-44ad-b6ff-e32001f8ea1d"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&amp;family=Geist+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet">
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <script>
+        // Motion is opt-in: only without reduced motion, and dropped if the page script never runs
+        if (!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches)) {
+            document.documentElement.classList.add('motion');
+            setTimeout(function () { if (!window.__aicMotion) document.documentElement.classList.remove('motion'); }, 3000);
+        }
+    </script>
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            color-scheme: dark;
+            --bg: #000000;
+            --bg-elevated: #181818;
+            --bg-card: #1F1F1F;
+            --border: #1F1F1F;
+            --border-light: #272727;
+            --border-strong: #313131;
+            --border-bright: #e6e6e6;
+            --text: #f0f0f0;
+            --text-body: #c8c8c8;
+            --text-secondary: #b0b0b0;
+            --text-muted: #9a9a9a;      /* about 7:1 on --bg */
+            --accent: #e9b250;          /* one meaning only: raised by only one model */
+            --font-body: 'Geist', system-ui, -apple-system, sans-serif;
+            --font-mono: 'Geist Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+            --gutter: 24px;
+            /* Motion: --ease for UI states, --e/--e2/--io for the load and story choreography */
+            --ease: cubic-bezier(0.22, 1, 0.36, 1);
+            --e: cubic-bezier(0.16, 1, 0.3, 1);
+            --e2: cubic-bezier(0.33, 1, 0.68, 1);
+            --io: cubic-bezier(0.65, 0, 0.35, 1);
+        }
+
+        html { scroll-behavior: smooth; scroll-padding-top: 96px; -webkit-text-size-adjust: 100%; }
+
+        body {
+            font-family: var(--font-body);
+            font-size: 16px;
+            line-height: 24px;
+            background: var(--bg);
+            color: var(--text-body);
+            -webkit-font-smoothing: antialiased;
+            overflow-wrap: break-word;
+        }
+
+        h1, h2, h3 { text-wrap: balance; }
+        p, li, dd { text-wrap: pretty; }
+
+        a { color: var(--text); text-underline-offset: 3px; transition: color 0.3s var(--ease), border-color 0.3s var(--ease); }
+        strong { color: var(--text); font-weight: 600; }
+
+        code {
+            font-family: var(--font-mono);
+            font-size: 0.875em;
+            color: var(--text);
+            background: var(--bg-elevated);
+            border: 1px solid var(--border-light);
+            padding: 0 4px;
+            overflow-wrap: anywhere;
+        }
+
+        :focus-visible { outline: 2px solid var(--text); outline-offset: 4px; }
+
+        .sr-only {
+            position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+            overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
+        }
+
+        .skip-link {
+            position: absolute; left: 16px; top: -48px; z-index: 300;
+            background: var(--text); color: var(--bg);
+            font-family: var(--font-mono); font-size: 14px; line-height: 20px;
+            padding: 8px 12px; text-decoration: none;
+        }
+        .skip-link:focus { top: 12px; }
+
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 var(--gutter); }
+        .prose { max-width: 680px; }
+
+        /* ——— NAV: floats off the top edge, sized to its content ——— */
+        .site-nav {
+            position: sticky; top: 12px; z-index: 100;
+            margin-top: 12px;
+            padding: 0 var(--gutter);
+        }
+
+        .nav-inner {
+            position: relative; isolation: isolate;
+            display: flex; align-items: center; justify-content: space-between; gap: 48px;
+            width: fit-content; max-width: 100%;
+            height: 56px; margin: 0 auto; padding: 0 16px 0 24px;
+        }
+        /* The blurred surface lives on a pseudo element, so the fixed mobile panel is not trapped by backdrop-filter */
+        .nav-inner::before {
+            content: ""; position: absolute; inset: 0; z-index: -1;
+            background: rgba(0, 0, 0, 0.72);
+            -webkit-backdrop-filter: blur(12px);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--border-light);
+        }
+
+        .wordmark {
+            font-family: var(--font-mono);
+            font-size: 14px; line-height: 20px; font-weight: 600;
+            color: var(--text); text-decoration: none;
+            letter-spacing: -0.02em;
+        }
+
+        .nav-links { display: flex; align-items: center; gap: 24px; list-style: none; }
+
+        .nav-links a {
+            font-family: var(--font-mono);
+            font-size: 14px; line-height: 20px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            display: inline-flex; align-items: center; gap: 8px;
+        }
+        .nav-links a:hover { color: var(--text); }
+        .nav-links a.current { color: var(--text); }
+        .nav-links img { height: 20px; width: auto; display: block; }
+
+        .menu-btn {
+            display: none;
+            align-items: center; gap: 12px;
+            background: none; border: 1px solid var(--border-light);
+            color: var(--text); cursor: pointer;
+            font-family: var(--font-mono); font-size: 14px; line-height: 20px; font-weight: 600;
+            padding: 4px 12px;
+            transition: border-color 0.3s var(--ease), transform 0.3s var(--ease);
+        }
+        .menu-btn:hover { border-color: var(--text-muted); }
+        .menu-btn:active { transform: scale(0.98); }
+        .menu-btn .bars { position: relative; display: block; width: 16px; height: 12px; }
+        .menu-btn .bars span {
+            position: absolute; left: 0; right: 0; height: 2px; background: var(--text);
+            transition: transform 0.5s var(--ease), opacity 0.3s var(--ease);
+        }
+        .menu-btn .bars span:nth-child(1) { top: 0; }
+        .menu-btn .bars span:nth-child(2) { top: 5px; }
+        .menu-btn .bars span:nth-child(3) { top: 10px; }
+        .menu-btn[aria-expanded="true"] .bars span:nth-child(1) { transform: translateY(5px) rotate(45deg); }
+        .menu-btn[aria-expanded="true"] .bars span:nth-child(2) { opacity: 0; }
+        .menu-btn[aria-expanded="true"] .bars span:nth-child(3) { transform: translateY(-5px) rotate(-45deg); }
+
+        /* ——— SHARED ——— */
+        .section-label {
+            font-family: var(--font-mono);
+            font-size: 14px; line-height: 20px; font-weight: 500;
+            color: var(--text-muted);
+            margin-bottom: 16px;
+        }
+
+        section { padding: 80px 0 96px; border-bottom: 1px solid var(--border); }
+
+        section h2 {
+            font-size: 36px; line-height: 40px;
+            font-weight: 600; letter-spacing: -0.025em;
+            color: var(--text);
+            margin-bottom: 24px;
+            max-width: 680px;
+        }
+
+        .lead { font-size: 18px; line-height: 28px; color: var(--text-body); max-width: 680px; margin-bottom: 40px; }
+
+        /* Command block: real text, wraps instead of scrolling, own copy button */
+        .cmd {
+            display: flex; align-items: flex-start; gap: 12px;
+            background: var(--bg-elevated);
+            border: 1px solid var(--border-light);
+            padding: 12px 12px 12px 16px;
+            font-family: var(--font-mono); font-size: 14px; line-height: 20px;
+            color: var(--text);
+        }
+        .cmd-line { flex: 1; min-width: 0; white-space: pre-wrap; overflow-wrap: anywhere; }
+        .cmd code.cmd-line { background: none; border: 0; padding: 0; font-size: inherit; color: inherit; }
+        .prompt { color: var(--text-muted); user-select: none; -webkit-user-select: none; }
+
+        .copy {
+            flex: none;
+            font-family: var(--font-mono); font-size: 12px; line-height: 16px; font-weight: 600;
+            color: var(--text); background: transparent;
+            border: 1px solid var(--border-strong);
+            padding: 2px 8px; cursor: pointer;
+            transition: border-color 0.3s var(--ease), background-color 0.3s var(--ease), transform 0.3s var(--ease);
+        }
+        .copy:hover { border-color: var(--text-muted); background: var(--bg-card); }
+        .copy:active { transform: scale(0.98); }
+
+        /* ——— HERO ——— */
+        .hero { padding: 64px 0 96px; border-bottom: 1px solid var(--border); }
+
+        .hero-grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: 48px; }
+
+        .eyebrow {
+            font-family: var(--font-mono);
+            font-size: 14px; line-height: 20px; color: var(--text-secondary);
+            margin-bottom: 16px; max-width: 46ch;
+        }
+
+        .hero h1 {
+            font-size: 36px; line-height: 40px;
+            font-weight: 600; letter-spacing: -0.03em;
+            color: var(--text);
+            background: linear-gradient(90deg, #FFFFFF, #9B9B9B);
+            -webkit-background-clip: text; background-clip: text;
+            -webkit-text-fill-color: transparent;
+            max-width: 680px;
+            margin-bottom: 24px;
+        }
+
+        .subhead { font-size: 18px; line-height: 28px; color: var(--text-body); margin-bottom: 32px; max-width: 60ch; }
+
+        .cta-label {
+            font-family: var(--font-mono);
+            font-size: 14px; line-height: 20px; font-weight: 500;
+            color: var(--text); margin-bottom: 12px;
+        }
+
+        .cmd-hero {
+            background: var(--bg);
+            border-color: var(--border-bright);
+            color: #fff;
+        }
+        .cmd-hero .copy {
+            font-size: 14px; line-height: 20px;
+            padding: 8px 12px; margin: -4px -4px -4px 0;
+            background: var(--text); color: var(--bg);
+            border-color: var(--text);
+        }
+        .cmd-hero .copy:hover { background: #fff; border-color: #fff; }
+
+        .card-video { display: block; width: 100%; height: auto; background: var(--bg); border-bottom: 1px solid var(--border); }
+        .cmd-hero + .cmd-hero { margin-top: 8px; }
+        .cmd-hint { display: block; color: var(--text-muted); font-size: 12px; line-height: 16px; margin-top: 4px; user-select: none; -webkit-user-select: none; }
+        .r-gloss { color: var(--text-secondary); font-size: 12px; line-height: 16px; font-weight: 400; }
+
+        .cta-notes { margin-top: 16px; display: grid; gap: 8px; max-width: 60ch; }
+        .cta-notes p { font-size: 14px; line-height: 20px; color: var(--text-secondary); }
+
+        .quiet-link {
+            display: inline-block; margin-top: 24px;
+            font-family: var(--font-mono); font-size: 14px; line-height: 20px;
+            color: var(--text-secondary); text-decoration: none;
+            border-bottom: 1px solid var(--border-strong);
+            padding-bottom: 2px;
+        }
+        .quiet-link:hover { color: var(--text); border-color: var(--text-muted); }
+
+        /* Example card: selectable monospace text in a terminal frame */
+        .card {
+            background: var(--bg-elevated);
+            border: 1px solid var(--border-light);
+            min-width: 0;
+        }
+
+        .card-bar {
+            display: flex; align-items: center; gap: 8px;
+            height: 32px; padding: 0 16px;
+            border-bottom: 1px solid var(--border);
+        }
+        .card-bar i { width: 8px; height: 8px; border-radius: 9999px; background: var(--border-strong); display: block; }
+
+        .card-body { padding: 24px; font-family: var(--font-mono); font-size: 14px; line-height: 20px; }
+
+        .card-label {
+            font-size: 12px; line-height: 16px; font-weight: 500;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+        }
+
+        .r-outcome { color: var(--text-body); }
+        .r-outcome b { color: var(--text); font-weight: 500; }
+        .r-head { color: var(--text); font-weight: 500; margin: 16px 0 8px; }
+
+        /* The story keeps the list at its resting height, so the page never shifts */
+        .r-clip { overflow: hidden; }
+        .r-list { list-style: none; display: grid; gap: 12px; }
+        .r-list li { display: grid; grid-template-columns: 16px minmax(0, 1fr); }
+        .r-list li::before { content: "-"; color: var(--text-muted); }
+        .kind { color: var(--text-muted); }
+        .point { color: var(--text-body); }
+        .by { color: var(--text-muted); white-space: nowrap; }
+        .by b { color: var(--text); font-weight: 500; }
+        .solo { color: var(--accent); display: inline-block; }
+
+        .legend { margin-top: 16px; color: var(--text-secondary); font-size: 12px; line-height: 16px; }
+
+        .show-all {
+            margin-top: 16px;
+            font-family: var(--font-mono); font-size: 12px; line-height: 16px; font-weight: 600;
+            color: var(--text); background: none;
+            border: 1px solid var(--border-strong);
+            padding: 4px 8px; cursor: pointer;
+            transition: border-color 0.3s var(--ease), transform 0.3s var(--ease);
+        }
+        .show-all:hover { border-color: var(--text-muted); }
+        .show-all:active { transform: scale(0.98); }
+
+        .card figcaption {
+            border-top: 1px solid var(--border);
+            padding: 12px 24px;
+            font-size: 14px; line-height: 20px; color: var(--text-muted);
+        }
+
+        /* ——— HOW IT WORKS ——— */
+        .pipeline {
+            display: flex; flex-wrap: wrap; gap: 8px; align-items: center;
+            margin-bottom: 40px;
+            font-family: var(--font-mono); font-size: 14px; line-height: 20px;
+            list-style: none;
+        }
+        .pipeline-step {
+            padding: 8px 16px; border: 1px solid var(--border-light); color: var(--text-secondary);
+            transition: border-color 0.3s var(--ease), color 0.3s var(--ease), background-color 0.3s var(--ease);
+        }
+        .pipeline-step.lit { border-color: var(--text-muted); color: var(--text); background: var(--bg-elevated); }
+        .pipeline-arrow { color: var(--text-muted); }
+
+        .diagram { display: none; margin: 0 0 64px; }
+        .diagram svg { width: 100%; height: auto; display: block; overflow: visible; }
+        .diagram .box { fill: var(--bg-elevated); stroke: var(--border-strong); transition: stroke 0.3s var(--ease); }
+        .diagram .lit .box { stroke: var(--text); }
+        .diagram .line { fill: none; stroke: var(--border-strong); stroke-width: 1.5; }
+        .diagram .track { stroke: var(--border-light); stroke-width: 4; }
+        .diagram .fill { stroke: var(--text-muted); stroke-width: 4; }
+        .diagram .skip { fill: none; stroke: var(--border-strong); stroke-dasharray: 6 4; }
+        .diagram text { font-family: var(--font-mono); font-size: 14px; fill: var(--text-body); transition: fill 0.3s var(--ease); }
+        .diagram text.strong, .diagram .lit text { fill: var(--text); }
+        .diagram text.dim { fill: var(--text-muted); }
+        .diagram .pulse { fill: #fff; opacity: 0; }
+        .diagram .halo { fill: #fff; opacity: 0; }
+
+        .steps { list-style: none; display: grid; gap: 32px; }
+        .step { display: grid; grid-template-columns: 48px minmax(0, 1fr); gap: 16px; }
+        .step-num { font-family: var(--font-mono); font-size: 14px; line-height: 20px; color: var(--text-muted); padding-top: 4px; font-variant-numeric: tabular-nums; }
+        .step:target .step-num { color: var(--text); }
+        .step h3 { font-size: 20px; line-height: 28px; font-weight: 600; color: var(--text); margin-bottom: 8px; }
+        .step p { font-size: 16px; line-height: 24px; color: var(--text-body); max-width: 65ch; }
+
+        .footnote {
+            margin-top: 40px; max-width: 768px;
+            font-size: 14px; line-height: 20px; color: var(--text-secondary);
+            border-top: 1px solid var(--border); padding-top: 16px;
+        }
+
+        /* ——— WHEN ——— */
+        .when-grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: 40px; margin-bottom: 40px; }
+
+        .col-title {
+            font-family: var(--font-mono);
+            font-size: 14px; line-height: 20px; font-weight: 500;
+            color: var(--text);
+            padding-bottom: 8px; margin-bottom: 24px;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .use-list, .skip-list { list-style: none; display: grid; gap: 24px; }
+        .use-list li, .skip-list li { position: relative; padding-left: 24px; font-size: 16px; line-height: 24px; }
+        .use-list li::before, .skip-list li::before {
+            position: absolute; left: 0; top: 0;
+            font-family: var(--font-mono); color: var(--text-secondary);
+        }
+        .use-list li::before { content: "\2713"; }
+        .skip-list li::before { content: "\2715"; }
+        .skip-list { gap: 16px; }
+
+        .situation { display: block; color: var(--text); font-weight: 600; margin-bottom: 8px; }
+        .q {
+            display: inline-block;
+            font-family: var(--font-mono); font-size: 12px; line-height: 16px;
+            color: var(--text-body);
+            background: var(--bg-elevated);
+            padding: 8px 12px;
+            overflow-wrap: anywhere;
+        }
+        .q-extra { display: block; margin-top: 8px; color: var(--text-body); }
+
+        .measured { background: var(--bg-elevated); padding: 24px; }
+        .measured h3 { font-size: 16px; line-height: 24px; font-weight: 600; color: var(--text); margin-bottom: 8px; }
+        .measured p { font-size: 16px; line-height: 24px; color: var(--text-body); max-width: 65ch; }
+
+        /* ——— WORKS WITH ——— */
+        .chip-row { display: grid; grid-template-columns: minmax(0, 1fr); gap: 12px; margin-bottom: 32px; }
+        .row-label {
+            font-family: var(--font-mono);
+            font-size: 14px; line-height: 20px; font-weight: 500;
+            color: var(--text-muted);
+            padding-top: 4px;
+        }
+        .chips { list-style: none; display: flex; flex-wrap: wrap; gap: 8px; }
+        .chips li {
+            font-family: var(--font-mono); font-size: 14px; line-height: 20px;
+            color: var(--text);
+            border: 1px solid var(--border-light);
+            padding: 4px 12px;
+            transition: border-color 0.3s var(--ease), background-color 0.3s var(--ease);
+        }
+        .chips li.lit { border-color: var(--text-muted); background: var(--bg-elevated); }
+        .works-note { max-width: 680px; font-size: 16px; line-height: 24px; color: var(--text-body); margin-top: 8px; }
+        .small-print { margin-top: 24px; font-size: 14px; line-height: 20px; color: var(--text-muted); }
+
+        /* ——— BEFORE YOU RUN ——— */
+        .facts { display: grid; gap: 0; border-top: 1px solid var(--border-light); max-width: 900px; }
+        .fact { display: grid; grid-template-columns: minmax(0, 1fr); gap: 8px; padding: 24px 0; border-bottom: 1px solid var(--border-light); }
+        .fact dt {
+            font-family: var(--font-mono);
+            font-size: 14px; line-height: 20px; font-weight: 500;
+            color: var(--text);
+            padding-top: 2px;
+        }
+        .fact dd { font-size: 16px; line-height: 24px; color: var(--text-body); max-width: 70ch; }
+
+        /* ——— GET STARTED ——— */
+        .prereq { background: var(--bg-elevated); padding: 24px; margin-bottom: 32px; max-width: 820px; }
+        .box-label {
+            font-family: var(--font-mono);
+            font-size: 14px; line-height: 20px; font-weight: 500;
+            color: var(--text); margin-bottom: 12px;
+        }
+        .prereq > ul { list-style: none; display: grid; gap: 16px; }
+        .prereq > ul > li { font-size: 16px; line-height: 24px; color: var(--text-body); padding-left: 16px; position: relative; }
+        .prereq > ul > li::before { content: "-"; position: absolute; left: 0; color: var(--text-muted); }
+        .cli-list { display: grid; gap: 12px; margin-top: 12px; }
+        .cli-list > div { display: grid; grid-template-columns: minmax(0, 1fr); gap: 4px; }
+        .cli-list dt { font-family: var(--font-mono); font-size: 14px; line-height: 20px; color: var(--text); }
+        .cli-list dd { font-size: 14px; line-height: 20px; color: var(--text-secondary); }
+        .cli-list .cmd { background: var(--bg); padding: 8px 8px 8px 12px; margin-bottom: 4px; }
+
+        .tabs { max-width: 820px; }
+        .tablist { display: flex; gap: 0; border-bottom: 1px solid var(--border-light); margin-bottom: 24px; flex-wrap: wrap; }
+        .tab {
+            font-family: var(--font-mono); font-size: 14px; line-height: 20px;
+            color: var(--text-secondary); background: none;
+            border: 0; border-bottom: 2px solid transparent;
+            padding: 12px 16px; margin-bottom: -1px;
+            cursor: pointer;
+            transition: color 0.3s var(--ease), border-color 0.3s var(--ease);
+        }
+        .tab[aria-selected="true"] { color: var(--text); border-bottom-color: var(--text); }
+        .tab:hover { color: var(--text); }
+        .no-js .tablist { display: none; }
+        .panel-title { display: none; }
+        .no-js .panel-title { display: block; font-family: var(--font-mono); font-size: 14px; line-height: 20px; color: var(--text); margin: 24px 0 12px; }
+
+        .setup-steps { list-style: none; display: grid; gap: 24px; }
+        .setup-steps li { display: grid; grid-template-columns: 32px minmax(0, 1fr); gap: 8px; }
+        .setup-n { font-family: var(--font-mono); font-size: 14px; line-height: 20px; color: var(--text-muted); padding-top: 12px; font-variant-numeric: tabular-nums; }
+        .setup-steps p, .panel-text { font-size: 14px; line-height: 20px; color: var(--text-secondary); margin-top: 8px; }
+        .cmd-stack { display: grid; gap: 12px; }
+        .panel-text.then { margin: 8px 0 0; color: var(--text-body); }
+
+        .warn {
+            max-width: 820px; margin-top: 32px;
+            background: var(--bg-elevated);
+            padding: 16px 24px;
+            font-size: 16px; line-height: 24px; color: var(--text-body);
+        }
+
+        .more-link {
+            display: inline-block; margin-top: 24px;
+            font-size: 16px; line-height: 24px; color: var(--text); text-decoration: none;
+            border-bottom: 1px solid var(--border-strong);
+        }
+        .more-link:hover { border-color: var(--text); }
+
+        /* ——— FAQ: question and answer side by side, always open ——— */
+        .faq { max-width: 1040px; border-top: 1px solid var(--border-light); }
+        .faq-item { display: grid; grid-template-columns: minmax(0, 1fr); gap: 8px; padding: 24px 0; border-bottom: 1px solid var(--border-light); }
+        .faq dt { font-size: 18px; line-height: 28px; font-weight: 600; color: var(--text); }
+        .faq dd { font-size: 16px; line-height: 24px; color: var(--text-body); max-width: 65ch; }
+        .faq-more { margin-top: 32px; }
+
+        /* ——— FOOTER ——— */
+        footer { padding: 48px 0 64px; }
+        .footer-main { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-start; gap: 24px; margin-bottom: 24px; }
+        .footer-links { display: flex; flex-wrap: wrap; gap: 8px 24px; list-style: none; max-width: 680px; }
+        .footer-links a {
+            font-family: var(--font-mono); font-size: 14px; line-height: 20px;
+            color: var(--text-secondary); text-decoration: none;
+        }
+        .footer-links a:hover { color: var(--text); }
+        .shields { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+        .shields a { display: inline-flex; }
+        .shields img { height: 20px; width: auto; display: block; }
+        .footer-fine { font-size: 12px; line-height: 16px; color: var(--text-muted); max-width: 820px; }
+        .footer-fine a { color: var(--text-secondary); }
+
+        /* ——— TOAST ——— */
+        .toast {
+            position: fixed; bottom: 24px; left: 50%;
+            transform: translateX(-50%) translateY(16px);
+            width: max-content; max-width: calc(100vw - 32px);
+            font-family: var(--font-mono); font-size: 14px; line-height: 20px;
+            color: var(--text); background: var(--bg-card);
+            border: 1px solid var(--border-strong);
+            padding: 8px 16px;
+            opacity: 0; pointer-events: none;
+            transition: opacity 0.3s var(--ease), transform 0.5s var(--ease);
+            z-index: 200;
+        }
+        .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+        /* ——— MOTION ———
+           Only active when JS added html.motion (never under reduced motion), so without JS
+           every element sits in its final state. */
+
+        /* Page load: the hero copy and the example card rise and resolve from blur */
+        .motion .k-up, .motion .k-left, .motion .k-pop, .motion .k-card, .motion .k-fade {
+            transition: transform 1.05s var(--e) var(--d, 0s), opacity 0.75s var(--e2) var(--d, 0s), filter 0.75s var(--e2) var(--d, 0s);
+        }
+        .motion .k-card { transition-duration: 0.9s, 0.6s, 0.6s; }
+        .motion .hero:not(.in) .k-up { opacity: 0; transform: translateY(10px); filter: blur(4px); }
+        .motion .hero:not(.in) .k-left { opacity: 0; transform: translateX(-10px); filter: blur(4px); }
+        .motion .hero:not(.in) .k-pop { opacity: 0; transform: scale(0.86); filter: blur(4px); }
+        .motion .hero:not(.in) .k-card { opacity: 0; transform: translateY(24px) scale(0.985); filter: blur(6px); }
+        .motion .hero:not(.in) .k-fade { opacity: 0; }
+
+        .hero .eyebrow { --d: 0s; }
+        .hero h1 { --d: 0.08s; }
+        .hero .subhead { --d: 0.16s; }
+        .hero .cta > :nth-child(1) { --d: 0.26s; }
+        .hero .cta > :nth-child(2) { --d: 0.32s; }
+        .hero .cta > :nth-child(3) { --d: 0.38s; }
+        .hero .cta > :nth-child(4) { --d: 0.46s; }
+        .hero .cta > :nth-child(5) { --d: 0.52s; }
+        .hero .card { --d: 0.18s; }
+        .hero .card-bar i:nth-child(1) { --d: 0.34s; }
+        .hero .card-bar i:nth-child(2) { --d: 0.38s; }
+        .hero .card-bar i:nth-child(3) { --d: 0.42s; }
+        .hero .card-video { --d: 0.4s; }
+        .hero .card-label { --d: 0.5s; }
+        .hero .r-outcome { --d: 0.56s; }
+        .hero .r-gloss { --d: 0.6s; }
+        .hero .r-head { --d: 0.64s; }
+        .hero .r-list > li:nth-child(1) { --d: 0.7s; }
+        .hero .r-list > li:nth-child(2) { --d: 0.76s; }
+        .hero .r-list > li:nth-child(3) { --d: 0.82s; }
+        .hero .r-list > li:nth-child(4) { --d: 0.88s; }
+        .hero .r-list > li:nth-child(2) .solo { --d: 0.86s; }
+        .hero .r-list > li:nth-child(3) .solo { --d: 0.92s; }
+        .hero .r-list > li:nth-child(4) .solo { --d: 0.98s; }
+        .hero .legend, .hero .show-all { --d: 1s; }
+        .hero figcaption { --d: 1.06s; }
+
+        /* Diagram: nodes pop in reading order, connectors draw on, the merged list fills like progress */
+        .motion .diagram .node { transform-box: fill-box; transform-origin: center; transition: transform 1.05s var(--e) var(--d, 0s), opacity 0.75s var(--e2) var(--d, 0s); }
+        .motion .diagram:not(.in) .node { opacity: 0; transform: scale(0.86); }
+        .motion .diagram .line, .motion .diagram .fill { stroke-dasharray: 1; transition: stroke-dashoffset 0.9s var(--io) var(--d, 0s); }
+        .motion .diagram .fill { transition-duration: 0.7s; }
+        .motion .diagram:not(.in) .line, .motion .diagram:not(.in) .fill { stroke-dashoffset: 1; }
+        .motion .diagram .k-fade { transition: opacity 0.75s var(--e2) var(--d, 0s); }
+        .motion .diagram:not(.in) .k-fade { opacity: 0; }
+        .diagram .n-q { --d: 0s; }
+        .diagram .in-path { --d: 0.12s; }
+        .diagram .n-m1 { --d: 0.3s; }
+        .diagram .n-m2 { --d: 0.36s; }
+        .diagram .n-m3 { --d: 0.42s; }
+        .diagram .out-path { --d: 0.5s; }
+        .diagram .n-out { --d: 0.78s; }
+        .diagram .fill:nth-of-type(1) { --d: 1s; }
+        .diagram .fill:nth-of-type(2) { --d: 1.08s; }
+        .diagram .fill:nth-of-type(3) { --d: 1.16s; }
+        .diagram .n-skip { --d: 1.3s; }
+
+        /* Text sections: rise and fade in once as they enter the viewport */
+        .motion [data-reveal] { transition: opacity 0.7s var(--ease) var(--d, 0s), transform 0.7s var(--ease) var(--d, 0s); }
+        .motion [data-reveal]:not(.in) { opacity: 0; transform: translateY(16px); }
+
+        /* ——— RESPONSIVE ——— */
+        @media (min-width: 640px) {
+            code { white-space: nowrap; }
+            .cmd code.cmd-line { white-space: pre-wrap; }
+        }
+
+        @media (min-width: 720px) {
+            .cli-list > div { grid-template-columns: 72px minmax(0, 1fr); gap: 12px; }
+            .cli-list dt { padding-top: 8px; }
+            .chip-row { grid-template-columns: 168px minmax(0, 1fr); gap: 16px; }
+            .fact { grid-template-columns: 168px minmax(0, 1fr); gap: 24px; }
+        }
+
+        @media (min-width: 860px) {
+            .when-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 64px; }
+            .faq-item { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 48px; }
+        }
+
+        @media (min-width: 900px) {
+            .diagram { display: block; }
+            .pipeline { display: none; }
+        }
+
+        @media (min-width: 1024px) {
+            .hero { padding-top: 80px; }
+            .hero-grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 64px; align-items: start; }
+            .hero h1 { font-size: 48px; line-height: 1; }
+            .show-all { display: none; }
+        }
+
+        @media (max-width: 1023px) {
+            .card.collapsed .r-list > li:nth-child(n+4):not(.leave) { display: none; }
+        }
+
+        @media (max-width: 859px) {
+            .nav-inner { width: 100%; }
+            .menu-btn { display: inline-flex; }
+            .nav-links {
+                position: fixed; inset: 0; z-index: -2;
+                display: flex; flex-direction: column; align-items: flex-start; gap: 24px;
+                background: var(--bg);
+                padding: 96px var(--gutter) 48px;
+                opacity: 0; visibility: hidden;
+                transition: opacity 0.3s var(--ease), visibility 0s linear 0.3s;
+            }
+            .nav-links a { font-family: var(--font-body); font-size: 24px; line-height: 32px; font-weight: 600; color: var(--text); }
+            .nav-links li { opacity: 0; transform: translateY(8px); transition: opacity 0.3s var(--ease), transform 0.5s var(--ease); }
+            .nav-links.open { opacity: 1; visibility: visible; transition: opacity 0.3s var(--ease), visibility 0s; }
+            .nav-links.open li { opacity: 1; transform: none; }
+            .nav-links.open li:nth-child(2) { transition-delay: 60ms; }
+            .nav-links.open li:nth-child(3) { transition-delay: 120ms; }
+            .nav-links.open li:nth-child(4) { transition-delay: 180ms; }
+            .nav-links.open li:nth-child(5) { transition-delay: 240ms; }
+            .no-js .nav-links { position: static; z-index: auto; opacity: 1; visibility: visible; flex-direction: row; flex-wrap: wrap; gap: 16px; padding: 0 0 12px; background: none; }
+            .no-js .nav-links li { opacity: 1; transform: none; }
+            .no-js .nav-links a { font-family: var(--font-mono); font-size: 14px; line-height: 20px; font-weight: 400; }
+            .no-js .nav-inner { flex-wrap: wrap; height: auto; padding-top: 12px; }
+            .no-js .menu-btn { display: none; }
+        }
+
+        @media (max-width: 639px) {
+            :root { --gutter: 16px; }
+            section { padding: 64px 0 80px; }
+            section h2 { font-size: 30px; line-height: 36px; }
+            .hero { padding: 48px 0 80px; }
+            .subhead { font-size: 16px; line-height: 24px; }
+            .lead { font-size: 16px; line-height: 24px; }
+            .cmd-hero { padding: 12px; }
+            .card-body { padding: 16px; }
+            .card figcaption { padding: 12px 16px; }
+            .by { white-space: normal; }
+            .prereq { padding: 16px; }
+            .measured { padding: 16px; }
+            .warn { padding: 16px; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            html { scroll-behavior: auto; }
+            *, *::before, *::after { transition: none !important; }
+        }
+    </style>
+<style>.preview{padding-top:48px;padding-bottom:80px;max-width:960px}.preview nav{margin:24px 0;line-height:2}.preview article{line-height:1.7;overflow-wrap:anywhere}.preview h1{font-size:2.5rem;line-height:1.2}.preview h2,.preview h3{margin:36px 0 14px}.preview p,.preview ul,.preview ol,.preview blockquote{margin:16px 0}.preview ul,.preview ol{padding-left:24px}.preview pre{overflow:auto;padding:16px;border:1px solid var(--border);margin:16px 0;white-space:pre}.preview table{border-collapse:collapse;min-width:600px;font-size:14px}.preview th,.preview td{padding:10px;text-align:left;border-bottom:1px solid var(--border)}.preview .table-scroll{overflow-x:auto}.preview blockquote{border-left:2px solid var(--text-muted);padding-left:16px}.preview a{text-decoration:underline}.preview code{font-size:.9em}.preview pre code{font-size:13px}</style></head><body><a class="skip-link" href="#main">Skip to content</a><main id="main" class="container preview"><a href="/">← ai-consultants</a><nav aria-label="Preview documentation"><a href="/next/">Next release preview</a> · <a href="/next/overview.html">Project overview</a> · <a href="/next/setup.html" aria-current="page">Setup preview</a> · <a href="/next/configuration.html">Configuration preview</a> · <a href="/next/routing.html">Smart routing preview</a> · <a href="/next/changelog.html">Changelog preview</a></nav><article><blockquote>
+<p><strong>Unreleased preview.</strong> These model changes are in development and are not included in the published npm package (5.8.0). Installation commands below require the unreleased checkout. This is a documentation snapshot, not evidence of a live model run. Benchmark data: November 13, 2026, AA v5.0.1. <a href="/#get-started">Published documentation</a>.</p>
+</blockquote>
+<h1 id="ai-consultants-setup-guide">AI Consultants Setup Guide</h1>
+<p>This guide walks you through installing and configuring AI Consultants for various AI coding agents.</p>
+<hr>
+<h2 id="supported-agents">Supported Agents</h2>
+<p>AI Consultants follows the open <a href="https://agentskills.io">Agent Skills standard</a>, enabling cross-platform compatibility:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-scroll"><table><thead><tr><th>Agent</th><th>Skills Directory</th><th>Status</th></tr></thead><tbody><tr><td><strong>Claude Code</strong></td><td><code>~/.claude/skills/</code></td><td>✅ Native (slash commands)</td></tr><tr><td><strong>OpenAI Codex CLI</strong></td><td><code>~/.codex/skills/</code> or <code>~/.agents/skills/</code></td><td>✅ Compatible (skill, no slash commands)</td></tr><tr><td><strong>Antigravity (agy)</strong></td><td><code>&#x3C;project>/.agents/skills/</code> or <code>~/.gemini/config/skills/</code></td><td>✅ Compatible (skill)</td></tr><tr><td><strong>Gemini CLI</strong></td><td><code>~/.gemini/skills/</code> or <code>~/.agents/skills/</code></td><td>⚠️ Legacy (no longer served to individual accounts)</td></tr><tr><td><strong>GitHub Copilot</strong></td><td>Via SkillPort</td><td>✅ Via AGENTS.md</td></tr><tr><td><strong>Cursor</strong></td><td>Via SkillPort</td><td>✅ Via SkillPort</td></tr><tr><td><strong>Windsurf</strong></td><td>Via SkillPort</td><td>✅ Via SkillPort</td></tr></tbody></table></div>
+<hr>
+<h2 id="claude-code-setup-recommended">Claude Code Setup (Recommended)</h2>
+<p>AI Consultants is designed as a <strong>Claude Code skill</strong>. This is the fastest and easiest way to get started.</p>
+<h3 id="step-1-install-the-skill">Step 1: Install the Skill</h3>
+<pre><code class="language-bash"># One-liner installation
+curl -fsSL https://raw.githubusercontent.com/reasance/ai-consultants/main/scripts/install.sh | bash
+</code></pre>
+<p>This installs to <code>~/.claude/skills/ai-consultants/</code> and makes slash commands available in Claude Code.</p>
+<h3 id="step-2-configure-the-available-consultants">Step 2: Configure the Available Consultants</h3>
+<pre><code class="language-bash">ai-consultants configure
+</code></pre>
+<p>This detects installed CLIs and available API keys for the complete 10-consultant
+roster, selects CLI/API transport, and saves a private persistent configuration
+under <code>~/.config/ai-consultants/</code>.</p>
+<h3 id="step-3-verify-installation">Step 3: Verify Installation</h3>
+<pre><code class="language-bash">./scripts/doctor.sh --fix
+</code></pre>
+<p>You should see at least 2 consultants marked as available.</p>
+<h3 id="step-4-your-first-consultation">Step 4: Your First Consultation</h3>
+<pre><code>/ai-consultants:consult "What's the best way to structure a REST API?"
+</code></pre>
+<p>That’s it! You’re ready to go.</p>
+<hr>
+<h2 id="claude-code-slash-commands">Claude Code Slash Commands</h2>
+<p>AI Consultants provides 2 slash commands:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-scroll"><table><thead><tr><th>Command</th><th>Description</th></tr></thead><tbody><tr><td><code>/ai-consultants:consult</code></td><td>Main consultation - ask AI consultants a coding question</td></tr><tr><td><code>/ai-consultants:help</code></td><td>Show all commands and usage</td></tr></tbody></table></div>
+<p>Configuration can be managed with <code>ai-consultants configure</code>, including presets,
+strategies, features, personas, API keys, transports, models, timeouts, budgets,
+and advanced optimization controls. Settings are saved to the XDG user config
+directory, normally <code>~/.config/ai-consultants/.env</code>.</p>
+<hr>
+<h2 id="openai-codex-cli-setup">OpenAI Codex CLI Setup</h2>
+<p>Codex CLI supports the Agent Skills standard and can use AI Consultants directly.</p>
+<h3 id="step-1-install-the-skill-1">Step 1: Install the Skill</h3>
+<pre><code class="language-bash"># Option A: Clone directly
+git clone https://github.com/reasance/ai-consultants.git ~/.codex/skills/ai-consultants
+
+# Option B: Symlink from existing installation
+ln -s ~/.claude/skills/ai-consultants ~/.codex/skills/ai-consultants
+
+# Option C: Symlink from any location
+ln -s /path/to/ai-consultants ~/.codex/skills/ai-consultants
+</code></pre>
+<h3 id="step-2-verify-installation">Step 2: Verify Installation</h3>
+<pre><code class="language-bash">~/.codex/skills/ai-consultants/scripts/doctor.sh --fix
+</code></pre>
+<h3 id="step-3-use-in-codex">Step 3: Use in Codex</h3>
+<p>Codex discovers the skill in <code>~/.codex/skills/</code> or <code>~/.agents/skills/</code>; it has
+no custom slash commands, so ask for it in natural language (“use the
+ai-consultants skill to …”). The consultation needs network access and writes
+under <code>~/.cache</code> and <code>~/.config</code>, which Codex’s default sandbox blocks: approve
+the escalation when Codex asks, or start it with <code>--sandbox danger-full-access</code>.
+Approve it yourself: Codex’s automatic approval review (<code>--approve-for-me</code>)
+rejects it because it sends your files to external providers. Without network
+access every consultant fails with a network error, and the run reports 0
+answers. Codex also rejects <code>rm -f</code>; the skill’s private question file is
+removed with <code>unlink</code> instead.</p>
+<hr>
+<h2 id="antigravity-agy-setup">Antigravity (agy) Setup</h2>
+<p>Antigravity (<code>agy</code>) replaced the Gemini CLI for individual Google accounts. It
+reads skills from <code>&#x3C;project>/.agents/skills/&#x3C;name>/</code> and from its user skill
+directory <code>~/.gemini/config/skills/&#x3C;name>/</code>.</p>
+<pre><code class="language-bash"># Per project
+mkdir -p .agents/skills
+ln -s ~/.claude/skills/ai-consultants .agents/skills/ai-consultants
+
+# Or for every project
+mkdir -p ~/.gemini/config/skills
+ln -s ~/.claude/skills/ai-consultants ~/.gemini/config/skills/ai-consultants
+</code></pre>
+<p>Ask in natural language (“use the ai-consultants skill to …”). agy runs the
+consultation as a background task and follows its log; in print mode
+(<code>agy -p</code>) it waits at most 30 minutes for background tasks.</p>
+<h2 id="gemini-cli-legacy">Gemini CLI (legacy)</h2>
+<p>Google stopped serving the Gemini CLI to individual accounts on 2026-06-18.
+Where it still works, it discovers the skill in <code>~/.gemini/skills/</code> or
+<code>~/.agents/skills/</code> (natural language only: it loads <code>.toml</code> custom commands,
+not the Markdown slash commands shipped here).</p>
+<hr>
+<h2 id="skillport-setup-multi-agent">SkillPort Setup (Multi-Agent)</h2>
+<p><a href="https://github.com/gotalab/skillport">SkillPort</a> is a universal skill manager that enables skill portability across agents like Cursor, Copilot, and Windsurf.</p>
+<h3 id="step-1-install-skillport">Step 1: Install SkillPort</h3>
+<pre><code class="language-bash">npm install -g skillport
+</code></pre>
+<h3 id="step-2-add-ai-consultants">Step 2: Add AI Consultants</h3>
+<pre><code class="language-bash"># From GitHub
+skillport add github.com/reasance/ai-consultants
+
+# Or from local clone
+git clone https://github.com/reasance/ai-consultants.git
+cd ai-consultants
+./scripts/skillport-install.sh
+</code></pre>
+<h3 id="step-3-verify-installation-1">Step 3: Verify Installation</h3>
+<pre><code class="language-bash">skillport list                    # Should show ai-consultants
+./scripts/skillport-install.sh status  # Detailed status
+</code></pre>
+<h3 id="step-4-use-in-your-agent">Step 4: Use in Your Agent</h3>
+<pre><code class="language-bash"># Load skill on demand
+skillport show ai-consultants
+</code></pre>
+<p>SkillPort also generates <code>AGENTS.md</code> for agents that use that format (Copilot and Cursor).</p>
+<hr>
+<h2 id="generic-agentskills-setup">Generic agentskills Setup</h2>
+<p>For any agent that supports the <a href="https://agentskills.io">agentskills.io</a> standard:</p>
+<h3 id="installation">Installation</h3>
+<pre><code class="language-bash"># Clone to the agent's skills directory
+git clone https://github.com/reasance/ai-consultants.git ~/.{agent}/skills/ai-consultants
+
+# Replace {agent} with your agent name (claude, codex, gemini, etc.)
+</code></pre>
+<h3 id="files-available">Files Available</h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-scroll"><table><thead><tr><th>File</th><th>Purpose</th></tr></thead><tbody><tr><td><code>SKILL.md</code></td><td>Primary skill specification (agentskills.io format)</td></tr><tr><td><code>AGENTS.md</code></td><td>Alternative discovery format (Copilot/Cursor)</td></tr><tr><td><code>scripts/</code></td><td>Executable scripts for consultations</td></tr></tbody></table></div>
+<hr>
+<h2 id="prerequisites">Prerequisites</h2>
+<p>Before installing consultant CLIs, ensure you have:</p>
+<h3 id="required">Required</h3>
+<ul>
+<li>
+<p><strong>jq</strong> for JSON processing</p>
+</li>
+<li>
+<p><strong>curl</strong> for API connectivity checks</p>
+</li>
+<li>
+<p><strong>Bash 3.2+</strong> (the stock macOS <code>/bin/bash</code> 3.2 is supported; no newer Bash needed)</p>
+</li>
+<li>
+<p><strong>bc</strong> for cost calculations (usually pre-installed)</p>
+</li>
+</ul>
+<h3 id="recommended">Recommended</h3>
+<ul>
+<li><strong>Node.js 18+</strong> for npm-based CLIs (Codex, Qwen, MiniMax)</li>
+<li><strong>Python 3.8+</strong> for pip-based CLIs (Mistral Vibe)</li>
+</ul>
+<h3 id="optional">Optional</h3>
+<ul>
+<li><strong>timeout/gtimeout</strong>, used only when you set a positive <code>*_TIMEOUT</code> (a
+built-in fallback is used without it)</li>
+</ul>
+<h3 id="install-jq">Install jq</h3>
+<pre><code class="language-bash"># macOS
+brew install jq
+
+# Ubuntu/Debian
+sudo apt-get install jq
+
+# Verify
+jq --version
+</code></pre>
+<h3 id="install-timeout-macos-optional">Install timeout (macOS, optional)</h3>
+<p>Consultants have no time limit by default. If you set a positive <code>*_TIMEOUT</code>,
+coreutils provides <code>gtimeout</code> (macOS does not include <code>timeout</code>):</p>
+<pre><code class="language-bash">brew install coreutils
+
+# Verify (gtimeout on macOS, timeout on Linux)
+gtimeout --version
+</code></pre>
+<blockquote>
+<p><strong>Note:</strong> If timeout/gtimeout is not available, AI Consultants uses a POSIX fallback.</p>
+</blockquote>
+<hr>
+<h2 id="consultant-clis">Consultant CLIs</h2>
+<p>You need <strong>at least 2 consultants</strong> configured for AI Consultants to work.</p>
+<h3 id="antigravity-cli--agy-the-architect">Antigravity CLI — <code>agy</code> (The Architect)</h3>
+<p>The Gemini consultant runs on the Antigravity CLI (<code>agy</code>), the successor to the
+deprecated Gemini CLI (transitioned 2026-06-18).</p>
+<pre><code class="language-bash">curl -fsSL https://antigravity.google/cli/install.sh | bash
+
+# Authentication (OAuth — sign in once, credentials are cached)
+agy            # launch without arguments to sign in
+
+# Optional: list available models (after sign-in)
+agy models
+</code></pre>
+<blockquote>
+<p>API mode (<code>GEMINI_USE_API=true</code>) is an alternative that talks to the Google AI
+endpoint with <code>GEMINI_API_KEY</code> and <code>GEMINI_API_MODEL</code> instead of the agy CLI.</p>
+</blockquote>
+<p>Get API key: <a href="https://aistudio.google.com/apikey">Google AI Studio</a></p>
+<h3 id="codex-cli-the-pragmatist">Codex CLI (The Pragmatist)</h3>
+<pre><code class="language-bash">npm install -g @openai/codex
+
+# Authentication
+export OPENAI_API_KEY="sk-your-key"
+</code></pre>
+<p>Get API key: <a href="https://platform.openai.com/api-keys">OpenAI Platform</a></p>
+<h3 id="mistral-vibe-cli-the-devils-advocate">Mistral Vibe CLI (The Devil’s Advocate)</h3>
+<pre><code class="language-bash">pip install mistral-vibe
+
+# Authentication
+export MISTRAL_API_KEY="your-key"
+</code></pre>
+<p>Get API key: <a href="https://console.mistral.ai/api-keys/">Mistral Console</a></p>
+<h3 id="claude-cli-the-synthesizer---v22">Claude CLI (The Synthesizer) - v2.2</h3>
+<pre><code class="language-bash"># Claude CLI is part of Claude Code
+# See https://docs.anthropic.com/en/docs/claude-code for installation
+
+# Verify installation
+claude --version
+</code></pre>
+<h3 id="qwen-cli-the-analyst---v27">Qwen CLI (The Analyst) - v2.7</h3>
+<pre><code class="language-bash">npm install -g @qwen-code/qwen-code@latest
+
+# Verify installation
+qwen --version
+
+# Or use API mode
+export QWEN3_USE_API=true
+export QWEN3_API_KEY="your-dashscope-key"
+</code></pre>
+<p>Get API key: <a href="https://dashscope.console.aliyun.com/">Alibaba Cloud DashScope</a></p>
+<p><strong>CLI/API Mode</strong>: Qwen3 defaults to CLI mode (<code>QWEN3_USE_API=false</code>). Set to <code>true</code> to use the DashScope API.</p>
+<h3 id="kimi-k31-pro-via-kimi-code-cli-the-eastern-sage---v54">Kimi K3.1 Pro via Kimi Code CLI (The Eastern Sage) - v5.4</h3>
+<pre><code class="language-bash">curl -L code.kimi.com/install.sh | bash
+</code></pre>
+<p>Verify: <code>kimi --version</code></p>
+<p>AI Consultants pins K3.1 Pro at max thinking effort for every consultation,
+independently of the model and effort in your user-level Kimi configuration:</p>
+<pre><code class="language-bash">export KIMI_MODEL=kimi-code/k3.1-pro
+export KIMI_REASONING_EFFORT=max   # reaches the CLI as KIMI_MODEL_THINKING_EFFORT
+./scripts/query_kimi.sh "Review this API boundary"
+</code></pre>
+<p>Every tier, <code>max_quality</code> included, uses <code>kimi-code/k3.1-pro</code>; its availability
+is verified from the Kimi provider inventory before the request. K3.1 Pro needs
+a Kimi Code Plus plan or higher. If the alias is missing, run <code>kimi</code> once and
+<code>/login</code> to refresh the model list (<code>~/.kimi-code/config.toml</code>).</p>
+<h3 id="minimax-cli-via-mmx---v221">MiniMax (CLI via mmx) - v2.21</h3>
+<p>MiniMax runs via the <code>mmx</code> CLI by default (CLI-first, OAuth). Install and sign in:</p>
+<pre><code class="language-bash">npm install -g mmx-cli
+mmx auth login          # OAuth (browser); or: mmx auth login --api-key &#x3C;key>
+</code></pre>
+<p>API mode is opt-in: set <code>MINIMAX_USE_API=true</code> with <code>MINIMAX_API_KEY</code>.</p>
+<p>Verify: <code>mmx --version</code></p>
+<h3 id="meta-muse-code-cli-or-meta-model-api---v55">Meta (Muse Code CLI or Meta Model API) - v5.5</h3>
+<p>Meta is opt-in. Install Muse Code and sign in once (browser sign-in or an API
+key); a Muse Code subscription or pay-as-you-go both work:</p>
+<pre><code class="language-bash">curl -fsSL https://dev.meta.ai/install.sh | sh
+muse                    # first run: trust prompt and sign-in, then exit
+ai-consultants configure   # enables ENABLE_META once muse is on PATH
+</code></pre>
+<p>Or use the Meta Model API with a pay-as-you-go key from the Model API
+dashboard (keys start with <code>LLM_</code>): set <code>META_API_KEY</code>, and Meta selects the
+API unless <code>META_USE_API=false</code>. Muse Code also reads <code>META_API_KEY</code> for headless
+runs.</p>
+<p>The CLI runs <code>muse exec</code> advisory-only: a private empty workspace, no shell, no
+workspace writes, no web tools, no sandbox network, no personal rules or
+skills, no session log and <code>--contributor-mode off</code>. Subscriptions default to
+Contributor mode, in which Meta may train on prompts, code and responses, so
+it is switched off on every run. Muse Wonder (<code>muse-wonder-1.0</code>, preview) serves
+the default, premium and maximum tiers; Muse Spark 1.3 (<code>muse-spark-1.3</code>) serves
+standard and economy. Pin <code>META_MODEL=muse-spark-1.3-contributor</code> only if you
+accept Contributor mode for the API; every run logs a warning.</p>
+<p>Verify: <code>muse --version</code></p>
+<hr>
+<h2 id="self-exclusion-v22">Self-Exclusion (v2.2)</h2>
+<p>When AI Consultants is invoked from a specific AI agent, that agent is automatically excluded from the consultant panel to prevent self-consultation.</p>
+<h3 id="how-it-works">How It Works</h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-scroll"><table><thead><tr><th>Invoking Agent</th><th>Excluded Consultant</th><th>Other Consultants</th></tr></thead><tbody><tr><td>Claude Code</td><td>Claude</td><td>Gemini, Codex, Mistral, Qwen, etc.</td></tr><tr><td>Codex CLI</td><td>Codex</td><td>Claude, Gemini, Mistral, Qwen, etc.</td></tr><tr><td>Antigravity (agy) / Gemini CLI</td><td>Gemini</td><td>Claude, Codex, Mistral, Qwen, etc.</td></tr><tr><td>Cursor</td><td>None</td><td>All enabled consultants; Cursor is a host, not a panel member</td></tr><tr><td>Qwen CLI</td><td>Qwen3</td><td>Claude, Gemini, Codex, Mistral, etc.</td></tr><tr><td>Kimi CLI</td><td>Kimi</td><td>All except Kimi</td></tr><tr><td>Bash (direct)</td><td>None</td><td>All enabled consultants (up to 10)</td></tr></tbody></table></div>
+<h3 id="automatic-detection">Automatic Detection</h3>
+<p>The host sets <code>INVOKING_AGENT</code> itself:</p>
+<ul>
+<li>Claude Code: <code>/ai-consultants:consult</code> sets <code>INVOKING_AGENT=claude</code></li>
+<li>Codex CLI: the skill’s execution contract (<code>SKILL.md</code>) sets <code>INVOKING_AGENT=codex</code></li>
+<li>Antigravity (agy) and the legacy Gemini CLI: the contract sets <code>INVOKING_AGENT=gemini</code></li>
+</ul>
+<p>The same identity excludes the host from synthesis. A Claude-hosted run must
+not create <code>claude.json</code> or report <code>synthesis_provider=claude</code>; equivalent
+invariants apply to Codex and Gemini. Natural-language skill invocations follow
+the execution contract in <code>SKILL.md</code>.</p>
+<h3 id="manual-usage-bash">Manual Usage (Bash)</h3>
+<pre><code class="language-bash"># Claude excluded from panel
+INVOKING_AGENT=claude ./scripts/consult_all.sh "Question"
+
+# Codex excluded from panel
+INVOKING_AGENT=codex ./scripts/consult_all.sh "Question"
+
+# No exclusion (all enabled consultants)
+./scripts/consult_all.sh "Question"
+</code></pre>
+<hr>
+<h2 id="cliapi-mode-switching-v26">CLI/API Mode Switching (v2.6+)</h2>
+<p>Eight consultants can switch between CLI mode (using local CLI tools) and API mode (direct API calls): <strong>Gemini, Codex, Claude, Mistral, Qwen3, Grok, MiniMax, and Meta</strong>. Grok is CLI-first and runs in an isolated, tool-free strict sandbox. It falls back automatically only when Grok Build is missing, cannot launch, or lacks usable authentication and a key is available; request failures after launch are surfaced without an API fallback.</p>
+<p>Grok’s normal OAuth mode is <code>GROK_OAUTH_MODE=shared</code>, which is safe for the
+parallel panel: each call gets a private HOME/workspace/prompt/output, while a
+runner-owned persistent <code>GROK_HOME</code> lets Grok Build coordinate token refresh
+with its own lock. A short ai-consultants lock atomically seeds and publishes
+valid generations; a concurrent external <code>grok login</code> wins the CAS and makes
+the affected run fail without an API fallback. Use
+<code>GROK_OAUTH_MODE=serialized</code> only as a diagnostic fallback. Forced API mode is
+stateless and does not read or create the shared OAuth generation. A newly
+created shared generation runs one locked inventory bootstrap to let Grok 1.0.4
+initialize its home metadata; the lock is released before inference.</p>
+<h3 id="why-use-api-mode">Why Use API Mode?</h3>
+<ul>
+<li><strong>No CLI installation required</strong>: Use API keys without installing CLI tools</li>
+<li><strong>Consistent behavior</strong>: API responses are more predictable</li>
+<li><strong>Easier deployment</strong>: No need to manage CLI binaries</li>
+</ul>
+<h3 id="configuration">Configuration</h3>
+<pre><code class="language-bash"># Enable API mode for individual consultants
+export GEMINI_USE_API=true
+export GEMINI_API_KEY="your-google-ai-key"
+
+export CODEX_USE_API=true
+export OPENAI_API_KEY="sk-..."
+
+export CLAUDE_USE_API=true
+export ANTHROPIC_API_KEY="sk-ant-..."
+
+export MISTRAL_USE_API=true
+export MISTRAL_API_KEY="your-mistral-key"
+
+export GROK_USE_API=true
+export GROK_API_KEY="your-xai-key"
+
+export QWEN3_USE_API=true   # Enable API mode for Qwen3
+export QWEN3_API_KEY="your-dashscope-key"
+</code></pre>
+<h3 id="api-endpoints-custom">API Endpoints (Custom)</h3>
+<pre><code class="language-bash">GEMINI_API_URL=https://generativelanguage.googleapis.com/v1beta/models
+CODEX_API_URL=https://api.openai.com/v1/chat/completions
+CLAUDE_API_URL=https://api.anthropic.com/v1/messages
+MISTRAL_API_URL=https://api.mistral.ai/v1/chat/completions
+QWEN3_API_URL=https://dashscope.aliyuncs.com/api/v1/services/aigc/text-generation/generation
+</code></pre>
+<p>The Qwen default is the native DashScope endpoint (<code>QWEN3_FORMAT=qwen</code>). For an
+OpenAI-compatible endpoint such as the Token Plan, set <code>QWEN3_FORMAT=openai</code> and
+the full <code>/chat/completions</code> URL; see <code>RECIPES.md</code>.</p>
+<h3 id="mode-detection">Mode Detection</h3>
+<p>Check current mode with doctor command:</p>
+<pre><code class="language-bash">./scripts/doctor.sh --verbose
+# Shows:
+#   ✓ Gemini: API mode (key: AIza...1234)
+#   ○ Codex: CLI mode
+#   ○ Claude: CLI mode
+#   ○ Mistral: CLI mode
+#   ✓ Qwen3: API mode (key: sk-...abcd)
+</code></pre>
+<hr>
+<h2 id="configuration-presets-v22">Configuration Presets (v2.2)</h2>
+<p>Presets let you quickly configure how many consultants to use.</p>
+<h3 id="available-presets">Available Presets</h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-scroll"><table><thead><tr><th>Preset</th><th>Consultants</th><th>Use Case</th></tr></thead><tbody><tr><td><code>minimal</code></td><td>2 (Gemini + Codex)</td><td>Quick, cheap</td></tr><tr><td><code>balanced</code></td><td>3 (+ Mistral)</td><td>Standard</td></tr><tr><td><code>thorough</code></td><td>3</td><td>Comprehensive</td></tr><tr><td><code>max_quality</code></td><td>All 11, maximum models and max provider effort</td><td>Critical decisions</td></tr><tr><td><code>high-stakes</code></td><td>Expanded panel</td><td>Critical decisions</td></tr><tr><td><code>security</code></td><td>Security-focused</td><td>Security reviews</td></tr><tr><td><code>cost-capped</code></td><td>Budget-friendly</td><td>Low cost</td></tr></tbody></table></div>
+<h3 id="set-default-preset">Set Default Preset</h3>
+<p><strong>Bash:</strong></p>
+<pre><code class="language-bash"># Add to .env
+DEFAULT_PRESET=balanced
+</code></pre>
+<h3 id="override-per-consultation">Override Per Consultation</h3>
+<p><strong>Claude Code:</strong> Specify in your question context.</p>
+<p><strong>Bash:</strong></p>
+<pre><code class="language-bash">./scripts/consult_all.sh --preset high-stakes "Critical question"
+</code></pre>
+<hr>
+<h2 id="synthesis-strategies-v22">Synthesis Strategies (v2.2)</h2>
+<p>Strategies control how consultant responses are combined.</p>
+<h3 id="available-strategies">Available Strategies</h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-scroll"><table><thead><tr><th>Strategy</th><th>Description</th></tr></thead><tbody><tr><td><code>coverage</code></td><td>Union of every distinct point/risk across consultants, deduplicated (default)</td></tr><tr><td><code>majority</code></td><td>Produce one blended recommendation</td></tr><tr><td><code>risk_averse</code></td><td>Weight conservative responses higher</td></tr><tr><td><code>security_first</code></td><td>Prioritize security-focused insights</td></tr><tr><td><code>cost_capped</code></td><td>Prefer simpler, cheaper solutions</td></tr><tr><td><code>compare_only</code></td><td>No recommendation, just comparison</td></tr></tbody></table></div>
+<h3 id="set-default-strategy">Set Default Strategy</h3>
+<p><strong>Bash:</strong></p>
+<pre><code class="language-bash"># Add to .env
+DEFAULT_STRATEGY=risk_averse
+</code></pre>
+<h3 id="strategy-recommendations">Strategy Recommendations</h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-scroll"><table><thead><tr><th>Use Case</th><th>Recommended Strategy</th></tr></thead><tbody><tr><td>General questions</td><td><code>coverage</code></td></tr><tr><td>Production deployments</td><td><code>risk_averse</code></td></tr><tr><td>Security audits</td><td><code>security_first</code></td></tr><tr><td>Budget constraints</td><td><code>cost_capped</code></td></tr><tr><td>Learning/exploration</td><td><code>compare_only</code></td></tr></tbody></table></div>
+<hr>
+<h2 id="ready-to-run-configurations">Ready-to-run configurations</h2>
+<p>These examples can be prefixed to one command or saved in
+<code>~/.config/ai-consultants/.env</code>.</p>
+<h3 id="security-gate-with-a-required-quorum">Security gate with a required quorum</h3>
+<pre><code class="language-bash">ENABLE_HEALTH_GATE=true \
+QUORUM_MIN=3 \
+QUORUM_ACTION=stop \
+ai-consultants --preset security --strategy security_first \
+  "Find authentication bypasses" src/auth.ts@PRIMARY
+</code></pre>
+<p>More scenarios—including CLI-only, hybrid API, hard-budget, and
+large-context runs—are in <code>docs/RECIPES.md</code>.</p>
+<hr>
+<h2 id="environment-configuration">Environment Configuration</h2>
+<h3 id="automatic-configuration-recommended">Automatic configuration (recommended)</h3>
+<pre><code class="language-bash"># Detect the full roster and write ~/.config/ai-consultants/.env
+ai-consultants configure
+
+# Set any supported parameter non-interactively
+ai-consultants configure \
+  --set DEFAULT_PRESET=balanced \
+  --set ENABLE_SYNTHESIS=true
+
+# Guided or exhaustive review
+ai-consultants configure --interactive
+ai-consultants configure --advanced
+
+# Parameter discovery and safe preview
+ai-consultants configure --show-parameters
+ai-consultants configure --dry-run
+</code></pre>
+<p>Existing custom values and credentials are preserved automatically;
+availability-derived <code>ENABLE_*</code> flags are refreshed and can be pinned with
+<code>--set</code>. Unless <code>--force</code> is supplied, the previous file is retained as a
+timestamped mode-600 backup.
+Automatically selected <code>*_USE_API</code> modes carry an <code># ai-consultants:auto</code>
+marker, so rerunning the command can react to installed or removed CLIs and new
+credentials. Unmarked modes, environment values, and <code>--set</code> remain user pins.
+The configurator uses the complete <code>.env.example</code> contract,
+so advanced parameters are also accepted through repeatable <code>--set KEY=VALUE</code>
+arguments.</p>
+<p>Do not place API keys in <code>--set</code> arguments: command lines can be retained in
+shell history or observed by other local processes. Use <code>--interactive</code>,
+<code>--advanced</code>, or exported environment variables for credentials.</p>
+<h3 id="using-env-file">Using .env file</h3>
+<pre><code class="language-bash">mkdir -p "${XDG_CONFIG_HOME:-$HOME/.config}/ai-consultants"
+# For a new configuration only; keep existing credentials/settings if present.
+cp -n .env.example "${XDG_CONFIG_HOME:-$HOME/.config}/ai-consultants/.env"
+chmod 600 "${XDG_CONFIG_HOME:-$HOME/.config}/ai-consultants/.env"
+</code></pre>
+<p>Edit that user configuration <code>.env</code>. A different existing private directory must
+be selected explicitly with <code>AI_CONSULTANTS_CONFIG_DIR</code>; project <code>.env</code> files
+are not discovered automatically:</p>
+<pre><code class="language-bash"># Enable/disable consultants (10 available)
+ENABLE_GEMINI=true
+ENABLE_CODEX=true
+ENABLE_CLAUDE=false    # Auto-excluded when invoked from Claude Code
+ENABLE_MISTRAL=false
+ENABLE_QWEN3=false     # v2.7: The Analyst (CLI/API)
+ENABLE_GROK=true       # Grok Build CLI; API fallback when unavailable
+ENABLE_GLM=false
+ENABLE_DEEPSEEK=false
+ENABLE_KIMI=true
+ENABLE_MINIMAX=true
+MINIMAX_API_KEY=your-key
+ENABLE_META=false      # v5.5: The Systems Thinker (muse CLI or META_API_KEY)
+
+# Self-exclusion (v2.2)
+INVOKING_AGENT=unknown  # Set automatically by slash commands
+
+# API Keys
+GEMINI_API_KEY=your-key
+OPENAI_API_KEY=sk-your-key
+MISTRAL_API_KEY=your-key
+ANTHROPIC_API_KEY=sk-ant-your-key
+QWEN3_API_KEY=your-dashscope-key
+GROK_API_KEY=your-xai-key  # optional fallback; Grok Build normally uses login
+
+# CLI/API Mode Switching (v2.6+)
+# GEMINI_USE_API auto-resolves when unset (v2.15.1): API if GEMINI_API_KEY is
+# set, else the agy CLI. Set it explicitly only to force a specific mode.
+CODEX_USE_API=false
+CLAUDE_USE_API=false
+MISTRAL_USE_API=false
+QWEN3_USE_API=false    # Default: CLI mode
+MINIMAX_USE_API=false  # Default: mmx CLI mode
+# META_USE_API         # Unset: API when META_API_KEY is set, else muse CLI
+
+# Defaults (v2.8)
+DEFAULT_PRESET=balanced
+DEFAULT_STRATEGY=coverage
+
+# Features
+ENABLE_SYNTHESIS=true
+ENABLE_HEALTH_GATE=false
+QUORUM_MIN=2
+QUORUM_ACTION=warn
+
+# Budget (v2.4)
+ENABLE_BUDGET_LIMIT=false
+MAX_SESSION_COST=1.00
+BUDGET_ACTION=warn
+</code></pre>
+<h3 id="minimum-requirements">Minimum Requirements</h3>
+<p><strong>At least 2 consultants must be enabled.</strong></p>
+<p>Example configurations:</p>
+<p><strong>OpenAI + Google:</strong></p>
+<pre><code class="language-bash">ENABLE_GEMINI=true
+ENABLE_CODEX=true
+ENABLE_MISTRAL=false
+</code></pre>
+<p><strong>OpenAI + Anthropic:</strong></p>
+<pre><code class="language-bash">ENABLE_CODEX=true
+ENABLE_CLAUDE=true
+ENABLE_GEMINI=false
+ENABLE_MISTRAL=false
+</code></pre>
+<hr>
+<h2 id="verification">Verification</h2>
+<h3 id="doctor-command">Doctor Command</h3>
+<pre><code class="language-bash">./scripts/doctor.sh
+</code></pre>
+<p>Checks:</p>
+<ul>
+<li>CLI tools installed</li>
+<li>API keys configured</li>
+<li>Configuration valid</li>
+</ul>
+<p><strong>Auto-fix issues:</strong></p>
+<pre><code class="language-bash">./scripts/doctor.sh --fix
+</code></pre>
+<h3 id="configuration-1">Configuration</h3>
+<p>Auto-detect the available CLI and API transports:</p>
+<pre><code class="language-bash">./bin/ai-consultants configure
+</code></pre>
+<p>Use <code>--interactive</code> for a guided review, <code>--advanced</code> for every supported
+parameter, or <code>--dry-run</code> to preview the generated configuration without
+writing it. The deprecated <code>setup_wizard.sh</code> and <code>preflight_check.sh</code> entry
+points remain compatibility forwarders but are not the maintained interface.</p>
+<hr>
+<h2 id="troubleshooting">Troubleshooting</h2>
+<h3 id="command-not-found-errors">“Command not found” errors</h3>
+<pre><code class="language-bash"># Check npm global path
+npm list -g --depth=0
+
+# Check pip packages
+pip list | grep mistral
+</code></pre>
+<h3 id="authentication-failures">Authentication failures</h3>
+<p><strong>Gemini (Antigravity CLI):</strong></p>
+<pre><code class="language-bash">agy            # launch with no arguments to (re-)sign in via browser OAuth
+agy models     # verify auth: lists available models when signed in
+</code></pre>
+<p>(Or skip the CLI entirely: set <code>GEMINI_API_KEY</code> to run Gemini over the API.)</p>
+<p><strong>Codex:</strong></p>
+<pre><code class="language-bash">echo $OPENAI_API_KEY  # Verify set
+</code></pre>
+<h3 id="timeout-errors">Timeout errors</h3>
+<p>Consultants have no time limit by default. A <code>Timeout after Ns</code> message means a
+<code>*_TIMEOUT</code> is set to a positive value in <code>.env</code> or the environment; set it to
+<code>0</code> to remove the limit:</p>
+<pre><code class="language-bash">GEMINI_TIMEOUT=0
+CODEX_TIMEOUT=0
+</code></pre>
+<h3 id="a-consultant-is-taking-too-long">A consultant is taking too long</h3>
+<p>The run logs <code>Still waiting after Ns for: &#x3C;names></code> while it waits. To continue
+with the answers already received, run <code>touch &#x3C;output dir>/.proceed</code> (the
+directory is logged as <code>Output: &#x3C;dir></code> at the start) or press Ctrl-C once;
+press Ctrl-C again, or <code>touch &#x3C;output dir>/.abort</code>, to end the run.</p>
+<h3 id="at-least-2-consultants-are-required-error">“At least 2 consultants are required” error</h3>
+<p>Either:</p>
+<ol>
+<li>Install another CLI</li>
+<li>Configure an API-backed consultant</li>
+<li>Run <code>./scripts/doctor.sh --fix</code></li>
+</ol>
+<h3 id="claude-code-issues">Claude Code Issues</h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-scroll"><table><thead><tr><th>Issue</th><th>Solution</th></tr></thead><tbody><tr><td>“Unknown skill”</td><td>Run install script again</td></tr><tr><td>Commands not showing</td><td>Restart Claude Code</td></tr><tr><td>“Exit code 1”</td><td>Run <code>./scripts/doctor.sh</code></td></tr><tr><td>Configuration not saving</td><td>Check permissions on <code>~/.config/ai-consultants/</code> (or <code>$AI_CONSULTANTS_CONFIG_DIR</code>)</td></tr></tbody></table></div>
+<hr>
+<h2 id="platform-specific-notes">Platform-Specific Notes</h2>
+<h3 id="macos">macOS</h3>
+<p>The stock <code>/bin/bash</code> 3.2 works. Install coreutils only if you set a positive
+<code>*_TIMEOUT</code>:</p>
+<pre><code class="language-bash">brew install coreutils
+</code></pre>
+<h3 id="windows">Windows</h3>
+<p>Use WSL (Windows Subsystem for Linux):</p>
+<pre><code class="language-bash">wsl --install
+# Then follow Linux instructions
+</code></pre>
+<h3 id="linux">Linux</h3>
+<p>No special requirements (<code>timeout</code> from coreutils is used when a positive
+<code>*_TIMEOUT</code> is set).</p>
+<hr>
+<h2 id="next-steps">Next Steps</h2>
+<p>After setup:</p>
+<p><strong>Claude Code:</strong></p>
+<pre><code>/ai-consultants:consult "How do I optimize a SQL query?"
+</code></pre>
+<p><strong>Bash:</strong></p>
+<pre><code class="language-bash"># Test your configuration
+output_dir=$(./scripts/consult_all.sh --preset minimal "How do I optimize a SQL query?")
+
+# View the report
+less "$output_dir/report.md"
+</code></pre>
+<p>See <a href="/next/overview.html">README.md</a> for usage examples and full documentation.</p>
+<p>For a configuration outside the standard user config directory, set
+<code>AI_CONSULTANTS_CONFIG_DIR=/absolute/private/config-directory</code> explicitly.
+The loader does not discover project <code>.env</code> files. Keep credentials in your
+existing private configuration; do not copy them into this repository.</p>
+<p>Claude CLI uses <code>stream-json --verbose</code>. Only response-bearing assistant
+messages attest the content model; terminal <code>modelUsage</code> records billing
+participants separately. A missing or conflicting content model remains
+<code>requested-only</code> and cannot pass a model-promotion gate. Successful terminal
+completion is required even when partial response text or billing is available.</p>
+<p>Codex defaults to <code>gpt-6.1-sol</code> (default and premium); <code>max_quality</code> selects
+<code>gpt-6-astra</code>, standard also selects <code>gpt-6.1-sol</code> (there is no GPT-6 mid
+model, and Sol costs less than GPT-5.6 Terra did), and economy selects <code>gpt-6-luna</code>.
+GPT-6.1 Sol is close to Astra on agentic coding at one fifth of its token price.
+Configure migrates exact unpinned persisted <code>gpt-5.5</code>, <code>gpt-5.6-sol</code> and
+<code>gpt-6-astra</code> values to <code>gpt-6.1-sol</code> and records <code>migrated-from</code> provenance
+(the earliest origin is kept across chained migrations). Use
+<code># ai-consultants:pin</code>, an environment override or <code>--set</code> to keep a model,
+for example <code>--set CODEX_MODEL=gpt-6-astra</code> to keep Astra as the default.</p>
+<p>GPT-6 Astra and GPT-6.1 Sol use <code>high</code> effort when no effort is configured
+(their provider default is <code>medium</code>); economy GPT-6 Luna keeps the provider
+default. Explicit <code>low</code>, <code>medium</code>, <code>high</code>, <code>xhigh</code>, and <code>max</code> prevail;
+<code>none</code>/<code>minimal</code> fail before dispatch on all three.
+The default completion budget is 16384 tokens, including reasoning; override
+<code>CODEX_API_MAX_TOKENS</code> explicitly as needed. The text-only Chat Completions
+request uses <code>max_completion_tokens</code> and <code>reasoning_effort</code>, without tools.
+See the <a href="https://developers.openai.com/api/docs/guides/latest-model">official migration guide</a>.
+CLI JSON events supply token telemetry; the final message file supplies content.
+A CLI <code>-m</code> selection remains <code>requested-only</code>, not provider attestation.</p>
+<p><a href="https://developers.openai.com/api/docs/models/gpt-6.1-sol">GPT-6.1 Sol Standard pricing</a>
+is $2/M input and $10/M output;
+<a href="https://developers.openai.com/api/docs/models/gpt-6-astra">Astra Standard pricing</a>
+is $10/M input and $50/M output. For both, more than 272K input tokens doubles
+input and multiplies output by 1.5 for the whole request. Reported cost is an estimate
+unless a provider cost is supplied: cache writes, cached-input discounts and
+service processing rates can change the invoice.</p>
+<p>Grok CLI and doctor passively inspect the container-runtime socket deny paths,
+including Docker Desktop locations. Symlink endpoints (including dangling links)
+block CLI dispatch because the sandbox cannot safely resolve those deny rules.
+Absent paths and ordinary socket files pass this check. Nothing is removed and
+Docker configuration is never changed. Runtime <code>sandbox_profile_refused</code> and
+<code>sandbox_not_applied</code> diagnostics fail even with exit zero; they cannot trigger
+retry or API fallback. OAuth synchronization and per-run isolation remain active.</p>
+<p>Grok compatibility includes a provider-free parser probe of the complete advisory
+argument list. Hidden flags such as <code>--no-memory</code> are still required in the
+actual request even when omitted from public help. Unsupported mandatory flags
+block dispatch; the optional <code>--no-auto-update</code> guard is used when its parser
+probe succeeds, including on CLIs that hide it from help.</p>
+<h3 id="retired-models-550">Retired models (5.5.0)</h3>
+<p>Each tier uses only current models. Superseded models are listed in
+<code>retired_models</code> in <code>docs/cost_rates.json</code>, each with its family’s current
+replacement (for example <code>claude-haiku-4-5</code> -> <code>claude-haiku-5-5</code>,
+<code>gpt-5.6-luna</code> -> <code>gpt-6-luna</code>, <code>grok-4.5</code> -> <code>grok-4.7</code>, <code>glm-4-flash</code> ->
+<code>glm-5.3-flash</code>, <code>kimi-code/k3</code> -> <code>kimi-code/k3.1-pro</code>).</p>
+<ul>
+<li><code>ai-consultants configure</code> replaces a persisted retired value even when it is
+pinned. The marker is kept, the old value is recorded as <code>migrated-from=</code>
+(spaces become underscores), and the timestamped backup keeps the original.</li>
+<li><code>configure --set</code> refuses a retired model and names the replacement.</li>
+<li>A retired or uncatalogued model selected at run time, for example by an
+environment variable, still runs. The run warns, and the cost report names
+it as unpriced instead of applying a default rate.</li>
+</ul>
+<h3 id="deepseek-v41-flash">DeepSeek V4.1 Flash</h3>
+<p>DeepSeek uses the HTTP API with <code>DEEPSEEK_MODEL=deepseek-flash</code> in every tier.
+This is the official API alias for DeepSeek-V4.1-Flash as of 2026-09-10, not a
+version identity inferred from the requested name. Provider-reported model
+metadata is retained unchanged. <code>max_quality</code> continues to request <code>max</code> effort;
+other tiers leave effort to the provider unless explicitly configured. The
+provider defaults to thinking mode at high effort. Existing text-only Chat
+Completions requests and the 16,384-token completion budget remain compatible.</p>
+<p><code>configure</code> migrates an exact unpinned <code>deepseek-v4-pro</code> default to
+<code>deepseek-flash</code>; a pinned <code>deepseek-v4-pro</code> (a current opt-in at $1.32/$3.96
+per 1M) is kept. The retired <code>deepseek-v4-flash</code> aliases, which the provider
+still routes to V4.1 Flash, are migrated even when pinned. Peak cache-miss costs are estimates, excluding cache/off-peak
+discounts. An authorized one-attempt API smoke on 2026-09-10 passed with a structured
+response and provider-reported <code>deepseek-flash</code>; no version identity was invented
+from the alias. No CLI transport is introduced.</p>
+<p>Sources: <a href="https://api-docs.deepseek.com/quick_start/pricing/">models/pricing</a> and
+<a href="https://api-docs.deepseek.com/guides/thinking_mode/">thinking mode</a>.</p>
+<h3 id="grok-47-and-claude-opus-55">Grok 4.7 and Claude Opus 5.5</h3>
+<p>Grok uses <code>grok-4.7</code> in every tier since 5.5.0 (same price as Grok 4.5).
+<code>grok-4.5</code> and <code>grok-4.6</code> are retired: configure migrates them even when
+pinned, and <code>--set</code> refuses them. Unrelated IDs survive.
+The existing capability/model inventory probes, strict sandbox and OAuth
+isolation still apply; the Grok 4.7 Fast variant is not implicitly selected.</p>
+<p>Claude uses Fable 5.2/max for maximum, Fable 5.2/high for premium and
+Opus 5.5/medium for standard. Economy keeps Haiku 5.5. Fable 5.1 remains an
+explicit opt-in. Claude Code requires version 2.1.321 or later for Fable 5.2.
+Configure migrates only marked managed current defaults to Fable 5.2;
+unmarked and pinned current-model choices remain. Pinned retired models still move to their same-family successor.</p>
+<p>Opus 5.5 has always-on adaptive thinking, including empty thinking display
+blocks. Our tool-free single-turn API request omits thinking overrides, sampling
+parameters and forced tool choice; parsing selects visible text by block type.
+Both CLI and API use the matching tier’s effort unless <code>CLAUDE_REASONING_EFFORT</code>
+is explicit. Opt-in models without a matching tier retain provider defaults.
+The total-output budget remains 16384. Content identity and terminal success remain separate checks.</p>
+<p>These additions have offline regression coverage. Grok 4.7 and Opus 5.5 CLI
+smokes passed on 2026-09-28. New API transports remain separately unverified. Frozen
+P1.6 benchmark IDs/efforts/preregistration are not changed by this update.
+See the <a href="https://platform.claude.com/docs/en/models/opus-5-5/migration-guide">Opus migration guide</a>
+and <a href="https://docs.x.ai/developers/grok-4-7">Grok 4.7</a>.</p>
+<h3 id="gemini-4-hydrogen-and-optional-carbon">Gemini 4 Hydrogen and optional Carbon</h3>
+<p>Google economy uses Hydrogen/medium, standard high, premium and default maximum
+xhigh. agy uses exact IDs such as <code>gemini-4-hydrogen-xhigh</code>; the API uses
+<code>gemini-4-hydrogen</code> with low/medium/high/xhigh thinking. Explicit effort wins.
+The API output cap remains 32,768, including thinking. Long decode is not
+implemented by this integration.</p>
+<p>Carbon/high is optional on Ultra/Enterprise accounts. Configure
+<code>GEMINI_FRONTIER_CLI_MODEL=gemini-4-carbon-high</code> and <code>GEMINI_USE_API=false</code> to
+select it in <code>max_quality</code>. With that setting empty, maximum stays Hydrogen.
+For standalone selection without a preset, set <code>GEMINI_MODEL=gemini-4-carbon-high</code>
+and <code>GEMINI_USE_API=false</code>. Carbon must match the exact account inventory before
+dispatch, including when selected for synthesis; a similarly named model or
+Orchestrator is not accepted. No alternate provider or API is substituted.</p>
+<p>Only marked managed current defaults follow Hydrogen. Existing unmarked and
+pinned active choices, including Flash and Argon, stay user-owned. Historical
+retired scaffolds migrate; pinned retired models keep their same-line successor.
+Sources and benchmark figures: <a href="/next/">model reference</a>.</p>
+<h3 id="gemini-38-flash">Gemini 3.8 Flash</h3>
+<p>The installed <code>agy models</code> inventory on 2026-09-27 lists Gemini 3.8 Flash
+(High), (Medium) and (Low). CLI standard selects High and economy selects Low.
+Medium remains an explicit <code>GEMINI_MODEL</code> choice. Inventory
+evidence is capability-probed, not provider attestation of a generated answer.</p>
+<p>Configure migrates Flash 3.7 (and 3.6/3.5) values to the same-level 3.8
+Flash, pinned or not; unrelated models are preserved. Since 5.5.0 the API
+standard and economy tiers use <code>gemini-3.8-flash</code> (offline-tested); its
+native thinking levels are low/medium/high. Other explicit efforts fail before
+dispatch. With no effort setting, the provider’s API default is medium.</p>
+<p>Inventory discovery performed no inference. Separately authorized High/Low CLI
+smokes passed on 2026-09-28, using the named variant without —effort. This is
+capability-probed provenance, not provider content-model attestation. Prices are promotional estimates
+through 2026-12-31; see <a href="https://ai.google.dev/gemini-api/docs/latest-model">Google’s model guide</a>.
+The frozen P1.6 inputs remain unchanged.</p>
+<p>For Google GenerateContent accounting, output tokens include both
+<code>candidatesTokenCount</code> and <code>thoughtsTokenCount</code>. Input uses <code>promptTokenCount</code>,
+which already includes cached content. This avoids dropping billed thinking
+or adding cache tokens twice; it applies to the existing Google API path too.
+See <a href="https://ai.google.dev/api/generate-content">UsageMetadata</a>.</p>
+<p>For named Gemini 3.8 Flash High/Medium/Low CLI variants, leave
+<code>GEMINI_REASONING_EFFORT</code> unset: the level is selected by <code>GEMINI_MODEL</code>, and
+<code>agy</code> rejects an additional <code>--effort</code> for these variants. The CLI’s general
+help lists effort values for other supported model selections; it does not
+establish support for every model. Native API thinking remains separately
+configured with low/medium/high.</p></article><p><a href="/next/snapshot.json">Snapshot provenance</a> · Published npm version: 5.8.0</p></main></body></html>
