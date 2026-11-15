@@ -1,0 +1,37 @@
+{
+  "project": "ai-consultants",
+  "status": "released",
+  "capturedAt": "2026-11-15",
+  "benchmarkSnapshot": "2026-11-15",
+  "benchmarkVersion": "5.0.1",
+  "publishedNpmVersion": "5.9.0",
+  "sourceBranch": "main",
+  "sourceHead": "6dd2838c4a38eafde11bd6a0f633e7b822231025",
+  "sourceDirty": false,
+  "files": {
+    "docs/MODEL_BENCHMARKS.md": {
+      "sha256": "56de9f57d4a472f5e455dd5cea3a908296a77c2992d865f902e76634dde676ac",
+      "page": "/docs/"
+    },
+    "README.md": {
+      "sha256": "c4a0aed4c20b6d878de5384266e5c103d4cf148916c00f56c277fcc37dc11d3d",
+      "page": "/docs/overview.html"
+    },
+    "docs/SETUP.md": {
+      "sha256": "318d1f13eba0270b9285628c60da7d9da78e182e7b3e228d71971e91cd9308cf",
+      "page": "/docs/setup.html"
+    },
+    "references/configuration.md": {
+      "sha256": "a0055eca21334447633a640246fd3603c5bf548bbd9e480a3a59a5254e8ec9cd",
+      "page": "/docs/configuration.html"
+    },
+    "docs/SMART_ROUTING.md": {
+      "sha256": "d5c0398891133ca366b3deccd71f6b4e34cb60df7fe2a11b7a9ed822827d0df8",
+      "page": "/docs/routing.html"
+    },
+    "CHANGELOG.md": {
+      "sha256": "e2b54f15bc2088ee4119e96fd1a3b1127c844f5d5e6649870522fcbeea925c51",
+      "page": "/docs/changelog.html"
+    }
+  }
+}

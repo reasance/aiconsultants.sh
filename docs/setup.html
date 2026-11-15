@@ -3,22 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Setup preview — ai-consultants</title>
-    <meta name="description" content="Unreleased documentation preview: Fable 5.2, Gemini 4 Hydrogen and Carbon, measured with Artificial Analysis v5.0.1.">
+    <title>Setup — ai-consultants</title>
+    <meta name="description" content="Released model documentation for Fable 5.2, Gemini 4 Hydrogen and Carbon, measured with Artificial Analysis v5.0.1.">
     <meta name="theme-color" content="#000000">
 
     <!-- SEO -->
-    <link rel="canonical" href="https://aiconsultants.sh/next/setup.html">
+    <link rel="canonical" href="https://aiconsultants.sh/docs/setup.html">
     <meta name="robots" content="index, follow">
     <meta name="author" content="Matteo Scurati">
     <meta name="keywords" content="ai-consultants, multiple AI models, second opinion, design review, threat modeling, Claude Code skill, Codex, Gemini, Mistral, npx ai-consultants">
 
     <!-- Open Graph -->
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://aiconsultants.sh/next/setup.html">
+    <meta property="og:url" content="https://aiconsultants.sh/docs/setup.html">
     <meta property="og:site_name" content="ai-consultants">
-    <meta property="og:title" content="Setup preview — ai-consultants">
-    <meta property="og:description" content="Unreleased model integration and documentation preview.">
+    <meta property="og:title" content="Setup — ai-consultants">
+    <meta property="og:description" content="Released model integration and documentation.">
     <meta property="og:image" content="https://aiconsultants.sh/og-image.png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
@@ -26,8 +26,8 @@
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Setup preview — ai-consultants">
-    <meta name="twitter:description" content="Unreleased model integration and documentation preview.">
+    <meta name="twitter:title" content="Setup — ai-consultants">
+    <meta name="twitter:description" content="Released model integration and documentation.">
     <meta name="twitter:image" content="https://aiconsultants.sh/og-image.png">
     <meta name="twitter:image:alt" content="A real ai-consultants run: one question, answers from Gemini, Codex and Mistral, and one merged list of risks and edge cases tagged with the models that raised each.">
 
@@ -692,9 +692,7 @@
             *, *::before, *::after { transition: none !important; }
         }
     </style>
-<style>.preview{padding-top:48px;padding-bottom:80px;max-width:960px}.preview nav{margin:24px 0;line-height:2}.preview article{line-height:1.7;overflow-wrap:anywhere}.preview h1{font-size:2.5rem;line-height:1.2}.preview h2,.preview h3{margin:36px 0 14px}.preview p,.preview ul,.preview ol,.preview blockquote{margin:16px 0}.preview ul,.preview ol{padding-left:24px}.preview pre{overflow:auto;padding:16px;border:1px solid var(--border);margin:16px 0;white-space:pre}.preview table{border-collapse:collapse;min-width:600px;font-size:14px}.preview th,.preview td{padding:10px;text-align:left;border-bottom:1px solid var(--border)}.preview .table-scroll{overflow-x:auto}.preview blockquote{border-left:2px solid var(--text-muted);padding-left:16px}.preview a{text-decoration:underline}.preview code{font-size:.9em}.preview pre code{font-size:13px}</style></head><body><a class="skip-link" href="#main">Skip to content</a><main id="main" class="container preview"><a href="/">← ai-consultants</a><nav aria-label="Preview documentation"><a href="/next/">Next release preview</a> · <a href="/next/overview.html">Project overview</a> · <a href="/next/setup.html" aria-current="page">Setup preview</a> · <a href="/next/configuration.html">Configuration preview</a> · <a href="/next/routing.html">Smart routing preview</a> · <a href="/next/changelog.html">Changelog preview</a></nav><article><blockquote>
-<p><strong>Unreleased preview.</strong> These model changes are in development and are not included in the published npm package (5.8.0). Installation commands below require the unreleased checkout. This is a documentation snapshot, not evidence of a live model run. Benchmark data: November 13, 2026, AA v5.0.1. <a href="/#get-started">Published documentation</a>.</p>
-</blockquote>
+<style>.preview{padding-top:48px;padding-bottom:80px;max-width:960px}.preview nav{margin:24px 0;line-height:2}.preview article{line-height:1.7;overflow-wrap:anywhere}.preview h1{font-size:2.5rem;line-height:1.2}.preview h2,.preview h3{margin:36px 0 14px}.preview p,.preview ul,.preview ol,.preview blockquote{margin:16px 0}.preview ul,.preview ol{padding-left:24px}.preview pre{overflow:auto;padding:16px;border:1px solid var(--border);margin:16px 0;white-space:pre}.preview table{border-collapse:collapse;min-width:600px;font-size:14px}.preview th,.preview td{padding:10px;text-align:left;border-bottom:1px solid var(--border)}.preview .table-scroll{overflow-x:auto}.preview blockquote{border-left:2px solid var(--text-muted);padding-left:16px}.preview a{text-decoration:underline}.preview code{font-size:.9em}.preview pre code{font-size:13px}</style></head><body><a class="skip-link" href="#main">Skip to content</a><main id="main" class="container preview"><a href="/">← ai-consultants</a><nav aria-label="Documentation"><a href="/docs/">Models and benchmarks</a> · <a href="/docs/overview.html">Project overview</a> · <a href="/docs/setup.html" aria-current="page">Setup</a> · <a href="/docs/configuration.html">Configuration</a> · <a href="/docs/routing.html">Smart routing</a> · <a href="/docs/changelog.html">Changelog</a></nav><article><p>Documentation for <a href="https://github.com/reasance/ai-consultants/releases/tag/v5.9.0">v5.9.0</a>. Benchmark snapshot: November 15, 2026, Artificial Analysis Intelligence Index v5.0.1.</p>
 <h1 id="ai-consultants-setup-guide">AI Consultants Setup Guide</h1>
 <p>This guide walks you through installing and configuring AI Consultants for various AI coding agents.</p>
 <hr>
@@ -1535,7 +1533,7 @@ output_dir=$(./scripts/consult_all.sh --preset minimal "How do I optimize a SQL 
 # View the report
 less "$output_dir/report.md"
 </code></pre>
-<p>See <a href="/next/overview.html">README.md</a> for usage examples and full documentation.</p>
+<p>See <a href="/docs/overview.html">README.md</a> for usage examples and full documentation.</p>
 <p>For a configuration outside the standard user config directory, set
 <code>AI_CONSULTANTS_CONFIG_DIR=/absolute/private/config-directory</code> explicitly.
 The loader does not discover project <code>.env</code> files. Keep credentials in your
@@ -1653,17 +1651,17 @@ Orchestrator is not accepted. No alternate provider or API is substituted.</p>
 <p>Only marked managed current defaults follow Hydrogen. Existing unmarked and
 pinned active choices, including Flash and Argon, stay user-owned. Historical
 retired scaffolds migrate; pinned retired models keep their same-line successor.
-Sources and benchmark figures: <a href="/next/">model reference</a>.</p>
+Sources and benchmark figures: <a href="/docs/">model reference</a>.</p>
 <h3 id="gemini-38-flash">Gemini 3.8 Flash</h3>
-<p>The installed <code>agy models</code> inventory on 2026-09-27 lists Gemini 3.8 Flash
-(High), (Medium) and (Low). CLI standard selects High and economy selects Low.
-Medium remains an explicit <code>GEMINI_MODEL</code> choice. Inventory
-evidence is capability-probed, not provider attestation of a generated answer.</p>
-<p>Configure migrates Flash 3.7 (and 3.6/3.5) values to the same-level 3.8
-Flash, pinned or not; unrelated models are preserved. Since 5.5.0 the API
-standard and economy tiers use <code>gemini-3.8-flash</code> (offline-tested); its
-native thinking levels are low/medium/high. Other explicit efforts fail before
-dispatch. With no effort setting, the provider’s API default is medium.</p>
+<p>The installed <code>agy models</code> inventory on 2026-09-27 listed Gemini 3.8 Flash
+(High), (Medium) and (Low). All remain explicit model choices. Current Google
+tiers use Hydrogen medium/high/xhigh instead. Inventory evidence is
+capability-probed, not provider attestation of a generated answer.</p>
+<p>Configure migrates retired Flash 3.7 (and 3.6/3.5) values to the same-level
+3.8 Flash, pinned or not; unrelated active models are preserved. For an
+explicit Flash API selection, use <code>gemini-3.8-flash</code>; its thinking levels are
+low/medium/high. Other explicit efforts fail before dispatch. With no effort
+setting, the provider’s API default is medium.</p>
 <p>Inventory discovery performed no inference. Separately authorized High/Low CLI
 smokes passed on 2026-09-28, using the named variant without —effort. This is
 capability-probed provenance, not provider content-model attestation. Prices are promotional estimates
@@ -1679,4 +1677,4 @@ See <a href="https://ai.google.dev/api/generate-content">UsageMetadata</a>.</p>
 <code>agy</code> rejects an additional <code>--effort</code> for these variants. The CLI’s general
 help lists effort values for other supported model selections; it does not
 establish support for every model. Native API thinking remains separately
-configured with low/medium/high.</p></article><p><a href="/next/snapshot.json">Snapshot provenance</a> · Published npm version: 5.8.0</p></main></body></html>
+configured with low/medium/high.</p></article><p><a href="/docs/snapshot.json">Snapshot provenance</a> · Published npm version: 5.9.0</p></main></body></html>
