@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Project overview — ai-consultants</title>
-    <meta name="description" content="Released model documentation for Fable 5.2, Gemini 4 Hydrogen and Carbon, measured with Artificial Analysis v5.0.1.">
+    <meta name="description" content="Released model documentation for Qwen4 Max, measured with Artificial Analysis v5.0.1.">
     <meta name="theme-color" content="#000000">
 
     <!-- SEO -->
@@ -692,12 +692,12 @@
             *, *::before, *::after { transition: none !important; }
         }
     </style>
-<style>.preview{padding-top:48px;padding-bottom:80px;max-width:960px}.preview nav{margin:24px 0;line-height:2}.preview article{line-height:1.7;overflow-wrap:anywhere}.preview h1{font-size:2.5rem;line-height:1.2}.preview h2,.preview h3{margin:36px 0 14px}.preview p,.preview ul,.preview ol,.preview blockquote{margin:16px 0}.preview ul,.preview ol{padding-left:24px}.preview pre{overflow:auto;padding:16px;border:1px solid var(--border);margin:16px 0;white-space:pre}.preview table{border-collapse:collapse;min-width:600px;font-size:14px}.preview th,.preview td{padding:10px;text-align:left;border-bottom:1px solid var(--border)}.preview .table-scroll{overflow-x:auto}.preview blockquote{border-left:2px solid var(--text-muted);padding-left:16px}.preview a{text-decoration:underline}.preview code{font-size:.9em}.preview pre code{font-size:13px}</style></head><body><a class="skip-link" href="#main">Skip to content</a><main id="main" class="container preview"><a href="/">← ai-consultants</a><nav aria-label="Documentation"><a href="/docs/">Models and benchmarks</a> · <a href="/docs/overview.html" aria-current="page">Project overview</a> · <a href="/docs/setup.html">Setup</a> · <a href="/docs/configuration.html">Configuration</a> · <a href="/docs/routing.html">Smart routing</a> · <a href="/docs/changelog.html">Changelog</a></nav><article><p>Documentation for <a href="https://github.com/reasance/ai-consultants/releases/tag/v5.9.0">v5.9.0</a>. Benchmark snapshot: November 15, 2026, Artificial Analysis Intelligence Index v5.0.1.</p>
-<h1 id="ai-consultants-v590">AI Consultants v5.9.0</h1>
+<style>.preview{padding-top:48px;padding-bottom:80px;max-width:960px}.preview nav{margin:24px 0;line-height:2}.preview article{line-height:1.7;overflow-wrap:anywhere}.preview h1{font-size:2.5rem;line-height:1.2}.preview h2,.preview h3{margin:36px 0 14px}.preview p,.preview ul,.preview ol,.preview blockquote{margin:16px 0}.preview ul,.preview ol{padding-left:24px}.preview pre{overflow:auto;padding:16px;border:1px solid var(--border);margin:16px 0;white-space:pre}.preview table{border-collapse:collapse;min-width:600px;font-size:14px}.preview th,.preview td{padding:10px;text-align:left;border-bottom:1px solid var(--border)}.preview .table-scroll{overflow-x:auto}.preview blockquote{border-left:2px solid var(--text-muted);padding-left:16px}.preview a{text-decoration:underline}.preview code{font-size:.9em}.preview pre code{font-size:13px}</style></head><body><a class="skip-link" href="#main">Skip to content</a><main id="main" class="container preview"><a href="/">← ai-consultants</a><nav aria-label="Documentation"><a href="/docs/">Models and benchmarks</a> · <a href="/docs/overview.html" aria-current="page">Project overview</a> · <a href="/docs/setup.html">Setup</a> · <a href="/docs/configuration.html">Configuration</a> · <a href="/docs/routing.html">Smart routing</a> · <a href="/docs/recipes.html">Qwen4 setup</a> · <a href="/docs/changelog.html">Changelog</a></nav><article><p>Documentation for <a href="https://github.com/reasance/ai-consultants/releases/tag/v5.10.0">v5.10.0</a>. Benchmark snapshot: November 16, 2026, Artificial Analysis Intelligence Index v5.0.1.</p>
+<h1 id="ai-consultants-v5100">AI Consultants v5.10.0</h1>
 <blockquote>
 <p><strong>Coverage, not a single guess.</strong> A panel of up to 11 frontier models from different vendors fans out on your question in parallel and hands you the <em>union</em> of what they collectively see — the risks, edge cases, and approaches a single model misses.</p>
 </blockquote>
-<p><a href="https://github.com/reasance/ai-consultants"><img src="https://img.shields.io/badge/version-5.9.0-blue.svg" alt="Version"></a>
+<p><a href="https://github.com/reasance/ai-consultants"><img src="https://img.shields.io/badge/version-5.10.0-blue.svg" alt="Version"></a>
 <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/license-MIT-green.svg" alt="License"></a>
 <a href="https://docs.anthropic.com/en/docs/claude-code/skills"><img src="https://img.shields.io/badge/Claude%20Code-Skill-orange.svg" alt="Claude Code Skill"></a>
 <a href="https://github.com/reasance/ai-consultants"><img src="https://img.shields.io/github/stars/reasance/ai-consultants?style=social" alt="GitHub stars"></a>
@@ -1222,7 +1222,7 @@ accepted reasoning effort: Grok Build uses <code>xhigh</code>, while GLM, DeepSe
 use <code>max</code>. Unsupported transport capabilities fail explicitly instead of reducing
 effort silently.</p>
 <p>The maximum preset also applies the transport budgets proven by the live panel
-smoke: four bounded advisory turns for Mistral/Grok, the maximum-tier Qwen3.8-Max
+smoke: four bounded advisory turns for Mistral/Grok, the then maximum-tier Qwen3.8-Max
 and DeepSeek timeouts (<code>QWEN3_MAX_QUALITY_TIMEOUT</code>/<code>DEEPSEEK_MAX_QUALITY_TIMEOUT</code>,
 default 0: no limit), and larger OpenAI-compatible output budgets for Qwen, GLM,
 and DeepSeek. MiniMax-M3.1-Flash always reasons, so it receives a 16,384-token
@@ -1343,7 +1343,7 @@ and cannot support a comprehensive coverage claim.</p>
 
 
 
-<div class="table-scroll"><table><thead><tr><th>Consultant</th><th><code>max_quality</code></th><th>Premium</th><th>Standard</th><th>Economy</th></tr></thead><tbody><tr><td>Claude</td><td>claude-opus-5-5</td><td>claude-opus-5-5</td><td>claude-opus-5-5</td><td>claude-haiku-5-5</td></tr><tr><td>Gemini CLI</td><td>gemini-4-argon-high</td><td>gemini-4-argon-high</td><td>gemini-3.8-flash-high</td><td>gemini-3.8-flash-low</td></tr><tr><td>Gemini API</td><td>gemini-4-argon</td><td>gemini-4-argon</td><td>gemini-3.8-flash</td><td>gemini-3.8-flash</td></tr><tr><td>Codex</td><td>gpt-6-astra</td><td>gpt-6.1-sol</td><td>gpt-6.1-sol</td><td>gpt-6-luna</td></tr><tr><td>Mistral CLI</td><td>mistral-medium-3.5</td><td>mistral-medium-3.5</td><td>mistral-medium-3.5</td><td>mistral-medium-3.5</td></tr><tr><td>Mistral API</td><td>mistral-large-4</td><td>mistral-large-4</td><td>mistral-large-4</td><td>mistral-large-4</td></tr><tr><td>DeepSeek</td><td>deepseek-flash</td><td>deepseek-flash</td><td>deepseek-flash</td><td>deepseek-flash</td></tr><tr><td>GLM</td><td>glm-5.3</td><td>glm-5.3-flash</td><td>glm-5.3-flash</td><td>glm-5.3-flash</td></tr><tr><td>Grok</td><td>grok-4.7</td><td>grok-4.7</td><td>grok-4.7</td><td>grok-4.7</td></tr><tr><td>Qwen3</td><td>qwen3.8-max</td><td>qwen3.8-max</td><td>qwen3.8-flash</td><td>qwen3.8-flash</td></tr><tr><td>Kimi</td><td>kimi-code/k3.1-pro</td><td>kimi-code/k3.1-pro</td><td>kimi-code/k3.1-pro</td><td>kimi-code/k3.1-pro</td></tr><tr><td>MiniMax</td><td>MiniMax-M3.1-Flash</td><td>MiniMax-M3.1-Flash</td><td>MiniMax-M3.1-Flash</td><td>MiniMax-M3.1-Flash</td></tr><tr><td>Meta</td><td>muse-wonder-1.0</td><td>muse-wonder-1.0</td><td>muse-spark-1.3</td><td>muse-spark-1.3</td></tr></tbody></table></div>
+<div class="table-scroll"><table><thead><tr><th>Consultant</th><th><code>max_quality</code></th><th>Premium</th><th>Standard</th><th>Economy</th></tr></thead><tbody><tr><td>Claude</td><td>claude-opus-5-5</td><td>claude-opus-5-5</td><td>claude-opus-5-5</td><td>claude-haiku-5-5</td></tr><tr><td>Gemini CLI</td><td>gemini-4-argon-high</td><td>gemini-4-argon-high</td><td>gemini-3.8-flash-high</td><td>gemini-3.8-flash-low</td></tr><tr><td>Gemini API</td><td>gemini-4-argon</td><td>gemini-4-argon</td><td>gemini-3.8-flash</td><td>gemini-3.8-flash</td></tr><tr><td>Codex</td><td>gpt-6-astra</td><td>gpt-6.1-sol</td><td>gpt-6.1-sol</td><td>gpt-6-luna</td></tr><tr><td>Mistral CLI</td><td>mistral-medium-3.5</td><td>mistral-medium-3.5</td><td>mistral-medium-3.5</td><td>mistral-medium-3.5</td></tr><tr><td>Mistral API</td><td>mistral-large-4</td><td>mistral-large-4</td><td>mistral-large-4</td><td>mistral-large-4</td></tr><tr><td>DeepSeek</td><td>deepseek-flash</td><td>deepseek-flash</td><td>deepseek-flash</td><td>deepseek-flash</td></tr><tr><td>GLM</td><td>glm-5.3</td><td>glm-5.3-flash</td><td>glm-5.3-flash</td><td>glm-5.3-flash</td></tr><tr><td>Grok</td><td>grok-4.7</td><td>grok-4.7</td><td>grok-4.7</td><td>grok-4.7</td></tr><tr><td>Qwen3</td><td>qwen4-max</td><td>qwen4-max</td><td>qwen3.8-flash</td><td>qwen3.8-flash</td></tr><tr><td>Kimi</td><td>kimi-code/k3.1-pro</td><td>kimi-code/k3.1-pro</td><td>kimi-code/k3.1-pro</td><td>kimi-code/k3.1-pro</td></tr><tr><td>MiniMax</td><td>MiniMax-M3.1-Flash</td><td>MiniMax-M3.1-Flash</td><td>MiniMax-M3.1-Flash</td><td>MiniMax-M3.1-Flash</td></tr><tr><td>Meta</td><td>muse-wonder-1.0</td><td>muse-wonder-1.0</td><td>muse-spark-1.3</td><td>muse-spark-1.3</td></tr></tbody></table></div>
 <p>Every tier uses current models only. 5.5.0 retired the superseded ones (94
 IDs, listed with their replacements in <code>docs/cost_rates.json</code>): <code>configure</code>
 migrates them, and a retired model selected at run time still runs with a
@@ -1394,10 +1394,14 @@ be version 2.1.321 or later. Astra uses <code>max</code> in maximum; Sol uses <c
 and <code>high</code> in standard. Explicit reasoning-effort settings win. Fable 5.1
 remains an opt-in, with current pins preserved. Selecting a preset later intentionally reapplies that
 preset’s tier and can replace an explicit model override for the run.
-Qwen3.8-Max serves the default, premium and maximum tiers on every Qwen
-transport (the <code>qwen</code> CLI, the Token Plan and DashScope); <code>max_quality</code> adds
-<code>xhigh</code> effort only on the OpenAI-compatible wire and never repoints a key or
-endpoint.</p>
+Qwen4 Max serves the default, premium and maximum tiers; Flash keeps standard
+and economy. Qwen4 API mode uses a matching QwenCloud OpenAI-compatible
+endpoint and key, never the legacy text-only DashScope wire. <code>max_quality</code>
+requests <code>xhigh</code> only on the OpenAI-compatible wire; CLI effort remains a
+user-owned Qwen Code setting. The authenticated API ping and the separate native Qwen Code context check
+passed on November 16; CLI identity remains requested-only. The optional
+Bottega Claude/Anthropic path was checked separately. Existing
+Qwen3.8 Max pins remain supported. See <a href="/docs/recipes.html#qwen-via-qwen-cloud-token-plan">the Qwen recipe</a>.</p>
 <h3 id="usage">Usage</h3>
 <p><strong>Claude Code:</strong></p>
 <pre><code>/ai-consultants:consult --preset max_quality "critical architecture decision"
@@ -1621,7 +1625,7 @@ CLAUDE_API_MAX_TOKENS=16384  # Shared thinking + visible-output budget in API mo
 MISTRAL_CLI_MODEL=mistral-medium-3.5 # Vibe alias; MISTRAL_MODEL remains API-only
 GEMINI_MODEL="gemini-4-argon-high" # agy CLI; API uses GEMINI_API_MODEL
 </code></pre>
-<p>Full reference: <a href="/docs/configuration.html"><code>references/configuration.md</code></a>. Copy-paste workflows: <code>docs/RECIPES.md</code>. For category-aware preset suggestions: <code>ai-consultants doctor --suggest-preset --question "..."</code>.</p>
+<p>Full reference: <a href="/docs/configuration.html"><code>references/configuration.md</code></a>. Copy-paste workflows: <a href="/docs/recipes.html"><code>docs/RECIPES.md</code></a>. For category-aware preset suggestions: <code>ai-consultants doctor --suggest-preset --question "..."</code>.</p>
 <h3 id="configuration-recipes">Configuration Recipes</h3>
 <p><strong>Breadth review — the coverage union (default):</strong></p>
 <pre><code class="language-bash">ai-consultants --preset high-stakes \
@@ -1641,7 +1645,7 @@ QUORUM_MIN=3 \
 QUORUM_ACTION=stop \
 ai-consultants "Make a release recommendation"
 </code></pre>
-<p>See the recipes for balanced, fast, security, compare-only,
+<p>See the <a href="/docs/recipes.html">recipes</a> for balanced, fast, security, compare-only,
 budget-capped, CLI-only, hybrid API, and large-context workflows.</p>
 <h3 id="doctor-command">Doctor Command</h3>
 <p>Diagnose, suggest, and fix:</p>
@@ -1753,20 +1757,20 @@ reports remain in the XDG cache directory until you remove them</li>
 <h2 id="documentation">Documentation</h2>
 <ul>
 <li><a href="/docs/setup.html">Setup Guide</a> - Installation, authentication, Claude Code setup</li>
-<li>Configuration Recipes - Copy-paste workflows for routing, budgets, synthesis, and transport</li>
-<li>Cost Rates - Model pricing and budgets</li>
+<li><a href="/docs/recipes.html">Configuration Recipes</a> - Copy-paste workflows for routing, budgets, synthesis, and transport</li>
+<li><a href="https://github.com/reasance/ai-consultants/blob/v5.10.0/docs/COST_RATES.md">Cost Rates</a> - Model pricing and budgets</li>
 <li><a href="/docs/routing.html">Smart Routing</a> - Category-based routing</li>
-<li>JSON Schema - Output format specification</li>
-<li>Reference Details - Presets, strategies, best practices</li>
+<li><a href="https://github.com/reasance/ai-consultants/blob/v5.10.0/docs/JSON_SCHEMA.md">JSON Schema</a> - Output format specification</li>
+<li><a href="https://github.com/reasance/ai-consultants/blob/v5.10.0/references/details.md">Reference Details</a> - Presets, strategies, best practices</li>
 <li><a href="/docs/changelog.html">Changelog</a> - Complete version history</li>
-<li>Contributing - How to contribute</li>
+<li><a href="https://github.com/reasance/ai-consultants/blob/v5.10.0/CONTRIBUTING.md">Contributing</a> - How to contribute</li>
 </ul>
 <hr>
 <h2 id="license">License</h2>
-<p>MIT License - see LICENSE for details.</p>
+<p>MIT License - see <a href="https://github.com/reasance/ai-consultants/blob/v5.10.0/LICENSE">LICENSE</a> for details.</p>
 <h2 id="contributing">Contributing</h2>
-<p>Contributions welcome! See CONTRIBUTING.md for guidelines.</p>
+<p>Contributions welcome! See <a href="https://github.com/reasance/ai-consultants/blob/v5.10.0/CONTRIBUTING.md">CONTRIBUTING.md</a> for guidelines.</p>
 <!-- BEGIN controller-models: benchmark-reference -->
 <h2 id="model-benchmarks-and-availability">Model benchmarks and availability</h2>
-<p><a href="/docs/">Current v5.0.1 reference</a>: Fable 5.2 and Carbon scores, provider contracts and integration choices. Carbon is optional via agy; agy selections use exact inventory checks; Carbon needs Ultra/Enterprise.</p>
-<!-- END controller-models: benchmark-reference --></article><p><a href="/docs/snapshot.json">Snapshot provenance</a> · Published npm version: 5.9.0</p></main></body></html>
+<p><a href="/docs/">Current v5.0.1 reference</a>: Qwen4 Max, Fable 5.2 and Carbon scores, provider contracts and integration choices. Carbon is optional via agy; agy selections use exact inventory checks; Carbon needs Ultra/Enterprise.</p>
+<!-- END controller-models: benchmark-reference --></article><p><a href="/docs/snapshot.json">Snapshot provenance</a> · Published npm version: 5.10.0</p></main></body></html>

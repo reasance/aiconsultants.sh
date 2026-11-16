@@ -1,36 +1,40 @@
 {
   "project": "ai-consultants",
   "status": "released",
-  "capturedAt": "2026-11-15",
-  "benchmarkSnapshot": "2026-11-15",
+  "capturedAt": "2026-11-16",
+  "benchmarkSnapshot": "2026-11-16",
   "benchmarkVersion": "5.0.1",
-  "publishedNpmVersion": "5.9.0",
+  "publishedNpmVersion": "5.10.0",
   "sourceBranch": "main",
-  "sourceHead": "6dd2838c4a38eafde11bd6a0f633e7b822231025",
+  "sourceHead": "862a1c23e894744cb017e00d6a791a66b5b95df3",
   "sourceDirty": false,
   "files": {
     "docs/MODEL_BENCHMARKS.md": {
-      "sha256": "56de9f57d4a472f5e455dd5cea3a908296a77c2992d865f902e76634dde676ac",
+      "sha256": "8903ed82055686e2a84983b8cf2a14e7bb7af144a834ee469c29be8dadc0a873",
       "page": "/docs/"
     },
     "README.md": {
-      "sha256": "c4a0aed4c20b6d878de5384266e5c103d4cf148916c00f56c277fcc37dc11d3d",
+      "sha256": "47133b53838e215f1ffe3753ddd25db357ebebc6af294aeca556d63b0808c491",
       "page": "/docs/overview.html"
     },
     "docs/SETUP.md": {
-      "sha256": "318d1f13eba0270b9285628c60da7d9da78e182e7b3e228d71971e91cd9308cf",
+      "sha256": "9e71832439b31c7d71ceb16ba998bc6b572d4ec8d085102dc2c33a52ff29b6b5",
       "page": "/docs/setup.html"
     },
     "references/configuration.md": {
-      "sha256": "a0055eca21334447633a640246fd3603c5bf548bbd9e480a3a59a5254e8ec9cd",
+      "sha256": "bc502ecebe48373bc806d1934e5d762d3b3fb8042410dac0af481afb93b8dc0a",
       "page": "/docs/configuration.html"
     },
     "docs/SMART_ROUTING.md": {
       "sha256": "d5c0398891133ca366b3deccd71f6b4e34cb60df7fe2a11b7a9ed822827d0df8",
       "page": "/docs/routing.html"
     },
+    "docs/RECIPES.md": {
+      "sha256": "22180d065556cbd4916db84396682d32f7dc1d5c6fa295591fc357cff0b59015",
+      "page": "/docs/recipes.html"
+    },
     "CHANGELOG.md": {
-      "sha256": "e2b54f15bc2088ee4119e96fd1a3b1127c844f5d5e6649870522fcbeea925c51",
+      "sha256": "96551039c7a4067b04a86220e11eff891498ded055e2de9f474ea357ea96b470",
       "page": "/docs/changelog.html"
     }
   }

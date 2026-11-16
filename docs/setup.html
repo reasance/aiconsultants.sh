@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Setup — ai-consultants</title>
-    <meta name="description" content="Released model documentation for Fable 5.2, Gemini 4 Hydrogen and Carbon, measured with Artificial Analysis v5.0.1.">
+    <meta name="description" content="Released model documentation for Qwen4 Max, measured with Artificial Analysis v5.0.1.">
     <meta name="theme-color" content="#000000">
 
     <!-- SEO -->
@@ -692,7 +692,7 @@
             *, *::before, *::after { transition: none !important; }
         }
     </style>
-<style>.preview{padding-top:48px;padding-bottom:80px;max-width:960px}.preview nav{margin:24px 0;line-height:2}.preview article{line-height:1.7;overflow-wrap:anywhere}.preview h1{font-size:2.5rem;line-height:1.2}.preview h2,.preview h3{margin:36px 0 14px}.preview p,.preview ul,.preview ol,.preview blockquote{margin:16px 0}.preview ul,.preview ol{padding-left:24px}.preview pre{overflow:auto;padding:16px;border:1px solid var(--border);margin:16px 0;white-space:pre}.preview table{border-collapse:collapse;min-width:600px;font-size:14px}.preview th,.preview td{padding:10px;text-align:left;border-bottom:1px solid var(--border)}.preview .table-scroll{overflow-x:auto}.preview blockquote{border-left:2px solid var(--text-muted);padding-left:16px}.preview a{text-decoration:underline}.preview code{font-size:.9em}.preview pre code{font-size:13px}</style></head><body><a class="skip-link" href="#main">Skip to content</a><main id="main" class="container preview"><a href="/">← ai-consultants</a><nav aria-label="Documentation"><a href="/docs/">Models and benchmarks</a> · <a href="/docs/overview.html">Project overview</a> · <a href="/docs/setup.html" aria-current="page">Setup</a> · <a href="/docs/configuration.html">Configuration</a> · <a href="/docs/routing.html">Smart routing</a> · <a href="/docs/changelog.html">Changelog</a></nav><article><p>Documentation for <a href="https://github.com/reasance/ai-consultants/releases/tag/v5.9.0">v5.9.0</a>. Benchmark snapshot: November 15, 2026, Artificial Analysis Intelligence Index v5.0.1.</p>
+<style>.preview{padding-top:48px;padding-bottom:80px;max-width:960px}.preview nav{margin:24px 0;line-height:2}.preview article{line-height:1.7;overflow-wrap:anywhere}.preview h1{font-size:2.5rem;line-height:1.2}.preview h2,.preview h3{margin:36px 0 14px}.preview p,.preview ul,.preview ol,.preview blockquote{margin:16px 0}.preview ul,.preview ol{padding-left:24px}.preview pre{overflow:auto;padding:16px;border:1px solid var(--border);margin:16px 0;white-space:pre}.preview table{border-collapse:collapse;min-width:600px;font-size:14px}.preview th,.preview td{padding:10px;text-align:left;border-bottom:1px solid var(--border)}.preview .table-scroll{overflow-x:auto}.preview blockquote{border-left:2px solid var(--text-muted);padding-left:16px}.preview a{text-decoration:underline}.preview code{font-size:.9em}.preview pre code{font-size:13px}</style></head><body><a class="skip-link" href="#main">Skip to content</a><main id="main" class="container preview"><a href="/">← ai-consultants</a><nav aria-label="Documentation"><a href="/docs/">Models and benchmarks</a> · <a href="/docs/overview.html">Project overview</a> · <a href="/docs/setup.html" aria-current="page">Setup</a> · <a href="/docs/configuration.html">Configuration</a> · <a href="/docs/routing.html">Smart routing</a> · <a href="/docs/recipes.html">Qwen4 setup</a> · <a href="/docs/changelog.html">Changelog</a></nav><article><p>Documentation for <a href="https://github.com/reasance/ai-consultants/releases/tag/v5.10.0">v5.10.0</a>. Benchmark snapshot: November 16, 2026, Artificial Analysis Intelligence Index v5.0.1.</p>
 <h1 id="ai-consultants-setup-guide">AI Consultants Setup Guide</h1>
 <p>This guide walks you through installing and configuring AI Consultants for various AI coding agents.</p>
 <hr>
@@ -992,10 +992,10 @@ qwen --version
 
 # Or use API mode
 export QWEN3_USE_API=true
-export QWEN3_API_KEY="your-dashscope-key"
+export QWEN3_API_KEY="your-token-plan-key"
 </code></pre>
-<p>Get API key: <a href="https://dashscope.console.aliyun.com/">Alibaba Cloud DashScope</a></p>
-<p><strong>CLI/API Mode</strong>: Qwen3 defaults to CLI mode (<code>QWEN3_USE_API=false</code>). Set to <code>true</code> to use the DashScope API.</p>
+<p>Get the matching key from <a href="https://docs.qwencloud.com/token-plan/personal/token-plan-personal-quickstart">QwenCloud Token Plan</a>. See the <a href="/docs/recipes.html#qwen-via-qwen-cloud-token-plan">Qwen4 API and CLI recipe</a> for the explicit provider entry.</p>
+<p><strong>CLI/API Mode</strong>: Qwen3 defaults to CLI mode (<code>QWEN3_USE_API=false</code>). Set to <code>true</code> to use the QwenCloud Token Plan API.</p>
 <h3 id="kimi-k31-pro-via-kimi-code-cli-the-eastern-sage---v54">Kimi K3.1 Pro via Kimi Code CLI (The Eastern Sage) - v5.4</h3>
 <pre><code class="language-bash">curl -L code.kimi.com/install.sh | bash
 </code></pre>
@@ -1145,18 +1145,24 @@ export GROK_USE_API=true
 export GROK_API_KEY="your-xai-key"
 
 export QWEN3_USE_API=true   # Enable API mode for Qwen3
-export QWEN3_API_KEY="your-dashscope-key"
+export QWEN3_API_KEY="your-token-plan-key"
 </code></pre>
 <h3 id="api-endpoints-custom">API Endpoints (Custom)</h3>
 <pre><code class="language-bash">GEMINI_API_URL=https://generativelanguage.googleapis.com/v1beta/models
 CODEX_API_URL=https://api.openai.com/v1/chat/completions
 CLAUDE_API_URL=https://api.anthropic.com/v1/messages
 MISTRAL_API_URL=https://api.mistral.ai/v1/chat/completions
-QWEN3_API_URL=https://dashscope.aliyuncs.com/api/v1/services/aigc/text-generation/generation
+QWEN3_API_URL=https://token-plan.maas.qwencloudapi.com/compatible-mode/v1/chat/completions
 </code></pre>
-<p>The Qwen default is the native DashScope endpoint (<code>QWEN3_FORMAT=qwen</code>). For an
-OpenAI-compatible endpoint such as the Token Plan, set <code>QWEN3_FORMAT=openai</code> and
-the full <code>/chat/completions</code> URL; see <code>RECIPES.md</code>.</p>
+<p>The Qwen API default is the OpenAI-compatible QwenCloud Token Plan endpoint
+(<code>QWEN3_FORMAT=openai</code>). Supply its matching Token Plan key; an existing
+explicit URL, format or key is never repointed. Qwen4 rejects the legacy
+DashScope text-generation wire before dispatch. See <a href="/docs/recipes.html"><code>RECIPES.md</code></a>
+for final-model limits, CLI setup and explicit pay-as-you-go configuration.</p>
+<p>An explicit Qwen3.8 Max or Flash model pin without a custom endpoint keeps the
+legacy implicit DashScope endpoint/wire. Existing keys are not silently moved
+to a different plan. New Qwen4 configurations use the compatible Token Plan
+endpoint; set its matching key deliberately.</p>
 <h3 id="mode-detection">Mode Detection</h3>
 <p>Check current mode with doctor command:</p>
 <pre><code class="language-bash">./scripts/doctor.sh --verbose
@@ -1313,7 +1319,7 @@ ai-consultants --preset security --strategy security_first \
   "Find authentication bypasses" src/auth.ts@PRIMARY
 </code></pre>
 <p>More scenarios—including CLI-only, hybrid API, hard-budget, and
-large-context runs—are in <code>docs/RECIPES.md</code>.</p>
+large-context runs—are in <a href="/docs/recipes.html"><code>docs/RECIPES.md</code></a>.</p>
 <hr>
 <h2 id="environment-configuration">Environment Configuration</h2>
 <h3 id="automatic-configuration-recommended">Automatic configuration (recommended)</h3>
@@ -1340,7 +1346,7 @@ timestamped mode-600 backup.
 Automatically selected <code>*_USE_API</code> modes carry an <code># ai-consultants:auto</code>
 marker, so rerunning the command can react to installed or removed CLIs and new
 credentials. Unmarked modes, environment values, and <code>--set</code> remain user pins.
-The configurator uses the complete <code>.env.example</code> contract,
+The configurator uses the complete <a href="https://github.com/reasance/ai-consultants/blob/v5.10.0/.env.example"><code>.env.example</code></a> contract,
 so advanced parameters are also accepted through repeatable <code>--set KEY=VALUE</code>
 arguments.</p>
 <p>Do not place API keys in <code>--set</code> arguments: command lines can be retained in
@@ -1677,4 +1683,4 @@ See <a href="https://ai.google.dev/api/generate-content">UsageMetadata</a>.</p>
 <code>agy</code> rejects an additional <code>--effort</code> for these variants. The CLI’s general
 help lists effort values for other supported model selections; it does not
 establish support for every model. Native API thinking remains separately
-configured with low/medium/high.</p></article><p><a href="/docs/snapshot.json">Snapshot provenance</a> · Published npm version: 5.9.0</p></main></body></html>
+configured with low/medium/high.</p></article><p><a href="/docs/snapshot.json">Snapshot provenance</a> · Published npm version: 5.10.0</p></main></body></html>

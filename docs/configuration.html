@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Configuration — ai-consultants</title>
-    <meta name="description" content="Released model documentation for Fable 5.2, Gemini 4 Hydrogen and Carbon, measured with Artificial Analysis v5.0.1.">
+    <meta name="description" content="Released model documentation for Qwen4 Max, measured with Artificial Analysis v5.0.1.">
     <meta name="theme-color" content="#000000">
 
     <!-- SEO -->
@@ -692,7 +692,7 @@
             *, *::before, *::after { transition: none !important; }
         }
     </style>
-<style>.preview{padding-top:48px;padding-bottom:80px;max-width:960px}.preview nav{margin:24px 0;line-height:2}.preview article{line-height:1.7;overflow-wrap:anywhere}.preview h1{font-size:2.5rem;line-height:1.2}.preview h2,.preview h3{margin:36px 0 14px}.preview p,.preview ul,.preview ol,.preview blockquote{margin:16px 0}.preview ul,.preview ol{padding-left:24px}.preview pre{overflow:auto;padding:16px;border:1px solid var(--border);margin:16px 0;white-space:pre}.preview table{border-collapse:collapse;min-width:600px;font-size:14px}.preview th,.preview td{padding:10px;text-align:left;border-bottom:1px solid var(--border)}.preview .table-scroll{overflow-x:auto}.preview blockquote{border-left:2px solid var(--text-muted);padding-left:16px}.preview a{text-decoration:underline}.preview code{font-size:.9em}.preview pre code{font-size:13px}</style></head><body><a class="skip-link" href="#main">Skip to content</a><main id="main" class="container preview"><a href="/">← ai-consultants</a><nav aria-label="Documentation"><a href="/docs/">Models and benchmarks</a> · <a href="/docs/overview.html">Project overview</a> · <a href="/docs/setup.html">Setup</a> · <a href="/docs/configuration.html" aria-current="page">Configuration</a> · <a href="/docs/routing.html">Smart routing</a> · <a href="/docs/changelog.html">Changelog</a></nav><article><p>Documentation for <a href="https://github.com/reasance/ai-consultants/releases/tag/v5.9.0">v5.9.0</a>. Benchmark snapshot: November 15, 2026, Artificial Analysis Intelligence Index v5.0.1.</p>
+<style>.preview{padding-top:48px;padding-bottom:80px;max-width:960px}.preview nav{margin:24px 0;line-height:2}.preview article{line-height:1.7;overflow-wrap:anywhere}.preview h1{font-size:2.5rem;line-height:1.2}.preview h2,.preview h3{margin:36px 0 14px}.preview p,.preview ul,.preview ol,.preview blockquote{margin:16px 0}.preview ul,.preview ol{padding-left:24px}.preview pre{overflow:auto;padding:16px;border:1px solid var(--border);margin:16px 0;white-space:pre}.preview table{border-collapse:collapse;min-width:600px;font-size:14px}.preview th,.preview td{padding:10px;text-align:left;border-bottom:1px solid var(--border)}.preview .table-scroll{overflow-x:auto}.preview blockquote{border-left:2px solid var(--text-muted);padding-left:16px}.preview a{text-decoration:underline}.preview code{font-size:.9em}.preview pre code{font-size:13px}</style></head><body><a class="skip-link" href="#main">Skip to content</a><main id="main" class="container preview"><a href="/">← ai-consultants</a><nav aria-label="Documentation"><a href="/docs/">Models and benchmarks</a> · <a href="/docs/overview.html">Project overview</a> · <a href="/docs/setup.html">Setup</a> · <a href="/docs/configuration.html" aria-current="page">Configuration</a> · <a href="/docs/routing.html">Smart routing</a> · <a href="/docs/recipes.html">Qwen4 setup</a> · <a href="/docs/changelog.html">Changelog</a></nav><article><p>Documentation for <a href="https://github.com/reasance/ai-consultants/releases/tag/v5.10.0">v5.10.0</a>. Benchmark snapshot: November 16, 2026, Artificial Analysis Intelligence Index v5.0.1.</p>
 <h1 id="ai-consultants---full-configuration-reference">AI Consultants - Full Configuration Reference</h1>
 <p>Configuration sources, in order of precedence (highest wins):</p>
 <ol>
@@ -703,8 +703,8 @@
 <li><strong>Hardcoded defaults</strong> in individual scripts</li>
 </ol>
 <p>For goal-oriented, copy-paste configurations, start with
-<code>docs/RECIPES.md</code>. This file is the variable reference;
-<code>scripts/config.sh</code> is the executable source of truth.</p>
+<a href="/docs/recipes.html"><code>docs/RECIPES.md</code></a>. This file is the variable reference;
+<a href="https://github.com/reasance/ai-consultants/blob/v5.10.0/scripts/config.sh"><code>scripts/config.sh</code></a> is the executable source of truth.</p>
 <h2 id="automatic-configurator">Automatic Configurator</h2>
 <p>The public configurator detects all 11 supported consultants, chooses CLI or API
 transport from the available CLI binaries and credentials, and writes the
@@ -753,9 +753,9 @@ in <code>docs/cost_rates.json</code>) are replaced even when pinned: the marker 
 the old value is recorded as <code>migrated-from=</code>, and <code>--set</code> refuses them. A
 retired or uncatalogued model selected at run time still runs, with a warning,
 and its cost is reported as unpriced.
-The exhaustive parameter contract is <code>.env.example</code>; the
+The exhaustive parameter contract is <a href="https://github.com/reasance/ai-consultants/blob/v5.10.0/.env.example"><code>.env.example</code></a>; the
 configurator derives its accepted keys from that template, while
-<code>scripts/config.sh</code> remains the runtime source of truth.
+<a href="https://github.com/reasance/ai-consultants/blob/v5.10.0/scripts/config.sh"><code>scripts/config.sh</code></a> remains the runtime source of truth.
 A regression test fails when a persistent runtime default is missing from the
 configurator.</p>
 <h2 id="user-config-dir-v212">User Config Dir (v2.12+)</h2>
@@ -891,7 +891,7 @@ CLASSIFICATION_MODE=pattern     # pattern (fast) | llm (more accurate, costs a c
 ENABLE_SMART_ROUTING=false      # Select consultants using the affinity matrix
 MIN_AFFINITY=7                  # Minimum category score, from 1 to 10
 </code></pre>
-<p>The bundled matrix lives in <code>references/affinity.json</code>. Set
+<p>The bundled matrix lives in <a href="https://github.com/reasance/ai-consultants/blob/v5.10.0/references/affinity.json"><code>references/affinity.json</code></a>. Set
 <code>AFFINITY_FILE</code> or place <code>affinity.json</code> in the user config directory to
 override it.</p>
 <h2 id="cliapi-mode-switching-v26">CLI/API Mode Switching (v2.6+)</h2>
@@ -902,7 +902,7 @@ GEMINI_USE_API=false         # Force agy CLI; set true to force Google AI API
 CODEX_USE_API=false          # Use OpenAI API instead of codex CLI
 CLAUDE_USE_API=false         # Use Anthropic API instead of claude CLI
 MISTRAL_USE_API=false        # Use Mistral API instead of vibe CLI
-QWEN3_USE_API=false          # Use qwen CLI (default) or DashScope API
+QWEN3_USE_API=false          # Use qwen CLI (default) or QwenCloud API
 GROK_USE_API=false           # Use Grok Build (default); API is fallback
 MINIMAX_USE_API=false        # Use mmx CLI (default) or MiniMax API
 # META_USE_API unset = auto (API if META_API_KEY set, else muse CLI)
@@ -968,7 +968,7 @@ MINIMAX_USE_API=false        # Use mmx CLI (default) or MiniMax API
 
 
 
-<div class="table-scroll"><table><thead><tr><th>Agent</th><th>API Key Variable</th><th>Notes</th></tr></thead><tbody><tr><td>Gemini</td><td><code>GEMINI_API_KEY</code></td><td>Google AI API key</td></tr><tr><td>Codex</td><td><code>OPENAI_API_KEY</code></td><td>OpenAI API key</td></tr><tr><td>Claude</td><td><code>ANTHROPIC_API_KEY</code></td><td>Anthropic API key</td></tr><tr><td>Mistral</td><td><code>MISTRAL_API_KEY</code></td><td>Mistral API key</td></tr><tr><td>Qwen3</td><td><code>QWEN3_API_KEY</code></td><td>DashScope API key</td></tr><tr><td>MiniMax</td><td><code>MINIMAX_API_KEY</code></td><td>MiniMax API key (API mode only; the mmx CLI uses OAuth)</td></tr><tr><td>Meta</td><td><code>META_API_KEY</code></td><td>Meta Model API key (<code>LLM_...</code>); Muse Code also reads it headless</td></tr><tr><td>GLM</td><td><code>GLM_API_KEY</code></td><td>Required when <code>ENABLE_GLM=true</code></td></tr><tr><td>Grok</td><td><code>GROK_API_KEY</code></td><td>xAI API fallback key; Grok Build CLI uses its own login</td></tr><tr><td>DeepSeek</td><td><code>DEEPSEEK_API_KEY</code></td><td>Required when <code>ENABLE_DEEPSEEK=true</code></td></tr></tbody></table></div>
+<div class="table-scroll"><table><thead><tr><th>Agent</th><th>API Key Variable</th><th>Notes</th></tr></thead><tbody><tr><td>Gemini</td><td><code>GEMINI_API_KEY</code></td><td>Google AI API key</td></tr><tr><td>Codex</td><td><code>OPENAI_API_KEY</code></td><td>OpenAI API key</td></tr><tr><td>Claude</td><td><code>ANTHROPIC_API_KEY</code></td><td>Anthropic API key</td></tr><tr><td>Mistral</td><td><code>MISTRAL_API_KEY</code></td><td>Mistral API key</td></tr><tr><td>Qwen3</td><td><code>QWEN3_API_KEY</code></td><td>Key matching QWEN3_API_URL (Token Plan by default)</td></tr><tr><td>MiniMax</td><td><code>MINIMAX_API_KEY</code></td><td>MiniMax API key (API mode only; the mmx CLI uses OAuth)</td></tr><tr><td>Meta</td><td><code>META_API_KEY</code></td><td>Meta Model API key (<code>LLM_...</code>); Muse Code also reads it headless</td></tr><tr><td>GLM</td><td><code>GLM_API_KEY</code></td><td>Required when <code>ENABLE_GLM=true</code></td></tr><tr><td>Grok</td><td><code>GROK_API_KEY</code></td><td>xAI API fallback key; Grok Build CLI uses its own login</td></tr><tr><td>DeepSeek</td><td><code>DEEPSEEK_API_KEY</code></td><td>Required when <code>ENABLE_DEEPSEEK=true</code></td></tr></tbody></table></div>
 <h2 id="consultant-toggles-and-models">Consultant Toggles and Models</h2>
 <pre><code class="language-bash"># Consultants enabled by default
 ENABLE_GEMINI=true
@@ -1004,7 +1004,7 @@ MISTRAL_MAX_TURNS=4
 MISTRAL_API_MAX_TOKENS=16384  # API only: Large 4 thinking + visible output
 KIMI_MODEL=kimi-code/k3.1-pro
 KIMI_REASONING_EFFORT=max   # passed as KIMI_MODEL_THINKING_EFFORT; empty = CLI default
-QWEN3_MODEL=qwen3.8-max     # standard/economy tiers use qwen3.8-flash
+QWEN3_MODEL=qwen4-max     # standard/economy tiers use qwen3.8-flash
 QWEN3_MAX_QUALITY_TIMEOUT=0  # 0 = no limit
 QWEN3_API_MAX_TOKENS=16384
 GLM_MODEL=glm-5.3-flash
@@ -1082,7 +1082,7 @@ intentional exception because Token Plan access is separately configured: an
 explicit <code>QWEN3_REASONING_EFFORT</code> pin is preserved in the maximum tier.</p>
 <p>The preset gives Mistral and Grok four bounded advisory turns, applies
 <code>QWEN3_MAX_QUALITY_TIMEOUT</code> and <code>DEEPSEEK_MAX_QUALITY_TIMEOUT</code> (default 0, no
-limit) to Qwen3.8-Max and DeepSeek, sets Meta to <code>max</code> effort, and uses the configured
+limit) to Qwen4 Max and DeepSeek, sets Meta to <code>max</code> effort, and uses the configured
 per-consultant <code>*_API_MAX_TOKENS</code> budget. Maximum temporarily raises Codex,
 Mistral, Grok, and MiniMax API budgets to <code>MAX_QUALITY_API_MAX_TOKENS</code> and
 restores them when leaving the tier; Qwen, GLM, and DeepSeek already default to
@@ -1222,4 +1222,4 @@ DEEPSEEK_MAX_QUALITY_TIMEOUT=0
 <p><code>configure</code> migrates the fixed limits it generated through 5.1.2 (180 s per
 consultant, 240 s for Claude and synthesis, 480 s synthesis total, 600 s for
 maximum-tier Qwen/DeepSeek) to 0. A value marked <code># ai-consultants:pin</code>, or any
-other custom value, stays a hard limit.</p></article><p><a href="/docs/snapshot.json">Snapshot provenance</a> · Published npm version: 5.9.0</p></main></body></html>
+other custom value, stays a hard limit.</p></article><p><a href="/docs/snapshot.json">Snapshot provenance</a> · Published npm version: 5.10.0</p></main></body></html>
