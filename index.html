@@ -40,7 +40,7 @@
         "applicationCategory": "DeveloperApplication",
         "operatingSystem": "macOS, Linux, Windows (WSL)",
         "description": "Free open-source CLI: ask Gemini, GPT, Claude, Mistral and more the same coding question in parallel, get one merged list showing who raised each point.",
-        "softwareVersion": "5.9.0",
+        "softwareVersion": "5.10.0",
         "license": "https://opensource.org/licenses/MIT",
         "url": "https://aiconsultants.sh",
         "author": {
@@ -965,13 +965,15 @@
 <!-- BEFORE YOU RUN IT -->
 <section id="models" aria-labelledby="models-title">
     <div class="container">
-        <p class="eyebrow">Released in v5.9.0 · AA v5.0.1 · November 15, 2026</p>
-        <h2 id="models-title">Fable 5.2, Hydrogen and Carbon.</h2>
+        <p class="eyebrow">Released in v5.10.0 · AA v5.0.1 · November 16, 2026</p>
+        <h2 id="models-title">Qwen4 Max, with explicit model choices.</h2>
+        <p class="works-note">Final qwen4-max is the main Qwen choice for default/premium and maximum; Flash stays standard/economy. Native Qwen Code and the separate Claude/Anthropic path passed structured context checks. CLI identity remains requested-only. Your model pins and effort settings stay yours.</p>
+        <p class="works-note">AA reports 42.9 for an unnamed default setting, without a high/xhigh score. Qwen4 API mode uses a matching QwenCloud compatible endpoint and key; the legacy text-generation wire fails before dispatch. <a href="/docs/recipes.html">Qwen4 API and CLI setup →</a></p>
         <p class="works-note">Claude premium uses Fable 5.2/high and maximum uses Fable/max. Google tiers use Hydrogen/medium for economy, high for standard, and xhigh for premium and the default maximum. Explicit model pins and effort choices remain yours.</p>
         <p class="works-note">Carbon/high is an optional maximum-quality choice through Antigravity/agy: <code>GEMINI_FRONTIER_CLI_MODEL=gemini-4-carbon-high</code> and <code>GEMINI_USE_API=false</code>, then select <code>max_quality</code>. An enabled Ultra or Enterprise account and that exact CLI ID are required. Carbon was absent from the local agy 1.5.9 inventory checked on November 15; Hydrogen was present. An unavailable selection stops before dispatch without a substitute.</p>
         <p class="works-note">AA Intelligence Index v5.0.1: Fable/high 61.8, Fable/max 64.6, Carbon/high 60.0, Hydrogen/high 50.8 and xhigh 53.9. Scores belong to their measured efforts; a generic index does not qualify a coding reviewer.</p>
         <a class="more-link" href="/docs/">Model benchmarks, provider limits and configuration &rarr;</a>
-        <p class="works-note"><a href="https://github.com/reasance/ai-consultants/releases/tag/v5.9.0">Read the v5.9.0 release notes</a>.</p>
+        <p class="works-note"><a href="https://github.com/reasance/ai-consultants/releases/tag/v5.10.0">Read the v5.10.0 release notes</a>.</p>
     </div>
 </section>
 
@@ -1160,7 +1162,7 @@
             </ul>
             <div class="shields">
                 <!-- The hidden span is the release-automation marker (sync_site.sh rewrites it); the live npm badge is what visitors see. -->
-                <a href="https://www.npmjs.com/package/ai-consultants" target="_blank" rel="noopener"><img src="https://img.shields.io/npm/v/ai-consultants?style=flat-square&amp;labelColor=141414&amp;color=2a2a2a" alt="npm version" height="20" loading="lazy"><span class="sr-only">Current release: <span class="badge">v5.9.0</span></span></a>
+                <a href="https://www.npmjs.com/package/ai-consultants" target="_blank" rel="noopener"><img src="https://img.shields.io/npm/v/ai-consultants?style=flat-square&amp;labelColor=141414&amp;color=2a2a2a" alt="npm version" height="20" loading="lazy"><span class="sr-only">Current release: <span class="badge">v5.10.0</span></span></a>
                 <a href="https://github.com/reasance/ai-consultants" target="_blank" rel="noopener"><img src="https://img.shields.io/github/stars/reasance/ai-consultants?style=flat-square&amp;labelColor=141414&amp;color=2a2a2a" alt="GitHub stars" height="20" loading="lazy"></a>
                 <a href="https://github.com/reasance/ai-consultants/blob/v5.9.0/LICENSE" target="_blank" rel="noopener"><img src="https://img.shields.io/github/license/reasance/ai-consultants?style=flat-square&amp;labelColor=141414&amp;color=2a2a2a" alt="License" height="20" loading="lazy"></a>
             </div>

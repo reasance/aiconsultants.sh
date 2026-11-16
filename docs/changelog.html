@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Changelog — ai-consultants</title>
-    <meta name="description" content="Released model documentation for Fable 5.2, Gemini 4 Hydrogen and Carbon, measured with Artificial Analysis v5.0.1.">
+    <meta name="description" content="Released model documentation for Qwen4 Max, measured with Artificial Analysis v5.0.1.">
     <meta name="theme-color" content="#000000">
 
     <!-- SEO -->
@@ -692,36 +692,52 @@
             *, *::before, *::after { transition: none !important; }
         }
     </style>
-<style>.preview{padding-top:48px;padding-bottom:80px;max-width:960px}.preview nav{margin:24px 0;line-height:2}.preview article{line-height:1.7;overflow-wrap:anywhere}.preview h1{font-size:2.5rem;line-height:1.2}.preview h2,.preview h3{margin:36px 0 14px}.preview p,.preview ul,.preview ol,.preview blockquote{margin:16px 0}.preview ul,.preview ol{padding-left:24px}.preview pre{overflow:auto;padding:16px;border:1px solid var(--border);margin:16px 0;white-space:pre}.preview table{border-collapse:collapse;min-width:600px;font-size:14px}.preview th,.preview td{padding:10px;text-align:left;border-bottom:1px solid var(--border)}.preview .table-scroll{overflow-x:auto}.preview blockquote{border-left:2px solid var(--text-muted);padding-left:16px}.preview a{text-decoration:underline}.preview code{font-size:.9em}.preview pre code{font-size:13px}</style></head><body><a class="skip-link" href="#main">Skip to content</a><main id="main" class="container preview"><a href="/">← ai-consultants</a><nav aria-label="Documentation"><a href="/docs/">Models and benchmarks</a> · <a href="/docs/overview.html">Project overview</a> · <a href="/docs/setup.html">Setup</a> · <a href="/docs/configuration.html">Configuration</a> · <a href="/docs/routing.html">Smart routing</a> · <a href="/docs/changelog.html" aria-current="page">Changelog</a></nav><article><p>Documentation for <a href="https://github.com/reasance/ai-consultants/releases/tag/v5.9.0">v5.9.0</a>. Benchmark snapshot: November 15, 2026, Artificial Analysis Intelligence Index v5.0.1.</p>
+<style>.preview{padding-top:48px;padding-bottom:80px;max-width:960px}.preview nav{margin:24px 0;line-height:2}.preview article{line-height:1.7;overflow-wrap:anywhere}.preview h1{font-size:2.5rem;line-height:1.2}.preview h2,.preview h3{margin:36px 0 14px}.preview p,.preview ul,.preview ol,.preview blockquote{margin:16px 0}.preview ul,.preview ol{padding-left:24px}.preview pre{overflow:auto;padding:16px;border:1px solid var(--border);margin:16px 0;white-space:pre}.preview table{border-collapse:collapse;min-width:600px;font-size:14px}.preview th,.preview td{padding:10px;text-align:left;border-bottom:1px solid var(--border)}.preview .table-scroll{overflow-x:auto}.preview blockquote{border-left:2px solid var(--text-muted);padding-left:16px}.preview a{text-decoration:underline}.preview code{font-size:.9em}.preview pre code{font-size:13px}</style></head><body><a class="skip-link" href="#main">Skip to content</a><main id="main" class="container preview"><a href="/">← ai-consultants</a><nav aria-label="Documentation"><a href="/docs/">Models and benchmarks</a> · <a href="/docs/overview.html">Project overview</a> · <a href="/docs/setup.html">Setup</a> · <a href="/docs/configuration.html">Configuration</a> · <a href="/docs/routing.html">Smart routing</a> · <a href="/docs/recipes.html">Qwen4 setup</a> · <a href="/docs/changelog.html" aria-current="page">Changelog</a></nav><article><p>Documentation for <a href="https://github.com/reasance/ai-consultants/releases/tag/v5.10.0">v5.10.0</a>. Benchmark snapshot: November 16, 2026, Artificial Analysis Intelligence Index v5.0.1.</p>
 <h1 id="changelog">Changelog</h1>
 <p>All notable changes to this project are documented in this file.</p>
 <p>The format is based on <a href="https://keepachangelog.com/en/1.0.0/">Keep a Changelog</a>,
 and this project adheres to <a href="https://semver.org/spec/v2.0.0.html">Semantic Versioning</a>.</p>
 <p>For longer-form release notes (rationale, upgrade guides, performance numbers), see <code>docs/releases/v&#x3C;VERSION>.md</code>.</p>
+<h2 id="5100---2026-11-16">[5.10.0] - 2026-11-16</h2>
+<h3 id="changed">Changed</h3>
+<ul>
+<li>Use final Qwen4 Max for the Qwen default/premium and maximum tiers; keep Flash standard/economy and preserve <code>QWEN3_*</code> names.</li>
+<li>Use the compatible QwenCloud Token Plan API for fresh Qwen4 setups. Preserve explicit model/effort pins, old-model implicit endpoints, custom URLs and credentials.</li>
+<li>Refresh the complete 742-row AA v5.0.1 snapshot and provider contracts. Keep Qwen4’s unnamed 42.9 result separate from high/xhigh and retain explicit Token Plan cost disclosure.</li>
+</ul>
+<h3 id="verified">Verified</h3>
+<ul>
+<li>Exercise final Qwen4 through native Qwen Code at configured high: structured context extraction passes, with requested-only identity and no automatic retry or model fallback.</li>
+</ul>
+<h3 id="fixed">Fixed</h3>
+<ul>
+<li>Reject Qwen4 on the incompatible DashScope text-generation wire before sending a request, with instructions to configure the matching endpoint, format and key.</li>
+<li>Upgrade only marked generated Qwen3.8 defaults; preserve intentional current selections and their effort.</li>
+</ul>
 <h2 id="590---2026-11-15">[5.9.0] - 2026-11-15</h2>
 <h3 id="added">Added</h3>
 <ul>
 <li>Opt into Carbon/high for maximum quality through Antigravity with <code>GEMINI_FRONTIER_CLI_MODEL=gemini-4-carbon-high</code> and <code>GEMINI_USE_API=false</code>. The exact model ID must be visible to the account before dispatch.</li>
 <li>Publish effort-specific AA v5.0.1 benchmark and serving-contract references, including Fable 5.2, Hydrogen and optional Carbon.</li>
 </ul>
-<h3 id="changed">Changed</h3>
+<h3 id="changed-1">Changed</h3>
 <ul>
 <li>Claude premium uses Fable 5.2/high and maximum uses Fable/max; standard stays Opus 5.5/medium. Fable requires Claude Code 2.1.321 or later and uses verified standard API rates of $8/$40 per million tokens.</li>
 <li>Google tiers use Hydrogen/medium for economy, high for standard, and xhigh for premium and the default maximum. Only marked managed defaults migrate; active unmarked choices, model pins and explicit efforts remain user-owned.</li>
 </ul>
-<h3 id="fixed">Fixed</h3>
+<h3 id="fixed-1">Fixed</h3>
 <ul>
 <li>Hydrogen API economy requests use the intended effort even though economy and premium share one API model ID. Confidence escalation can raise effort on that same ID, while explicit effort pins still win.</li>
 <li>Cache identity includes the effective economy effort, preventing an answer obtained at another effort from satisfying the request.</li>
 <li>Explicit Carbon selections stay pinned across automatic routing, escalation and synthesis. Unavailable or non-exact account inventory fails before dispatch without substituting another model or the API.</li>
 </ul>
 <h2 id="580---2026-10-28">[5.8.0] - 2026-10-28</h2>
-<h3 id="changed-1">Changed</h3>
+<h3 id="changed-2">Changed</h3>
 <ul>
 <li>Refresh Claude panel choices following the Artificial Analysis Intelligence Index v5 review: Opus 5.5 uses max for maximum, xhigh for premium, and medium for standard. Fable 5.1 remains opt-in.</li>
 <li>Make OpenAI tier effort explicit: Astra/max for maximum, Sol/max for premium, and Sol/high for standard. Economy models and Terra’s opt-in status remain unchanged.</li>
 </ul>
-<h3 id="fixed-1">Fixed</h3>
+<h3 id="fixed-2">Fixed</h3>
 <ul>
 <li>Cache keys include the selected tier, so Opus answers at maximum effort cannot be reused as standard-tier answers or vice versa. Existing cache entries expire from use through a key-version bump.</li>
 <li>Explicit effort settings win over tier defaults on both CLI and API transports, including the final synthesis CLI. Switching tiers cannot leak an injected maximum effort into an economy run.</li>
@@ -733,26 +749,26 @@ and this project adheres to <a href="https://semver.org/spec/v2.0.0.html">Semant
 <ul>
 <li>GPT-6.1 Terra is available as an opt-in Codex model with verified prices; configure migrates GPT-5.6 Terra to its same-line successor.</li>
 </ul>
-<h3 id="fixed-2">Fixed</h3>
+<h3 id="fixed-3">Fixed</h3>
 <ul>
 <li>Terra effort is validated per transport: API accepts <code>none</code>, CLI rejects it, and both reject <code>minimal</code> before dispatch. An unset effort keeps the transport default.</li>
 <li>Terra cost estimates apply the full-request long-context rates above 272K input tokens. Built-in rates now also cover priced opt-in models when the JSON catalog is unavailable.</li>
 </ul>
 <p>Default model tiers stay unchanged.</p>
 <h2 id="560---2026-10-25">[5.6.0] - 2026-10-25</h2>
-<h3 id="changed-2">Changed</h3>
+<h3 id="changed-3">Changed</h3>
 <ul>
 <li><strong>Gemini on <code>agy</code> is addressed by model ID</strong>: <code>gemini-4-argon-high</code> (default, premium and maximum), <code>gemini-3.8-flash-high</code> (standard) and <code>gemini-3.8-flash-low</code> (economy), the IDs <code>agy models</code> prints before each display name. A display name still works, and <code>configure</code> moves an unpinned managed display-name default to its ID. An authorized <code>query_gemini.sh</code> smoke by ID passed on 2026-10-25. The tiers, rates and built-in rates are generated by controller-models from its registry.</li>
 <li><strong>Sonnet retirements</strong> map to <code>claude-sonnet-5-5</code>, which now has a rate.</li>
 <li><strong>Every rate re-checked</strong> on its provider’s official page on 2026-10-25; no figure changed. Mistral notes cite the model cards that carry the prices.</li>
 </ul>
-<h3 id="fixed-3">Fixed</h3>
+<h3 id="fixed-4">Fixed</h3>
 <ul>
 <li><strong>Claude API mode sends the effort.</strong> <code>CLAUDE_REASONING_EFFORT</code> goes out as <code>output_config.effort</code> (low|medium|high|xhigh|max). Before, the API path warned and dropped it, so the model default applied. <code>none</code> and <code>minimal</code> are rejected before the request.</li>
 <li><strong>Qwen on DashScope caps its output.</strong> <code>QWEN3_API_MAX_TOKENS</code> (default 16384) goes out as <code>parameters.max_tokens</code>. Before, the DashScope wire sent no cap.</li>
 </ul>
 <h2 id="551---2026-10-24">[5.5.1] - 2026-10-24</h2>
-<h3 id="changed-3">Changed</h3>
+<h3 id="changed-4">Changed</h3>
 <ul>
 <li><strong>The repository moved to the <code>reasance</code> organization</strong>: <a href="https://github.com/reasance/ai-consultants">https://github.com/reasance/ai-consultants</a>. The old <code>matteoscurati/ai-consultants</code> URLs redirect, so existing clones and links keep working.</li>
 <li>The npm package metadata (repository, homepage, issues) now points to <code>reasance/ai-consultants</code>. <code>scripts/install.sh</code> clones from the new URL, and the README, setup guide, help commands and past release notes link there.</li>
@@ -765,7 +781,7 @@ and this project adheres to <a href="https://semver.org/spec/v2.0.0.html">Semant
 <li>CLI mode runs Muse Code (<code>muse exec</code>) advisory-only: a private empty workspace, no shell, workspace writes, web tools, sandbox network, personal rules or session log, and the prompt through <code>--prompt-file</code>. Its flags are checked before any request.</li>
 <li>API mode uses the Meta Model API (<code>META_API_KEY</code>, selected automatically when set) with <code>max_completion_tokens</code>. <code>META_REASONING_EFFORT</code> defaults to <code>high</code>; <code>none</code> is rejected before anything is billed.</li>
 </ul>
-<h3 id="changed-4">Changed</h3>
+<h3 id="changed-5">Changed</h3>
 <ul>
 <li><strong>Superseded models are retired.</strong> Tiers, the rate catalog, tests and docs now hold current models only. The economy tier moves to Claude Haiku 5.5, GPT-6 Luna, Grok 4.7 and GLM-5.3-Flash; standard Codex to GPT-6.1 Sol (there is no GPT-6 mid model); the Gemini API standard/economy tiers to <code>gemini-3.8-flash</code>.</li>
 <li><code>configure</code> replaces a persisted retired model with its family’s current one, pinned or not: the marker is kept and <code>migrated-from=&#x3C;old></code> is recorded. <code>configure --set</code> refuses a retired model and names the replacement.</li>
@@ -785,7 +801,7 @@ and this project adheres to <a href="https://semver.org/spec/v2.0.0.html">Semant
 <li><code>npm test</code> 36/36 plus lint, locally and in CI. Authorized live smokes on 2026-10-24, one call each with no retry: Meta through Muse Code 1.4.12 (Muse Wonder, structured, 12 s), Claude Haiku 5.5 and GPT-6 Luna through their CLIs (structured). The Meta API transport and the Gemini API tier change are offline-tested only.</li>
 </ul>
 <h2 id="540---2026-10-23">[5.4.0] - 2026-10-23</h2>
-<h3 id="changed-5">Changed</h3>
+<h3 id="changed-6">Changed</h3>
 <ul>
 <li><strong>Kimi K3.1 Pro</strong> (released 2026-10-23) serves every Kimi tier, including <code>max_quality</code> (previously <code>kimi-code/k3</code> for premium/standard/economy and <code>kimi-code/k3-256k</code> for maximum). The alias is <code>kimi-code/k3.1-pro</code>, with a 1M-token context; it needs a Kimi Code Plus plan or higher. If the Kimi CLI does not list it yet, run <code>kimi</code> once and <code>/login</code> to refresh the model list.</li>
 <li><code>configure</code> migrates unpinned <code>kimi-code/k3</code> (the value <code>.env.example</code> has shipped since 2.21.1) and <code>kimi-code/k3-256k</code>; pinned values and other aliases are kept.</li>
@@ -803,7 +819,7 @@ and this project adheres to <a href="https://semver.org/spec/v2.0.0.html">Semant
 <li>One authorized live Kimi smoke (2026-10-23, no retry) returned a structured answer with The Eastern Sage persona and confidence 10 in about 13.5 s; Kimi’s own session state recorded model <code>k3.1-pro</code> and thinking effort <code>max</code>. PR #34 CI and the release gate passed 35/35 suites plus lint. The new tests fail on the previous code.</li>
 </ul>
 <h2 id="532---2026-10-21">[5.3.2] - 2026-10-21</h2>
-<h3 id="fixed-4">Fixed</h3>
+<h3 id="fixed-5">Fixed</h3>
 <ul>
 <li>The report’s Coverage Union now says which of three things happened: the strategy makes no union (for example <code>majority</code>), the synthesis returned no points, or <code>synthesis.json</code> could not be read. The jq error is shown in the report and logged as a warning. Before, all three printed “coverage data unavailable”, and a jq error was silenced.</li>
 </ul>
@@ -820,7 +836,7 @@ and this project adheres to <a href="https://semver.org/spec/v2.0.0.html">Semant
 <li>PR #33 CI (jq 1.7) and the 5.3.2 release gate passed 35/35 suites plus lint with the jq guard active. Each regression test fails on the previous code.</li>
 </ul>
 <h2 id="531---2026-10-21">[5.3.1] - 2026-10-21</h2>
-<h3 id="fixed-5">Fixed</h3>
+<h3 id="fixed-6">Fixed</h3>
 <ul>
 <li><code>report.md</code> printed “coverage data unavailable” under Coverage Union even when <code>synthesis.json</code> held the merged points. The jq filter that renders them escaped its quotes inside a string interpolation, which jq 1.8 rejects, and the error was silenced. Each point now prints with its kind and the consultants that raised it. Found while recording the site demo; a regression test renders the section through <code>consult_all.sh</code>.</li>
 <li>A terminal Ctrl-C could report a consultant it ended as failed (<code>Error (code: 1)</code>) instead of stopped, when the interrupt landed after the run had checked for host requests in that polling pass. The run now records such a consultant as stopped. This race made the e2e Ctrl-C test flaky on slower CI runners.</li>
@@ -835,7 +851,7 @@ and this project adheres to <a href="https://semver.org/spec/v2.0.0.html">Semant
 <li>PR #32 CI and the 5.3.1 release gate passed 34/34 suites plus lint. The Ctrl-C race was reproduced by moving the interrupt into the window between the host check and collection: the old loop failed 3 times out of 3, the fixed loop passed 3 times out of 3.</li>
 </ul>
 <h2 id="530---2026-10-20">[5.3.0] - 2026-10-20</h2>
-<h3 id="changed-6">Changed</h3>
+<h3 id="changed-7">Changed</h3>
 <ul>
 <li><strong>MiniMax-M3.1-Flash</strong> (released 2026-10-19) serves every MiniMax tier, including <code>max_quality</code> (previously M3 maximum, M2.7 premium/standard and M2.5 economy). It always reasons: effort is <code>low</code>..<code>max</code> (provider default <code>max</code>) and <code>none</code> cannot be requested. API mode passes <code>MINIMAX_REASONING_EFFORT</code> as <code>reasoning_effort</code> and rejects <code>none</code>/<code>minimal</code> before the request; the <code>mmx</code> CLI has no effort flag, so it uses the provider default. Its reasoning shares the completion budget, so the defaults grow to 16,384 tokens (<code>MINIMAX_MAX_TOKENS</code>, <code>MINIMAX_API_MAX_TOKENS</code>) and <code>MINIMAX_MAX_QUALITY_TOKENS</code>, the <code>mmx</code> budget in <code>max_quality</code>, to 32,768; API calls in <code>max_quality</code> keep the shared <code>MAX_QUALITY_API_MAX_TOKENS</code> (16,384). <code>configure</code> migrates unpinned <code>MiniMax-M2.5</code>/<code>MiniMax-M2.7</code> and the generated 4096/4096/16384 budgets; pins and other values (such as an explicit <code>MiniMax-M3</code>) are kept. Estimates use the list price ($0.15/$0.60 per 1M).</li>
 </ul>
@@ -846,7 +862,7 @@ and this project adheres to <a href="https://semver.org/spec/v2.0.0.html">Semant
 <li>PR #31 CI and the 5.3.0 release gate passed 34/34 suites plus lint.</li>
 </ul>
 <h2 id="520---2026-10-19">[5.2.0] - 2026-10-19</h2>
-<h3 id="fixed-6">Fixed</h3>
+<h3 id="fixed-7">Fixed</h3>
 <ul>
 <li>Host consultations (slash commands <code>cd</code> into the skill root) now build the context from the caller’s <code>--context-root</code>: the “Working Directory” and “Project Structure” sections previously described the ai-consultants installation instead of the user’s project. A home directory (or <code>/</code>) is never listed as the project tree.</li>
 <li>GLM, DeepSeek, MiniMax (API mode) and custom API agents now receive their persona and the JSON response contract. They previously answered in prose, always landed in the fallback envelope, and could never contribute attributable coverage findings. MiniMax CLI receives the same contract through its native system channel instead of a Markdown-only instruction.</li>
@@ -876,7 +892,7 @@ and this project adheres to <a href="https://semver.org/spec/v2.0.0.html">Semant
 <li>Failure reasons name the real cause. <code>run_query</code> reports the stderr line that names an error, skipping CLI warnings and stack frames, instead of the first line (a Kimi config deprecation warning was shown as the reason). API consultants report the network cause (<code>network error: could not resolve the host (DNS) (curl exit 6)</code>), timeout, rate limit or server status instead of <code>last HTTP: 000</code>. An agy model-inventory failure states agy’s own message (for example <code>bind: operation not permitted</code> inside a sandbox) instead of “timed out, failed, or requires login”. Report reasons drop the log prefix, and when every failure is a network error the console and the report say so and mention the sandbox case.</li>
 <li>agy can print its whole answer and then never exit: a live synthesis closed its conversation stream and idled for 16 minutes, so the no-timeout run waited forever. <code>scripts/lib/agy_exit_guard.sh</code> now runs every agy consultation and synthesis; when the output is one complete JSON object unchanged for <code>AGY_EXIT_GRACE_SECONDS</code> (default 60, 0 = off) it ends agy and keeps the answer. Prose or partial output still waits for agy to exit.</li>
 </ul>
-<h3 id="changed-7">Changed</h3>
+<h3 id="changed-8">Changed</h3>
 <ul>
 <li><strong>No generation timeout by default.</strong> Every consultant <code>*_TIMEOUT</code>, the maximum-tier <code>QWEN3_MAX_QUALITY_TIMEOUT</code>/<code>DEEPSEEK_MAX_QUALITY_TIMEOUT</code>, and <code>SYNTHESIS_TIMEOUT</code>/<code>SYNTHESIS_TOTAL_TIMEOUT</code> now default to 0 (no limit; previously 180/240/480/600 s). A call cut off by a client timeout was usually still billed while its answer was lost, and reasoning models (Gemini 4 Argon, Mistral Large 4) routinely approach the old limits. A positive value restores a hard limit; <code>0</code> also works for API transports (curl gets no <code>-m</code>). <code>configure</code> migrates the unpinned fixed values it generated through 5.1.2; pinned and custom values remain limits. Probe limits (model inventory, auth, health gate, doctor, LLM classifier) are unchanged.</li>
 <li><strong>The invoking host decides when to stop waiting.</strong> <code>consult_all.sh</code> polls its consultants instead of blocking on each in turn, logs <code>Still waiting after Ns for: &#x3C;names></code> every <code>WAIT_HEARTBEAT_SECONDS</code> (default 30, 0 = silent), and accepts a <em>proceed</em> request (<code>touch &#x3C;output dir>/.proceed</code>, <code>kill -USR1 &#x3C;pid></code>, or a first Ctrl-C) that stops the current phase and continues with the answers received, and an <em>abort</em> request (<code>touch &#x3C;output dir>/.abort</code>, SIGTERM/SIGHUP, or a second Ctrl-C) that ends the run with exit 130/143/129. Stopped consultants are reported as <code>stopped</code> (they count against quorum but not against reliability), their partial output is discarded, and they are excluded from synthesis and cost with a billing caveat; a proceed during synthesis skips it and the report says so. Escalation re-queries follow the same control: a proceed ends the escalation phase. A proceed that arrives after a phase has already finished does not stop the next one. Stopped work ends with its whole process tree (<code>kill_process_tree</code>), so no consultant CLI keeps running. Host commands and <code>SKILL.md</code> tell the invoking agent to run the consultation in the background, watch the heartbeat, and choose when to proceed.</li>
@@ -913,7 +929,7 @@ and this project adheres to <a href="https://semver.org/spec/v2.0.0.html">Semant
 <li>Live host-control and harness checks on 2026-10-19 (<code>balanced</code>, cache off, no retry, against this branch). Direct runs: <code>.proceed</code> in Round 1 then <code>kill -USR1</code> during the synthesis (exit 0, Gemini reported as stopped, synthesis skipped), <code>.abort</code> (130), SIGTERM (143) and SIGHUP (129) all ended with no process left. A terminal Ctrl-C (SIGINT to the process group) ended the run with 130 and left the Mistral request running; after the fix a first Ctrl-C stopped Gemini (agy) and Mistral as <code>stopped</code> and a second one during the synthesis aborted with 130 and no process left. Hosts: Claude Code wrote <code>.proceed</code> two seconds after the second answer when asked for two answers only (host cost $0.80), then waited on the agy synthesis that never exited (the reason for the exit guard); agy 1.4.2 found the skill in <code>~/.gemini/config/skills</code> alone and wrote <code>.abort</code> after the first answer (run ended within 2 s); Codex 0.163 in <code>workspace-write</code> without approvals ran the skill but every consultant failed on the blocked network and it reported 0/3; with <code>--approve-for-me</code> the automatic reviewer rejected sending the file to external providers and Codex asked the user. The Gemini CLI 0.64 cannot be a host for this account: Google rejects it for individual accounts (<code>UNSUPPORTED_CLIENT</code>). One live agy consultation through the guard exited normally (structured, 82 s).</li>
 </ul>
 <h2 id="512---2026-09-28">[5.1.2] - 2026-09-28</h2>
-<h3 id="changed-8">Changed</h3>
+<h3 id="changed-9">Changed</h3>
 <ul>
 <li>Grok defaults to 4.7 for premium/maximum, while standard/economy remain 4.5.</li>
 <li>Claude standard/medium selects Opus 5.5; Fable 5.1 remains the default/premium/maximum model and Haiku remains economy.</li>
@@ -921,13 +937,13 @@ and this project adheres to <a href="https://semver.org/spec/v2.0.0.html">Semant
 <li>Managed Grok and Gemini defaults migrate without overriding pins, environment settings, <code>--set</code>, or unrelated model IDs.</li>
 <li>Estimates include Grok 4.7 long-context pricing, Opus 5.5 rates and Gemini 3.8 promotional rates, with cache/service/subscription limitations disclosed.</li>
 </ul>
-<h3 id="fixed-7">Fixed</h3>
+<h3 id="fixed-8">Fixed</h3>
 <ul>
 <li>Google API output usage includes thinking tokens without adding cached input twice.</li>
 <li>Quoted configuration values followed by provenance comments are parsed correctly during migration.</li>
 </ul>
 <h2 id="511---2026-09-10">[5.1.1] - 2026-09-10</h2>
-<h3 id="changed-9">Changed</h3>
+<h3 id="changed-10">Changed</h3>
 <ul>
 <li>DeepSeek defaults to the official <code>deepseek-flash</code> API alias (V4.1 Flash) in every tier. Existing Chat Completions transport, output budget and <code>max_quality</code> reasoning effort remain unchanged.</li>
 <li><code>configure</code> migrates exact unpinned <code>deepseek-v4-pro</code> and <code>deepseek-v4-flash</code> values; pins, environment overrides, <code>--set</code> and unrelated models remain authoritative.</li>
@@ -938,14 +954,14 @@ and this project adheres to <a href="https://semver.org/spec/v2.0.0.html">Semant
 <li>One authorized DeepSeek API smoke passed on the implementation commit, with a structured answer and provider-reported <code>deepseek-flash</code> identity. The alias is retained without inventing a version-specific attestation. The frozen P1.6 benchmark is unchanged.</li>
 </ul>
 <h2 id="510---2026-09-09">[5.1.0] - 2026-09-09</h2>
-<h3 id="changed-10">Changed</h3>
+<h3 id="changed-11">Changed</h3>
 <ul>
 <li>Claude defaults to <code>claude-fable-5-1</code> for premium/maximum, with <code>claude-opus-5</code> at standard/medium and Haiku at economy. Codex defaults to <code>gpt-6-astra</code> with implicit high effort, retaining Terra/Luna for standard/economy and Sol as an explicit override.</li>
 <li><code>configure</code> migrates exact unpinned persisted Codex defaults <code>gpt-5.5</code> and <code>gpt-5.6-sol</code> directly to Astra with migration provenance; pins, environment overrides and <code>--set</code> remain authoritative.</li>
 <li>Codex API requests use a dedicated Chat Completions builder with <code>reasoning_effort</code> and <code>max_completion_tokens</code>; the default completion budget is 16,384 tokens. Other providers retain their request builders.</li>
 <li>Astra cost estimates use Standard rates with the full-request long-context multiplier, with cache/service adjustments explicitly excluded.</li>
 </ul>
-<h3 id="fixed-8">Fixed</h3>
+<h3 id="fixed-9">Fixed</h3>
 <ul>
 <li>Claude CLI reads stream JSON, attests content identity from response-bearing assistant messages, records billing participants separately and requires successful terminal completion. Available tokens and provider cost survive failed responses.</li>
 <li>Codex CLI separates token events from its final answer and rejects failed or unfinished turns; requested model selection remains explicitly distinct from provider attestation.</li>
@@ -970,14 +986,14 @@ and this project adheres to <a href="https://semver.org/spec/v2.0.0.html">Semant
 <li>Explicit <code>coverage_input_truncated</code> and <code>truncated_consultants</code> metadata. Atomic findings are never clipped; capped fallback context is disclosed in JSON and Markdown.</li>
 <li>A Bash 3.2-safe executable registry for modes, presets, aliases, targets, and strategies, plus generated README/SKILL/reference tables with a read-only drift check.</li>
 </ul>
-<h3 id="changed-11">Changed</h3>
+<h3 id="changed-12">Changed</h3>
 <ul>
 <li>Presets retain their effective cardinality after host self-exclusion by filling from statically configured canonical transports. <code>max_quality</code> advertises ten consultants and has an effective target of nine under a canonical invoking host.</li>
 <li>Preset capacity now fails closed with promised, selected, and missing counts instead of silently running a smaller panel. Explicit <code>ENABLE_&#x3C;CONSULTANT>=false</code> choices remain opt-outs during preset fallback.</li>
 <li>Coverage synthesis uses locally normalized atomic fields as its attributable input. Usable fallback prose remains visible as manual-review context but cannot support an audited coverage claim.</li>
 <li>Fresh <code>init</code> scaffolding no longer forces <code>DEFAULT_PRESET=balanced</code>; <code>coverage</code> remains the sole default strategy.</li>
 </ul>
-<h3 id="fixed-9">Fixed</h3>
+<h3 id="fixed-10">Fixed</h3>
 <ul>
 <li>The README strategy table now derives its single default from the runtime registry, preventing the previous false <code>majority</code> default claim.</li>
 <li>Empty source arrays, invented source IDs, malformed/non-object/empty synthesis output, zero-finding successful envelopes, and incomplete unions can no longer produce a <code>MET</code> or comprehensive coverage claim.</li>
@@ -990,7 +1006,7 @@ and this project adheres to <a href="https://semver.org/spec/v2.0.0.html">Semant
 <li>Coverage-mode synthesis no longer treats free-form structured <code>detailed</code> text as source-attributable. Consumers must inspect <code>coverage_integrity</code>; fallback-only or otherwise non-normalizable input is explicitly degraded.</li>
 </ul>
 <h2 id="404---2026-08-31">[4.0.4] - 2026-08-31</h2>
-<h3 id="changed-12">Changed</h3>
+<h3 id="changed-13">Changed</h3>
 <ul>
 <li>The previously excluded <code>test_functions.sh</code> harness is replaced by a focused, auto-discovered <code>test_common.sh</code> suite using the shared test framework; the full gate now runs 24 suites.</li>
 <li>Active setup, routing, output-path, and contributor documentation now points to maintained commands and the XDG consultation directory.</li>
@@ -1003,7 +1019,7 @@ and this project adheres to <a href="https://semver.org/spec/v2.0.0.html">Semant
 <li>The stale README changelog copy and redundant <code>.npmignore</code>.</li>
 </ul>
 <h2 id="403---2026-08-29">[4.0.3] - 2026-08-29</h2>
-<h3 id="changed-13">Changed</h3>
+<h3 id="changed-14">Changed</h3>
 <ul>
 <li><strong>GLM now defaults to <code>glm-5.3-flash</code> for maximum, premium, and standard tiers.</strong> The <code>max_quality</code> preset keeps <code>reasoning_effort=max</code>; economy remains on <code>glm-4-flash</code>.</li>
 <li>Existing unpinned managed <code>glm-5.2</code> and <code>glm-5.3</code> values migrate to Flash when <code>configure</code> rewrites the user configuration, while explicit <code># ai-consultants:pin</code> values remain untouched.</li>
@@ -1015,7 +1031,7 @@ and this project adheres to <a href="https://semver.org/spec/v2.0.0.html">Semant
 <li><code>GROK_OAUTH_MODE=shared|serialized</code>: shared is the concurrency-safe default for the parallel panel, while serialized retains a full-run diagnostic fallback.</li>
 <li>A persistent runner-owned Grok OAuth generation under the XDG data directory, with recoverable locks, atomic policy/credential publication, SHA-256 CAS, and legacy-generation migration.</li>
 </ul>
-<h3 id="fixed-10">Fixed</h3>
+<h3 id="fixed-11">Fixed</h3>
 <ul>
 <li><strong>Parallel Grok CLI calls no longer discard or race rotating OAuth refresh state.</strong> Concurrent runs share only controlled <code>GROK_HOME</code>; HOME, workspace, prompt, output, permissions, and agent state remain isolated per invocation.</li>
 <li>External <code>grok login</code> changes always win the credential CAS; malformed, superseded, or unpersistible refresh state fails closed without a separately billed API fallback.</li>
@@ -1024,7 +1040,7 @@ and this project adheres to <a href="https://semver.org/spec/v2.0.0.html">Semant
 <li>Normal Grok errors no longer echo provider stderr into logs or error envelopes, preventing token-shaped output from escaping temporary storage.</li>
 </ul>
 <h2 id="401---2026-08-24">[4.0.1] - 2026-08-24</h2>
-<h3 id="fixed-11">Fixed</h3>
+<h3 id="fixed-12">Fixed</h3>
 <ul>
 <li><strong>The installer banner no longer claims the obsolete version <code>v2.10</code>.</strong> It is now intentionally version-neutral, so future package releases cannot make the banner stale again.</li>
 <li>The hermetic installer suite now renders the banner and rejects any hardcoded package SemVer in it; the suite grows from 45 checks in v4.0.0 to 47 checks.</li>
@@ -1035,7 +1051,7 @@ and this project adheres to <a href="https://semver.org/spec/v2.0.0.html">Semant
 <li><strong>Agent hosts now have an executable skill contract.</strong> Claude Code, Codex, and Gemini commands hand questions through a private <code>--query-file</code>, preserve <code>--preset</code>/<code>--strategy</code>, set <code>INVOKING_AGENT</code>, dispatch through the orchestrator, and fail validation if the host appears as either a consultant artifact or synthesis provider. A real Claude branch-command launch used the private query-file path and returned Gemini 3.7 High plus Codex 5.6 Sol with no Claude artifact.</li>
 <li>Dedicated Gemini, follow-up, host-execution, context-staging, and synthesis regression coverage; the full gate grows to 23 suites and 452 core checks.</li>
 </ul>
-<h3 id="changed-14">Changed</h3>
+<h3 id="changed-15">Changed</h3>
 <ul>
 <li><strong>Gemini 3.7 Flash High is promoted after an exact authenticated <code>agy</code> adapter smoke.</strong> It serves CLI maximum, premium, and standard tiers; Low serves CLI economy. The distinct, unverified Google API transport remains on Gemini 3.1 Pro by default.</li>
 <li><code>max_quality</code> enables all ten consultants and applies the strongest supported provider-specific effort and response budgets, including GLM and DeepSeek at <code>max</code> and Grok at its highest supported setting.</li>
@@ -1046,7 +1062,7 @@ and this project adheres to <a href="https://semver.org/spec/v2.0.0.html">Semant
 <li><strong>Cursor is removed from the consultant panel.</strong> The project remains usable from Cursor as a SkillPort host, but it no longer dispatches Cursor as a provider.</li>
 <li>Stale Codex/Gemini <code>debate</code> and <code>roster-audit</code> command files are removed; all three host command sets now expose only the current <code>consult</code> and <code>help</code> workflows.</li>
 </ul>
-<h3 id="fixed-12">Fixed</h3>
+<h3 id="fixed-13">Fixed</h3>
 <ul>
 <li><code>configure</code> removes obsolete Cursor settings and migrates only the exact managed historical values <code>GEMINI_MODEL=Gemini 3.1 Pro (High)</code>, <code>GLM_MODEL=glm-5.2</code>, and <code>GROK_MODEL=grok-4.5</code>; values carrying <code># ai-consultants:pin</code> remain untouched.</li>
 <li>Active Claude instructions no longer advertise the panic, voting, peer-review, debate, or consensus machinery removed in v3.0.</li>
@@ -1063,14 +1079,14 @@ and this project adheres to <a href="https://semver.org/spec/v2.0.0.html">Semant
 <li>Responses now record <code>metadata.requested_model</code> and <code>metadata.model_identity_source</code> (<code>provider-reported</code>, <code>capability-probed</code>, or <code>requested-only</code>) while the top-level <code>model</code> remains the strongest effective identifier the transport can attest.</li>
 <li>Dedicated Cursor, Mistral, and MiniMax adapter suites plus transport, retry, migration, identity, pricing, and catalog-parity coverage; the full gate now runs 22 suites and 443 core checks.</li>
 </ul>
-<h3 id="changed-15">Changed</h3>
+<h3 id="changed-16">Changed</h3>
 <ul>
 <li><strong>Mistral Vibe now uses its own model namespace.</strong> <code>MISTRAL_CLI_MODEL=mistral-medium-3.5</code> is passed through <code>VIBE_ACTIVE_MODEL</code>; <code>MISTRAL_MODEL</code> remains the API-only setting. Vibe runs its read-only <code>plan</code> agent for one bounded turn in a temporary workspace.</li>
 <li><strong>The promoted defaults move to GLM 5.3 and Grok 4.6.</strong> Cursor stays on Composer 2.5 across tiers and now uses the unambiguous <code>cursor-agent</code> executable.</li>
 <li>Pricing and unpriced disclosures now cover Fable 5, Gemini 3.7 Flash, Mistral Medium 3.5/Large 3/Small 4, Grok 4.6, MiniMax M3/M2.7/M2.5, GLM 5.3, Qwen3.8-Max, and K3-256k. Provider-reported revisions use the requested catalog model for billing without relabeling effective identity.</li>
 <li>Gemini 3.7 Flash, the new Mistral API IDs, and Claude Fable 5 remain explicit opt-ins because their exact ai-consultants transport smoke could not authenticate or complete. No alternate credential, model, or transport was substituted.</li>
 </ul>
-<h3 id="fixed-13">Fixed</h3>
+<h3 id="fixed-14">Fixed</h3>
 <ul>
 <li><strong>Cursor no longer resolves the unrelated <code>agent</code> binary (Grok on affected machines).</strong> The adapter and doctor validate Cursor’s interface and account model inventory, use <code>--mode ask --trust</code> only for an ephemeral workspace, and never use force-allow mode.</li>
 <li>Capability and inventory probes for Cursor, Gemini, and Mistral are bounded; a missing model is distinguished from an unavailable/auth-required inventory, and static diagnostics no longer risk <code>grep -q</code>/SIGPIPE false negatives.</li>
@@ -1078,7 +1094,7 @@ and this project adheres to <a href="https://semver.org/spec/v2.0.0.html">Semant
 <li><code>configure</code> migrates only the exact managed historical values <code>CURSOR_CMD=agent</code>, <code>GLM_MODEL=glm-5.2</code>, and <code>GROK_MODEL=grok-4.5</code>; values carrying <code># ai-consultants:pin</code> remain untouched.</li>
 </ul>
 <h2 id="340---2026-08-05">[3.4.0] - 2026-08-05</h2>
-<h3 id="fixed-14">Fixed</h3>
+<h3 id="fixed-15">Fixed</h3>
 <ul>
 <li><strong>Gemini consultations from an SSH session no longer fail to authenticate.</strong> The Antigravity CLI switches to a file-based token store whenever it sees <code>SSH_CLIENT</code>, <code>SSH_CONNECTION</code>, or <code>SSH_TTY</code>, and then never consults the macOS Keychain — so a user who signed in locally lost Gemini entirely over SSH, and signing in again could not help. Those markers are now stripped for every <code>agy</code> invocation.</li>
 <li><strong>The Codex consultant no longer inherits your local Codex environment.</strong> Your <code>~/.codex/config.toml</code>, the repository’s <code>AGENTS.md</code>, your hooks, MCP servers, and execpolicy rules previously reached into what is meant to be an independent second opinion.</li>
@@ -1086,7 +1102,7 @@ and this project adheres to <a href="https://semver.org/spec/v2.0.0.html">Semant
 <li>A Codex timeout, authentication error, or exhausted retry is now always reported as a failure, even when a partial answer reached disk.</li>
 <li><code>ai-consultants configure</code> upgrades the historical generated <code>CODEX_MODEL=gpt-5.5</code> default, so existing installations actually receive the new model instead of silently keeping the old one. An explicit pin is preserved.</li>
 </ul>
-<h3 id="changed-16">Changed</h3>
+<h3 id="changed-17">Changed</h3>
 <ul>
 <li><strong>Model catalog refresh</strong>, verified live against the installed CLIs: Codex moves to <code>gpt-5.6-sol</code> / <code>gpt-5.6-terra</code> / <code>gpt-5.6-luna</code>, Claude’s standard tier to <code>claude-sonnet-5</code>, and Gemini’s standard/economy tiers to <code>Gemini 3.6 Flash (High)</code> / <code>(Low)</code>. Gemini’s premium tier stays on <code>Gemini 3.1 Pro (High)</code> — there is no 3.6 Pro. Cost rates ship with the new ids; superseded ids remain catalogued for pinned configurations and historical responses.</li>
 <li>Codex CLI mode runs under an ephemeral HOME and working directory with a read-only sandbox. Authentication is unaffected — <code>CODEX_HOME</code> still resolves to your real auth store.</li>
@@ -1102,24 +1118,24 @@ and this project adheres to <a href="https://semver.org/spec/v2.0.0.html">Semant
 <ul>
 <li>Grok and Kimi CLI responses now record the observed <code>cli_version</code> and a <code>cli_compatibility</code> result, so downstream tooling can distinguish provenance from compatibility.</li>
 </ul>
-<h3 id="changed-17">Changed</h3>
+<h3 id="changed-18">Changed</h3>
 <ul>
 <li><strong>Grok and Kimi compatibility is now capability-based.</strong> Before dispatch, each adapter checks the required headless arguments, structured-output mode, provider/model inventory, and requested model instead of treating a visible CLI or version string as sufficient.</li>
 <li>Compatible future or vendor-custom CLI versions are accepted when they expose the complete required interface. Grok’s <code>--no-auto-update</code> remains an optional capability and is used only when advertised.</li>
 </ul>
-<h3 id="fixed-15">Fixed</h3>
+<h3 id="fixed-16">Fixed</h3>
 <ul>
 <li>Incompatible Grok and Kimi installations now fail before a model request starts, with regression coverage for alternate compatible versions, missing interfaces, and missing requested models.</li>
 </ul>
 <h2 id="320---2026-07-25">[3.2.0] - 2026-07-25</h2>
-<h3 id="changed-18">Changed</h3>
+<h3 id="changed-19">Changed</h3>
 <ul>
 <li><strong>Claude’s premium default is now Opus 5.</strong> <code>CLAUDE_MODEL</code>, the premium/max/best tier, standalone adapter fallback, examples, and cost mappings use the official <code>claude-opus-5</code> ID. Pricing is unchanged at $5/$25 per million tokens; Opus 4.8 remains in the legacy catalog for pinned configurations and historical responses.</li>
 <li>Claude CLI mode now consumes its JSON result envelope and provider-reported <code>costUSD</code>, so adaptive-thinking and cache charges are included instead of estimating cost from visible text. API mode selects visible text blocks after thinking blocks, defaults <code>CLAUDE_API_MAX_TOKENS</code> to 16,384, and rejects <code>stop_reason=max_tokens</code> as truncated.</li>
 <li><code>ai-consultants configure</code> migrates the historical generated <code>CLAUDE_MODEL=claude-opus-4-8</code> default to Opus 5. Explicit model overrides receive an <code># ai-consultants:pin</code> marker and survive later rewrites.</li>
 </ul>
 <h2 id="311---2026-07-24">[3.1.1] - 2026-07-24</h2>
-<h3 id="fixed-16">Fixed</h3>
+<h3 id="fixed-17">Fixed</h3>
 <ul>
 <li><strong><code>doctor</code> now completes its diagnosis when an enabled CLI or API credential is missing.</strong> Failed health checks are recorded and reported in the final human or JSON summary instead of aborting early under <code>set -e</code>. The JSON regression test now rejects empty output and covers a missing Grok Build installation explicitly.</li>
 </ul>
@@ -1128,18 +1144,18 @@ and this project adheres to <a href="https://semver.org/spec/v2.0.0.html">Semant
 <ul>
 <li><strong>Grok 4.5 now runs through the official Grok Build CLI by default.</strong> Configuration, setup, diagnostics, and <code>update-clis</code> treat Grok as a switchable CLI/API consultant while preserving the existing xAI API path for installations without a usable CLI.</li>
 </ul>
-<h3 id="changed-19">Changed</h3>
+<h3 id="changed-20">Changed</h3>
 <ul>
 <li><strong>Every Grok CLI consultation is isolated and tool-free.</strong> Prompts use a private <code>--prompt-file</code>; HOME and CWD are ephemeral; built-in tools, web access, MCP tools, memory, subagents, plugins, hooks, skills, and project instructions are excluded; permissions fail closed under the strict sandbox.</li>
 <li><strong>The API fallback is now narrowly classified.</strong> It runs only when Grok Build is missing, cannot execute, or lacks usable authentication. Timeouts, model errors, empty output, and other failures after launch are surfaced without silently creating a separately billed API request.</li>
 </ul>
-<h3 id="fixed-17">Fixed</h3>
+<h3 id="fixed-18">Fixed</h3>
 <ul>
 <li><strong>Large Grok contexts no longer fail at the operating system argument limit or appear in process listings.</strong> The full consultation is delivered through a mode-600 prompt file instead of the <code>-p</code> command-line argument.</li>
 </ul>
 <h2 id="300---2026-07-23">[3.0.0] - 2026-07-23</h2>
 <p>A held-out experiment settled a question two independent reviews had raised: does the panel beat a single strong model? The answer is <strong>task-dependent</strong>. On convergent defect-finding a single strong model saturates (it caught 19/19 hard bugs, including CVEs and a concurrency bug found by formal verification), so the panel adds nothing. On <strong>breadth</strong> questions — “what could go wrong with this design?”, enumerate the risks — a diverse cross-vendor panel covers materially more than one model (measured rubric coverage: one model 51%, self-consistency 70%, the panel <strong>93%</strong>), and it wins as a raw <strong>union of distinct answers</strong>, not through deliberation. So this release keeps the diverse fan-out and cuts the machinery that averaged it away.</p>
-<h3 id="changed-20">Changed</h3>
+<h3 id="changed-21">Changed</h3>
 <ul>
 <li><strong>The default output is now the coverage union, not a voted recommendation.</strong> <code>DEFAULT_STRATEGY</code> defaults to the new <code>coverage</code> strategy: the deduplicated union of every distinct point, recommendation, risk, and edge case raised across the panel, preserving what only one model raised. <code>compare_only</code> (side-by-side), <code>majority</code> (a single blended recommendation), <code>risk_averse</code>, <code>security_first</code>, and <code>cost_capped</code> remain available via <code>--strategy</code>.</li>
 <li><strong>The pipeline is now classify → route → parallel fan-out → coverage synthesis.</strong> No deliberation rounds, no consensus scoring.</li>
@@ -1165,12 +1181,12 @@ and this project adheres to <a href="https://semver.org/spec/v2.0.0.html">Semant
 <li>No configuration change is required. If you relied on a debate/consensus setting, remove it — the tool now fans out and returns the coverage union by default. See <code>docs/releases/v3.0.0.md</code>.</li>
 </ul>
 <h2 id="2252---2026-07-22">[2.25.2] - 2026-07-22</h2>
-<h3 id="fixed-18">Fixed</h3>
+<h3 id="fixed-19">Fixed</h3>
 <ul>
 <li><strong><code>doctor</code> no longer reports “healthy” from static checks alone.</strong> The default <code>doctor</code> confirms a CLI is installed and a key is present — not that a consultant can actually answer. A consultant with an expired key or an exhausted quota passed every static check, yet <code>doctor</code> printed “All systems healthy!” and its JSON reported <code>status: "healthy"</code>. Measured: static <code>doctor</code> called all 11 consultants healthy while only 8 responded to a real query. A static-only run now says so explicitly and points to <code>doctor --live</code>; the word “healthy” is reserved for a <code>--live</code> run that actually pinged them. The <code>--json</code> output gains a <code>verified: "live"|"static"</code> field and a <code>static_ok</code> status, so tooling can tell a real all-clear from an unverified one. <code>--live</code> behavior is unchanged, and a plain <code>doctor</code> still makes no billed calls.</li>
 </ul>
 <h2 id="2251---2026-07-21">[2.25.1] - 2026-07-21</h2>
-<h3 id="fixed-19">Fixed</h3>
+<h3 id="fixed-20">Fixed</h3>
 <ul>
 <li><strong>The final score reported 2/10 even when every consultant agreed.</strong> The recommendation was emitted as a key with spaces and punctuation stripped, while scoring compared each consultant’s original answer against that stripped version — so nothing ever matched and everyone was counted as a dissenter. Three consultants unanimous at confidence 9 on “Use JWT with rotating sessions” scored 2/10; the same panel on “JWT” scored 10/10. Real answers are multiword, so the headline number was wrong on essentially every consultation. The same stripping also merged genuinely different answers: “Use JWT + sessions” and “Use JWT sessions” became one option.</li>
 <li><strong>Peer-review artifacts were billed as consultations.</strong> The recursive scan v2.25.0 introduced to catch debate rounds also reached everything peer review writes: anonymized copies keep the original token counts, and bookkeeping files fall back to 1000 tokens each. A run whose real cost was $0.125 reported $0.244. Billing now covers only the responses and debate rounds, and a response is recognised by its structure rather than by its filename.</li>
@@ -1181,7 +1197,7 @@ and this project adheres to <a href="https://semver.org/spec/v2.0.0.html">Semant
 <li><strong><code>estimate_tokens ""</code> could hang.</strong> Given an explicit empty string it read standard input instead of returning zero, so a caller with an open pipe on stdin blocked indefinitely. It now returns zero for an empty argument and reads stdin only when called with no argument at all.</li>
 </ul>
 <h2 id="2250---2026-07-21">[2.25.0] - 2026-07-21</h2>
-<h3 id="fixed-20">Fixed</h3>
+<h3 id="fixed-21">Fixed</h3>
 <ul>
 <li>
 <p><strong>The reported session cost measured how many pipeline stages ran, not what you spent.</strong> <code>build_response_metadata</code> hardcoded <code>tokens_used: 0</code> on every response it ever wrote, and <code>calculate_session_cost</code> multiplies that field by the model rate — so every real consultant contributed exactly $0.00, in both transports. The figure you saw came entirely from the pipeline’s own metadata files (<code>voting.json</code>, <code>orchestration.json</code>, <code>optimization_metrics.json</code>), which carry no token count at all and so fell to a 1000-token fallback at the default rate, roughly $0.009 each. Measured on a realistic three-consultant run: v2.24 reported <strong>$0.0270</strong> — three phantom files, zero real consultations. In API mode the real figure was even being computed and then discarded: <code>run_api_mode_query</code> extracted the provider’s usage numbers, logged them at debug level, and threw them away. Responses now carry a real count, and a new <code>metadata.tokens_source</code> field records where it came from. <strong>If you tuned <code>MAX_SESSION_COST</code> against the old always-zero reports, revisit it</strong> — the same direction of advice as v2.14.2, opposite sign.</p>
@@ -1218,17 +1234,17 @@ and this project adheres to <a href="https://semver.org/spec/v2.0.0.html">Semant
 <li><strong><code>metadata.tokens_source</code></strong> on every response: <code>measured</code> (the provider’s own figures, API mode), <code>estimated</code> (a local 4-chars-per-token approximation, CLI mode, which exposes no counts), or <code>unknown</code>.</li>
 <li>Credit-billed models can be declared in <code>docs/cost_rates.json</code> under <code>unpriced_models</code>. They contribute 0 to the total and the session-cost line names them, instead of an absent catalog entry silently falling through to the default rate — which for <code>qwen3.8-max-preview</code> would have been roughly 4x the real Qwen premium input rate, presented as a confident number.</li>
 </ul>
-<h3 id="changed-21">Changed</h3>
+<h3 id="changed-22">Changed</h3>
 <ul>
 <li>The session-cost line now states what its number is built on, e.g. <code>Session cost: $0.0550 [token counts estimated for 3 of 3]</code>. A total resting partly on approximations is not a measurement, and CLI mode — the default transport — can only approximate.</li>
 <li>Budget enforcement projections now include actual accumulated spend. The pre-run checks were always driven by a context-size estimate and worked; the pre-debate and pre-synthesis checks added <code>CURRENT_COST</code>, which was always zero.</li>
 </ul>
 <h2 id="2240---2026-07-20">[2.24.0] - 2026-07-20</h2>
-<h3 id="fixed-21">Fixed</h3>
+<h3 id="fixed-22">Fixed</h3>
 <ul>
 <li><strong>Installing or updating now removes slash commands this project no longer ships.</strong> Both entry points only ever copied commands in, so one deleted upstream stayed in <code>~/.claude/commands</code> forever. The v2.10.0 command consolidation dropped ten of them, which means every installation predating it still carries all ten — and they remain invocable. One is actively wrong: <code>ai-consultants:config-features</code> instructs you to set <code>ENABLE_REFLECTION</code>, which v2.23.0 removed and <code>ai-consultants configure --set</code> now rejects with a non-zero exit. Both <code>scripts/install.sh</code> (the <code>curl | bash</code> path) and <code>ai-consultants install</code> (the npx path) now prune before copying, and report how many they removed.</li>
 </ul>
-<h3 id="changed-22">Changed</h3>
+<h3 id="changed-23">Changed</h3>
 <ul>
 <li><strong>The prune removes any <code>ai-consultants:*.md</code> this project does not ship — including one you wrote yourself under that prefix.</strong> There is no way to distinguish a command you authored in this namespace from one of ours that was deleted upstream. If you have custom commands, rename them out of the <code>ai-consultants:</code> prefix before upgrading. Commands belonging to other tools are never considered.</li>
 <li><code>scripts/release.sh</code> is no longer included in the npm package. It is maintainer-only version-bump automation, is not routed by <code>bin/ai-consultants</code>, and nothing shipped invokes it.</li>
@@ -1238,14 +1254,14 @@ and this project adheres to <a href="https://semver.org/spec/v2.0.0.html">Semant
 <ul>
 <li><strong><code>ENABLE_REFLECTION</code> and <code>REFLECTION_CYCLES</code> are gone, along with <code>lib/reflection.sh</code>.</strong> The self-reflection module was never sourced or called by any script, so neither setting had ever affected a consultation. The v2.16 dynamic orchestration engine covers the same ground: its <code>converge</code> and <code>adversarial</code> shapes run critique-refine driven by measured consensus rather than a fixed cycle count. <strong>Action required if you set either key</strong>: <code>ai-consultants configure</code> derives its accepted parameters from <code>.env.example</code>, so <code>--set ENABLE_REFLECTION=...</code> now exits non-zero instead of being accepted, and both keys are dropped (without warning) the next time an existing user <code>.env</code> is rewritten. Remove them from provisioning scripts and <code>.env</code> files. No runtime behavior changes — the flags controlled nothing.</li>
 </ul>
-<h3 id="fixed-22">Fixed</h3>
+<h3 id="fixed-23">Fixed</h3>
 <ul>
 <li><strong><code>KNOWN_FEATURE_FLAGS</code> no longer enrolls feature flags as phantom consultants.</strong> The registry that <code>_discover_custom_api_agents</code> uses to tell feature flags apart from custom API agents had drifted 18 flags out of date, so an <code>ENABLE_&#x3C;FLAG>=true</code> paired with a <code>&#x3C;FLAG>_API_URL</code> in the environment could be added to the panel as a consultant — <code>ENABLE_PEER_REVIEW</code> among them. All 27 non-consultant flags are now registered, and a test derives the expected set from <code>config.sh</code> so the next added flag fails the build instead of drifting silently.</li>
 <li><strong><code>test_functions.sh</code> was under-reporting failures.</strong> A test function is scored by its exit status, i.e. that of its last command, so a failing assertion followed by a passing one printed <code>FAIL</code> yet counted as a pass and the suite still exited 0. 8 of 13 test functions ran more than one assertion and were exposed. The <code>assert_*</code> helpers now flag failures globally and the runner honors that flag, so <code>npm test</code> reflects what actually failed.</li>
 <li><strong>The release gate could not go green.</strong> <code>scripts/release.sh</code> sources <code>lib/common.sh</code> (and therefore <code>config.sh</code>) before running <code>npm test</code>, so the exported configuration leaked into two suites and failed them deterministically — meaning no release since 2.22.0 could pass its own gate. <code>test_user_config.sh</code> leaked <code>AI_CONSULTANTS_CONFIG_DIR</code> between tests and asserted on variable names an ambient environment overrides; <code>test_configure.sh</code> scrubbed the nine API keys but not the settings, so an exported <code>DEFAULT_PRESET</code> overrode the file its preservation tests assert on. Both suites now derive their isolation from the same contract they test against.</li>
 <li><code>test_user_config.sh</code> no longer fails against a real user configuration. The suite leaked <code>AI_CONSULTANTS_CONFIG_DIR</code> between tests and asserted on config variable names that an ambient environment can override, so <code>npm test</code> — and therefore the <code>release.sh</code> gate, which sources <code>config.sh</code> first — failed for anyone who had run <code>ai-consultants configure</code>.</li>
 </ul>
-<h3 id="changed-23">Changed</h3>
+<h3 id="changed-24">Changed</h3>
 <ul>
 <li>Preset documentation now reflects what the presets actually pin. The tier tables no longer claim a fixed debate/peer-review depth per preset: under the default <code>ORCHESTRATION_MODE=auto</code> the planner chooses per question, and a <code>SECURITY</code> question runs peer review regardless of preset. <code>max_quality</code> is described as 8 of 11 consultants rather than “all”.</li>
 </ul>
@@ -1254,7 +1270,7 @@ and this project adheres to <a href="https://semver.org/spec/v2.0.0.html">Semant
 <ul>
 <li><strong><code>ai-consultants configure</code>.</strong> The public automatic configurator detects the complete 11-consultant roster, selects CLI/API transports, preserves existing settings and secrets, writes private XDG configuration with backups, and accepts every persistent parameter through repeatable <code>--set KEY=VALUE</code> arguments or an exhaustive <code>--advanced</code> review.</li>
 </ul>
-<h3 id="fixed-23">Fixed</h3>
+<h3 id="fixed-24">Fixed</h3>
 <ul>
 <li>The npm package now includes the full <code>.env.example</code>, so <code>init</code> no longer falls back to a partial five-setting template.</li>
 <li>Gemini API setup now consistently uses the runtime-supported <code>GEMINI_API_KEY</code>; <code>.env</code> inline comments are parsed correctly, and the starter template no longer pins obsolete <code>/tmp</code> storage paths.</li>
@@ -1267,7 +1283,7 @@ and this project adheres to <a href="https://semver.org/spec/v2.0.0.html">Semant
 <li>Configuration backups can no longer overwrite each other when two runs land in the same second.</li>
 </ul>
 <h2 id="2211---2026-07-16">[2.21.1] - 2026-07-16</h2>
-<h3 id="changed-24">Changed</h3>
+<h3 id="changed-25">Changed</h3>
 <ul>
 <li><strong>Kimi now runs on K3.</strong> The default and every quality tier use the <code>kimi-code/k3</code> alias. The query adapter now passes <code>--model "$KIMI_MODEL"</code> explicitly, so the configured project model is actually used instead of silently inheriting the user’s Kimi CLI default.</li>
 <li><strong>The supported panel is now 11 consultants.</strong> Kilo, Aider, Amp, and Ollama have been removed from the runtime roster, presets, routing, personas, doctor/preflight checks, debate and synthesis paths, CLI updater, configuration surfaces, tests, and current documentation. Their query adapters are no longer shipped in the npm package.</li>
@@ -1289,7 +1305,7 @@ and this project adheres to <a href="https://semver.org/spec/v2.0.0.html">Semant
 <li><strong>Stance-based semantic consensus</strong> (opt-in, <code>ENABLE_STANCE_CONSENSUS</code>). One LLM call enumerates a small set of mutually-exclusive stance options for the question; each consultant picks one verbatim; consensus becomes the plurality stance’s share of the panel — exact-match agreement, immune to paraphrasing. Degrades to the lexical cluster on any failure. Tunables: <code>STANCE_MAX_OPTIONS</code>, <code>STANCE_TIMEOUT</code>.</li>
 <li><strong>Reliability tracking</strong>, a <code>scripts/release.sh</code> version-bump automation, and an offline end-to-end integration test.</li>
 </ul>
-<h3 id="fixed-24">Fixed</h3>
+<h3 id="fixed-25">Fixed</h3>
 <ul>
 <li><strong>CLI adapters</strong> (surfaced by a full-panel smoke test): Gemini (<code>agy -p "$QUERY"</code>, not the broken <code>-p -</code>), Kimi (<code>--output-format stream-json</code> + a hardened extractor), and Kilo (strip the ```json fence) now return structured responses instead of degrading to the unstructured fallback.</li>
 <li><strong>Metadata pollution</strong> in voting / synthesis / peer-review: pipeline files (<code>voting.json</code>, <code>orchestration.json</code>, <code>stance_options.json</code>, …) are filtered out of every responses-dir glob, so they can no longer become phantom votes, peer-review reviewees, or synthesis inputs. Consensus is the largest agreeing cluster (single-linkage over Jaccard).</li>
@@ -1297,7 +1313,7 @@ and this project adheres to <a href="https://semver.org/spec/v2.0.0.html">Semant
 <li><strong>GLM and DeepSeek personas were transposed at runtime</strong> — each consultant ran under the other’s persona name and prompt.</li>
 <li><strong>Calibration</strong>: diagnosable peer-review failures + cost-only calibration path.</li>
 </ul>
-<h3 id="changed-25">Changed</h3>
+<h3 id="changed-26">Changed</h3>
 <ul>
 <li><code>npm test</code> now runs 18 suites. The v2.21 changeset was hardened by a multi-agent <code>/code-review max</code> pass.</li>
 </ul>
@@ -1308,7 +1324,7 @@ and this project adheres to <a href="https://semver.org/spec/v2.0.0.html">Semant
 <li><strong>Roster audit — uncorrelated value.</strong> <code>scripts/roster_audit.sh</code> (also <code>doctor.sh --roster-audit</code> and the <code>/ai-consultants:roster-audit</code> slash command) scores each consultant’s distinctiveness across past consultations: one that only echoes the panel is flagged redundant; one that often proposes a distinct approach earns its seat. Read-only.</li>
 <li><strong>Measured calibration — replace the heuristic seeds with data.</strong> <code>scripts/roster_calibrate.sh</code> (Tier A) derives intelligence/taste from blind peer-review sliced by axis, and cost from observed <code>tokens_used</code> × catalog rate. <code>scripts/taste_elo.sh</code> (Tier B) refines taste via pairwise LLM-as-judge Elo. <code>scripts/run_calibration.sh</code> + <code>references/calibration_benchmark.json</code> (50 balanced questions) collect the data; both calibrators can <code>--write</code> measured scores into <code>affinity.json</code>.</li>
 </ul>
-<h3 id="changed-26">Changed</h3>
+<h3 id="changed-27">Changed</h3>
 <ul>
 <li><code>npm test</code> now runs 12 suites (added <code>test_capability_weighting</code>, <code>test_roster_audit</code>, <code>test_roster_calibrate</code>, <code>test_taste_elo</code>).</li>
 </ul>
@@ -1317,22 +1333,22 @@ and this project adheres to <a href="https://semver.org/spec/v2.0.0.html">Semant
 <li>All new behavior is opt-in and additive; the shipped <code>capabilities</code> scores are subjective seeds (Claude/Codex grounded on the model-routing table, the rest heuristic) — run the calibration workflow to measure them for your panel.</li>
 </ul>
 <h2 id="2192---2026-07-11">[2.19.2] - 2026-07-11</h2>
-<h3 id="fixed-25">Fixed</h3>
+<h3 id="fixed-26">Fixed</h3>
 <ul>
 <li><strong>Cost tracking is no longer silently lost on a fresh install.</strong> <code>track_session_cost</code> wrote to <code>costs.json</code> in the XDG data dir (<code>~/.local/share/ai-consultants/</code>) without creating that directory first, so on a fresh install every session failed with “No such file or directory” and cumulative cost tracking never accumulated. The parent directory is now created on demand.</li>
 <li><strong>A corrupt <code>costs.json</code> now self-heals</strong> instead of wedging every future update: it is set aside as <code>costs.json.corrupt</code> and reset, rather than failing the <code>jq</code> update forever.</li>
 </ul>
-<h3 id="changed-27">Changed</h3>
+<h3 id="changed-28">Changed</h3>
 <ul>
 <li><strong><code>track_session_cost</code> is now concurrency-safe and strictly best-effort.</strong> The read-modify-write of <code>costs.json</code> is serialized with a portable <code>mkdir</code> lock (bounded 5s wait, then proceeds unlocked — bookkeeping must never block a run) and writes go through a unique <code>mktemp</code> temp file instead of a shared <code>.tmp</code> sibling. Every failure path degrades to a warning and returns success, so cost bookkeeping can never abort a consultation under <code>set -e</code>.</li>
 </ul>
 <h2 id="2191---2026-06-27">[2.19.1] - 2026-06-27</h2>
-<h3 id="fixed-26">Fixed</h3>
+<h3 id="fixed-27">Fixed</h3>
 <ul>
 <li><strong>Diagnosed Failures report table no longer breaks when a failure reason contains a <code>|</code></strong> (e.g. a CLI error mentioning a piped command). The pipe is now escaped in the markdown table.</li>
 <li><strong>Health gate is cache-aware</strong>: it no longer sends a billed ping to a consultant whose response is already cached.</li>
 </ul>
-<h3 id="changed-28">Changed</h3>
+<h3 id="changed-29">Changed</h3>
 <ul>
 <li>Internal cleanup from code review: a single <code>render_diagnosed_failure</code> helper now renders both the console and report surfaces (no duplicated decode); <code>ping_consultant</code> takes the already-lowercased id (one fewer fork per consultant). Documented the health gate’s pre-run startup latency.</li>
 </ul>
@@ -1347,7 +1363,7 @@ and this project adheres to <a href="https://semver.org/spec/v2.0.0.html">Semant
 <ul>
 <li><strong><code>doctor.sh --live</code></strong> — sends a real ping query to each enabled consultant and reports which actually respond, catching CLIs that are installed but not authenticated (the static check reports those as healthy). Opt-in; costs one tiny query per consultant. Timeout via <code>DOCTOR_LIVE_TIMEOUT</code> (default 45s).</li>
 </ul>
-<h3 id="changed-29">Changed</h3>
+<h3 id="changed-30">Changed</h3>
 <ul>
 <li><strong>Consultant failures now show why.</strong> Previously a failed consultant produced a bare “Failed” with its error discarded. The run now captures each consultant’s stderr and surfaces a one-line reason (e.g. “CLI not found”, “401 Unauthorized”) so you can tell <em>not installed</em> from <em>not authenticated</em> from <em>transient</em>. <code>run_query</code> also embeds the CLI’s real error in its failure log.</li>
 </ul>
@@ -1356,17 +1372,17 @@ and this project adheres to <a href="https://semver.org/spec/v2.0.0.html">Semant
 <ul>
 <li><strong>Context files could read arbitrary absolute paths and send them to external AI providers.</strong> v2.17.1 widened <code>build_context.sh</code> to accept any absolute context path behind a small prefix blocklist that did not cover home secrets — so a context argument pointing at <code>~/.ssh/id_rsa</code>, <code>~/.aws/credentials</code>, <code>~/.netrc</code>, etc. would be read and forwarded to the consultant models. Context files are now restricted to relative in-tree paths or recognized temp roots (<code>/tmp</code>, <code>/private/tmp</code>, <code>$TMPDIR</code>); arbitrary absolute paths are rejected. The original macOS <code>/private/tmp</code> scratch-file fix is preserved. v2.17.1 was never published to npm; <strong>use 2.17.2</strong>.</li>
 </ul>
-<h3 id="fixed-27">Fixed</h3>
+<h3 id="fixed-28">Fixed</h3>
 <ul>
 <li><code>build_context.sh</code> output-path validation no longer short-circuits past the traversal/sensitive-path guards for <code>/tmp</code> outputs.</li>
 </ul>
 <h2 id="2171---2026-06-25">[2.17.1] - 2026-06-25</h2>
-<h3 id="fixed-28">Fixed</h3>
+<h3 id="fixed-29">Fixed</h3>
 <ul>
 <li><strong>Context files at absolute paths outside <code>/tmp</code> were silently dropped.</strong> <code>build_context.sh</code> only accepted relative paths or a literal <code>/tmp/*</code> prefix, so an absolute context file — notably macOS scratch files at <code>/private/tmp/...</code> (where <code>/tmp</code> is a symlink) — was skipped and a generic auto-context substituted, without the consultants ever receiving the intended context. Absolute paths are now accepted (the sensitive-path / traversal / null-byte guards still apply).</li>
 </ul>
 <h2 id="2170---2026-06-24">[2.17.0] - 2026-06-24</h2>
-<h3 id="changed-30">Changed</h3>
+<h3 id="changed-31">Changed</h3>
 <ul>
 <li><strong>Refreshed every consultant’s models (June 2026) across premium / standard / economy, with updated cost rates.</strong> CLI-based agents were verified against the installed CLIs; API/provider models and pricing were researched against official sources.
 <ul>
@@ -1389,24 +1405,24 @@ and this project adheres to <a href="https://semver.org/spec/v2.0.0.html">Semant
 <li><strong>Dynamic orchestration.</strong> Instead of a fixed pipeline, a planner now picks an orchestration <em>shape</em> for each question and runs debate as a <strong>convergence loop</strong> — iterating until the panel’s answers converge rather than for a fixed number of rounds. Shapes: <code>quick</code> (simple questions, no debate), <code>converge</code> (debate to consensus), <code>adversarial</code> (security: forced critique round + anonymous peer-review refutation gate), <code>tournament</code> (compare approaches, then pick one winner), <code>exhaustive</code> (find-all: loop until no new angle surfaces).</li>
 <li>New settings: <code>ORCHESTRATION_MODE</code> (<code>auto</code> default / <code>fixed</code> / a specific shape), <code>CONVERGENCE_MAX_ROUNDS</code>, <code>CONVERGENCE_TARGET_CONSENSUS</code>, <code>CONVERGENCE_STALL_EPSILON</code>, <code>ENABLE_ADVERSARIAL_VERIFY</code>.</li>
 </ul>
-<h3 id="changed-31">Changed</h3>
+<h3 id="changed-32">Changed</h3>
 <ul>
 <li>The default deliberation is now adaptive (<code>ORCHESTRATION_MODE=auto</code>): complex or contested questions iterate further toward consensus, simple ones short-circuit. Budget limits (<code>MAX_SESSION_COST</code>) still cap every round. Set <code>ORCHESTRATION_MODE=fixed</code> to keep the previous fixed-round behavior exactly.</li>
 </ul>
 <h2 id="2151---2026-06-22">[2.15.1] - 2026-06-22</h2>
-<h3 id="fixed-29">Fixed</h3>
+<h3 id="fixed-30">Fixed</h3>
 <ul>
 <li><strong>Gemini responses are no longer degraded.</strong> The default model (<code>Gemini 3.1 Pro (High)</code>) returns its JSON wrapped in a <code>```json</code> markdown fence, which v2.15.0 failed to parse — every Gemini reply collapsed to a generic “Unstructured response” with confidence 5 and empty pros/cons. Responses are now de-fenced and parsed correctly (bare-JSON models like Flash are unaffected). The fix covers all paths that consume Gemini output: the main response processor, self-reflection/refinement, and synthesis.</li>
 <li><strong>Synthesis no longer hangs when Gemini (agy) is the synthesizer.</strong> The agy CLI was invoked without its non-interactive flag, so it launched an interactive session instead of reading the prompt; it now runs in print mode like the other synthesizers.</li>
 <li><strong>Gemini now works out-of-the-box for <code>npx</code> users.</strong> The Gemini consultant defaulted to the agy (Antigravity) CLI, which can’t be installed via npm and needs interactive OAuth — so fresh <code>npx ai-consultants</code> runs silently dropped Gemini even when <code>GEMINI_API_KEY</code> was set. The transport is now auto-resolved: with <code>GEMINI_USE_API</code> unset, API mode is selected when a <code>GEMINI_API_KEY</code> is present, CLI mode otherwise. An explicit <code>GEMINI_USE_API=true/false</code> is still honored.</li>
 <li><code>doctor</code> no longer reports a missing agy CLI as a failure when Gemini runs in API mode, and now suggests setting <code>GEMINI_API_KEY</code> (no CLI install needed) when agy is missing in CLI mode.</li>
 </ul>
-<h3 id="changed-32">Changed</h3>
+<h3 id="changed-33">Changed</h3>
 <ul>
 <li>Just export <code>GEMINI_API_KEY</code> to use Gemini over the API — no need to also set <code>GEMINI_USE_API=true</code>.</li>
 </ul>
 <h2 id="2150---2026-06-19">[2.15.0] - 2026-06-19</h2>
-<h3 id="changed-33">Changed</h3>
+<h3 id="changed-34">Changed</h3>
 <ul>
 <li><strong>Gemini consultant now runs on the Antigravity CLI (<code>agy</code>)</strong> instead of the deprecated Gemini CLI. Google retired the Gemini CLI for individual/Pro/Ultra users on 2026-06-18. The consultant is still called “Gemini” (The Architect) — only the underlying CLI changed. Install: <code>curl -fsSL https://antigravity.google/cli/install.sh | bash</code>, then run <code>agy</code> once to sign in (OAuth).</li>
 <li>Default Gemini models are now agy display names: premium <code>Gemini 3.1 Pro (High)</code>, standard <code>Gemini 3.5 Flash (High)</code>, economy <code>Gemini 3.5 Flash (Low)</code>. Override with <code>GEMINI_MODEL</code>.</li>
@@ -1422,12 +1438,12 @@ and this project adheres to <a href="https://semver.org/spec/v2.0.0.html">Semant
 <li>Running ai-consultants <em>from</em> Gemini CLI as a slash-command host is affected by the same deprecation but is <strong>not</strong> migrated in this release — only the Gemini consultant (the model being queried) was changed.</li>
 </ul>
 <h2 id="2142---2026-05-29">[2.14.2] - 2026-05-29</h2>
-<h3 id="changed-34">Changed</h3>
+<h3 id="changed-35">Changed</h3>
 <ul>
 <li>Claude premium tier upgraded from <code>claude-opus-4-7</code> to <code>claude-opus-4-8</code> (Opus 4.8 release). The default <code>CLAUDE_MODEL</code> and the <code>max_quality</code>/<code>premium</code> tier now resolve to <code>claude-opus-4-8</code>. Standard (<code>claude-sonnet-4-6</code>) and economy (<code>claude-haiku-4-5</code>) tiers unchanged.</li>
 <li><code>docs/cost_rates.json</code>: added a <code>claude-opus-4-8</code> entry; repointed Claude premium fallback + tier to it; moved <code>claude-opus-4-7</code> to the legacy block for historical cost lookups.</li>
 </ul>
-<h3 id="fixed-30">Fixed</h3>
+<h3 id="fixed-31">Fixed</h3>
 <ul>
 <li><strong>Cost reporting was ~1000× too high for premium/standard models.</strong> <code>lib/costs.sh</code> treats every rate in <code>cost_rates.json</code> as USD <strong>per-1K tokens</strong>, but the premium/standard blocks held <strong>per-MTok</strong> figures (e.g. <code>claude-opus-4-7: 5.00</code>, <code>gpt-5.5: 3.00</code>), so a ~1k-token Opus query was reported as <strong>$30</strong> instead of <strong>$0.03</strong>. Normalized the entire catalog (premium/standard/legacy/<code>default_rate</code>) to per-1K; economy entries (incl. <code>claude-haiku-4-5</code>) were already correct and unchanged. Added a <code>_comment_units</code> note + a regression test to prevent recurrence. <strong>If you tuned <code>MAX_SESSION_COST</code> or cost-aware-routing thresholds against the old inflated numbers, revisit them.</strong></li>
 <li><code>docs/COST_RATES.md</code>: Claude rows synced to the corrected per-1K values and relabeled to <code>claude-opus-4-8</code> (non-Claude rows may still lag; <code>cost_rates.json</code> is the source of truth).</li>
@@ -1440,7 +1456,7 @@ and this project adheres to <a href="https://semver.org/spec/v2.0.0.html">Semant
 <li><code>scripts/install-hooks.sh</code> installer: idempotent, backs up any pre-existing hook to <code>.git/hooks/pre-commit.backup.&#x3C;timestamp></code> (or <code>FORCE=1</code> to skip backup). Silent no-op outside a git checkout (safe for npm tarball consumption).</li>
 <li><code>package.json</code> scripts: <code>npm run install-hooks</code> and <code>npm run lint</code> (full-repo shellcheck for ad-hoc verification).</li>
 </ul>
-<h3 id="fixed-31">Fixed</h3>
+<h3 id="fixed-32">Fixed</h3>
 <ul>
 <li>CI fail in v2.14.0 due to shellcheck SC2164 in <code>scripts/test_context_optimization.sh:18</code> (<code>cd "$PROJECT_ROOT"</code> without <code>|| exit</code>). Fixed pre-release in the same v2.14.0 cycle; the pre-commit hook prevents this class of issue locally going forward.</li>
 </ul>
@@ -1456,7 +1472,7 @@ and this project adheres to <a href="https://semver.org/spec/v2.0.0.html">Semant
 <li><strong>Test fixtures</strong>: <code>scripts/test_fixtures/context/{sample.py,sample.sh,sample.json,sample.txt}</code></li>
 <li><strong>Documentation</strong>: <code>docs/releases/v2.14.0.md</code> release note; <code>references/configuration.md</code> § Context Handoff section; <code>references/details.md</code> bash usage examples</li>
 </ul>
-<h3 id="changed-35">Changed</h3>
+<h3 id="changed-36">Changed</h3>
 <ul>
 <li>Slash commands <code>.{claude,codex,gemini}/commands/ai-consultants:{consult,debate}.md</code> rewritten: file detection delegated to agent reasoning (replaces hardcoded extension regex that missed <code>Makefile</code>/<code>Dockerfile</code>/dotfiles and false-matched URLs)</li>
 <li><code>.claude/commands/ai-consultants:consult.md</code> adds Claude-only note: don’t pass <code>Read</code> tool output (<code>N\t</code> line-number prefix) — <code>build_context.sh</code> reads files itself</li>
@@ -1469,7 +1485,7 @@ and this project adheres to <a href="https://semver.org/spec/v2.0.0.html">Semant
 <li><code>_supports_ast_extraction</code> declares 13 languages but <code>lib/code_optimizer.sh</code> has dedicated extractors for only 4 (Python, JS/TS, Bash, Go); the other 9 fall back to a <code>grep</code>-based generic extractor</li>
 </ul>
 <h2 id="2131---2026-05-04">[2.13.1] - 2026-05-04</h2>
-<h3 id="changed-36">Changed</h3>
+<h3 id="changed-37">Changed</h3>
 <ul>
 <li><strong>Perf</strong>: XDG roots resolved once at first <code>config.sh</code> source and exported as <code>_AI_CONSULTANTS_XDG_{CACHE,STATE,DATA}</code> — eliminates ~84 forks per consultation (~200-400ms on macOS)</li>
 <li><strong>Perf</strong>: <code>apply_launch_stagger()</code> switched from <code>awk</code> to pure-bash <code>printf</code> — 14 forks eliminated (~50-70ms)</li>
@@ -1478,7 +1494,7 @@ and this project adheres to <a href="https://semver.org/spec/v2.0.0.html">Semant
 <li><strong>CI</strong>: <code>scripts/test_all.sh</code> now includes <code>test_suite.sh</code> (258 library assertions). Total: 6 suites, ~493 assertions</li>
 <li><strong>Style</strong>: 37 → 0 shellcheck warnings under project exclusions</li>
 </ul>
-<h3 id="fixed-32">Fixed</h3>
+<h3 id="fixed-33">Fixed</h3>
 <ul>
 <li><strong>Latent</strong>: 5 <code>lib/*.sh</code> files had hardcoded <code>/tmp/...</code> defaults that drifted from v2.13 XDG migration; now reference <code>${_AI_CONSULTANTS_XDG_*}</code></li>
 <li><strong>Latent</strong>: <code>lib/session.sh::cleanup_old_sessions</code> no longer hardcodes <code>/tmp/ai_consultations</code> — uses <code>$DEFAULT_OUTPUT_DIR_BASE</code></li>
@@ -1492,7 +1508,7 @@ and this project adheres to <a href="https://semver.org/spec/v2.0.0.html">Semant
 <li><strong><code>scripts/test_doctor.sh</code></strong> with 31 assertions covering <code>--suggest-preset</code> paths</li>
 <li><strong><code>lib/user_config.sh::get_xdg_dir()</code></strong> helper as single source of truth for XDG resolution</li>
 </ul>
-<h3 id="changed-37">Changed</h3>
+<h3 id="changed-38">Changed</h3>
 <ul>
 <li><strong>XDG Base Directory compliance</strong> per freedesktop.org spec:
 <ul>
@@ -1506,7 +1522,7 @@ and this project adheres to <a href="https://semver.org/spec/v2.0.0.html">Semant
 <li>README slimmed: env-var section now points to <code>references/configuration.md</code></li>
 <li>Classifier failures surface explicitly as <code>Warning: classification of your question failed</code> instead of silent degradation to <code>GENERAL</code></li>
 </ul>
-<h3 id="fixed-33">Fixed</h3>
+<h3 id="fixed-34">Fixed</h3>
 <ul>
 <li><code>_count_available_consultants()</code> self-exclusion was dead code due to UPPERCASE vs MixedCase mismatch — now uppercases entry names; <code>INVOKING_AGENT</code> correctly drops 1</li>
 <li><code>_count_available_consultants()</code> now respects <code>ENABLE_*</code> flags</li>
@@ -1524,7 +1540,7 @@ and this project adheres to <a href="https://semver.org/spec/v2.0.0.html">Semant
 <li><code>doctor.sh::check_user_config()</code> reports dir presence, files loaded, and warns on lax <code>.env</code> permissions</li>
 <li><code>scripts/test_user_config.sh</code> (20 assertions, 11 tests) and <code>scripts/test_bin.sh</code> (10 assertions, 8 tests)</li>
 </ul>
-<h3 id="fixed-34">Fixed</h3>
+<h3 id="fixed-35">Fixed</h3>
 <ul>
 <li><code>.env</code> parser <strong>strips trailing CR</strong> so Windows CR-LF line endings don’t corrupt values</li>
 <li><code>bin/ai-consultants</code> no longer hardcodes version (was stuck at 2.10.0); reads from <code>config.sh</code> and validates as semver; falls back to <code>vunknown</code> on parse failure</li>
@@ -1532,7 +1548,7 @@ and this project adheres to <a href="https://semver.org/spec/v2.0.0.html">Semant
 <li><code>init</code> refuses to scaffold into symlinked dirs (security: prevents hostile symlink follow)</li>
 </ul>
 <h2 id="2110---2026-05-03">[2.11.0] - 2026-05-03</h2>
-<h3 id="changed-38">Changed</h3>
+<h3 id="changed-39">Changed</h3>
 <ul>
 <li><strong>Externalized routing affinity matrix</strong> from nested <code>case</code> statements in <code>lib/routing.sh</code> to <code>references/affinity.json</code> (~190 lines bash → 60 lines JSON)</li>
 <li>Custom matrix via <code>AFFINITY_FILE=/path/to/custom.json</code></li>
@@ -1545,14 +1561,14 @@ and this project adheres to <a href="https://semver.org/spec/v2.0.0.html">Semant
 <li><code>scripts/test_routing_parity.sh</code> golden parity test (144 assertions: 9 categories × 14 consultants + edge cases)</li>
 <li><code>scripts/test_set_e_safety.sh</code> static + dynamic lint for <code>((var++))</code> and <code>let var++</code> abort patterns</li>
 </ul>
-<h3 id="fixed-35">Fixed</h3>
+<h3 id="fixed-36">Fixed</h3>
 <ul>
 <li>Cache key uses leading-space delimiter to prevent substring collisions (e.g. <code>DEBUG|X=</code> would have falsely matched a cached <code>BUG_DEBUG|X=10</code>)</li>
 <li><code>consult_all.sh</code> ENABLE_PREFLIGHT path no longer swallows doctor output — diagnostic captured to tmpfile and dumped on failure</li>
 <li>Cleaned <code>((attempt++)) || true || true</code> artifacts in <code>lib/api.sh</code></li>
 </ul>
 <h2 id="2109---2026-05-03">[2.10.9] - 2026-05-03</h2>
-<h3 id="fixed-36">Fixed</h3>
+<h3 id="fixed-37">Fixed</h3>
 <ul>
 <li><strong>CRITICAL</strong>: silent failure of <code>preflight_check.sh</code> under <code>set -euo pipefail</code> — helper functions returned non-zero on missing CLIs without <code>|| true</code>, script aborted after “Checking CLI installations…” with no diagnostic</li>
 <li>Defensive sweep: 15 latent <code>((var++))</code> increments across <code>peer_review.sh</code>, <code>setup_wizard.sh</code>, <code>lib/api.sh</code>, <code>lib/common.sh</code>, <code>lib/reflection.sh</code>, <code>doctor.sh</code> protected with <code>|| true</code></li>
@@ -1563,13 +1579,13 @@ and this project adheres to <a href="https://semver.org/spec/v2.0.0.html">Semant
 <ul>
 <li><code>preflight_check.sh</code> deprecated in favor of <code>doctor.sh</code> (stale v2.0 script covering only 6/15 consultants); now a thin wrapper that prints a warning and execs <code>doctor.sh</code></li>
 </ul>
-<h3 id="changed-39">Changed</h3>
+<h3 id="changed-40">Changed</h3>
 <ul>
 <li>Ported <code>--suggest-config</code> from <code>preflight_check.sh</code> to <code>doctor.sh</code>; coverage expanded from 6 to 15 consultants (now also detects API-only consultants via API key presence)</li>
 <li><code>doctor.sh</code> accepts <code>--quick</code> flag as no-op for backward compat</li>
 </ul>
 <h2 id="2108---2026-05-03">[2.10.8] - 2026-05-03</h2>
-<h3 id="fixed-37">Fixed</h3>
+<h3 id="fixed-38">Fixed</h3>
 <ul>
 <li><code>docs/cost_rates.json</code> drift introduced by v2.10.6: <code>consultant_fallbacks</code> (used at runtime by <code>lib/costs.sh</code>) and <code>model_tiers</code> were still pointing at old IDs (<code>opus-4.6</code>, <code>gpt-5.3-codex</code>, <code>composer-1.5</code>, <code>deepseek-reasoner</code>, <code>sonnet-4.6</code>, <code>haiku-4.5</code>)</li>
 </ul>
@@ -1578,13 +1594,13 @@ and this project adheres to <a href="https://semver.org/spec/v2.0.0.html">Semant
 <li>Price entries for v2.10.6 model IDs: <code>claude-opus-4-7</code>, <code>claude-sonnet-4-6</code>, <code>claude-haiku-4-5</code>, <code>gpt-5.5</code>, <code>composer-2</code>, <code>deepseek-v4-pro</code>, <code>nvidia/nemotron-3-super-120b-a12b:free</code></li>
 <li>Moved superseded IDs to legacy section in cost catalog</li>
 </ul>
-<h3 id="changed-40">Changed</h3>
+<h3 id="changed-41">Changed</h3>
 <ul>
 <li>Synced <code>COST_RATES.md</code> tables to match</li>
 <li>Pricing for <code>nvidia/nemotron-3-super-120b-a12b:free</code> set to $0/$0 (OpenRouter free tier)</li>
 </ul>
 <h2 id="2107---2026-05-02">[2.10.7] - 2026-05-02</h2>
-<h3 id="changed-41">Changed</h3>
+<h3 id="changed-42">Changed</h3>
 <ul>
 <li><strong>Grok premium upgraded</strong> from <code>grok-4.20-0309-reasoning</code> to <code>grok-4.3</code> (released 2026-04-30)</li>
 <li>~75% cheaper input ($1.25/M vs $5.00/M), ~83% cheaper output ($2.50/M vs $15.00/M)</li>
@@ -1593,7 +1609,7 @@ and this project adheres to <a href="https://semver.org/spec/v2.0.0.html">Semant
 <li>Standard (<code>grok-3</code>) and economy (<code>grok-3-mini</code>) tiers unchanged</li>
 </ul>
 <h2 id="2106---2026-05-02">[2.10.6] - 2026-05-02</h2>
-<h3 id="changed-42">Changed</h3>
+<h3 id="changed-43">Changed</h3>
 <ul>
 <li><strong>Codex premium</strong> upgraded from <code>gpt-5.3-codex</code> to <code>gpt-5.5</code></li>
 <li><strong>Cursor premium</strong> upgraded from <code>composer-1.5</code> to <code>composer-2</code></li>
@@ -1601,37 +1617,37 @@ and this project adheres to <a href="https://semver.org/spec/v2.0.0.html">Semant
 <li><strong>Aider</strong> switched provider: <code>gpt-5.3-codex</code> → <code>nvidia/nemotron-3-super-120b-a12b:free</code> (free tier)</li>
 <li><strong>Claude model IDs</strong> migrated from short aliases to canonical: <code>opus-4.6</code> → <code>claude-opus-4-7</code>, <code>sonnet-4.6</code> → <code>claude-sonnet-4-6</code>, <code>haiku-4.5</code> → <code>claude-haiku-4-5</code></li>
 </ul>
-<h3 id="fixed-38">Fixed</h3>
+<h3 id="fixed-39">Fixed</h3>
 <ul>
 <li>Kilo SIGPIPE abort under <code>set -euo pipefail</code> (replaced <code>head -c</code> with parameter expansion)</li>
 </ul>
 <h2 id="2105---2026-04-16">[2.10.5] - 2026-04-16</h2>
-<h3 id="changed-43">Changed</h3>
+<h3 id="changed-44">Changed</h3>
 <ul>
 <li><strong>Qwen3 premium</strong> upgraded from <code>qwen3.5-plus</code> to <code>qwen3.6-plus</code> ($0.325/$1.95 per M tokens)</li>
 <li><strong>Qwen3 standard</strong> tier now uses open-weight <code>qwen3.6-35b-a3b</code> (MoE, 35B total / 3B active)</li>
 <li>Refactored <code>get_economic_model()</code> to delegate to <code>get_model_for_tier()</code>, eliminating stale hardcoded mappings</li>
 <li>Moved <code>qwen3.5-plus</code> to legacy section in cost catalog</li>
 </ul>
-<h3 id="fixed-39">Fixed</h3>
+<h3 id="fixed-40">Fixed</h3>
 <ul>
 <li><code>AI_CONSULTANTS_VERSION</code> in <code>config.sh</code> (was stuck at <code>2.10.0</code>)</li>
 </ul>
 <h2 id="2104---2026-04-10">[2.10.4] - 2026-04-10</h2>
-<h3 id="changed-44">Changed</h3>
+<h3 id="changed-45">Changed</h3>
 <ul>
 <li><strong>GLM premium/standard</strong> upgraded from <code>glm-5</code> to <code>glm-5.1</code></li>
 <li>Collapsed 5-stage ANSI stripping pipeline into single sed invocation in <code>query_kilo.sh</code></li>
 <li>Updated <code>.env.example</code> GLM signup URL to <code>open.z.ai</code></li>
 </ul>
-<h3 id="fixed-40">Fixed</h3>
+<h3 id="fixed-41">Fixed</h3>
 <ul>
 <li>Kilo CLI hanging indefinitely in non-TTY mode (query via stdin instead of CLI argument)</li>
 <li>Kilo CLI picking wrong provider when other consultants’ API keys were in the environment</li>
 <li>Overly aggressive markdown fence filter in <code>query_kilo.sh</code> (only strips standalone ``` lines now)</li>
 </ul>
 <h2 id="2103---2026-03-21">[2.10.3] - 2026-03-21</h2>
-<h3 id="changed-45">Changed</h3>
+<h3 id="changed-46">Changed</h3>
 <ul>
 <li><strong>Grok premium</strong> upgraded to <code>grok-4.20-0309-reasoning</code> (replaces <code>grok-4-1-fast-reasoning</code>)</li>
 <li><strong>GLM API endpoint</strong> migrated from <code>open.bigmodel.cn</code> to <code>api.z.ai/api/coding/paas/v4</code></li>
@@ -1641,18 +1657,18 @@ and this project adheres to <a href="https://semver.org/spec/v2.0.0.html">Semant
 <li>Non-functional MiniMax highspeed models (<code>MiniMax-M2.7-highspeed</code>, <code>MiniMax-M2.5-highspeed</code>)</li>
 <li>Legacy <code>grok-beta</code> from cost catalog</li>
 </ul>
-<h3 id="fixed-41">Fixed</h3>
+<h3 id="fixed-42">Fixed</h3>
 <ul>
 <li>GLM URL fallback in <code>common.sh</code> and <code>configure.sh</code> (were still using old endpoint)</li>
 <li>Duplicate <code>minimax-m2.5</code> entry with conflicting rates in <code>cost_rates.json</code></li>
 </ul>
 <h2 id="2102---2026-03-19">[2.10.2] - 2026-03-19</h2>
-<h3 id="changed-46">Changed</h3>
+<h3 id="changed-47">Changed</h3>
 <ul>
 <li><strong>MiniMax M2.7 upgrade</strong>: premium/standard now use <code>MiniMax-M2.7</code>, economy uses <code>MiniMax-M2.5</code></li>
 </ul>
 <h2 id="2101---2026-03-15">[2.10.1] - 2026-03-15</h2>
-<h3 id="changed-47">Changed</h3>
+<h3 id="changed-48">Changed</h3>
 <ul>
 <li>Slash command quality improvements: file context handling, result presentation templates, error recovery guidance</li>
 <li><code>debate_round.sh</code> hardening: Amp/Kimi/MiniMax case entries, <code>((count++)) || true</code> fixes, <code>*</code> default case, stderr to <code>.err</code> files, ROUND_NUMBER validation</li>
@@ -1669,13 +1685,13 @@ and this project adheres to <a href="https://semver.org/spec/v2.0.0.html">Semant
 <li>New environment variables: <code>ENABLE_MINIMAX</code>, <code>MINIMAX_API_KEY</code>, <code>MINIMAX_MODEL</code>, <code>MINIMAX_API_URL</code></li>
 <li>Model tiers: premium (<code>MiniMax-M2.5</code>), standard (<code>MiniMax-M2.1</code>), economy (<code>MiniMax-M2.5</code>)</li>
 </ul>
-<h3 id="changed-48">Changed</h3>
+<h3 id="changed-49">Changed</h3>
 <ul>
 <li>Consultant count: 14 → 15</li>
 <li>npm package metadata updated (zero runtime dependencies preserved)</li>
 </ul>
 <h2 id="291---2026-02-05">[2.9.1] - 2026-02-05</h2>
-<h3 id="fixed-42">Fixed</h3>
+<h3 id="fixed-43">Fixed</h3>
 <ul>
 <li><strong>Gemini model names</strong>: Updated to real API model names
 <ul>
@@ -1699,7 +1715,7 @@ and this project adheres to <a href="https://semver.org/spec/v2.0.0.html">Semant
 </ul>
 </li>
 </ul>
-<h3 id="changed-49">Changed</h3>
+<h3 id="changed-50">Changed</h3>
 <ul>
 <li>Updated <code>scripts/config.sh</code> with Kimi configuration</li>
 <li>Updated <code>scripts/lib/personas.sh</code> with PERSONA_KIMI (ID 20)</li>
@@ -1710,7 +1726,7 @@ and this project adheres to <a href="https://semver.org/spec/v2.0.0.html">Semant
 <li>Consultant count: 13 → 14</li>
 </ul>
 <h2 id="281---2026-01-30">[2.8.1] - 2026-01-30</h2>
-<h3 id="fixed-43">Fixed</h3>
+<h3 id="fixed-44">Fixed</h3>
 <ul>
 <li><strong>CRITICAL</strong>: <code>((count++))</code> abort under <code>set -e</code> in consult_all.sh (SUCCESS_COUNT, ESCALATED_COUNT) and routing.sh</li>
 <li><strong>HIGH</strong>: Missing integer validation for jq confidence values in escalation</li>
@@ -1721,7 +1737,7 @@ and this project adheres to <a href="https://semver.org/spec/v2.0.0.html">Semant
 <ul>
 <li>Variable name validation before <code>export</code> in escalation and cost-aware routing blocks</li>
 </ul>
-<h3 id="changed-50">Changed</h3>
+<h3 id="changed-51">Changed</h3>
 <ul>
 <li>Rewrote <code>query_kilo.sh</code> using <code>process_consultant_response()</code> (224 to 94 lines)</li>
 <li>Rewrote <code>query_cursor.sh</code> using <code>process_consultant_response()</code> (165 to 72 lines)</li>
@@ -1743,7 +1759,7 @@ and this project adheres to <a href="https://semver.org/spec/v2.0.0.html">Semant
 </ul>
 </li>
 </ul>
-<h3 id="changed-51">Changed</h3>
+<h3 id="changed-52">Changed</h3>
 <ul>
 <li>Updated <code>scripts/config.sh</code> with Amp configuration</li>
 <li>Updated <code>scripts/lib/personas.sh</code> with PERSONA_AMP (ID 19)</li>
@@ -1763,7 +1779,7 @@ and this project adheres to <a href="https://semver.org/spec/v2.0.0.html">Semant
 </ul>
 </li>
 </ul>
-<h3 id="changed-52">Changed</h3>
+<h3 id="changed-53">Changed</h3>
 <ul>
 <li>Rewrote <code>scripts/query_qwen3.sh</code> with CLI/API mode branching</li>
 <li>Moved Qwen3 from <code>API_CONSULTANTS</code> to <code>CLI_CONSULTANTS</code> array</li>
@@ -1799,7 +1815,7 @@ and this project adheres to <a href="https://semver.org/spec/v2.0.0.html">Semant
 </ul>
 </li>
 </ul>
-<h3 id="changed-53">Changed</h3>
+<h3 id="changed-54">Changed</h3>
 <ul>
 <li>Rewrote <code>scripts/query_gemini.sh</code> with CLI/API branching</li>
 <li>Rewrote <code>scripts/query_codex.sh</code> with CLI/API branching</li>
@@ -1831,7 +1847,7 @@ and this project adheres to <a href="https://semver.org/spec/v2.0.0.html">Semant
 <p><strong>New function</strong>: <code>apply_model_tier()</code> for programmatic tier selection</p>
 </li>
 </ul>
-<h3 id="changed-54">Changed</h3>
+<h3 id="changed-55">Changed</h3>
 <ul>
 <li>
 <p><strong>Premium Model Defaults</strong> (January 2026):</p>
@@ -1884,7 +1900,7 @@ and this project adheres to <a href="https://semver.org/spec/v2.0.0.html">Semant
 <p><strong>New slash command</strong>: <code>/ai-consultants:config-budget</code></p>
 </li>
 </ul>
-<h3 id="changed-55">Changed</h3>
+<h3 id="changed-56">Changed</h3>
 <ul>
 <li>Updated <code>scripts/doctor.sh</code> to display budget status</li>
 <li>Updated <code>scripts/consult_all.sh</code> with budget enforcement points</li>
@@ -1954,7 +1970,7 @@ and this project adheres to <a href="https://semver.org/spec/v2.0.0.html">Semant
 </ul>
 </li>
 </ul>
-<h3 id="changed-56">Changed</h3>
+<h3 id="changed-57">Changed</h3>
 <ul>
 <li><code>scripts/config.sh</code> - Added v2.3 token optimization settings, version 2.3.0</li>
 <li><code>scripts/lib/costs.sh</code> - Added response limits and complexity scoring</li>
@@ -2074,7 +2090,7 @@ and this project adheres to <a href="https://semver.org/spec/v2.0.0.html">Semant
 <li><code>scripts/peer_review.sh</code> - Anonymous peer review system</li>
 <li><code>scripts/query_ollama.sh</code> - Ollama local model wrapper</li>
 </ul>
-<h3 id="changed-57">Changed</h3>
+<h3 id="changed-58">Changed</h3>
 <ul>
 <li><code>scripts/config.sh</code> - Added presets, Ollama config, panic mode settings</li>
 <li><code>scripts/consult_all.sh</code> - Added <code>--preset</code>, <code>--strategy</code>, <code>--help</code> flags</li>
@@ -2099,7 +2115,7 @@ and this project adheres to <a href="https://semver.org/spec/v2.0.0.html">Semant
 <li>Added 2 new personas (17 total)</li>
 <li>Token optimization with AST-based extraction (~60% savings)</li>
 </ul>
-<h3 id="changed-58">Changed</h3>
+<h3 id="changed-59">Changed</h3>
 <ul>
 <li>Simplified <code>consult_all.sh</code> with convention-based script discovery</li>
 <li>Updated routing affinities for all 10 consultants</li>
@@ -2193,7 +2209,7 @@ and this project adheres to <a href="https://semver.org/spec/v2.0.0.html">Semant
 <li><code>docs/SMART_ROUTING.md</code> - Routing documentation</li>
 <li><code>docs/JSON_SCHEMA.md</code> - Output schema documentation</li>
 </ul>
-<h3 id="changed-59">Changed</h3>
+<h3 id="changed-60">Changed</h3>
 <ul>
 <li><strong>Output Format</strong>: Structured JSON with defined schema</li>
 <li><strong>Report Template</strong>: Updated for v2.0 with synthesis and debate</li>
@@ -2224,4 +2240,4 @@ and this project adheres to <a href="https://semver.org/spec/v2.0.0.html">Semant
 <li><code>Removed</code> for now removed features</li>
 <li><code>Fixed</code> for bug fixes</li>
 <li><code>Security</code> for vulnerabilities</li>
-</ul></article><p><a href="/docs/snapshot.json">Snapshot provenance</a> · Published npm version: 5.9.0</p></main></body></html>
+</ul></article><p><a href="/docs/snapshot.json">Snapshot provenance</a> · Published npm version: 5.10.0</p></main></body></html>
