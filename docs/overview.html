@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Project overview — ai-consultants</title>
     <meta name="description" content="Released model documentation for Qwen4 Max, measured with Artificial Analysis v5.0.1.">
-    <meta name="theme-color" content="#000000">
+    <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
+    <meta name="theme-color" content="#f8f8f6" media="(prefers-color-scheme: light)">
 
     <!-- SEO -->
     <link rel="canonical" href="https://aiconsultants.sh/docs/overview.html">
@@ -53,19 +54,6 @@
         *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
         :root {
-            color-scheme: dark;
-            --bg: #000000;
-            --bg-elevated: #181818;
-            --bg-card: #1F1F1F;
-            --border: #1F1F1F;
-            --border-light: #272727;
-            --border-strong: #313131;
-            --border-bright: #e6e6e6;
-            --text: #f0f0f0;
-            --text-body: #c8c8c8;
-            --text-secondary: #b0b0b0;
-            --text-muted: #9a9a9a;      /* about 7:1 on --bg */
-            --accent: #e9b250;          /* one meaning only: raised by only one model */
             --font-body: 'Geist', system-ui, -apple-system, sans-serif;
             --font-mono: 'Geist Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
             --gutter: 24px;
@@ -138,9 +126,7 @@
         /* The blurred surface lives on a pseudo element, so the fixed mobile panel is not trapped by backdrop-filter */
         .nav-inner::before {
             content: ""; position: absolute; inset: 0; z-index: -1;
-            background: rgba(0, 0, 0, 0.72);
-            -webkit-backdrop-filter: blur(12px);
-            backdrop-filter: blur(12px);
+            background: var(--bg);
             border: 1px solid var(--border-light);
         }
 
@@ -246,9 +232,6 @@
             font-size: 36px; line-height: 40px;
             font-weight: 600; letter-spacing: -0.03em;
             color: var(--text);
-            background: linear-gradient(90deg, #FFFFFF, #9B9B9B);
-            -webkit-background-clip: text; background-clip: text;
-            -webkit-text-fill-color: transparent;
             max-width: 680px;
             margin-bottom: 24px;
         }
@@ -264,7 +247,7 @@
         .cmd-hero {
             background: var(--bg);
             border-color: var(--border-bright);
-            color: #fff;
+            color: var(--text);
         }
         .cmd-hero .copy {
             font-size: 14px; line-height: 20px;
@@ -272,7 +255,7 @@
             background: var(--text); color: var(--bg);
             border-color: var(--text);
         }
-        .cmd-hero .copy:hover { background: #fff; border-color: #fff; }
+        .cmd-hero .copy:hover { background: var(--text-body); border-color: var(--text-body); }
 
         .card-video { display: block; width: 100%; height: auto; background: var(--bg); border-bottom: 1px solid var(--border); }
         .cmd-hero + .cmd-hero { margin-top: 8px; }
@@ -372,8 +355,8 @@
         .diagram text { font-family: var(--font-mono); font-size: 14px; fill: var(--text-body); transition: fill 0.3s var(--ease); }
         .diagram text.strong, .diagram .lit text { fill: var(--text); }
         .diagram text.dim { fill: var(--text-muted); }
-        .diagram .pulse { fill: #fff; opacity: 0; }
-        .diagram .halo { fill: #fff; opacity: 0; }
+        .diagram .pulse { fill: var(--text); opacity: 0; }
+        .diagram .halo { fill: var(--text); opacity: 0; }
 
         .steps { list-style: none; display: grid; gap: 32px; }
         .step { display: grid; grid-template-columns: 48px minmax(0, 1fr); gap: 16px; }
@@ -692,7 +675,8 @@
             *, *::before, *::after { transition: none !important; }
         }
     </style>
-<style>.preview{padding-top:48px;padding-bottom:80px;max-width:960px}.preview nav{margin:24px 0;line-height:2}.preview article{line-height:1.7;overflow-wrap:anywhere}.preview h1{font-size:2.5rem;line-height:1.2}.preview h2,.preview h3{margin:36px 0 14px}.preview p,.preview ul,.preview ol,.preview blockquote{margin:16px 0}.preview ul,.preview ol{padding-left:24px}.preview pre{overflow:auto;padding:16px;border:1px solid var(--border);margin:16px 0;white-space:pre}.preview table{border-collapse:collapse;min-width:600px;font-size:14px}.preview th,.preview td{padding:10px;text-align:left;border-bottom:1px solid var(--border)}.preview .table-scroll{overflow-x:auto}.preview blockquote{border-left:2px solid var(--text-muted);padding-left:16px}.preview a{text-decoration:underline}.preview code{font-size:.9em}.preview pre code{font-size:13px}</style></head><body><a class="skip-link" href="#main">Skip to content</a><main id="main" class="container preview"><a href="/">← ai-consultants</a><nav aria-label="Documentation"><a href="/docs/">Models and benchmarks</a> · <a href="/docs/overview.html" aria-current="page">Project overview</a> · <a href="/docs/setup.html">Setup</a> · <a href="/docs/configuration.html">Configuration</a> · <a href="/docs/routing.html">Smart routing</a> · <a href="/docs/recipes.html">Qwen4 setup</a> · <a href="/docs/changelog.html">Changelog</a></nav><article><p>Documentation for <a href="https://github.com/reasance/ai-consultants/releases/tag/v5.10.0">v5.10.0</a>. Benchmark snapshot: November 16, 2026, Artificial Analysis Intelligence Index v5.0.1.</p>
+<style>.preview{padding-top:48px;padding-bottom:80px;max-width:960px}.preview nav{margin:24px 0;line-height:2}.preview article{line-height:1.7;overflow-wrap:anywhere}.preview h1{font-size:2.5rem;line-height:1.2}.preview h2,.preview h3{margin:36px 0 14px}.preview p,.preview ul,.preview ol,.preview blockquote{margin:16px 0}.preview ul,.preview ol{padding-left:24px}.preview pre{overflow:auto;padding:16px;border:1px solid var(--border);margin:16px 0;white-space:pre}.preview table{border-collapse:collapse;min-width:600px;font-size:14px}.preview th,.preview td{padding:10px;text-align:left;border-bottom:1px solid var(--border)}.preview .table-scroll{overflow-x:auto}.preview blockquote{border-left:2px solid var(--text-muted);padding-left:16px}.preview a{text-decoration:underline}.preview code{font-size:.9em}.preview pre code{font-size:13px}</style>    <link rel="stylesheet" href="/site-tokens.css">
+</head><body><a class="skip-link" href="#main">Skip to content</a><main id="main" class="container preview"><a href="/">← ai-consultants</a><nav aria-label="Documentation"><a href="/docs/">Models and benchmarks</a> · <a href="/docs/overview.html" aria-current="page">Project overview</a> · <a href="/docs/setup.html">Setup</a> · <a href="/docs/configuration.html">Configuration</a> · <a href="/docs/routing.html">Smart routing</a> · <a href="/docs/recipes.html">Qwen4 setup</a> · <a href="/docs/changelog.html">Changelog</a></nav><article><p>Documentation for <a href="https://github.com/reasance/ai-consultants/releases/tag/v5.10.0">v5.10.0</a>. Benchmark snapshot: November 16, 2026, Artificial Analysis Intelligence Index v5.0.1.</p>
 <h1 id="ai-consultants-v5100">AI Consultants v5.10.0</h1>
 <blockquote>
 <p><strong>Coverage, not a single guess.</strong> A panel of up to 11 frontier models from different vendors fans out on your question in parallel and hands you the <em>union</em> of what they collectively see — the risks, edge cases, and approaches a single model misses.</p>
@@ -803,7 +787,7 @@ npx ai-consultants@latest "question"
 
 
 
-<div class="table-scroll"><table><thead><tr><th>Dependency</th><th>Purpose</th></tr></thead><tbody><tr><td><strong>jq</strong></td><td>JSON processing</td></tr><tr><td><strong>curl</strong></td><td>HTTP requests and connectivity</td></tr><tr><td><strong>Bash 3.2+</strong></td><td>Script execution (the stock macOS <code>/bin/bash</code> 3.2 is supported)</td></tr><tr><td><strong>bc</strong></td><td>Cost arithmetic</td></tr></tbody></table></div>
+<div class="table-scroll" tabindex="0" role="region" aria-label="Table 1: Dependency"><table><thead><tr><th>Dependency</th><th>Purpose</th></tr></thead><tbody><tr><td><strong>jq</strong></td><td>JSON processing</td></tr><tr><td><strong>curl</strong></td><td>HTTP requests and connectivity</td></tr><tr><td><strong>Bash 3.2+</strong></td><td>Script execution (the stock macOS <code>/bin/bash</code> 3.2 is supported)</td></tr><tr><td><strong>bc</strong></td><td>Cost arithmetic</td></tr></tbody></table></div>
 <h3 id="installation-by-platform">Installation by Platform</h3>
 <h4 id="macos">macOS</h4>
 <pre><code class="language-bash"># Install Homebrew if not already installed
@@ -870,7 +854,7 @@ sudo apt-get install -y jq curl bash bc
 
 
 
-<div class="table-scroll"><table><thead><tr><th>Dependency</th><th>Required for</th></tr></thead><tbody><tr><td><strong>Node.js 18+</strong></td><td>Codex CLI, Qwen CLI, MiniMax CLI</td></tr><tr><td><strong>Python 3.8+</strong></td><td>Mistral Vibe CLI</td></tr></tbody></table></div>
+<div class="table-scroll" tabindex="0" role="region" aria-label="Table 2: Dependency"><table><thead><tr><th>Dependency</th><th>Required for</th></tr></thead><tbody><tr><td><strong>Node.js 18+</strong></td><td>Codex CLI, Qwen CLI, MiniMax CLI</td></tr><tr><td><strong>Python 3.8+</strong></td><td>Mistral Vibe CLI</td></tr></tbody></table></div>
 <pre><code class="language-bash"># macOS
 brew install node python
 
@@ -912,7 +896,7 @@ node --version &#x26;&#x26; python3 --version
 
 
 
-<div class="table-scroll"><table><thead><tr><th>Command</th><th>Description</th></tr></thead><tbody><tr><td><code>/ai-consultants:consult</code></td><td>Main consultation - ask AI consultants a coding question</td></tr><tr><td><code>/ai-consultants:help</code></td><td>Show all commands and usage</td></tr></tbody></table></div>
+<div class="table-scroll" tabindex="0" role="region" aria-label="Table 3: Command"><table><thead><tr><th>Command</th><th>Description</th></tr></thead><tbody><tr><td><code>/ai-consultants:consult</code></td><td>Main consultation - ask AI consultants a coding question</td></tr><tr><td><code>/ai-consultants:help</code></td><td>Show all commands and usage</td></tr></tbody></table></div>
 <p>Configuration (presets, strategies, features, personas, API keys) can be managed via natural language — just ask.</p>
 <p><strong>Self-Exclusion:</strong> Claude consultant is automatically excluded when invoked from Claude Code.
 The command also prevents Claude from being selected as the synthesis provider;
@@ -1104,7 +1088,7 @@ INVOKING_AGENT=codex ./scripts/consult_all.sh "Question"    # Codex excluded
 
 
 
-<div class="table-scroll"><table><thead><tr><th>Consultant</th><th>CLI</th><th>Persona</th><th>Focus</th></tr></thead><tbody><tr><td><strong>Google Gemini</strong></td><td><code>agy</code></td><td>The Architect</td><td>Design patterns, scalability, enterprise</td></tr><tr><td><strong>OpenAI Codex</strong></td><td><code>codex</code></td><td>The Pragmatist</td><td>Simplicity, quick wins, proven solutions</td></tr><tr><td><strong>Mistral Vibe</strong></td><td><code>vibe</code></td><td>The Devil’s Advocate</td><td>Problems, edge cases, vulnerabilities</td></tr><tr><td><strong>Kimi K3.1 Pro</strong></td><td><code>kimi</code></td><td>The Eastern Sage</td><td>Holistic, balanced perspectives</td></tr><tr><td><strong>Claude</strong></td><td><code>claude</code></td><td>The Synthesizer</td><td>Big picture, synthesis, connecting ideas</td></tr><tr><td><strong>Qwen3</strong></td><td><code>qwen</code></td><td>The Analyst</td><td>Data-driven analysis</td></tr><tr><td><strong>Grok</strong></td><td><code>grok</code></td><td>The Provocateur</td><td>Challenge conventions</td></tr><tr><td><strong>MiniMax</strong></td><td><code>mmx</code></td><td>The Pragmatic Optimizer</td><td>Performance, efficiency, pragmatism</td></tr><tr><td><strong>Meta Muse</strong></td><td><code>muse</code></td><td>The Systems Thinker</td><td>System design, interactions, cascading effects</td></tr></tbody></table></div>
+<div class="table-scroll" tabindex="0" role="region" aria-label="Table 4: Consultant"><table><thead><tr><th>Consultant</th><th>CLI</th><th>Persona</th><th>Focus</th></tr></thead><tbody><tr><td><strong>Google Gemini</strong></td><td><code>agy</code></td><td>The Architect</td><td>Design patterns, scalability, enterprise</td></tr><tr><td><strong>OpenAI Codex</strong></td><td><code>codex</code></td><td>The Pragmatist</td><td>Simplicity, quick wins, proven solutions</td></tr><tr><td><strong>Mistral Vibe</strong></td><td><code>vibe</code></td><td>The Devil’s Advocate</td><td>Problems, edge cases, vulnerabilities</td></tr><tr><td><strong>Kimi K3.1 Pro</strong></td><td><code>kimi</code></td><td>The Eastern Sage</td><td>Holistic, balanced perspectives</td></tr><tr><td><strong>Claude</strong></td><td><code>claude</code></td><td>The Synthesizer</td><td>Big picture, synthesis, connecting ideas</td></tr><tr><td><strong>Qwen3</strong></td><td><code>qwen</code></td><td>The Analyst</td><td>Data-driven analysis</td></tr><tr><td><strong>Grok</strong></td><td><code>grok</code></td><td>The Provocateur</td><td>Challenge conventions</td></tr><tr><td><strong>MiniMax</strong></td><td><code>mmx</code></td><td>The Pragmatic Optimizer</td><td>Performance, efficiency, pragmatism</td></tr><tr><td><strong>Meta Muse</strong></td><td><code>muse</code></td><td>The Systems Thinker</td><td>System design, interactions, cascading effects</td></tr></tbody></table></div>
 <p>Grok uses Grok Build with <code>grok-4.7</code> in an isolated, tool-free sandbox. Prompts
 are passed through a private file rather than process arguments. It falls back
 to the xAI API only when the CLI is missing, cannot launch, or has no usable
@@ -1158,7 +1142,7 @@ capability-probed before dispatch. With <code>META_API_KEY</code> set (and no ex
 
 
 
-<div class="table-scroll"><table><thead><tr><th>Consultant</th><th>Default Model</th><th>Persona</th><th>Focus</th></tr></thead><tbody><tr><td><strong>GLM</strong></td><td>glm-5.3-flash</td><td>The Methodologist</td><td>Structured approaches</td></tr><tr><td><strong>DeepSeek</strong></td><td>deepseek-flash (V4.1 Flash)</td><td>The Code Specialist</td><td>Algorithms, code generation</td></tr></tbody></table></div>
+<div class="table-scroll" tabindex="0" role="region" aria-label="Table 5: Consultant"><table><thead><tr><th>Consultant</th><th>Default Model</th><th>Persona</th><th>Focus</th></tr></thead><tbody><tr><td><strong>GLM</strong></td><td>glm-5.3-flash</td><td>The Methodologist</td><td>Structured approaches</td></tr><tr><td><strong>DeepSeek</strong></td><td>deepseek-flash (V4.1 Flash)</td><td>The Code Specialist</td><td>Algorithms, code generation</td></tr></tbody></table></div>
 <h3 id="installing-consultant-clis">Installing Consultant CLIs</h3>
 <p>At least 2 consultants are required (a CLI, or an API key for API mode). The
 first three below make up the <code>balanced</code> preset:</p>
@@ -1213,7 +1197,7 @@ if the user’s Kimi CLI has a different default model or effort
 
 
 
-<div class="table-scroll"><table><thead><tr><th>Preset</th><th>Tier</th><th>Agents</th><th>Use Case</th></tr></thead><tbody><tr><td><code>max_quality</code></td><td>Maximum + max effort</td><td>All 11</td><td>Critical decisions</td></tr><tr><td><code>medium</code></td><td>Standard</td><td>3</td><td>General questions</td></tr><tr><td><code>fast</code></td><td>Economy</td><td>2</td><td>Quick checks</td></tr></tbody></table></div>
+<div class="table-scroll" tabindex="0" role="region" aria-label="Table 6: Preset"><table><thead><tr><th>Preset</th><th>Tier</th><th>Agents</th><th>Use Case</th></tr></thead><tbody><tr><td><code>max_quality</code></td><td>Maximum + max effort</td><td>All 11</td><td>Critical decisions</td></tr><tr><td><code>medium</code></td><td>Standard</td><td>3</td><td>General questions</td></tr><tr><td><code>fast</code></td><td>Economy</td><td>2</td><td>Quick checks</td></tr></tbody></table></div>
 <p>A preset only chooses the <strong>consultant set and model tier</strong> — every run then fans out in
 parallel and returns the coverage union.
 Preset panels use statically configured transports only (a CLI on <code>PATH</code>, or selected API mode with its key). Host self-exclusion is fail-closed; lost canonical slots are filled from <code>ALL_CONSULTANTS</code> in canonical order. If the effective target cannot be met, including after an enabled health gate prunes the panel, the run stops with promised/selected/missing-capacity guidance. Configured custom API agents are appended and may satisfy capacity, so a full preset can exceed its advertised count. <code>max_quality</code> still advertises 11 consultants, with an effective target of 10 for a canonical invoking host.
@@ -1343,7 +1327,7 @@ and cannot support a comprehensive coverage claim.</p>
 
 
 
-<div class="table-scroll"><table><thead><tr><th>Consultant</th><th><code>max_quality</code></th><th>Premium</th><th>Standard</th><th>Economy</th></tr></thead><tbody><tr><td>Claude</td><td>claude-opus-5-5</td><td>claude-opus-5-5</td><td>claude-opus-5-5</td><td>claude-haiku-5-5</td></tr><tr><td>Gemini CLI</td><td>gemini-4-argon-high</td><td>gemini-4-argon-high</td><td>gemini-3.8-flash-high</td><td>gemini-3.8-flash-low</td></tr><tr><td>Gemini API</td><td>gemini-4-argon</td><td>gemini-4-argon</td><td>gemini-3.8-flash</td><td>gemini-3.8-flash</td></tr><tr><td>Codex</td><td>gpt-6-astra</td><td>gpt-6.1-sol</td><td>gpt-6.1-sol</td><td>gpt-6-luna</td></tr><tr><td>Mistral CLI</td><td>mistral-medium-3.5</td><td>mistral-medium-3.5</td><td>mistral-medium-3.5</td><td>mistral-medium-3.5</td></tr><tr><td>Mistral API</td><td>mistral-large-4</td><td>mistral-large-4</td><td>mistral-large-4</td><td>mistral-large-4</td></tr><tr><td>DeepSeek</td><td>deepseek-flash</td><td>deepseek-flash</td><td>deepseek-flash</td><td>deepseek-flash</td></tr><tr><td>GLM</td><td>glm-5.3</td><td>glm-5.3-flash</td><td>glm-5.3-flash</td><td>glm-5.3-flash</td></tr><tr><td>Grok</td><td>grok-4.7</td><td>grok-4.7</td><td>grok-4.7</td><td>grok-4.7</td></tr><tr><td>Qwen3</td><td>qwen4-max</td><td>qwen4-max</td><td>qwen3.8-flash</td><td>qwen3.8-flash</td></tr><tr><td>Kimi</td><td>kimi-code/k3.1-pro</td><td>kimi-code/k3.1-pro</td><td>kimi-code/k3.1-pro</td><td>kimi-code/k3.1-pro</td></tr><tr><td>MiniMax</td><td>MiniMax-M3.1-Flash</td><td>MiniMax-M3.1-Flash</td><td>MiniMax-M3.1-Flash</td><td>MiniMax-M3.1-Flash</td></tr><tr><td>Meta</td><td>muse-wonder-1.0</td><td>muse-wonder-1.0</td><td>muse-spark-1.3</td><td>muse-spark-1.3</td></tr></tbody></table></div>
+<div class="table-scroll" tabindex="0" role="region" aria-label="Table 7: Consultant"><table><thead><tr><th>Consultant</th><th><code>max_quality</code></th><th>Premium</th><th>Standard</th><th>Economy</th></tr></thead><tbody><tr><td>Claude</td><td>claude-opus-5-5</td><td>claude-opus-5-5</td><td>claude-opus-5-5</td><td>claude-haiku-5-5</td></tr><tr><td>Gemini CLI</td><td>gemini-4-argon-high</td><td>gemini-4-argon-high</td><td>gemini-3.8-flash-high</td><td>gemini-3.8-flash-low</td></tr><tr><td>Gemini API</td><td>gemini-4-argon</td><td>gemini-4-argon</td><td>gemini-3.8-flash</td><td>gemini-3.8-flash</td></tr><tr><td>Codex</td><td>gpt-6-astra</td><td>gpt-6.1-sol</td><td>gpt-6.1-sol</td><td>gpt-6-luna</td></tr><tr><td>Mistral CLI</td><td>mistral-medium-3.5</td><td>mistral-medium-3.5</td><td>mistral-medium-3.5</td><td>mistral-medium-3.5</td></tr><tr><td>Mistral API</td><td>mistral-large-4</td><td>mistral-large-4</td><td>mistral-large-4</td><td>mistral-large-4</td></tr><tr><td>DeepSeek</td><td>deepseek-flash</td><td>deepseek-flash</td><td>deepseek-flash</td><td>deepseek-flash</td></tr><tr><td>GLM</td><td>glm-5.3</td><td>glm-5.3-flash</td><td>glm-5.3-flash</td><td>glm-5.3-flash</td></tr><tr><td>Grok</td><td>grok-4.7</td><td>grok-4.7</td><td>grok-4.7</td><td>grok-4.7</td></tr><tr><td>Qwen3</td><td>qwen4-max</td><td>qwen4-max</td><td>qwen3.8-flash</td><td>qwen3.8-flash</td></tr><tr><td>Kimi</td><td>kimi-code/k3.1-pro</td><td>kimi-code/k3.1-pro</td><td>kimi-code/k3.1-pro</td><td>kimi-code/k3.1-pro</td></tr><tr><td>MiniMax</td><td>MiniMax-M3.1-Flash</td><td>MiniMax-M3.1-Flash</td><td>MiniMax-M3.1-Flash</td><td>MiniMax-M3.1-Flash</td></tr><tr><td>Meta</td><td>muse-wonder-1.0</td><td>muse-wonder-1.0</td><td>muse-spark-1.3</td><td>muse-spark-1.3</td></tr></tbody></table></div>
 <p>Every tier uses current models only. 5.5.0 retired the superseded ones (94
 IDs, listed with their replacements in <code>docs/cost_rates.json</code>): <code>configure</code>
 migrates them, and a retired model selected at run time still runs with a
@@ -1451,7 +1435,7 @@ apply_model_tier "economy"   # Set all to economy models
 
 
 
-<div class="table-scroll"><table><thead><tr><th>Mode</th><th>Preset</th><th>Default strategy</th><th>Use case</th></tr></thead><tbody><tr><td><code>fast-check</code></td><td><code>fast</code></td><td><code>coverage</code></td><td>Fast economy panel for a quick coverage check</td></tr><tr><td><code>coverage-review</code></td><td><code>balanced</code></td><td><code>coverage</code></td><td>Balanced panel for a general coverage review</td></tr><tr><td><code>max-coverage</code></td><td><code>max_quality</code></td><td><code>coverage</code></td><td>Maximum-quality panel for the broadest coverage</td></tr></tbody></table></div>
+<div class="table-scroll" tabindex="0" role="region" aria-label="Table 8: Mode"><table><thead><tr><th>Mode</th><th>Preset</th><th>Default strategy</th><th>Use case</th></tr></thead><tbody><tr><td><code>fast-check</code></td><td><code>fast</code></td><td><code>coverage</code></td><td>Fast economy panel for a quick coverage check</td></tr><tr><td><code>coverage-review</code></td><td><code>balanced</code></td><td><code>coverage</code></td><td>Balanced panel for a general coverage review</td></tr><tr><td><code>max-coverage</code></td><td><code>max_quality</code></td><td><code>coverage</code></td><td>Maximum-quality panel for the broadest coverage</td></tr></tbody></table></div>
 <h3 id="configuration-presets">Configuration Presets</h3>
 
 
@@ -1528,7 +1512,7 @@ apply_model_tier "economy"   # Set all to economy models
 
 
 
-<div class="table-scroll"><table><thead><tr><th>Preset</th><th>Alias</th><th align="right">Target</th><th>Tier</th><th>Use case</th></tr></thead><tbody><tr><td><code>minimal</code></td><td>—</td><td align="right">2</td><td>base</td><td>Quick questions</td></tr><tr><td><code>balanced</code></td><td>—</td><td align="right">3</td><td>base</td><td>Standard coverage</td></tr><tr><td><code>thorough</code></td><td>—</td><td align="right">3</td><td>base</td><td>Comprehensive analysis</td></tr><tr><td><code>high-stakes</code></td><td>—</td><td align="right">4</td><td>premium</td><td>Critical decisions</td></tr><tr><td><code>security</code></td><td>—</td><td align="right">3</td><td>base</td><td>Security reviews</td></tr><tr><td><code>cost-capped</code></td><td>—</td><td align="right">3</td><td>economy</td><td>Budget-conscious options</td></tr><tr><td><code>max_quality</code></td><td><code>max-quality</code></td><td align="right">11</td><td>maximum</td><td>Maximum coverage for critical decisions</td></tr><tr><td><code>medium</code></td><td>—</td><td align="right">3</td><td>standard</td><td>General questions</td></tr><tr><td><code>fast</code></td><td>—</td><td align="right">2</td><td>economy</td><td>Quick checks</td></tr></tbody></table></div>
+<div class="table-scroll" tabindex="0" role="region" aria-label="Table 9: Preset"><table><thead><tr><th>Preset</th><th>Alias</th><th align="right">Target</th><th>Tier</th><th>Use case</th></tr></thead><tbody><tr><td><code>minimal</code></td><td>—</td><td align="right">2</td><td>base</td><td>Quick questions</td></tr><tr><td><code>balanced</code></td><td>—</td><td align="right">3</td><td>base</td><td>Standard coverage</td></tr><tr><td><code>thorough</code></td><td>—</td><td align="right">3</td><td>base</td><td>Comprehensive analysis</td></tr><tr><td><code>high-stakes</code></td><td>—</td><td align="right">4</td><td>premium</td><td>Critical decisions</td></tr><tr><td><code>security</code></td><td>—</td><td align="right">3</td><td>base</td><td>Security reviews</td></tr><tr><td><code>cost-capped</code></td><td>—</td><td align="right">3</td><td>economy</td><td>Budget-conscious options</td></tr><tr><td><code>max_quality</code></td><td><code>max-quality</code></td><td align="right">11</td><td>maximum</td><td>Maximum coverage for critical decisions</td></tr><tr><td><code>medium</code></td><td>—</td><td align="right">3</td><td>standard</td><td>General questions</td></tr><tr><td><code>fast</code></td><td>—</td><td align="right">2</td><td>economy</td><td>Quick checks</td></tr></tbody></table></div>
 <h3 id="synthesis-strategies">Synthesis Strategies</h3>
 
 
@@ -1563,7 +1547,7 @@ apply_model_tier "economy"   # Set all to economy models
 
 
 
-<div class="table-scroll"><table><thead><tr><th>Strategy</th><th>Description</th></tr></thead><tbody><tr><td><code>coverage</code></td><td>Union of every distinct point across the panel <strong>Default</strong></td></tr><tr><td><code>compare_only</code></td><td>Present each consultant side-by-side, without a synthesized union</td></tr><tr><td><code>majority</code></td><td>Produce one blended recommendation, weighting all equally</td></tr><tr><td><code>risk_averse</code></td><td>Weight conservative responses higher</td></tr><tr><td><code>security_first</code></td><td>Prioritize security-focused insights</td></tr><tr><td><code>cost_capped</code></td><td>Prefer cheaper consultant opinions within budget</td></tr></tbody></table></div>
+<div class="table-scroll" tabindex="0" role="region" aria-label="Table 10: Strategy"><table><thead><tr><th>Strategy</th><th>Description</th></tr></thead><tbody><tr><td><code>coverage</code></td><td>Union of every distinct point across the panel <strong>Default</strong></td></tr><tr><td><code>compare_only</code></td><td>Present each consultant side-by-side, without a synthesized union</td></tr><tr><td><code>majority</code></td><td>Produce one blended recommendation, weighting all equally</td></tr><tr><td><code>risk_averse</code></td><td>Weight conservative responses higher</td></tr><tr><td><code>security_first</code></td><td>Prioritize security-focused insights</td></tr><tr><td><code>cost_capped</code></td><td>Prefer cheaper consultant opinions within budget</td></tr></tbody></table></div>
 <!-- ai-consultants:public-registry:end -->
 <p><strong>Bash:</strong></p>
 <pre><code class="language-bash">./scripts/consult_all.sh --preset balanced "Question"
@@ -1745,7 +1729,7 @@ enough — the panel adds little.</p>
 
 
 
-<div class="table-scroll"><table><thead><tr><th>Scenario</th><th>Recommendation</th></tr></thead><tbody><tr><td>A point only one consultant raised</td><td>Weigh it — the diversity is the point</td></tr><tr><td>Mistral (Devil’s Advocate) flags a risk</td><td>Investigate it</td></tr><tr><td>Consultants diverge on approach</td><td>Use <code>--strategy compare_only</code> to see each side-by-side</td></tr></tbody></table></div>
+<div class="table-scroll" tabindex="0" role="region" aria-label="Table 11: Scenario"><table><thead><tr><th>Scenario</th><th>Recommendation</th></tr></thead><tbody><tr><td>A point only one consultant raised</td><td>Weigh it — the diversity is the point</td></tr><tr><td>Mistral (Devil’s Advocate) flags a risk</td><td>Investigate it</td></tr><tr><td>Consultants diverge on approach</td><td>Use <code>--strategy compare_only</code> to see each side-by-side</td></tr></tbody></table></div>
 <h3 id="security">Security</h3>
 <ul>
 <li><strong>Never</strong> include credentials or API keys in queries</li>

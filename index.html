@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ai-consultants: ask several AI models at once, get one merged list</title>
     <meta name="description" content="Free open-source CLI: ask Gemini, GPT, Claude, Mistral and more the same coding question in parallel, get one merged list showing who raised each point.">
-    <meta name="theme-color" content="#000000">
+    <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
+    <meta name="theme-color" content="#f8f8f6" media="(prefers-color-scheme: light)">
 
     <!-- SEO -->
     <link rel="canonical" href="https://aiconsultants.sh/">
@@ -77,19 +78,6 @@
         *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
         :root {
-            color-scheme: dark;
-            --bg: #000000;
-            --bg-elevated: #181818;
-            --bg-card: #1F1F1F;
-            --border: #1F1F1F;
-            --border-light: #272727;
-            --border-strong: #313131;
-            --border-bright: #e6e6e6;
-            --text: #f0f0f0;
-            --text-body: #c8c8c8;
-            --text-secondary: #b0b0b0;
-            --text-muted: #9a9a9a;      /* about 7:1 on --bg */
-            --accent: #e9b250;          /* one meaning only: raised by only one model */
             --font-body: 'Geist', system-ui, -apple-system, sans-serif;
             --font-mono: 'Geist Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
             --gutter: 24px;
@@ -162,9 +150,7 @@
         /* The blurred surface lives on a pseudo element, so the fixed mobile panel is not trapped by backdrop-filter */
         .nav-inner::before {
             content: ""; position: absolute; inset: 0; z-index: -1;
-            background: rgba(0, 0, 0, 0.72);
-            -webkit-backdrop-filter: blur(12px);
-            backdrop-filter: blur(12px);
+            background: var(--bg);
             border: 1px solid var(--border-light);
         }
 
@@ -270,9 +256,6 @@
             font-size: 36px; line-height: 40px;
             font-weight: 600; letter-spacing: -0.03em;
             color: var(--text);
-            background: linear-gradient(90deg, #FFFFFF, #9B9B9B);
-            -webkit-background-clip: text; background-clip: text;
-            -webkit-text-fill-color: transparent;
             max-width: 680px;
             margin-bottom: 24px;
         }
@@ -288,7 +271,7 @@
         .cmd-hero {
             background: var(--bg);
             border-color: var(--border-bright);
-            color: #fff;
+            color: var(--text);
         }
         .cmd-hero .copy {
             font-size: 14px; line-height: 20px;
@@ -296,7 +279,7 @@
             background: var(--text); color: var(--bg);
             border-color: var(--text);
         }
-        .cmd-hero .copy:hover { background: #fff; border-color: #fff; }
+        .cmd-hero .copy:hover { background: var(--text-body); border-color: var(--text-body); }
 
         .card-video { display: block; width: 100%; height: auto; background: var(--bg); border-bottom: 1px solid var(--border); }
         .cmd-hero + .cmd-hero { margin-top: 8px; }
@@ -396,8 +379,8 @@
         .diagram text { font-family: var(--font-mono); font-size: 14px; fill: var(--text-body); transition: fill 0.3s var(--ease); }
         .diagram text.strong, .diagram .lit text { fill: var(--text); }
         .diagram text.dim { fill: var(--text-muted); }
-        .diagram .pulse { fill: #fff; opacity: 0; }
-        .diagram .halo { fill: #fff; opacity: 0; }
+        .diagram .pulse { fill: var(--text); opacity: 0; }
+        .diagram .halo { fill: var(--text); opacity: 0; }
 
         .steps { list-style: none; display: grid; gap: 32px; }
         .step { display: grid; grid-template-columns: 48px minmax(0, 1fr); gap: 16px; }
@@ -716,6 +699,7 @@
             *, *::before, *::after { transition: none !important; }
         }
     </style>
+    <link rel="stylesheet" href="/site-tokens.css">
 </head>
 <body class="no-js">
 <script>document.body.classList.remove('no-js');</script>
@@ -734,7 +718,7 @@
             <li><a href="#when">When to use it</a></li>
             <li><a href="#get-started">Get started</a></li>
             <li><a href="/docs/">Models</a></li>
-            <li><a href="/docs/overview.html">Docs</a></li>
+            <li><a href="/docs/setup.html">Docs</a></li>
             <li><a href="https://github.com/reasance/ai-consultants" target="_blank" rel="noopener">GitHub <span aria-hidden="true">&#9733;</span><img src="https://img.shields.io/github/stars/reasance/ai-consultants?style=flat-square&amp;label=&amp;labelColor=141414&amp;color=1f1f1f" alt="GitHub star count" height="20" loading="lazy"></a></li>
         </ul>
     </nav>
@@ -748,7 +732,7 @@
         <div class="hero-copy">
             <p class="eyebrow k-up">For developers using Claude Code, Codex CLI, Antigravity, or just a terminal</p>
             <h1 class="k-up">Ask several AI models at once. Get one list of everything they raised.</h1>
-            <p class="subhead k-up">ai-consultants is a free, open-source command-line tool for design reviews, threat models and &ldquo;what am I missing?&rdquo; checks before a hard-to-undo change. It sends your question, and any files you name, to models from different companies (Gemini, GPT, Claude, Mistral and more) at the same time, then merges their answers into one list that shows which model raised each point.</p>
+            <p class="subhead k-up">A command-line tool for design reviews and preflight checks. Send one question and the files you choose to models from different companies, then read a single report that names who raised each point.</p>
 
             <div class="cta" role="group" aria-labelledby="try-label">
                 <div class="cta-label k-up" id="try-label">Try it in two commands</div>
@@ -770,7 +754,7 @@
 
         <figure class="card k-card" id="example" aria-label="A real run: what you ask and what you get back">
             <div class="card-bar" aria-hidden="true"><i class="k-pop"></i><i class="k-pop"></i><i class="k-pop"></i></div>
-            <video class="card-video k-fade" autoplay muted loop playsinline preload="metadata" poster="demo/poster.png" width="1240" height="954" aria-label="Terminal recording of a real run: npx ai-consultants asks Gemini, Codex and Mistral what can go wrong when a service retries failed webhook deliveries, then prints the merged list with the models that raised each point.">
+            <video class="card-video k-fade" controls playsinline preload="none" poster="demo/poster.webp" width="1240" height="954" aria-label="Terminal recording of a real run: npx ai-consultants asks Gemini, Codex and Mistral what can go wrong when a service retries failed webhook deliveries, then prints the merged list with the models that raised each point.">
                 <source src="demo/run.webm" type="video/webm">
                 <source src="demo/run.mp4" type="video/mp4">
             </video>
@@ -1154,7 +1138,7 @@
                 <li><a href="https://github.com/reasance/ai-consultants/blob/v5.10.0/docs/RECIPES.md" target="_blank" rel="noopener">Recipes</a></li>
                 <li><a href="https://github.com/reasance/ai-consultants/blob/v5.10.0/references/configuration.md" target="_blank" rel="noopener">Configuration reference</a></li>
                 <li><a href="https://github.com/reasance/ai-consultants/blob/v5.10.0/CHANGELOG.md" target="_blank" rel="noopener">Changelog</a></li>
-                <li><a href="https://github.com/reasance/ai-consultants/releases/tag/v5.8.0" target="_blank" rel="noopener">Release v5.8.0</a></li>
+                <li><a href="https://github.com/reasance/ai-consultants/releases/latest" target="_blank" rel="noopener">Latest release</a></li>
                 <li><a href="https://www.npmjs.com/package/ai-consultants" target="_blank" rel="noopener">npm</a></li>
                 <li><a href="https://github.com/reasance/ai-consultants" target="_blank" rel="noopener">GitHub</a></li>
                 <li><a href="https://github.com/reasance/ai-consultants/issues" target="_blank" rel="noopener">Report an issue</a></li>
@@ -1261,14 +1245,7 @@
         document.querySelectorAll('main section[id], .hero').forEach(function (s) { sectionIO.observe(s); });
     }
 
-    // Respect reduced motion: no autoplay, show the poster with controls instead
     var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    var demoVideo = document.querySelector('.card-video');
-    if (demoVideo && reduced) {
-        demoVideo.removeAttribute('autoplay');
-        demoVideo.pause();
-        demoVideo.controls = true;
-    }
 
     // Example card: first 3 points on narrow screens, with a Show all toggle
     var card = document.getElementById('example');

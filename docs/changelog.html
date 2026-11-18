@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Changelog — ai-consultants</title>
     <meta name="description" content="Released model documentation for Qwen4 Max, measured with Artificial Analysis v5.0.1.">
-    <meta name="theme-color" content="#000000">
+    <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
+    <meta name="theme-color" content="#f8f8f6" media="(prefers-color-scheme: light)">
 
     <!-- SEO -->
     <link rel="canonical" href="https://aiconsultants.sh/docs/changelog.html">
@@ -53,19 +54,6 @@
         *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
         :root {
-            color-scheme: dark;
-            --bg: #000000;
-            --bg-elevated: #181818;
-            --bg-card: #1F1F1F;
-            --border: #1F1F1F;
-            --border-light: #272727;
-            --border-strong: #313131;
-            --border-bright: #e6e6e6;
-            --text: #f0f0f0;
-            --text-body: #c8c8c8;
-            --text-secondary: #b0b0b0;
-            --text-muted: #9a9a9a;      /* about 7:1 on --bg */
-            --accent: #e9b250;          /* one meaning only: raised by only one model */
             --font-body: 'Geist', system-ui, -apple-system, sans-serif;
             --font-mono: 'Geist Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
             --gutter: 24px;
@@ -138,9 +126,7 @@
         /* The blurred surface lives on a pseudo element, so the fixed mobile panel is not trapped by backdrop-filter */
         .nav-inner::before {
             content: ""; position: absolute; inset: 0; z-index: -1;
-            background: rgba(0, 0, 0, 0.72);
-            -webkit-backdrop-filter: blur(12px);
-            backdrop-filter: blur(12px);
+            background: var(--bg);
             border: 1px solid var(--border-light);
         }
 
@@ -246,9 +232,6 @@
             font-size: 36px; line-height: 40px;
             font-weight: 600; letter-spacing: -0.03em;
             color: var(--text);
-            background: linear-gradient(90deg, #FFFFFF, #9B9B9B);
-            -webkit-background-clip: text; background-clip: text;
-            -webkit-text-fill-color: transparent;
             max-width: 680px;
             margin-bottom: 24px;
         }
@@ -264,7 +247,7 @@
         .cmd-hero {
             background: var(--bg);
             border-color: var(--border-bright);
-            color: #fff;
+            color: var(--text);
         }
         .cmd-hero .copy {
             font-size: 14px; line-height: 20px;
@@ -272,7 +255,7 @@
             background: var(--text); color: var(--bg);
             border-color: var(--text);
         }
-        .cmd-hero .copy:hover { background: #fff; border-color: #fff; }
+        .cmd-hero .copy:hover { background: var(--text-body); border-color: var(--text-body); }
 
         .card-video { display: block; width: 100%; height: auto; background: var(--bg); border-bottom: 1px solid var(--border); }
         .cmd-hero + .cmd-hero { margin-top: 8px; }
@@ -372,8 +355,8 @@
         .diagram text { font-family: var(--font-mono); font-size: 14px; fill: var(--text-body); transition: fill 0.3s var(--ease); }
         .diagram text.strong, .diagram .lit text { fill: var(--text); }
         .diagram text.dim { fill: var(--text-muted); }
-        .diagram .pulse { fill: #fff; opacity: 0; }
-        .diagram .halo { fill: #fff; opacity: 0; }
+        .diagram .pulse { fill: var(--text); opacity: 0; }
+        .diagram .halo { fill: var(--text); opacity: 0; }
 
         .steps { list-style: none; display: grid; gap: 32px; }
         .step { display: grid; grid-template-columns: 48px minmax(0, 1fr); gap: 16px; }
@@ -692,7 +675,8 @@
             *, *::before, *::after { transition: none !important; }
         }
     </style>
-<style>.preview{padding-top:48px;padding-bottom:80px;max-width:960px}.preview nav{margin:24px 0;line-height:2}.preview article{line-height:1.7;overflow-wrap:anywhere}.preview h1{font-size:2.5rem;line-height:1.2}.preview h2,.preview h3{margin:36px 0 14px}.preview p,.preview ul,.preview ol,.preview blockquote{margin:16px 0}.preview ul,.preview ol{padding-left:24px}.preview pre{overflow:auto;padding:16px;border:1px solid var(--border);margin:16px 0;white-space:pre}.preview table{border-collapse:collapse;min-width:600px;font-size:14px}.preview th,.preview td{padding:10px;text-align:left;border-bottom:1px solid var(--border)}.preview .table-scroll{overflow-x:auto}.preview blockquote{border-left:2px solid var(--text-muted);padding-left:16px}.preview a{text-decoration:underline}.preview code{font-size:.9em}.preview pre code{font-size:13px}</style></head><body><a class="skip-link" href="#main">Skip to content</a><main id="main" class="container preview"><a href="/">← ai-consultants</a><nav aria-label="Documentation"><a href="/docs/">Models and benchmarks</a> · <a href="/docs/overview.html">Project overview</a> · <a href="/docs/setup.html">Setup</a> · <a href="/docs/configuration.html">Configuration</a> · <a href="/docs/routing.html">Smart routing</a> · <a href="/docs/recipes.html">Qwen4 setup</a> · <a href="/docs/changelog.html" aria-current="page">Changelog</a></nav><article><p>Documentation for <a href="https://github.com/reasance/ai-consultants/releases/tag/v5.10.0">v5.10.0</a>. Benchmark snapshot: November 16, 2026, Artificial Analysis Intelligence Index v5.0.1.</p>
+<style>.preview{padding-top:48px;padding-bottom:80px;max-width:960px}.preview nav{margin:24px 0;line-height:2}.preview article{line-height:1.7;overflow-wrap:anywhere}.preview h1{font-size:2.5rem;line-height:1.2}.preview h2,.preview h3{margin:36px 0 14px}.preview p,.preview ul,.preview ol,.preview blockquote{margin:16px 0}.preview ul,.preview ol{padding-left:24px}.preview pre{overflow:auto;padding:16px;border:1px solid var(--border);margin:16px 0;white-space:pre}.preview table{border-collapse:collapse;min-width:600px;font-size:14px}.preview th,.preview td{padding:10px;text-align:left;border-bottom:1px solid var(--border)}.preview .table-scroll{overflow-x:auto}.preview blockquote{border-left:2px solid var(--text-muted);padding-left:16px}.preview a{text-decoration:underline}.preview code{font-size:.9em}.preview pre code{font-size:13px}</style>    <link rel="stylesheet" href="/site-tokens.css">
+</head><body><a class="skip-link" href="#main">Skip to content</a><main id="main" class="container preview"><a href="/">← ai-consultants</a><nav aria-label="Documentation"><a href="/docs/">Models and benchmarks</a> · <a href="/docs/overview.html">Project overview</a> · <a href="/docs/setup.html">Setup</a> · <a href="/docs/configuration.html">Configuration</a> · <a href="/docs/routing.html">Smart routing</a> · <a href="/docs/recipes.html">Qwen4 setup</a> · <a href="/docs/changelog.html" aria-current="page">Changelog</a></nav><article><p>Documentation for <a href="https://github.com/reasance/ai-consultants/releases/tag/v5.10.0">v5.10.0</a>. Benchmark snapshot: November 16, 2026, Artificial Analysis Intelligence Index v5.0.1.</p>
 <h1 id="changelog">Changelog</h1>
 <p>All notable changes to this project are documented in this file.</p>
 <p>The format is based on <a href="https://keepachangelog.com/en/1.0.0/">Keep a Changelog</a>,
