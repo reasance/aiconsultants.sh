@@ -242,7 +242,11 @@
         .copy:active { transform: scale(0.98); }
 
         /* ——— HERO ——— */
-        .hero { padding: 64px 0 96px; border-bottom: 1px solid var(--border); }
+        .hero {
+            padding: 64px 0 96px;
+            background: linear-gradient(180deg, var(--bg-elevated), var(--bg) 90%);
+            border-bottom: 1px solid var(--border);
+        }
 
         .hero-grid { display: grid; grid-template-columns: minmax(0, 1fr); grid-template-areas: "intro" "proof" "setup"; gap: 32px; }
         .hero-copy { grid-area: intro; }
@@ -257,8 +261,8 @@
         }
 
         .hero h1 {
-            font-size: 36px; line-height: 40px;
-            font-weight: 600; letter-spacing: -0.03em;
+            font-size: clamp(38px, 5vw, 58px); line-height: 1.02;
+            font-weight: 650; letter-spacing: -0.035em;
             color: var(--text);
             max-width: 680px;
             margin-bottom: 24px;
@@ -311,15 +315,61 @@
             min-width: 0;
         }
 
-        .card-body { padding: 24px; font-family: var(--font-mono); font-size: 14px; line-height: 20px; }
-        .proof-title { font-family: var(--font-body); font-size: 24px; line-height: 1.2; margin-bottom: 6px; }
+        .card-body { padding: clamp(16px, 2.5vw, 28px); font-family: var(--font-mono); font-size: 14px; line-height: 20px; }
+        .proof-header { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 4px 16px; }
+        .proof-title { font-family: var(--font-body); font-size: 24px; line-height: 1.2; }
         .proof-context { color: var(--text-secondary); font-family: var(--font-body); font-size: 14px; }
-        .proof-finding { background: var(--bg-card); border-top: 1px solid var(--accent); margin: 20px 0; padding: 16px; }
-        .proof-source { color: var(--accent); font-size: 14px; font-weight: 600; }
-        .proof-finding h3 { font: 600 19px/1.35 var(--font-body); margin: 6px 0; }
-        .proof-finding p:last-child { color: var(--text-body); font: 16px/1.5 var(--font-body); }
+        .report-merge {
+            --trace: var(--text-muted);
+            margin-top: 20px;
+            padding: 16px;
+            border: 1px solid var(--border-light);
+            background: var(--bg);
+            text-align: center;
+        }
+        .report-inputs {
+            list-style: none;
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            position: relative;
+            padding-bottom: 14px;
+        }
+        .report-inputs::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            inset-inline: calc(100% / 6);
+            border-top: 1px solid var(--trace);
+        }
+        .report-inputs li {
+            position: relative;
+            color: var(--text);
+            font-size: 13px;
+            line-height: 1.4;
+            justify-self: stretch;
+        }
+        .report-inputs li::after {
+            content: "";
+            position: absolute;
+            top: calc(100% + 2px);
+            inset-inline-start: 50%;
+            height: 12px;
+            border-inline-start: 1px solid var(--trace);
+        }
+        .report-result { font: 500 16px/1.25 var(--font-body); color: var(--text); }
+        .report-result::before { content: ""; display: block; width: 1px; height: 12px; background: var(--trace); margin: 0 auto 2px; }
+        .report-result strong { font-size: 22px; font-variant-numeric: tabular-nums; }
+        .proof-finding {
+            background: color-mix(in srgb, var(--bg-card), var(--accent) 8%);
+            border-top: 1px solid var(--accent);
+            margin: 18px 0;
+            padding: 16px;
+        }
+        .proof-source { color: var(--accent); font-size: 13px; font-weight: 600; }
+        .proof-finding h3 { font: 650 22px/1.18 var(--font-body); margin: 8px 0; }
+        .proof-finding p:last-child { color: var(--text-body); font: 16px/1.45 var(--font-body); }
         .report-more { border-top: 1px solid var(--border-light); }
-        .report-more > summary { cursor: pointer; color: var(--text); padding: 14px 0; }
+        .report-more > summary { cursor: pointer; color: var(--text); padding: 12px 0; font: 500 15px/1.4 var(--font-body); }
         .report-more[open] > :last-child { margin-bottom: 16px; }
 
         .card-label {
@@ -635,7 +685,6 @@
         @media (min-width: 1024px) {
             .hero { padding-top: 80px; }
             .hero-grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); grid-template-areas: "intro proof" "setup proof"; grid-template-rows: auto 1fr; gap: 28px 64px; align-items: start; }
-            .hero h1 { font-size: 48px; line-height: 1; }
         }
 
         @media (max-width: 859px) {
@@ -716,14 +765,24 @@
 <div class="hero" id="top">
     <div class="container hero-grid">
         <div class="hero-copy">
-            <h1 class="k-up">Ask several AI models at once. Get one list of everything they raised.</h1>
+            <h1 class="k-up">Ask several AI models. See what each one caught.</h1>
             <p class="subhead k-up">Send a design review question to the models you choose. Read one report that shows which model raised each point.</p>
         </div>
 
         <figure class="card k-card" id="example" aria-label="A real run: what you ask and what you get back">
             <div class="card-body">
-                <h2 class="proof-title">Example review report</h2>
-                <p class="proof-context">Webhook retry review · 26 points · 3 models responded</p>
+                <header class="proof-header">
+                    <h2 class="proof-title">Example review report</h2>
+                    <p class="proof-context">Webhook retry review</p>
+                </header>
+                <div class="report-merge">
+                    <ul class="report-inputs" role="list" aria-label="Models that responded">
+                        <li>Codex</li>
+                        <li>Gemini</li>
+                        <li>Mistral</li>
+                    </ul>
+                    <p class="report-result"><strong>26</strong> points in one report</p>
+                </div>
                 <div class="proof-finding">
                     <p class="proof-source">Gemini · only model to flag this</p>
                     <h3>A retry can reach a private address</h3>
