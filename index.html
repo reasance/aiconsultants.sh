@@ -244,7 +244,11 @@
         /* ——— HERO ——— */
         .hero { padding: 64px 0 96px; border-bottom: 1px solid var(--border); }
 
-        .hero-grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: 48px; }
+        .hero-grid { display: grid; grid-template-columns: minmax(0, 1fr); grid-template-areas: "intro" "proof" "setup"; gap: 32px; }
+        .hero-copy { grid-area: intro; }
+        .hero-actions { grid-area: setup; min-width: 0; }
+        .hero .card { grid-area: proof; }
+        .hero-copy .subhead { margin-bottom: 0; }
 
         .eyebrow {
             font-family: var(--font-mono);
@@ -283,6 +287,8 @@
 
         .card-video { display: block; width: 100%; height: auto; background: var(--bg); border-bottom: 1px solid var(--border); }
         .cmd-hero + .cmd-hero { margin-top: 8px; }
+        .cmd-hero + .cmd-hero .copy { background: transparent; color: var(--text); border-color: var(--border-strong); }
+        .cmd-hero + .cmd-hero .copy:hover { background: var(--bg-elevated); border-color: var(--text); }
         .cmd-hint { display: block; color: var(--text-muted); font-size: 12px; line-height: 16px; margin-top: 4px; user-select: none; -webkit-user-select: none; }
         .r-gloss { color: var(--text-secondary); font-size: 12px; line-height: 16px; font-weight: 400; }
 
@@ -298,21 +304,23 @@
         }
         .quiet-link:hover { color: var(--text); border-color: var(--text-muted); }
 
-        /* Example card: selectable monospace text in a terminal frame */
+        /* The report leads; its full text and the recorded terminal run are available on demand. */
         .card {
             background: var(--bg-elevated);
             border: 1px solid var(--border-light);
             min-width: 0;
         }
 
-        .card-bar {
-            display: flex; align-items: center; gap: 8px;
-            height: 32px; padding: 0 16px;
-            border-bottom: 1px solid var(--border);
-        }
-        .card-bar i { width: 8px; height: 8px; border-radius: 9999px; background: var(--border-strong); display: block; }
-
         .card-body { padding: 24px; font-family: var(--font-mono); font-size: 14px; line-height: 20px; }
+        .proof-title { font-family: var(--font-body); font-size: 24px; line-height: 1.2; margin-bottom: 6px; }
+        .proof-context { color: var(--text-secondary); font-family: var(--font-body); font-size: 14px; }
+        .proof-finding { background: var(--bg-card); border-top: 1px solid var(--accent); margin: 20px 0; padding: 16px; }
+        .proof-source { color: var(--accent); font-size: 14px; font-weight: 600; }
+        .proof-finding h3 { font: 600 19px/1.35 var(--font-body); margin: 6px 0; }
+        .proof-finding p:last-child { color: var(--text-body); font: 16px/1.5 var(--font-body); }
+        .report-more { border-top: 1px solid var(--border-light); }
+        .report-more > summary { cursor: pointer; color: var(--text); padding: 14px 0; }
+        .report-more[open] > :last-child { margin-bottom: 16px; }
 
         .card-label {
             font-size: 12px; line-height: 16px; font-weight: 500;
@@ -324,8 +332,6 @@
         .r-outcome b { color: var(--text); font-weight: 500; }
         .r-head { color: var(--text); font-weight: 500; margin: 16px 0 8px; }
 
-        /* The story keeps the list at its resting height, so the page never shifts */
-        .r-clip { overflow: hidden; }
         .r-list { list-style: none; display: grid; gap: 12px; }
         .r-list li { display: grid; grid-template-columns: 16px minmax(0, 1fr); }
         .r-list li::before { content: "-"; color: var(--text-muted); }
@@ -336,17 +342,6 @@
         .solo { color: var(--accent); display: inline-block; }
 
         .legend { margin-top: 16px; color: var(--text-secondary); font-size: 12px; line-height: 16px; }
-
-        .show-all {
-            margin-top: 16px;
-            font-family: var(--font-mono); font-size: 12px; line-height: 16px; font-weight: 600;
-            color: var(--text); background: none;
-            border: 1px solid var(--border-strong);
-            padding: 4px 8px; cursor: pointer;
-            transition: border-color 0.3s var(--ease), transform 0.3s var(--ease);
-        }
-        .show-all:hover { border-color: var(--text-muted); }
-        .show-all:active { transform: scale(0.98); }
 
         .card figcaption {
             border-top: 1px solid var(--border);
@@ -577,11 +572,7 @@
         .hero .cta > :nth-child(4) { --d: 0.46s; }
         .hero .cta > :nth-child(5) { --d: 0.52s; }
         .hero .card { --d: 0.18s; }
-        .hero .card-bar i:nth-child(1) { --d: 0.34s; }
-        .hero .card-bar i:nth-child(2) { --d: 0.38s; }
-        .hero .card-bar i:nth-child(3) { --d: 0.42s; }
         .hero .card-video { --d: 0.4s; }
-        .hero .card-label { --d: 0.5s; }
         .hero .r-outcome { --d: 0.56s; }
         .hero .r-gloss { --d: 0.6s; }
         .hero .r-head { --d: 0.64s; }
@@ -592,7 +583,6 @@
         .hero .r-list > li:nth-child(2) .solo { --d: 0.86s; }
         .hero .r-list > li:nth-child(3) .solo { --d: 0.92s; }
         .hero .r-list > li:nth-child(4) .solo { --d: 0.98s; }
-        .hero .legend, .hero .show-all { --d: 1s; }
         .hero figcaption { --d: 1.06s; }
 
         /* Diagram: nodes pop in reading order, connectors draw on, the merged list fills like progress */
@@ -644,13 +634,8 @@
 
         @media (min-width: 1024px) {
             .hero { padding-top: 80px; }
-            .hero-grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 64px; align-items: start; }
+            .hero-grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); grid-template-areas: "intro proof" "setup proof"; grid-template-rows: auto 1fr; gap: 28px 64px; align-items: start; }
             .hero h1 { font-size: 48px; line-height: 1; }
-            .show-all { display: none; }
-        }
-
-        @media (max-width: 1023px) {
-            .card.collapsed .r-list > li:nth-child(n+4):not(.leave) { display: none; }
         }
 
         @media (max-width: 859px) {
@@ -720,7 +705,7 @@
             <li><a href="#get-started">Get started</a></li>
             <li><a href="/docs/">Models</a></li>
             <li><a href="/docs/setup.html">Docs</a></li>
-            <li><a href="https://github.com/reasance/ai-consultants" target="_blank" rel="noopener">GitHub <span aria-hidden="true">&#9733;</span><img src="https://img.shields.io/github/stars/reasance/ai-consultants?style=flat-square&amp;label=&amp;labelColor=141414&amp;color=1f1f1f" alt="GitHub star count" height="20" loading="lazy"></a></li>
+            <li><a href="https://github.com/reasance/ai-consultants" target="_blank" rel="noopener">GitHub</a></li>
         </ul>
     </nav>
 </header>
@@ -731,52 +716,58 @@
 <div class="hero" id="top">
     <div class="container hero-grid">
         <div class="hero-copy">
-            <p class="eyebrow k-up">For developers using Claude Code, Codex CLI, Antigravity, or just a terminal</p>
             <h1 class="k-up">Ask several AI models at once. Get one list of everything they raised.</h1>
-            <p class="subhead k-up">A command-line tool for design reviews and preflight checks. Send one question and the files you choose to models from different companies, then read a single report that names who raised each point.</p>
-
-            <div class="cta" role="group" aria-labelledby="try-label">
-                <div class="cta-label k-up" id="try-label">Try it in two commands</div>
-                <div class="cmd cmd-hero k-up">
-                    <code class="cmd-line"><span class="prompt" aria-hidden="true">$ </span><span class="cmd-text">npx ai-consultants configure</span><span class="cmd-hint"># finds your model CLIs and keys &middot; no model calls</span></code>
-                    <button class="copy" type="button" data-copy aria-label="Copy the configure command">Copy</button>
-                </div>
-                <div class="cmd cmd-hero k-up">
-                    <code class="cmd-line"><span class="prompt" aria-hidden="true">$ </span><span class="cmd-text">npx ai-consultants "What can go wrong when a service retries failed webhook deliveries?"</span><span class="cmd-hint"># asks every model you set up, then merges</span></code>
-                    <button class="copy" type="button" data-copy aria-label="Copy the question command">Copy</button>
-                </div>
-                <div class="cta-notes k-up">
-                    <p>You need Node.js, jq, and at least two model CLIs installed and signed in (or two API keys).</p>
-                    <p>Each question makes one call per model plus one to merge, billed to your own accounts. Your question and files go to every provider on your panel.</p>
-                </div>
-                <a class="quiet-link k-up" href="#get-started">Set it up in 3 steps &darr;</a>
-            </div>
+            <p class="subhead k-up">Send a design review question to the models you choose. Read one report that shows which model raised each point.</p>
         </div>
 
         <figure class="card k-card" id="example" aria-label="A real run: what you ask and what you get back">
-            <div class="card-bar" aria-hidden="true"><i class="k-pop"></i><i class="k-pop"></i><i class="k-pop"></i></div>
-            <video class="card-video k-fade" controls playsinline preload="none" poster="demo/poster.webp" width="1240" height="954" aria-label="Terminal recording of a real run: npx ai-consultants asks Gemini, Codex and Mistral what can go wrong when a service retries failed webhook deliveries, then prints the merged list with the models that raised each point.">
-                <source src="demo/run.webm" type="video/webm">
-                <source src="demo/run.mp4" type="video/mp4">
-            </video>
             <div class="card-body">
-                <div class="card-label k-up">You get back <span class="fname">&middot; report.md, 4 of 26 points</span></div>
-                <div class="report">
-                    <p class="r-outcome k-up">Outcome: <b>MET</b> (3/3 responded, quorum=2)</p>
-                    <p class="r-gloss k-up">MET: enough models answered, and every point they returned is cited in the list.</p>
-                    <p class="r-head k-up">Coverage Union <span class="r-gloss">&middot; every distinct point, deduplicated</span></p>
-                    <div class="r-clip"><ul class="r-list">
+                <h2 class="proof-title">Example review report</h2>
+                <p class="proof-context">Webhook retry review · 26 points · 3 models responded</p>
+                <div class="proof-finding">
+                    <p class="proof-source">Gemini · only model to flag this</p>
+                    <h3>A retry can reach a private address</h3>
+                    <p>A hostname can resolve to a private IP between retries. Restrict where the dispatcher can send requests.</p>
+                </div>
+                <details class="report-more">
+                    <summary>Read the report excerpt</summary>
+                    <p class="r-outcome">Outcome <b>MET</b> (3/3 responded, quorum=2)</p>
+                    <p class="r-head">Coverage Union <span class="r-gloss">· every distinct point, deduplicated</span></p>
+                    <ul class="r-list">
                         <li class="k-left"><span><span class="kind">risk:</span> <span class="point">Duplicate deliveries remain possible under at-least-once retry; deduplication and ordering responsibility is shifted onto the receiving consumer, which must be idempotent and tolerate concurrent delivery.</span> <span class="by">&mdash; raised by <b>Codex, Gemini, Mistral</b></span></span></li>
                         <li class="k-left"><span><span class="kind">edge_case:</span> <span class="point">Outbound dispatchers remain exposed to SSRF and DNS rebinding on each retry (the target can re-resolve to a private IP) unless egress goes through a hardened proxy with private-range blocklists.</span> <span class="by">&mdash; raised by <b>Gemini</b> <span class="solo k-pop"><span aria-hidden="true">&#9679;</span><span class="sr-only">(raised by only one model)</span></span></span></span></li>
                         <li class="k-left"><span><span class="kind">risk:</span> <span class="point">Replay attack surface: retrying with retained, long-lived signatures lets a captured delivery be replayed against the receiver.</span> <span class="by">&mdash; raised by <b>Mistral</b> <span class="solo k-pop"><span aria-hidden="true">&#9679;</span><span class="sr-only">(raised by only one model)</span></span></span></span></li>
                         <li class="k-left"><span><span class="kind">edge_case:</span> <span class="point">An HTTP success response only confirms what the receiver contract promises, which may be acceptance rather than completed processing, so a 2xx can mask downstream failure.</span> <span class="by">&mdash; raised by <b>Codex</b> <span class="solo k-pop"><span aria-hidden="true">&#9679;</span><span class="sr-only">(raised by only one model)</span></span></span></span></li>
-                    </ul></div>
-                </div>
-                <button class="show-all k-up" type="button" aria-expanded="false" hidden>Show all</button>
-                <p class="legend k-up"><span class="solo" aria-hidden="true">&#9679;</span> Raised by only one model. It stays in the list; nothing is voted out.</p>
+                    </ul>
+                    <p class="legend"><span class="solo" aria-hidden="true">&#9679;</span> Raised by only one model.</p>
+                </details>
+                <details class="report-more">
+                    <summary>Watch the terminal run</summary>
+                    <video class="card-video" controls playsinline preload="none" poster="demo/poster.webp" width="1240" height="954" aria-label="Terminal recording of a real run: npx ai-consultants asks Gemini, Codex and Mistral what can go wrong when a service retries failed webhook deliveries, then prints the merged list with the models that raised each point.">
+                        <source src="demo/run.webm" type="video/webm">
+                        <source src="demo/run.mp4" type="video/mp4">
+                    </video>
+                </details>
             </div>
-            <figcaption class="k-up">A real run on 21 Oct 2026 (ai-consultants 5.3.0 with Gemini, Codex and Mistral). It took about 2&frac12; minutes; the video shortens the waiting. <a href="https://github.com/reasance/aiconsultants.sh/blob/main/demo/report.md" target="_blank" rel="noopener">Read the full report</a>.</figcaption>
+            <figcaption>Recorded 21 Oct 2026 with AI Consultants 5.3.0. The video shortens the waiting. <a href="https://github.com/reasance/aiconsultants.sh/blob/main/demo/report.md">Read the full report</a>.</figcaption>
         </figure>
+        <div class="cta hero-actions" role="group" aria-labelledby="try-label">
+            <div class="cta-label k-up" id="try-label">Try it in two commands</div>
+            <div class="cmd cmd-hero k-up">
+                <code class="cmd-line"><span class="prompt" aria-hidden="true">$ </span><span class="cmd-text">npx ai-consultants configure</span><span class="cmd-hint"># finds your model CLIs and keys &middot; no model calls</span></code>
+                <button class="copy" type="button" data-copy aria-label="Copy the configure command">Copy</button>
+            </div>
+            <div class="cmd cmd-hero k-up">
+                <code class="cmd-line"><span class="prompt" aria-hidden="true">$ </span><span class="cmd-text">npx ai-consultants "What can go wrong when a service retries failed webhook deliveries?"</span><span class="cmd-hint"># asks every model you set up, then merges</span></code>
+                <button class="copy" type="button" data-copy aria-label="Copy the question command">Copy</button>
+            </div>
+            <div class="cta-notes k-up">
+                <p>You need Node.js, jq, and at least two model CLIs installed and signed in (or two API keys).</p>
+                <p>Each question makes one call per model plus one to merge, billed to your own accounts. Your question and files go to every provider on your panel.</p>
+            </div>
+            <a class="quiet-link k-up" href="#get-started">Set it up in 3 steps &darr;</a>
+        </div>
+
     </div>
 </div>
 
@@ -1252,21 +1243,6 @@
         document.querySelectorAll('main section[id], .hero').forEach(function (s) { sectionIO.observe(s); });
     }
 
-    var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-    // Example card: first 3 points on narrow screens, with a Show all toggle
-    var card = document.getElementById('example');
-    var showAll = card.querySelector('.show-all');
-    var narrowMQ = window.matchMedia('(max-width: 1023px)');
-    card.classList.add('collapsed');
-    showAll.hidden = false;
-    showAll.addEventListener('click', function () {
-        var collapsed = card.classList.toggle('collapsed');
-        showAll.setAttribute('aria-expanded', collapsed ? 'false' : 'true');
-        showAll.textContent = collapsed ? 'Show all' : 'Show fewer';
-        unlockList();
-    });
-
     // Tabs (Terminal / Claude Code)
     var tabs = Array.prototype.slice.call(document.querySelectorAll('[role="tab"]'));
     function selectTab(tab, focus) {
@@ -1294,10 +1270,6 @@
     /* ——— MOTION ———
        html.motion is set in <head> unless the visitor prefers reduced motion. Without it,
        everything above stays in its final state and no story runs. */
-    var rList = card.querySelector('.r-list');
-    var rClip = card.querySelector('.r-clip');
-    function unlockList() { if (rClip) rClip.style.height = ''; }
-
     if (!document.documentElement.classList.contains('motion') || !('IntersectionObserver' in window)) return;
 
     // cubic-bezier(0.65, 0, 0.35, 1) is close enough to an in out cubic for the story tracks
@@ -1354,85 +1326,8 @@
         revealIO.observe(el);
     });
 
-    /* Hero: the copy and the card load in on page load. Story: a new point from the real
-       report lands on top of the list, the others step down a slot, the last one leaves.
-       Seven beats bring the list back to the exact four points in the design, then it rests. */
     var hero = document.querySelector('.hero');
-    var EXTRA = [
-        ['risk', 'Out-of-order delivery: a retried older event can arrive after a newer one and regress receiver state or disrupt sequencing.', 'Mistral'],
-        ['trade_off', 'Backoff and tripped circuit breakers increase delivery latency and introduce eventual-consistency delays for receivers.', 'Codex, Gemini'],
-        ['edge_case', 'Exactly-once business effects cannot be guaranteed by retries alone; they require coordination with every affected downstream system.', 'Codex']
-    ];
-    function pointItem(p) {
-        var li = document.createElement('li');
-        var wrap = document.createElement('span');
-        var kind = document.createElement('span'); kind.className = 'kind'; kind.textContent = p[0] + ':';
-        var point = document.createElement('span'); point.className = 'point'; point.textContent = p[1];
-        var by = document.createElement('span'); by.className = 'by';
-        var b = document.createElement('b'); b.textContent = p[2];
-        by.append('— raised by ', b);
-        if (p[2].indexOf(',') < 0) {
-            var solo = document.createElement('span'); solo.className = 'solo';
-            solo.innerHTML = '<span aria-hidden="true">&#9679;</span><span class="sr-only">(raised by only one model)</span>';
-            by.append(' ', solo);
-        }
-        wrap.append(kind, ' ', point, ' ', by);
-        li.appendChild(wrap);
-        return li;
-    }
-    var originals = Array.prototype.slice.call(rList.children);
-    var sequence = EXTRA.map(pointItem).concat(originals.slice().reverse());
-    var E = 'cubic-bezier(0.16, 1, 0.3, 1)', E2 = 'cubic-bezier(0.33, 1, 0.68, 1)';
-
-    function beat(node) {
-        var items = Array.prototype.slice.call(rList.children);
-        var shown = narrowMQ.matches && card.classList.contains('collapsed') ? 3 : 4;
-        var leaver = items[shown - 1];
-        var stay = items.slice(0, shown - 1);
-        var before = stay.map(function (el) { return el.getBoundingClientRect().top; });
-        rList.insertBefore(node, rList.firstChild);
-        if (leaver) {
-            leaver.classList.add('leave');
-            leaver.animate([{ opacity: 1, filter: 'blur(0)' }, { opacity: 0, filter: 'blur(4px)' }], { duration: 500, easing: E2, fill: 'forwards' })
-                .finished.then(function () {
-                    leaver.getAnimations().forEach(function (a) { a.cancel(); });
-                    leaver.classList.remove('leave');
-                    while (rList.children.length > 4) rList.removeChild(rList.lastChild);
-                });
-        }
-        stay.forEach(function (el, i) {
-            var dy = before[i] - el.getBoundingClientRect().top;
-            if (dy) el.animate([{ transform: 'translateY(' + dy + 'px)' }, { transform: 'none' }], { duration: 1050, easing: E });
-        });
-        node.animate([
-            { opacity: 0, transform: 'translateY(-10px)', filter: 'blur(4px)' },
-            { opacity: 1, transform: 'none', filter: 'blur(0)' }
-        ], { duration: 900, easing: E });
-    }
-
-    var listVisible = false;
-    new IntersectionObserver(function (e) { listVisible = e[0].isIntersecting; }).observe(rList);
-    function runList(step) {
-        if (step === 0) {
-            // A cycle starts on the design: lock the height so the page below never moves
-            rClip.style.height = '';
-            rClip.style.height = rClip.offsetHeight + 'px';
-        }
-        if (!listVisible || document.hidden) { setTimeout(function () { runList(step); }, 600); return; }
-        if (step < sequence.length) {
-            beat(sequence[step]);
-            setTimeout(function () { runList(step + 1); }, 2400);
-        } else {
-            setTimeout(function () { runList(0); }, 4000);  // rest on the exact design
-        }
-    }
-    var resizeT;
-    window.addEventListener('resize', function () { clearTimeout(resizeT); resizeT = setTimeout(unlockList, 150); });
-
-    function startHero() {
-        hero.classList.add('in');
-        setTimeout(function () { runList(0); }, 3600);
-    }
+    function startHero() { hero.classList.add('in'); }
     // Wait briefly for the web font so text does not swap mid rise
     var heroStarted = false;
     function kick() { if (!heroStarted) { heroStarted = true; requestAnimationFrame(startHero); } }
