@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Project overview — ai-consultants</title>
-    <meta name="description" content="Released model documentation for Qwen4 Max, measured with Artificial Analysis v5.0.1.">
+    <meta name="description" content="Released model documentation for Qwen4 Max, measured with Artificial Analysis v5.0.2.">
     <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
     <meta name="theme-color" content="#f8f8f6" media="(prefers-color-scheme: light)">
 
@@ -676,17 +676,13 @@
         }
     </style>
 <style>.preview{padding-top:48px;padding-bottom:80px;max-width:960px}.preview nav{margin:24px 0;line-height:2}.preview article{line-height:1.7;overflow-wrap:anywhere}.preview h1{font-size:2.5rem;line-height:1.2}.preview h2,.preview h3{margin:36px 0 14px}.preview p,.preview ul,.preview ol,.preview blockquote{margin:16px 0}.preview ul,.preview ol{padding-left:24px}.preview pre{overflow:auto;padding:16px;border:1px solid var(--border);margin:16px 0;white-space:pre}.preview table{border-collapse:collapse;min-width:600px;font-size:14px}.preview th,.preview td{padding:10px;text-align:left;border-bottom:1px solid var(--border)}.preview .table-scroll{overflow-x:auto}.preview blockquote{border-left:2px solid var(--text-muted);padding-left:16px}.preview a{text-decoration:underline}.preview code{font-size:.9em}.preview pre code{font-size:13px}</style>    <link rel="stylesheet" href="/site-tokens.css">
-</head><body><a class="skip-link" href="#main">Skip to content</a><main id="main" class="container preview"><a href="/">← ai-consultants</a><nav aria-label="Documentation"><a href="/docs/">Models and benchmarks</a> · <a href="/docs/overview.html" aria-current="page">Project overview</a> · <a href="/docs/setup.html">Setup</a> · <a href="/docs/configuration.html">Configuration</a> · <a href="/docs/routing.html">Smart routing</a> · <a href="/docs/recipes.html">Qwen4 setup</a> · <a href="/docs/changelog.html">Changelog</a></nav><article><p>Documentation for <a href="https://github.com/reasance/ai-consultants/releases/tag/v5.10.0">v5.10.0</a>. Benchmark snapshot: November 16, 2026, Artificial Analysis Intelligence Index v5.0.1.</p>
-<h1 id="ai-consultants-v5100">AI Consultants v5.10.0</h1>
+</head><body><a class="skip-link" href="#main">Skip to content</a><main id="main" class="container preview"><a href="/">← ai-consultants</a><nav aria-label="Documentation"><a href="/docs/">Models and benchmarks</a> · <a href="/docs/overview.html" aria-current="page">Project overview</a> · <a href="/docs/setup.html">Setup</a> · <a href="/docs/configuration.html">Configuration</a> · <a href="/docs/routing.html">Smart routing</a> · <a href="/docs/recipes.html">Qwen4 setup</a> · <a href="/docs/changelog.html">Changelog</a></nav><article><p>Documentation for <a href="https://github.com/reasance/ai-consultants/releases/tag/v5.11.0">v5.11.0</a>. Benchmark snapshot: November 25, 2026, Artificial Analysis Intelligence Index v5.0.2.</p>
+<h1 id="ai-consultants-v5110">AI Consultants v5.11.0</h1>
 <blockquote>
 <p><strong>Coverage, not a single guess.</strong> A panel of up to 11 frontier models from different vendors fans out on your question in parallel and hands you the <em>union</em> of what they collectively see — the risks, edge cases, and approaches a single model misses.</p>
 </blockquote>
-<p><a href="https://github.com/reasance/ai-consultants"><img src="https://img.shields.io/badge/version-5.10.0-blue.svg" alt="Version"></a>
-<a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/license-MIT-green.svg" alt="License"></a>
-<a href="https://docs.anthropic.com/en/docs/claude-code/skills"><img src="https://img.shields.io/badge/Claude%20Code-Skill-orange.svg" alt="Claude Code Skill"></a>
-<a href="https://github.com/reasance/ai-consultants"><img src="https://img.shields.io/github/stars/reasance/ai-consultants?style=social" alt="GitHub stars"></a>
-<a href="https://agentskills.io"><img src="https://img.shields.io/badge/agentskills.io-compatible-blue.svg" alt="agentskills.io"></a></p>
-<hr>
+<p><a href="https://github.com/reasance/ai-consultants"><img src="https://img.shields.io/badge/version-5.11.0-blue.svg" alt="Version" /></a> <a href="https://github.com/reasance/ai-consultants/blob/v5.11.0/LICENSE"><img src="https://img.shields.io/badge/license-MIT-green.svg" alt="License" /></a> <a href="https://docs.anthropic.com/en/docs/claude-code/skills"><img src="https://img.shields.io/badge/Claude%20Code-Skill-orange.svg" alt="Claude Code Skill" /></a> <a href="https://github.com/reasance/ai-consultants"><img src="https://img.shields.io/github/stars/reasance/ai-consultants?style=social" alt="GitHub stars" /></a> <a href="https://agentskills.io"><img src="https://img.shields.io/badge/agentskills.io-compatible-blue.svg" alt="agentskills.io" /></a></p>
+<hr />
 <h2 id="table-of-contents">Table of Contents</h2>
 <ul>
 <li><a href="#why-ai-consultants">Why AI Consultants?</a></li>
@@ -700,22 +696,20 @@
 <li><a href="#gemini-cli-legacy">Gemini CLI (legacy)</a></li>
 <li><a href="#cursor--copilot--windsurf-via-skillport">Cursor / Copilot / Windsurf</a></li>
 <li><a href="#standalone-bash">Standalone Bash</a></li>
-</ul>
-</li>
+</ul></li>
 <li><a href="#consultants">Consultants</a></li>
 <li><a href="#quality-tiers">Quality Tiers</a></li>
 <li><a href="#configuration">Configuration</a>
 <ul>
 <li><a href="#configuration-recipes">Configuration Recipes</a></li>
-</ul>
-</li>
+</ul></li>
 <li><a href="#how-it-works">How It Works</a></li>
 <li><a href="#best-practices">Best Practices</a></li>
 <li><a href="#documentation">Documentation</a></li>
-<li><a href="/docs/changelog.html">Changelog</a></li>
+<li><a href="#changelog">Changelog</a></li>
 <li><a href="#license">License</a></li>
 </ul>
-<hr>
+<hr />
 <h2 id="why-ai-consultants">Why AI Consultants?</h2>
 <p>A single model gives you one perspective. AI Consultants sends your question to a <strong>panel of models from different vendors</strong>, each answering once on its own, and returns the <strong>union of their distinct points</strong>, each tagged with the models that raised it. A point only one model raised stays in the list instead of being voted out.</p>
 <ul>
@@ -725,150 +719,140 @@
 <li><strong>11 supported consultants</strong> with distinct personas (Architect, Pragmatist, Devil’s Advocate, …) — the personas deliberately decorrelate the panel.</li>
 <li><strong>Best for breadth</strong> — threat-modeling, design review, “what am I missing?”, exhaustive enumeration. For a single-answer factual or defect-finding question, one strong model is usually enough.</li>
 </ul>
-<hr>
+<hr />
 <h2 id="quick-start">Quick Start</h2>
 <p>Get started in 30 seconds:</p>
 <h3 id="option-a-npx-recommended">Option A: npx (recommended)</h3>
-<pre><code class="language-bash"># Run directly - no install needed
-npx ai-consultants "How should I structure my authentication system?"
+<pre class="bash"><code># Run directly - no install needed
+npx ai-consultants &quot;How should I structure my authentication system?&quot;
 
 # With a preset
-npx ai-consultants --preset balanced "Redis or Memcached?"
+npx ai-consultants --preset balanced &quot;Redis or Memcached?&quot;
 
 # Run diagnostics
 npx ai-consultants doctor --fix
 
 # Install slash commands for Claude Code
-npx ai-consultants install
-</code></pre>
+npx ai-consultants install</code></pre>
 <h3 id="option-b-curl--bash-claude-code-skill">Option B: curl | bash (Claude Code skill)</h3>
-<pre><code class="language-bash"># Install the skill
+<pre class="bash"><code># Install the skill
 curl -fsSL https://raw.githubusercontent.com/reasance/ai-consultants/main/scripts/install.sh | bash
 
 # Ask your first question
-/ai-consultants:consult "How should I structure my authentication system?"
-</code></pre>
-<h3 id="update--uninstall">Update &#x26; Uninstall</h3>
-<pre><code class="language-bash"># npx always runs latest (or pin a version)
-npx ai-consultants@latest "question"
+/ai-consultants:consult &quot;How should I structure my authentication system?&quot;</code></pre>
+<h3 id="update--uninstall">Update &amp; Uninstall</h3>
+<pre class="bash"><code># npx always runs latest (or pin a version)
+npx ai-consultants@latest &quot;question&quot;
 
 # curl | bash update
 ~/.claude/skills/ai-consultants/scripts/install.sh --update
 
 # Uninstall (curl | bash only)
-~/.claude/skills/ai-consultants/scripts/install.sh --uninstall
-</code></pre>
-<hr>
+~/.claude/skills/ai-consultants/scripts/install.sh --uninstall</code></pre>
+<hr />
 <h2 id="prerequisites">Prerequisites</h2>
 <p>Before installing AI Consultants, ensure you have the following dependencies installed.</p>
 <h3 id="required-dependencies">Required Dependencies</h3>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div class="table-scroll" tabindex="0" role="region" aria-label="Table 1: Dependency"><table><thead><tr><th>Dependency</th><th>Purpose</th></tr></thead><tbody><tr><td><strong>jq</strong></td><td>JSON processing</td></tr><tr><td><strong>curl</strong></td><td>HTTP requests and connectivity</td></tr><tr><td><strong>Bash 3.2+</strong></td><td>Script execution (the stock macOS <code>/bin/bash</code> 3.2 is supported)</td></tr><tr><td><strong>bc</strong></td><td>Cost arithmetic</td></tr></tbody></table></div>
+<div class="table-scroll" tabindex="0" role="region" aria-label="Documentation table 1"><table>
+<thead>
+<tr>
+<th>Dependency</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>jq</strong></td>
+<td>JSON processing</td>
+</tr>
+<tr>
+<td><strong>curl</strong></td>
+<td>HTTP requests and connectivity</td>
+</tr>
+<tr>
+<td><strong>Bash 3.2+</strong></td>
+<td>Script execution (the stock macOS <code>/bin/bash</code> 3.2 is supported)</td>
+</tr>
+<tr>
+<td><strong>bc</strong></td>
+<td>Cost arithmetic</td>
+</tr>
+</tbody>
+</table></div>
 <h3 id="installation-by-platform">Installation by Platform</h3>
 <h4 id="macos">macOS</h4>
-<pre><code class="language-bash"># Install Homebrew if not already installed
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+<pre class="bash"><code># Install Homebrew if not already installed
+/bin/bash -c &quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)&quot;
 
 # Install required dependencies (coreutils is optional: it provides
 # `timeout`; a built-in fallback is used without it)
 brew install jq coreutils
 
 # Verify installation
-jq --version &#x26;&#x26; bash --version | head -1
-</code></pre>
+jq --version &amp;&amp; bash --version | head -1</code></pre>
 <blockquote>
 <p><strong>Note:</strong> the scripts target the stock macOS Bash 3.2 (<code>#!/bin/bash</code>); installing a newer Bash is not required.</p>
 </blockquote>
 <h4 id="linux-ubuntudebian">Linux (Ubuntu/Debian)</h4>
-<pre><code class="language-bash"># Install required dependencies
+<pre class="bash"><code># Install required dependencies
 sudo apt-get update
 sudo apt-get install -y jq curl bash bc
 
 # Verify installation
-jq --version &#x26;&#x26; bash --version | head -1
-</code></pre>
+jq --version &amp;&amp; bash --version | head -1</code></pre>
 <h4 id="linux-fedorarhelcentos">Linux (Fedora/RHEL/CentOS)</h4>
-<pre><code class="language-bash"># Install required dependencies
+<pre class="bash"><code># Install required dependencies
 sudo dnf install -y jq curl bash bc
 
 # Verify installation
-jq --version &#x26;&#x26; bash --version | head -1
-</code></pre>
+jq --version &amp;&amp; bash --version | head -1</code></pre>
 <h4 id="linux-arch">Linux (Arch)</h4>
-<pre><code class="language-bash"># Install required dependencies
+<pre class="bash"><code># Install required dependencies
 sudo pacman -S jq curl bash bc
 
 # Verify installation
-jq --version &#x26;&#x26; bash --version | head -1
-</code></pre>
+jq --version &amp;&amp; bash --version | head -1</code></pre>
 <h4 id="windows">Windows</h4>
 <p>Use <strong>WSL (Windows Subsystem for Linux)</strong>:</p>
-<pre><code class="language-powershell"># Install WSL (run in PowerShell as Administrator)
+<pre class="powershell"><code># Install WSL (run in PowerShell as Administrator)
 wsl --install
 
 # After restart, open WSL and follow Linux instructions
 sudo apt-get update
-sudo apt-get install -y jq curl bash bc
-</code></pre>
+sudo apt-get install -y jq curl bash bc</code></pre>
 <p>Alternatively, use <strong>Git Bash</strong> or <strong>MSYS2</strong> with the required packages.</p>
 <h3 id="optional-dependencies">Optional Dependencies</h3>
 <p>For CLI-based consultants, you’ll also need:</p>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div class="table-scroll" tabindex="0" role="region" aria-label="Table 2: Dependency"><table><thead><tr><th>Dependency</th><th>Required for</th></tr></thead><tbody><tr><td><strong>Node.js 18+</strong></td><td>Codex CLI, Qwen CLI, MiniMax CLI</td></tr><tr><td><strong>Python 3.8+</strong></td><td>Mistral Vibe CLI</td></tr></tbody></table></div>
-<pre><code class="language-bash"># macOS
+<div class="table-scroll" tabindex="0" role="region" aria-label="Documentation table 2"><table>
+<thead>
+<tr>
+<th>Dependency</th>
+<th>Required for</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Node.js 18+</strong></td>
+<td>Codex CLI, Qwen CLI, MiniMax CLI</td>
+</tr>
+<tr>
+<td><strong>Python 3.8+</strong></td>
+<td>Mistral Vibe CLI</td>
+</tr>
+</tbody>
+</table></div>
+<pre class="bash"><code># macOS
 brew install node python
 
 # Ubuntu/Debian
 sudo apt-get install -y nodejs npm python3 python3-pip
 
 # Verify
-node --version &#x26;&#x26; python3 --version
-</code></pre>
+node --version &amp;&amp; python3 --version</code></pre>
 <h3 id="verify-all-prerequisites">Verify All Prerequisites</h3>
 <p>Run the doctor command to check everything is installed:</p>
-<pre><code class="language-bash">./scripts/doctor.sh
-</code></pre>
-<hr>
+<pre class="bash"><code>./scripts/doctor.sh</code></pre>
+<hr />
 <h2 id="supported-cli-agents">Supported CLI Agents</h2>
 <p>AI Consultants follows the open <a href="https://agentskills.io">Agent Skills standard</a>, enabling cross-platform compatibility.</p>
 <h3 id="claude-code">Claude Code</h3>
@@ -876,277 +860,218 @@ node --version &#x26;&#x26; python3 --version
 <p><strong>Status:</strong> ✅ Native support (headless run verified with Claude Code 2.1.303 on 2026-10-19)</p>
 </blockquote>
 <p><strong>Installation:</strong></p>
-<pre><code class="language-bash">curl -fsSL https://raw.githubusercontent.com/reasance/ai-consultants/main/scripts/install.sh | bash
-</code></pre>
+<pre class="bash"><code>curl -fsSL https://raw.githubusercontent.com/reasance/ai-consultants/main/scripts/install.sh | bash</code></pre>
 <p><strong>Slash Commands:</strong></p>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div class="table-scroll" tabindex="0" role="region" aria-label="Table 3: Command"><table><thead><tr><th>Command</th><th>Description</th></tr></thead><tbody><tr><td><code>/ai-consultants:consult</code></td><td>Main consultation - ask AI consultants a coding question</td></tr><tr><td><code>/ai-consultants:help</code></td><td>Show all commands and usage</td></tr></tbody></table></div>
+<div class="table-scroll" tabindex="0" role="region" aria-label="Documentation table 3"><table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>/ai-consultants:consult</code></td>
+<td>Main consultation - ask AI consultants a coding question</td>
+</tr>
+<tr>
+<td><code>/ai-consultants:help</code></td>
+<td>Show all commands and usage</td>
+</tr>
+</tbody>
+</table></div>
 <p>Configuration (presets, strategies, features, personas, API keys) can be managed via natural language — just ask.</p>
-<p><strong>Self-Exclusion:</strong> Claude consultant is automatically excluded when invoked from Claude Code.
-The command also prevents Claude from being selected as the synthesis provider;
-Codex and every other enabled consultant remain eligible. Natural-language
-skill invocations execute the panel directly rather than merely suggesting the
-slash command.</p>
+<p><strong>Self-Exclusion:</strong> Claude consultant is automatically excluded when invoked from Claude Code. The command also prevents Claude from being selected as the synthesis provider; Codex and every other enabled consultant remain eligible. Natural-language skill invocations execute the panel directly rather than merely suggesting the slash command.</p>
 <p><strong>Verify:</strong></p>
-<pre><code class="language-bash">./scripts/doctor.sh
-</code></pre>
-<hr>
+<pre class="bash"><code>./scripts/doctor.sh</code></pre>
+<hr />
 <h3 id="openai-codex-cli">OpenAI Codex CLI</h3>
 <blockquote>
 <p><strong>Status:</strong> ✅ Compatible (headless run verified with Codex CLI 0.163 on 2026-10-19)</p>
 </blockquote>
 <p><strong>Installation:</strong></p>
-<pre><code class="language-bash">git clone https://github.com/reasance/ai-consultants.git ~/.codex/skills/ai-consultants
+<pre class="bash"><code>git clone https://github.com/reasance/ai-consultants.git ~/.codex/skills/ai-consultants
 ~/.codex/skills/ai-consultants/scripts/doctor.sh --fix
 # Or share an existing installation through the cross-agent skills directory:
-# ln -s ~/.claude/skills/ai-consultants ~/.agents/skills/ai-consultants
-</code></pre>
+# ln -s ~/.claude/skills/ai-consultants ~/.agents/skills/ai-consultants</code></pre>
 <p><strong>Usage:</strong></p>
-<p>Codex has no custom slash commands: it loads the skill from <code>~/.codex/skills/</code>
-or <code>~/.agents/skills/</code> and runs it when asked, for example <em>“use the
-ai-consultants skill to review src/auth.ts”</em>. The consultation calls other CLIs
-and APIs over the network and writes under <code>~/.cache</code> and <code>~/.config</code>, so
-Codex’s default sandbox cannot run it: approve the escalation when Codex asks,
-or start Codex with <code>--sandbox danger-full-access</code>. Codex’s automatic approval
-review (<code>--approve-for-me</code>) rejects that escalation because it sends your files
-to external providers, so the approval has to come from you.</p>
+<p>Codex has no custom slash commands: it loads the skill from <code>~/.codex/skills/</code> or <code>~/.agents/skills/</code> and runs it when asked, for example <em>“use the ai-consultants skill to review src/auth.ts”</em>. The consultation calls other CLIs and APIs over the network and writes under <code>~/.cache</code> and <code>~/.config</code>, so Codex’s default sandbox cannot run it: approve the escalation when Codex asks, or start Codex with <code>--sandbox danger-full-access</code>. Codex’s automatic approval review (<code>--approve-for-me</code>) rejects that escalation because it sends your files to external providers, so the approval has to come from you.</p>
 <p><strong>Self-Exclusion:</strong> Codex consultant is automatically excluded when invoked from Codex CLI.</p>
 <p><strong>Verify:</strong></p>
-<pre><code class="language-bash">~/.codex/skills/ai-consultants/scripts/doctor.sh
-</code></pre>
-<hr>
+<pre class="bash"><code>~/.codex/skills/ai-consultants/scripts/doctor.sh</code></pre>
+<hr />
 <h3 id="antigravity-agy">Antigravity (agy)</h3>
 <blockquote>
 <p><strong>Status:</strong> ✅ Compatible (headless run verified with agy 1.4.2 on 2026-10-19)</p>
 </blockquote>
 <p>Antigravity (<code>agy</code>) replaced the Gemini CLI for individual Google accounts.</p>
 <p><strong>Installation:</strong></p>
-<pre><code class="language-bash"># Per project (agy reads &#x3C;project>/.agents/skills/)
+<pre class="bash"><code># Per project (agy reads &lt;project&gt;/.agents/skills/)
 mkdir -p .agents/skills
 git clone https://github.com/reasance/ai-consultants.git .agents/skills/ai-consultants
-# Or for every project: agy's user skill directory is ~/.gemini/config/skills/
-</code></pre>
-<p><strong>Usage:</strong> ask in natural language, for example <em>“use the ai-consultants skill
-to compare these two designs”</em>. agy runs the consultation as a background task
-and follows its progress; in print mode (<code>agy -p</code>) it waits at most 30 minutes
-for background tasks.</p>
-<p><strong>Self-Exclusion:</strong> the Gemini consultant is excluded when invoked from agy
-(<code>INVOKING_AGENT=gemini</code>).</p>
-<hr>
+# Or for every project: agy&#39;s user skill directory is ~/.gemini/config/skills/</code></pre>
+<p><strong>Usage:</strong> ask in natural language, for example <em>“use the ai-consultants skill to compare these two designs”</em>. agy runs the consultation as a background task and follows its progress; in print mode (<code>agy -p</code>) it waits at most 30 minutes for background tasks.</p>
+<p><strong>Self-Exclusion:</strong> the Gemini consultant is excluded when invoked from agy (<code>INVOKING_AGENT=gemini</code>).</p>
+<hr />
 <h3 id="gemini-cli-legacy">Gemini CLI (legacy)</h3>
 <blockquote>
-<p><strong>Status:</strong> ⚠️ Legacy. Google stopped serving the Gemini CLI to individual
-accounts on 2026-06-18; use <a href="#antigravity-agy">Antigravity (agy)</a> instead.</p>
+<p><strong>Status:</strong> ⚠️ Legacy. Google stopped serving the Gemini CLI to individual accounts on 2026-06-18; use <a href="#antigravity-agy">Antigravity (agy)</a> instead.</p>
 </blockquote>
-<p>Accounts that can still use it get the skill from <code>~/.gemini/skills/</code> or
-<code>~/.agents/skills/</code>, through natural language: the Gemini CLI loads only
-<code>.toml</code> custom commands, so the <code>/ai-consultants:*</code> slash commands are not
-available there. The Gemini consultant is excluded as for agy.</p>
-<hr>
+<p>Accounts that can still use it get the skill from <code>~/.gemini/skills/</code> or <code>~/.agents/skills/</code>, through natural language: the Gemini CLI loads only <code>.toml</code> custom commands, so the <code>/ai-consultants:*</code> slash commands are not available there. The Gemini consultant is excluded as for agy.</p>
+<hr />
 <h3 id="cursor--copilot--windsurf-via-skillport">Cursor / Copilot / Windsurf (via SkillPort)</h3>
 <blockquote>
 <p><strong>Status:</strong> ✅ Via SkillPort</p>
 </blockquote>
 <p><strong>Installation:</strong></p>
-<pre><code class="language-bash"># Install SkillPort if not already installed
+<pre class="bash"><code># Install SkillPort if not already installed
 npm install -g skillport
 
 # Add AI Consultants skill
 skillport add github.com/reasance/ai-consultants
 
 # Load skill in your agent
-skillport show ai-consultants
-</code></pre>
+skillport show ai-consultants</code></pre>
 <p>Or clone and use the included installer:</p>
-<pre><code class="language-bash">git clone https://github.com/reasance/ai-consultants.git
+<pre class="bash"><code>git clone https://github.com/reasance/ai-consultants.git
 cd ai-consultants
-./scripts/skillport-install.sh
-</code></pre>
+./scripts/skillport-install.sh</code></pre>
 <p><strong>Commands:</strong></p>
 <p>SkillPort translates skill commands to the native agent format.</p>
 <p>Cursor remains a supported host through SkillPort; it is not itself a consultant in the panel.</p>
 <p><strong>Verify:</strong></p>
-<pre><code class="language-bash">skillport status ai-consultants
-</code></pre>
-<hr>
+<pre class="bash"><code>skillport status ai-consultants</code></pre>
+<hr />
 <h3 id="standalone-bash">Standalone Bash</h3>
 <blockquote>
 <p><strong>Status:</strong> ✅ Direct execution</p>
 </blockquote>
 <p><strong>Installation:</strong></p>
-<pre><code class="language-bash">git clone https://github.com/reasance/ai-consultants.git
+<pre class="bash"><code>git clone https://github.com/reasance/ai-consultants.git
 cd ai-consultants
 ./scripts/doctor.sh --fix
-./bin/ai-consultants configure
-</code></pre>
+./bin/ai-consultants configure</code></pre>
 <p><strong>Commands:</strong></p>
-<pre><code class="language-bash"># Basic consultation
-./scripts/consult_all.sh "How to optimize this function?" src/utils.py
+<pre class="bash"><code># Basic consultation
+./scripts/consult_all.sh &quot;How to optimize this function?&quot; src/utils.py
 
 # With preset
-./scripts/consult_all.sh --preset balanced "Redis or Memcached?"
+./scripts/consult_all.sh --preset balanced &quot;Redis or Memcached?&quot;
 
 # Side-by-side instead of the coverage union
-./scripts/consult_all.sh --strategy compare_only "Microservices vs monolith?"
+./scripts/consult_all.sh --strategy compare_only &quot;Microservices vs monolith?&quot;
 
 # With smart routing
-ENABLE_SMART_ROUTING=true ./scripts/consult_all.sh "Bug in auth code"
+ENABLE_SMART_ROUTING=true ./scripts/consult_all.sh &quot;Bug in auth code&quot;
 
 # Follow-up questions
-./scripts/followup.sh "Can you elaborate on that point?"
-./scripts/followup.sh -c Gemini "Show me code example"
-</code></pre>
+./scripts/followup.sh &quot;Can you elaborate on that point?&quot;
+./scripts/followup.sh -c Gemini &quot;Show me code example&quot;</code></pre>
 <p><strong>Self-Exclusion:</strong> Set <code>INVOKING_AGENT</code> environment variable:</p>
-<pre><code class="language-bash">INVOKING_AGENT=claude ./scripts/consult_all.sh "Question"   # Claude excluded
-INVOKING_AGENT=codex ./scripts/consult_all.sh "Question"    # Codex excluded
-./scripts/consult_all.sh "Question"                          # No exclusion
-</code></pre>
+<pre class="bash"><code>INVOKING_AGENT=claude ./scripts/consult_all.sh &quot;Question&quot;   # Claude excluded
+INVOKING_AGENT=codex ./scripts/consult_all.sh &quot;Question&quot;    # Codex excluded
+./scripts/consult_all.sh &quot;Question&quot;                          # No exclusion</code></pre>
 <p><strong>Verify:</strong></p>
-<pre><code class="language-bash">./scripts/doctor.sh
-</code></pre>
-<hr>
+<pre class="bash"><code>./scripts/doctor.sh</code></pre>
+<hr />
 <h2 id="consultants">Consultants</h2>
 <h3 id="cli-based-consultants">CLI-Based Consultants</h3>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div class="table-scroll" tabindex="0" role="region" aria-label="Table 4: Consultant"><table><thead><tr><th>Consultant</th><th>CLI</th><th>Persona</th><th>Focus</th></tr></thead><tbody><tr><td><strong>Google Gemini</strong></td><td><code>agy</code></td><td>The Architect</td><td>Design patterns, scalability, enterprise</td></tr><tr><td><strong>OpenAI Codex</strong></td><td><code>codex</code></td><td>The Pragmatist</td><td>Simplicity, quick wins, proven solutions</td></tr><tr><td><strong>Mistral Vibe</strong></td><td><code>vibe</code></td><td>The Devil’s Advocate</td><td>Problems, edge cases, vulnerabilities</td></tr><tr><td><strong>Kimi K3.1 Pro</strong></td><td><code>kimi</code></td><td>The Eastern Sage</td><td>Holistic, balanced perspectives</td></tr><tr><td><strong>Claude</strong></td><td><code>claude</code></td><td>The Synthesizer</td><td>Big picture, synthesis, connecting ideas</td></tr><tr><td><strong>Qwen3</strong></td><td><code>qwen</code></td><td>The Analyst</td><td>Data-driven analysis</td></tr><tr><td><strong>Grok</strong></td><td><code>grok</code></td><td>The Provocateur</td><td>Challenge conventions</td></tr><tr><td><strong>MiniMax</strong></td><td><code>mmx</code></td><td>The Pragmatic Optimizer</td><td>Performance, efficiency, pragmatism</td></tr><tr><td><strong>Meta Muse</strong></td><td><code>muse</code></td><td>The Systems Thinker</td><td>System design, interactions, cascading effects</td></tr></tbody></table></div>
-<p>Grok uses Grok Build with <code>grok-4.7</code> in an isolated, tool-free sandbox. Prompts
-are passed through a private file rather than process arguments. It falls back
-to the xAI API only when the CLI is missing, cannot launch, or has no usable
-authentication and <code>GROK_API_KEY</code> is configured; post-launch request failures
-are surfaced without a silent API charge. Grok CLI OAuth defaults to concurrent
-<code>shared</code> mode: HOME, workspace, prompt, output, permissions, and agent state
-remain isolated per invocation, while processes share one runner-owned
-persistent <code>GROK_HOME</code> so the CLI’s own auth lock can coordinate refresh.
-Credential adoption/publication uses a short lock and digest CAS, so an
-external <code>grok login</code> wins and the affected run fails without overwriting it or
-falling back to the API. Set <code>GROK_OAUTH_MODE=serialized</code> only for diagnostic
-full-run serialization. A new generation performs one locked inventory
-bootstrap because Grok 1.0.4 lazily initializes home metadata; inference is
-never serialized by that bootstrap. Qwen3, MiniMax and Meta can also switch
-from their CLI to API transport. Gemini, Codex, Claude, and Mistral are
-CLI/API switchable. Gemini, Grok, and Kimi verify the requested model
-against the CLI inventory before dispatch when that inventory exists. Grok and
-Kimi compatibility is capability-probed before
-dispatch: the requested model, headless arguments, and structured-output
-surface must be available. Any CLI version is accepted when those checks pass;
-the observed version is response provenance only.</p>
-<p>Meta runs Muse Code headless (<code>muse exec</code>) advisory-only: a private empty
-workspace, no shell, no workspace writes, no web tools, no sandbox network, no
-personal rules or skills, no session log and <code>--contributor-mode off</code> (Muse
-Code subscriptions default to Contributor mode, which lets Meta train on the
-content). The prompt goes through <code>--prompt-file</code>. Its <code>muse exec</code> flags are
-capability-probed before dispatch. With <code>META_API_KEY</code> set (and no explicit
-<code>META_USE_API</code>), Meta uses the Meta Model API instead. Meta is opt-in
-(<code>ENABLE_META=false</code> until <code>configure</code> finds the CLI or a key).</p>
+<div class="table-scroll" tabindex="0" role="region" aria-label="Documentation table 4"><table>
+<thead>
+<tr>
+<th>Consultant</th>
+<th>CLI</th>
+<th>Persona</th>
+<th>Focus</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Google Gemini</strong></td>
+<td><code>agy</code></td>
+<td>The Architect</td>
+<td>Design patterns, scalability, enterprise</td>
+</tr>
+<tr>
+<td><strong>OpenAI Codex</strong></td>
+<td><code>codex</code></td>
+<td>The Pragmatist</td>
+<td>Simplicity, quick wins, proven solutions</td>
+</tr>
+<tr>
+<td><strong>Mistral Vibe</strong></td>
+<td><code>vibe</code></td>
+<td>The Devil’s Advocate</td>
+<td>Problems, edge cases, vulnerabilities</td>
+</tr>
+<tr>
+<td><strong>Kimi K3.1 Pro</strong></td>
+<td><code>kimi</code></td>
+<td>The Eastern Sage</td>
+<td>Holistic, balanced perspectives</td>
+</tr>
+<tr>
+<td><strong>Claude</strong></td>
+<td><code>claude</code></td>
+<td>The Synthesizer</td>
+<td>Big picture, synthesis, connecting ideas</td>
+</tr>
+<tr>
+<td><strong>Qwen3</strong></td>
+<td><code>qwen</code></td>
+<td>The Analyst</td>
+<td>Data-driven analysis</td>
+</tr>
+<tr>
+<td><strong>Grok</strong></td>
+<td><code>grok</code></td>
+<td>The Provocateur</td>
+<td>Challenge conventions</td>
+</tr>
+<tr>
+<td><strong>MiniMax</strong></td>
+<td><code>mmx</code></td>
+<td>The Pragmatic Optimizer</td>
+<td>Performance, efficiency, pragmatism</td>
+</tr>
+<tr>
+<td><strong>Meta Muse</strong></td>
+<td><code>muse</code></td>
+<td>The Systems Thinker</td>
+<td>System design, interactions, cascading effects</td>
+</tr>
+</tbody>
+</table></div>
+<p>Grok uses Grok Build with <code>grok-4.7</code> in an isolated, tool-free sandbox. Prompts are passed through a private file rather than process arguments. It falls back to the xAI API only when the CLI is missing, cannot launch, or has no usable authentication and <code>GROK_API_KEY</code> is configured; post-launch request failures are surfaced without a silent API charge. Grok CLI OAuth defaults to concurrent <code>shared</code> mode: HOME, workspace, prompt, output, permissions, and agent state remain isolated per invocation, while processes share one runner-owned persistent <code>GROK_HOME</code> so the CLI’s own auth lock can coordinate refresh. Credential adoption/publication uses a short lock and digest CAS, so an external <code>grok login</code> wins and the affected run fails without overwriting it or falling back to the API. Set <code>GROK_OAUTH_MODE=serialized</code> only for diagnostic full-run serialization. A new generation performs one locked inventory bootstrap because Grok 1.0.4 lazily initializes home metadata; inference is never serialized by that bootstrap. Qwen3, MiniMax and Meta can also switch from their CLI to API transport. Gemini, Codex, Claude, and Mistral are CLI/API switchable. Gemini, Grok, and Kimi verify the requested model against the CLI inventory before dispatch when that inventory exists. Grok and Kimi compatibility is capability-probed before dispatch: the requested model, headless arguments, and structured-output surface must be available. Any CLI version is accepted when those checks pass; the observed version is response provenance only.</p>
+<p>Meta runs Muse Code headless (<code>muse exec</code>) advisory-only: a private empty workspace, no shell, no workspace writes, no web tools, no sandbox network, no personal rules or skills, no session log and <code>--contributor-mode off</code> (Muse Code subscriptions default to Contributor mode, which lets Meta train on the content). The prompt goes through <code>--prompt-file</code>. Its <code>muse exec</code> flags are capability-probed before dispatch. With <code>META_API_KEY</code> set (and no explicit <code>META_USE_API</code>), Meta uses the Meta Model API instead. Meta is opt-in (<code>ENABLE_META=false</code> until <code>configure</code> finds the CLI or a key).</p>
 <h3 id="api-only-consultants">API-Only Consultants</h3>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div class="table-scroll" tabindex="0" role="region" aria-label="Table 5: Consultant"><table><thead><tr><th>Consultant</th><th>Default Model</th><th>Persona</th><th>Focus</th></tr></thead><tbody><tr><td><strong>GLM</strong></td><td>glm-5.3-flash</td><td>The Methodologist</td><td>Structured approaches</td></tr><tr><td><strong>DeepSeek</strong></td><td>deepseek-flash (V4.1 Flash)</td><td>The Code Specialist</td><td>Algorithms, code generation</td></tr></tbody></table></div>
+<div class="table-scroll" tabindex="0" role="region" aria-label="Documentation table 5"><table>
+<thead>
+<tr>
+<th>Consultant</th>
+<th>Default Model</th>
+<th>Persona</th>
+<th>Focus</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>GLM</strong></td>
+<td>glm-5.3-flash</td>
+<td>The Methodologist</td>
+<td>Structured approaches</td>
+</tr>
+<tr>
+<td><strong>DeepSeek</strong></td>
+<td>deepseek-flash (V4.1 Flash)</td>
+<td>The Code Specialist</td>
+<td>Algorithms, code generation</td>
+</tr>
+</tbody>
+</table></div>
 <h3 id="installing-consultant-clis">Installing Consultant CLIs</h3>
-<p>At least 2 consultants are required (a CLI, or an API key for API mode). The
-first three below make up the <code>balanced</code> preset:</p>
-<pre><code class="language-bash">curl -fsSL https://antigravity.google/cli/install.sh | bash  # Gemini (Antigravity CLI: agy)
+<p>At least 2 consultants are required (a CLI, or an API key for API mode). The first three below make up the <code>balanced</code> preset:</p>
+<pre class="bash"><code>curl -fsSL https://antigravity.google/cli/install.sh | bash  # Gemini (Antigravity CLI: agy)
 npm install -g @openai/codex           # Codex
 pip install mistral-vibe               # Mistral
 
@@ -1156,408 +1081,327 @@ npm install -g @qwen-code/qwen-code@latest  # Qwen (alternative to API)
 curl -fsSL https://x.ai/cli/install.sh | bash # Grok Build (grok-4.7)
 npm install -g mmx-cli                       # MiniMax
 curl -fsSL https://dev.meta.ai/install.sh | sh  # Meta (Muse Code; run muse once to sign in)
-
 </code></pre>
-<p>Kimi is pinned to K3.1 Pro at max thinking effort for every consultation, even
-if the user’s Kimi CLI has a different default model or effort
-(<code>KIMI_REASONING_EFFORT</code> reaches the CLI as <code>KIMI_MODEL_THINKING_EFFORT</code>):</p>
-<pre><code class="language-bash">KIMI_MODEL=kimi-code/k3.1-pro ai-consultants \
-  "Review this API design from a holistic perspective"
-</code></pre>
-<hr>
+<p>Kimi is pinned to K3.1 Pro at max thinking effort for every consultation, even if the user’s Kimi CLI has a different default model or effort (<code>KIMI_REASONING_EFFORT</code> reaches the CLI as <code>KIMI_MODEL_THINKING_EFFORT</code>):</p>
+<pre class="bash"><code>KIMI_MODEL=kimi-code/k3.1-pro ai-consultants \
+  &quot;Review this API design from a holistic perspective&quot;</code></pre>
+<hr />
 <h2 id="quality-tiers">Quality Tiers</h2>
 <p>Choose the right balance of quality, speed, and cost with model quality tiers.</p>
 <h3 id="tier-presets">Tier Presets</h3>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div class="table-scroll" tabindex="0" role="region" aria-label="Table 6: Preset"><table><thead><tr><th>Preset</th><th>Tier</th><th>Agents</th><th>Use Case</th></tr></thead><tbody><tr><td><code>max_quality</code></td><td>Maximum + max effort</td><td>All 11</td><td>Critical decisions</td></tr><tr><td><code>medium</code></td><td>Standard</td><td>3</td><td>General questions</td></tr><tr><td><code>fast</code></td><td>Economy</td><td>2</td><td>Quick checks</td></tr></tbody></table></div>
-<p>A preset only chooses the <strong>consultant set and model tier</strong> — every run then fans out in
-parallel and returns the coverage union.
-Preset panels use statically configured transports only (a CLI on <code>PATH</code>, or selected API mode with its key). Host self-exclusion is fail-closed; lost canonical slots are filled from <code>ALL_CONSULTANTS</code> in canonical order. If the effective target cannot be met, including after an enabled health gate prunes the panel, the run stops with promised/selected/missing-capacity guidance. Configured custom API agents are appended and may satisfy capacity, so a full preset can exceed its advertised count. <code>max_quality</code> still advertises 11 consultants, with an effective target of 10 for a canonical invoking host.
-For <code>max_quality</code>, Grok, GLM, DeepSeek and Meta are also pinned to their highest
-accepted reasoning effort: Grok Build uses <code>xhigh</code>, while GLM, DeepSeek and Meta
-use <code>max</code>. Unsupported transport capabilities fail explicitly instead of reducing
-effort silently.</p>
-<p>The maximum preset also applies the transport budgets proven by the live panel
-smoke: four bounded advisory turns for Mistral/Grok, the then maximum-tier Qwen3.8-Max
-and DeepSeek timeouts (<code>QWEN3_MAX_QUALITY_TIMEOUT</code>/<code>DEEPSEEK_MAX_QUALITY_TIMEOUT</code>,
-default 0: no limit), and larger OpenAI-compatible output budgets for Qwen, GLM,
-and DeepSeek. MiniMax-M3.1-Flash always reasons, so it receives a 16,384-token
-completion budget (32,768 for <code>mmx</code> in the maximum tier) and the shared JSON response
-contract through mmx’s native system channel.
-Provider output is tagged <code>structured</code>, <code>fallback</code>, or <code>error</code>;
-malformed/truncated JSON fails
-closed. In coverage/union mode, only locally atomized <code>summary</code>, <code>pros</code>,
-<code>cons</code>, <code>alternatives</code>, <code>caveats</code>, and <code>references</code> can be source-attributed;
-fallback prose remains context-only for manual review. <code>synthesis.json</code> records
-<code>coverage_integrity</code>: <code>MET</code> applies only to those audited fields, while
-<code>DEGRADED</code>/<code>FAILED</code> must not be read as comprehensive coverage. It also records
-locally authoritative <code>coverage_input_truncated</code> and <code>truncated_consultants</code>:
-only non-normalizable fallback context is capped (at Unicode code-point
-boundaries), never atomic findings; a truncated coverage input is disclosed
-and cannot support a comprehensive coverage claim.</p>
+<div class="table-scroll" tabindex="0" role="region" aria-label="Documentation table 6"><table>
+<thead>
+<tr>
+<th>Preset</th>
+<th>Tier</th>
+<th>Agents</th>
+<th>Use Case</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>max_quality</code></td>
+<td>Maximum + max effort</td>
+<td>All 11</td>
+<td>Critical decisions</td>
+</tr>
+<tr>
+<td><code>medium</code></td>
+<td>Standard</td>
+<td>3</td>
+<td>General questions</td>
+</tr>
+<tr>
+<td><code>fast</code></td>
+<td>Economy</td>
+<td>2</td>
+<td>Quick checks</td>
+</tr>
+</tbody>
+</table></div>
+<p>A preset only chooses the <strong>consultant set and model tier</strong> — every run then fans out in parallel and returns the coverage union. Preset panels use statically configured transports only (a CLI on <code>PATH</code>, or selected API mode with its key). Host self-exclusion is fail-closed; lost canonical slots are filled from <code>ALL_CONSULTANTS</code> in canonical order. If the effective target cannot be met, including after an enabled health gate prunes the panel, the run stops with promised/selected/missing-capacity guidance. Configured custom API agents are appended and may satisfy capacity, so a full preset can exceed its advertised count. <code>max_quality</code> still advertises 11 consultants, with an effective target of 10 for a canonical invoking host. For <code>max_quality</code>, Grok, GLM, DeepSeek and Meta are also pinned to their highest accepted reasoning effort: Grok Build uses <code>xhigh</code>, while GLM, DeepSeek and Meta use <code>max</code>. Unsupported transport capabilities fail explicitly instead of reducing effort silently.</p>
+<p>The maximum preset also applies the transport budgets proven by the live panel smoke: four bounded advisory turns for Mistral/Grok, the then maximum-tier Qwen3.8-Max and DeepSeek timeouts (<code>QWEN3_MAX_QUALITY_TIMEOUT</code>/<code>DEEPSEEK_MAX_QUALITY_TIMEOUT</code>, default 0: no limit), and larger OpenAI-compatible output budgets for Qwen, GLM, and DeepSeek. MiniMax-M3.1-Flash always reasons, so it receives a 16,384-token completion budget (32,768 for <code>mmx</code> in the maximum tier) and the shared JSON response contract through mmx’s native system channel. Provider output is tagged <code>structured</code>, <code>fallback</code>, or <code>error</code>; malformed/truncated JSON fails closed. In coverage/union mode, only locally atomized <code>summary</code>, <code>pros</code>, <code>cons</code>, <code>alternatives</code>, <code>caveats</code>, and <code>references</code> can be source-attributed; fallback prose remains context-only for manual review. <code>synthesis.json</code> records <code>coverage_integrity</code>: <code>MET</code> applies only to those audited fields, while <code>DEGRADED</code>/<code>FAILED</code> must not be read as comprehensive coverage. It also records locally authoritative <code>coverage_input_truncated</code> and <code>truncated_consultants</code>: only non-normalizable fallback context is capped (at Unicode code-point boundaries), never atomic findings; a truncated coverage input is disclosed and cannot support a comprehensive coverage claim.</p>
 <h3 id="models-by-tier">Models by Tier</h3>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div class="table-scroll" tabindex="0" role="region" aria-label="Table 7: Consultant"><table><thead><tr><th>Consultant</th><th><code>max_quality</code></th><th>Premium</th><th>Standard</th><th>Economy</th></tr></thead><tbody><tr><td>Claude</td><td>claude-opus-5-5</td><td>claude-opus-5-5</td><td>claude-opus-5-5</td><td>claude-haiku-5-5</td></tr><tr><td>Gemini CLI</td><td>gemini-4-argon-high</td><td>gemini-4-argon-high</td><td>gemini-3.8-flash-high</td><td>gemini-3.8-flash-low</td></tr><tr><td>Gemini API</td><td>gemini-4-argon</td><td>gemini-4-argon</td><td>gemini-3.8-flash</td><td>gemini-3.8-flash</td></tr><tr><td>Codex</td><td>gpt-6-astra</td><td>gpt-6.1-sol</td><td>gpt-6.1-sol</td><td>gpt-6-luna</td></tr><tr><td>Mistral CLI</td><td>mistral-medium-3.5</td><td>mistral-medium-3.5</td><td>mistral-medium-3.5</td><td>mistral-medium-3.5</td></tr><tr><td>Mistral API</td><td>mistral-large-4</td><td>mistral-large-4</td><td>mistral-large-4</td><td>mistral-large-4</td></tr><tr><td>DeepSeek</td><td>deepseek-flash</td><td>deepseek-flash</td><td>deepseek-flash</td><td>deepseek-flash</td></tr><tr><td>GLM</td><td>glm-5.3</td><td>glm-5.3-flash</td><td>glm-5.3-flash</td><td>glm-5.3-flash</td></tr><tr><td>Grok</td><td>grok-4.7</td><td>grok-4.7</td><td>grok-4.7</td><td>grok-4.7</td></tr><tr><td>Qwen3</td><td>qwen4-max</td><td>qwen4-max</td><td>qwen3.8-flash</td><td>qwen3.8-flash</td></tr><tr><td>Kimi</td><td>kimi-code/k3.1-pro</td><td>kimi-code/k3.1-pro</td><td>kimi-code/k3.1-pro</td><td>kimi-code/k3.1-pro</td></tr><tr><td>MiniMax</td><td>MiniMax-M3.1-Flash</td><td>MiniMax-M3.1-Flash</td><td>MiniMax-M3.1-Flash</td><td>MiniMax-M3.1-Flash</td></tr><tr><td>Meta</td><td>muse-wonder-1.0</td><td>muse-wonder-1.0</td><td>muse-spark-1.3</td><td>muse-spark-1.3</td></tr></tbody></table></div>
-<p>Every tier uses current models only. 5.5.0 retired the superseded ones (94
-IDs, listed with their replacements in <code>docs/cost_rates.json</code>): <code>configure</code>
-migrates them, and a retired model selected at run time still runs with a
-warning and is reported as unpriced. The economy tier moved to Claude Haiku 5.5,
-GPT-6 Luna, Grok 4.7 and GLM-5.3-Flash, standard Codex to GPT-6.1 Sol (there is
-no GPT-6 mid model), and the Gemini API standard/economy tiers to
-<code>gemini-3.8-flash</code>. Authorized CLI smokes on 2026-10-24 returned structured
-answers from Claude Haiku 5.5 (provider-reported identity, 6 s) and GPT-6 Luna
-(requested-only, 4 s); the Gemini API target is offline-tested.</p>
-<p>MiniMax-M3.1-Flash (released 2026-10-19, $0.15/$0.60 per 1M tokens) serves every
-MiniMax tier. It always reasons; set <code>MINIMAX_REASONING_EFFORT</code> (API mode) to
-<code>low</code>..<code>max</code> to trade depth for latency, while <code>mmx</code> uses the provider default
-(<code>max</code>). An authorized <code>mmx</code> smoke returned a structured answer in 30 s on
-2026-10-20 with requested-only identity; the API transport is offline-tested.</p>
-<p>Meta (new in 5.5.0) uses Muse Wonder (<code>muse-wonder-1.0</code>, preview, $4/$20 per 1M
-tokens) for the default, premium and maximum tiers and Muse Spark 1.3
-(<code>muse-spark-1.3</code>, $1.25/$4.25) for standard and economy, both in Standard mode,
-where Meta does not train on the content. Both always reason: effort is <code>high</code>
-by default and <code>max</code> in <code>max_quality</code> (<code>META_REASONING_EFFORT</code>, <code>minimal</code>..<code>max</code>;
-<code>none</code> is rejected), and the reasoning shares the 32,768-token API completion
-budget. A Contributor-mode model (<code>muse-spark-1.3-contributor</code>, $0.10/$0.20)
-must be pinned by hand and is logged with a warning on every run. A non-streaming
-API request that runs past Meta’s server time limit returns HTTP 504
-<code>gateway_timeout</code> and is not retried. One authorized <code>muse exec</code> smoke (Muse
-Code 1.4.12, Muse Wonder, 2026-10-24) returned a structured persona answer in
-12 s with requested-only identity and estimated tokens; the API transport is
-offline-tested.</p>
-<p>Google tiers now use Hydrogen: medium for economy, high for standard, and
-xhigh for premium and the default maximum. The CLI uses the exact level ID
-from <code>agy models</code>; the API uses <code>gemini-4-hydrogen</code> with an explicit tier
-thinking level. Flash and Argon remain selectable, and current personal pins
-are preserved. For an eligible Ultra/Enterprise account, explicitly opt into
-Carbon/high for maximum with <code>GEMINI_FRONTIER_CLI_MODEL=gemini-4-carbon-high</code>
-and <code>GEMINI_USE_API=false</code>. Missing exact CLI access fails before a Carbon
-request; no model or API is substituted. A standalone Carbon selection uses
-<code>GEMINI_MODEL=gemini-4-carbon-high</code> without a preset. These are benchmark-informed
-choices, not a live qualification of repository work.</p>
-<p>Mistral Large 4 (<code>mistral-large-4</code>, public preview) is the
-Mistral API target for every tier. An authorized consultation smoke returned a
-structured answer with provider-reported identity on 2026-10-15; the preview is absent from
-<code>GET /v1/models</code>, so that listing is not an access check. Vibe keeps
-<code>mistral-medium-3.5</code>. The other Mistral
-API IDs (<code>mistral-medium-3-5</code>, <code>mistral-small-2603</code>) remain catalogued
-opt-ins. Claude
-Fable 5.2 is the premium Claude target at <code>high</code>; maximum uses Fable/max.
-Standard uses Opus 5.5/medium and economy uses Haiku 5.5. Claude Code must
-be version 2.1.321 or later. Astra uses <code>max</code> in maximum; Sol uses <code>max</code> in premium
-and <code>high</code> in standard. Explicit reasoning-effort settings win. Fable 5.1
-remains an opt-in, with current pins preserved. Selecting a preset later intentionally reapplies that
-preset’s tier and can replace an explicit model override for the run.
-Qwen4 Max serves the default, premium and maximum tiers; Flash keeps standard
-and economy. Qwen4 API mode uses a matching QwenCloud OpenAI-compatible
-endpoint and key, never the legacy text-only DashScope wire. <code>max_quality</code>
-requests <code>xhigh</code> only on the OpenAI-compatible wire; CLI effort remains a
-user-owned Qwen Code setting. The authenticated API ping and the separate native Qwen Code context check
-passed on November 16; CLI identity remains requested-only. The optional
-Bottega Claude/Anthropic path was checked separately. Existing
-Qwen3.8 Max pins remain supported. See <a href="/docs/recipes.html#qwen-via-qwen-cloud-token-plan">the Qwen recipe</a>.</p>
+<div class="table-scroll" tabindex="0" role="region" aria-label="Documentation table 7"><table>
+<thead>
+<tr>
+<th>Consultant</th>
+<th><code>max_quality</code></th>
+<th>Premium</th>
+<th>Standard</th>
+<th>Economy</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Claude</td>
+<td>claude-opus-5-5</td>
+<td>claude-opus-5-5</td>
+<td>claude-opus-5-5</td>
+<td>claude-haiku-5-5</td>
+</tr>
+<tr>
+<td>Gemini CLI</td>
+<td>gemini-4-argon-high</td>
+<td>gemini-4-argon-high</td>
+<td>gemini-3.8-flash-high</td>
+<td>gemini-3.8-flash-low</td>
+</tr>
+<tr>
+<td>Gemini API</td>
+<td>gemini-4-argon</td>
+<td>gemini-4-argon</td>
+<td>gemini-3.8-flash</td>
+<td>gemini-3.8-flash</td>
+</tr>
+<tr>
+<td>Codex</td>
+<td>gpt-6-astra</td>
+<td>gpt-6.1-sol</td>
+<td>gpt-6.1-sol</td>
+<td>gpt-6-luna</td>
+</tr>
+<tr>
+<td>Mistral CLI</td>
+<td>mistral-medium-3.5</td>
+<td>mistral-medium-3.5</td>
+<td>mistral-medium-3.5</td>
+<td>mistral-medium-3.5</td>
+</tr>
+<tr>
+<td>Mistral API</td>
+<td>mistral-large-4</td>
+<td>mistral-large-4</td>
+<td>mistral-large-4</td>
+<td>mistral-large-4</td>
+</tr>
+<tr>
+<td>DeepSeek</td>
+<td>deepseek-flash</td>
+<td>deepseek-flash</td>
+<td>deepseek-flash</td>
+<td>deepseek-flash</td>
+</tr>
+<tr>
+<td>GLM</td>
+<td>glm-5.3</td>
+<td>glm-5.3-flash</td>
+<td>glm-5.3-flash</td>
+<td>glm-5.3-flash</td>
+</tr>
+<tr>
+<td>Grok</td>
+<td>grok-4.7</td>
+<td>grok-4.7</td>
+<td>grok-4.7</td>
+<td>grok-4.7</td>
+</tr>
+<tr>
+<td>Qwen3</td>
+<td>qwen4-max</td>
+<td>qwen4-max</td>
+<td>qwen3.8-flash</td>
+<td>qwen3.8-flash</td>
+</tr>
+<tr>
+<td>Kimi</td>
+<td>kimi-code/k3.1-pro</td>
+<td>kimi-code/k3.1-pro</td>
+<td>kimi-code/k3.1-pro</td>
+<td>kimi-code/k3.1-pro</td>
+</tr>
+<tr>
+<td>MiniMax</td>
+<td>MiniMax-M3.1-Flash</td>
+<td>MiniMax-M3.1-Flash</td>
+<td>MiniMax-M3.1-Flash</td>
+<td>MiniMax-M3.1-Flash</td>
+</tr>
+<tr>
+<td>Meta</td>
+<td>muse-wonder-1.0</td>
+<td>muse-wonder-1.0</td>
+<td>muse-spark-1.3</td>
+<td>muse-spark-1.3</td>
+</tr>
+</tbody>
+</table></div>
+<p>Every tier uses current models only. 5.5.0 retired the superseded ones (94 IDs, listed with their replacements in <code>docs/cost_rates.json</code>): <code>configure</code> migrates them, and a retired model selected at run time still runs with a warning and is reported as unpriced. The economy tier moved to Claude Haiku 5.5, GPT-6 Luna, Grok 4.7 and GLM-5.3-Flash, standard Codex to GPT-6.1 Sol (there is no GPT-6 mid model), and the Gemini API standard/economy tiers to <code>gemini-3.8-flash</code>. Authorized CLI smokes on 2026-10-24 returned structured answers from Claude Haiku 5.5 (provider-reported identity, 6 s) and GPT-6 Luna (requested-only, 4 s); the Gemini API target is offline-tested.</p>
+<p>MiniMax-M3.1-Flash (released 2026-10-19, $0.15/$0.60 per 1M tokens) serves every MiniMax tier. It always reasons; set <code>MINIMAX_REASONING_EFFORT</code> (API mode) to <code>low</code>..<code>max</code> to trade depth for latency, while <code>mmx</code> uses the provider default (<code>max</code>). An authorized <code>mmx</code> smoke returned a structured answer in 30 s on 2026-10-20 with requested-only identity; the API transport is offline-tested.</p>
+<p>Meta (new in 5.5.0) uses Muse Wonder (<code>muse-wonder-1.0</code>, preview, $4/$20 per 1M tokens) for the default, premium and maximum tiers and Muse Spark 1.3 (<code>muse-spark-1.3</code>, $1.25/$4.25) for standard and economy, both in Standard mode, where Meta does not train on the content. Both always reason: effort is <code>high</code> by default and <code>max</code> in <code>max_quality</code> (<code>META_REASONING_EFFORT</code>, <code>minimal</code>..<code>max</code>; <code>none</code> is rejected), and the reasoning shares the 32,768-token API completion budget. A Contributor-mode model (<code>muse-spark-1.3-contributor</code>, $0.10/$0.20) must be pinned by hand and is logged with a warning on every run. A non-streaming API request that runs past Meta’s server time limit returns HTTP 504 <code>gateway_timeout</code> and is not retried. One authorized <code>muse exec</code> smoke (Muse Code 1.4.12, Muse Wonder, 2026-10-24) returned a structured persona answer in 12 s with requested-only identity and estimated tokens; the API transport is offline-tested.</p>
+<p>Google tiers now use Hydrogen: medium for economy, high for standard, and xhigh for premium and the default maximum. The CLI uses the exact level ID from <code>agy models</code>; the API uses <code>gemini-4-hydrogen</code> with an explicit tier thinking level. Flash and Argon remain selectable, and current personal pins are preserved. For an eligible Ultra/Enterprise account, explicitly opt into Carbon/high for maximum with <code>GEMINI_FRONTIER_CLI_MODEL=gemini-4-carbon-high</code> and <code>GEMINI_USE_API=false</code>. Missing exact CLI access fails before a Carbon request; no model or API is substituted. A standalone Carbon selection uses <code>GEMINI_MODEL=gemini-4-carbon-high</code> without a preset. These are benchmark-informed choices, not a live qualification of repository work.</p>
+<p>Mistral Large 4 (<code>mistral-large-4</code>, public preview) is the Mistral API target for every tier. An authorized consultation smoke returned a structured answer with provider-reported identity on 2026-10-15; the preview is absent from <code>GET /v1/models</code>, so that listing is not an access check. Vibe keeps <code>mistral-medium-3.5</code>. The other Mistral API IDs (<code>mistral-medium-3-5</code>, <code>mistral-small-2603</code>) remain catalogued opt-ins. Claude Fable 5.2 is the premium Claude target at <code>high</code>; maximum uses Fable/max. Standard uses Opus 5.5/medium and economy uses Haiku 5.5. Claude Code must be version 2.1.321 or later. Astra uses <code>max</code> in maximum; Sol uses <code>max</code> in premium and <code>high</code> in standard. Explicit reasoning-effort settings win. Fable 5.1 remains an opt-in, with current pins preserved. Selecting a preset later intentionally reapplies that preset’s tier and can replace an explicit model override for the run. Qwen4 Max serves the default, premium and maximum tiers; Flash keeps standard and economy. Qwen4 API mode uses a matching QwenCloud OpenAI-compatible endpoint and key, never the legacy text-only DashScope wire. <code>max_quality</code> requests <code>xhigh</code> only on the OpenAI-compatible wire; CLI effort remains a user-owned Qwen Code setting. The authenticated API ping and the separate native Qwen Code context check passed on November 16; CLI identity remains requested-only. The optional Bottega Claude/Anthropic path was checked separately. Existing Qwen3.8 Max pins remain supported. See <a href="/docs/recipes.html#qwen-via-qwen-cloud-token-plan">the Qwen recipe</a>.</p>
 <h3 id="usage">Usage</h3>
 <p><strong>Claude Code:</strong></p>
-<pre><code>/ai-consultants:consult --preset max_quality "critical architecture decision"
-/ai-consultants:consult --preset fast "quick syntax question"
-</code></pre>
+<pre><code>/ai-consultants:consult --preset max_quality &quot;critical architecture decision&quot;
+/ai-consultants:consult --preset fast &quot;quick syntax question&quot;</code></pre>
 <p><strong>Bash:</strong></p>
-<pre><code class="language-bash">./scripts/consult_all.sh --preset max_quality "microservices vs monolith?"
-./scripts/consult_all.sh --preset fast "how to use async/await?"
+<pre class="bash"><code>./scripts/consult_all.sh --preset max_quality &quot;microservices vs monolith?&quot;
+./scripts/consult_all.sh --preset fast &quot;how to use async/await?&quot;
 
 # Programmatic tier selection
 source scripts/config.sh
-apply_model_tier "premium"   # Set all to premium models
-apply_model_tier "maximum"   # max_quality-only / separate-plan models
-apply_model_tier "economy"   # Set all to economy models
-</code></pre>
-<hr>
+apply_model_tier &quot;premium&quot;   # Set all to premium models
+apply_model_tier &quot;maximum&quot;   # max_quality-only / separate-plan models
+apply_model_tier &quot;economy&quot;   # Set all to economy models</code></pre>
+<hr />
 <h2 id="configuration">Configuration</h2>
 <!-- ai-consultants:public-registry:start -->
+
 <!-- ai-consultants:default-synthesis-strategy=coverage -->
+
 <h3 id="public-modes">Public Modes</h3>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div class="table-scroll" tabindex="0" role="region" aria-label="Table 8: Mode"><table><thead><tr><th>Mode</th><th>Preset</th><th>Default strategy</th><th>Use case</th></tr></thead><tbody><tr><td><code>fast-check</code></td><td><code>fast</code></td><td><code>coverage</code></td><td>Fast economy panel for a quick coverage check</td></tr><tr><td><code>coverage-review</code></td><td><code>balanced</code></td><td><code>coverage</code></td><td>Balanced panel for a general coverage review</td></tr><tr><td><code>max-coverage</code></td><td><code>max_quality</code></td><td><code>coverage</code></td><td>Maximum-quality panel for the broadest coverage</td></tr></tbody></table></div>
+<div class="table-scroll" tabindex="0" role="region" aria-label="Documentation table 8"><table>
+<thead>
+<tr>
+<th>Mode</th>
+<th>Preset</th>
+<th>Default strategy</th>
+<th>Use case</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>fast-check</code></td>
+<td><code>fast</code></td>
+<td><code>coverage</code></td>
+<td>Fast economy panel for a quick coverage check</td>
+</tr>
+<tr>
+<td><code>coverage-review</code></td>
+<td><code>balanced</code></td>
+<td><code>coverage</code></td>
+<td>Balanced panel for a general coverage review</td>
+</tr>
+<tr>
+<td><code>max-coverage</code></td>
+<td><code>max_quality</code></td>
+<td><code>coverage</code></td>
+<td>Maximum-quality panel for the broadest coverage</td>
+</tr>
+</tbody>
+</table></div>
 <h3 id="configuration-presets">Configuration Presets</h3>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div class="table-scroll" tabindex="0" role="region" aria-label="Table 9: Preset"><table><thead><tr><th>Preset</th><th>Alias</th><th align="right">Target</th><th>Tier</th><th>Use case</th></tr></thead><tbody><tr><td><code>minimal</code></td><td>—</td><td align="right">2</td><td>base</td><td>Quick questions</td></tr><tr><td><code>balanced</code></td><td>—</td><td align="right">3</td><td>base</td><td>Standard coverage</td></tr><tr><td><code>thorough</code></td><td>—</td><td align="right">3</td><td>base</td><td>Comprehensive analysis</td></tr><tr><td><code>high-stakes</code></td><td>—</td><td align="right">4</td><td>premium</td><td>Critical decisions</td></tr><tr><td><code>security</code></td><td>—</td><td align="right">3</td><td>base</td><td>Security reviews</td></tr><tr><td><code>cost-capped</code></td><td>—</td><td align="right">3</td><td>economy</td><td>Budget-conscious options</td></tr><tr><td><code>max_quality</code></td><td><code>max-quality</code></td><td align="right">11</td><td>maximum</td><td>Maximum coverage for critical decisions</td></tr><tr><td><code>medium</code></td><td>—</td><td align="right">3</td><td>standard</td><td>General questions</td></tr><tr><td><code>fast</code></td><td>—</td><td align="right">2</td><td>economy</td><td>Quick checks</td></tr></tbody></table></div>
+<div class="table-scroll" tabindex="0" role="region" aria-label="Documentation table 9"><table>
+<thead>
+<tr>
+<th>Preset</th>
+<th>Alias</th>
+<th style="text-align: right;">Target</th>
+<th>Tier</th>
+<th>Use case</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>minimal</code></td>
+<td>—</td>
+<td style="text-align: right;">2</td>
+<td>base</td>
+<td>Quick questions</td>
+</tr>
+<tr>
+<td><code>balanced</code></td>
+<td>—</td>
+<td style="text-align: right;">3</td>
+<td>base</td>
+<td>Standard coverage</td>
+</tr>
+<tr>
+<td><code>thorough</code></td>
+<td>—</td>
+<td style="text-align: right;">3</td>
+<td>base</td>
+<td>Comprehensive analysis</td>
+</tr>
+<tr>
+<td><code>high-stakes</code></td>
+<td>—</td>
+<td style="text-align: right;">4</td>
+<td>premium</td>
+<td>Critical decisions</td>
+</tr>
+<tr>
+<td><code>security</code></td>
+<td>—</td>
+<td style="text-align: right;">3</td>
+<td>base</td>
+<td>Security reviews</td>
+</tr>
+<tr>
+<td><code>cost-capped</code></td>
+<td>—</td>
+<td style="text-align: right;">3</td>
+<td>economy</td>
+<td>Budget-conscious options</td>
+</tr>
+<tr>
+<td><code>max_quality</code></td>
+<td><code>max-quality</code></td>
+<td style="text-align: right;">11</td>
+<td>maximum</td>
+<td>Maximum coverage for critical decisions</td>
+</tr>
+<tr>
+<td><code>medium</code></td>
+<td>—</td>
+<td style="text-align: right;">3</td>
+<td>standard</td>
+<td>General questions</td>
+</tr>
+<tr>
+<td><code>fast</code></td>
+<td>—</td>
+<td style="text-align: right;">2</td>
+<td>economy</td>
+<td>Quick checks</td>
+</tr>
+</tbody>
+</table></div>
 <h3 id="synthesis-strategies">Synthesis Strategies</h3>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div class="table-scroll" tabindex="0" role="region" aria-label="Table 10: Strategy"><table><thead><tr><th>Strategy</th><th>Description</th></tr></thead><tbody><tr><td><code>coverage</code></td><td>Union of every distinct point across the panel <strong>Default</strong></td></tr><tr><td><code>compare_only</code></td><td>Present each consultant side-by-side, without a synthesized union</td></tr><tr><td><code>majority</code></td><td>Produce one blended recommendation, weighting all equally</td></tr><tr><td><code>risk_averse</code></td><td>Weight conservative responses higher</td></tr><tr><td><code>security_first</code></td><td>Prioritize security-focused insights</td></tr><tr><td><code>cost_capped</code></td><td>Prefer cheaper consultant opinions within budget</td></tr></tbody></table></div>
+<div class="table-scroll" tabindex="0" role="region" aria-label="Documentation table 10"><table>
+<thead>
+<tr>
+<th>Strategy</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>coverage</code></td>
+<td>Union of every distinct point across the panel <strong>Default</strong></td>
+</tr>
+<tr>
+<td><code>compare_only</code></td>
+<td>Present each consultant side-by-side, without a synthesized union</td>
+</tr>
+<tr>
+<td><code>majority</code></td>
+<td>Produce one blended recommendation, weighting all equally</td>
+</tr>
+<tr>
+<td><code>risk_averse</code></td>
+<td>Weight conservative responses higher</td>
+</tr>
+<tr>
+<td><code>security_first</code></td>
+<td>Prioritize security-focused insights</td>
+</tr>
+<tr>
+<td><code>cost_capped</code></td>
+<td>Prefer cheaper consultant opinions within budget</td>
+</tr>
+</tbody>
+</table></div>
 <!-- ai-consultants:public-registry:end -->
+
 <p><strong>Bash:</strong></p>
-<pre><code class="language-bash">./scripts/consult_all.sh --preset balanced "Question"
-</code></pre>
+<pre class="bash"><code>./scripts/consult_all.sh --preset balanced &quot;Question&quot;</code></pre>
 <p><strong>Bash:</strong></p>
-<pre><code class="language-bash">./scripts/consult_all.sh --strategy risk_averse "Question"
-</code></pre>
+<pre class="bash"><code>./scripts/consult_all.sh --strategy risk_averse &quot;Question&quot;</code></pre>
 <h3 id="environment-variables">Environment Variables</h3>
 <p><strong>Automatic configuration (recommended):</strong></p>
-<pre><code class="language-bash"># Detect installed CLIs and available API keys, then write the persistent config
+<pre class="bash"><code># Detect installed CLIs and available API keys, then write the persistent config
 ai-consultants configure
 
 # Review the consultant selection and transports interactively
@@ -1570,117 +1414,71 @@ ai-consultants configure \
   --set ENABLE_SMART_ROUTING=true
 
 # Inspect the complete machine-readable parameter surface
-ai-consultants configure --show-parameters
-</code></pre>
-<p>The configurator covers every persistent setting in <code>scripts/config.sh</code>, plus
-credentials, persona overrides, transport controls, advanced context knobs, and
-calibration commands. Existing custom values and secrets are preserved, while
-<code>ENABLE_*</code> flags are refreshed from detected availability (and can be pinned
-with <code>--set</code>). Rewrites create a private timestamped backup. Use <code>--advanced</code> to
-review every parameter or <code>--dry-run</code> to preview a redacted result.
-Auto-selected <code>*_USE_API</code> values are marked <code># ai-consultants:auto</code>, allowing a
-later run to adapt when a CLI or credential changes. Environment variables,
-<code>--set</code>, and unmarked values remain explicit user choices, except for the exact
-historical generated Claude default and the retired models described below.
-Managed model defaults use <code># ai-consultants:default</code>; <code>configure</code> upgrades
-the exact historical defaults it generated when they are not pinned (for
-example <code>CLAUDE_MODEL=claude-opus-4-8</code>/<code>claude-opus-5</code> to Opus 5.5, and the
-previous Gemini, Codex, Mistral API, Qwen, GLM, Grok and DeepSeek defaults),
-and turns the fixed timeouts it generated through 5.1.2 into 0 (no limit).
-To keep a model, run for example
-<code>ai-consultants configure --set CLAUDE_MODEL=claude-opus-5-5</code>; explicit model
-overrides are stored with <code># ai-consultants:pin</code> and never migrated while the
-model is current. A retired model (see <code>retired_models</code> in
-<code>docs/cost_rates.json</code>) is replaced even when pinned: the marker is kept, the
-old value is recorded as <code>migrated-from=</code>, and <code>--set</code> refuses a retired model.</p>
-<p>Enter credentials through <code>--interactive</code>/<code>--advanced</code> or export them before the
-run; avoid passing API keys through <code>--set</code>, where the shell may retain them in
-history or expose them in the process list.</p>
-<p>For a manual starter template instead, run <code>ai-consultants init</code> and edit
-<code>~/.config/ai-consultants/.env</code>.</p>
+ai-consultants configure --show-parameters</code></pre>
+<p>The configurator covers every persistent setting in <code>scripts/config.sh</code>, plus credentials, persona overrides, transport controls, advanced context knobs, and calibration commands. Existing custom values and secrets are preserved, while <code>ENABLE_*</code> flags are refreshed from detected availability (and can be pinned with <code>--set</code>). Rewrites create a private timestamped backup. Use <code>--advanced</code> to review every parameter or <code>--dry-run</code> to preview a redacted result. Auto-selected <code>*_USE_API</code> values are marked <code># ai-consultants:auto</code>, allowing a later run to adapt when a CLI or credential changes. Environment variables, <code>--set</code>, and unmarked values remain explicit user choices, except for the exact historical generated Claude default and the retired models described below. Managed model defaults use <code># ai-consultants:default</code>; <code>configure</code> upgrades the exact historical defaults it generated when they are not pinned (for example <code>CLAUDE_MODEL=claude-opus-4-8</code>/<code>claude-opus-5</code> to Opus 5.5, and the previous Gemini, Codex, Mistral API, Qwen, GLM, Grok and DeepSeek defaults), and turns the fixed timeouts it generated through 5.1.2 into 0 (no limit). To keep a model, run for example <code>ai-consultants configure --set CLAUDE_MODEL=claude-opus-5-5</code>; explicit model overrides are stored with <code># ai-consultants:pin</code> and never migrated while the model is current. A retired model (see <code>retired_models</code> in <code>docs/cost_rates.json</code>) is replaced even when pinned: the marker is kept, the old value is recorded as <code>migrated-from=</code>, and <code>--set</code> refuses a retired model.</p>
+<p>Enter credentials through <code>--interactive</code>/<code>--advanced</code> or export them before the run; avoid passing API keys through <code>--set</code>, where the shell may retain them in history or expose them in the process list.</p>
+<p>For a manual starter template instead, run <code>ai-consultants init</code> and edit <code>~/.config/ai-consultants/.env</code>.</p>
 <p>For ad-hoc overrides without persisting, the most common knobs:</p>
-<pre><code class="language-bash">DEFAULT_PRESET=balanced      # minimal | balanced | thorough | high-stakes | fast | security
+<pre class="bash"><code>DEFAULT_PRESET=balanced      # minimal | balanced | thorough | high-stakes | fast | security
 DEFAULT_STRATEGY=coverage    # coverage | compare_only | majority | risk_averse | security_first | cost_capped
 ENABLE_SMART_ROUTING=true    # Auto-select consultants by question category
 MAX_SESSION_COST=1.00        # USD budget cap (paired with ENABLE_BUDGET_LIMIT=true to enforce)
 KIMI_MODEL=kimi-code/k3.1-pro # Pin the Kimi consultant to K3.1 Pro
-KIMI_REASONING_EFFORT=max    # Kimi thinking effort (empty = the Kimi CLI's own)
+KIMI_REASONING_EFFORT=max    # Kimi thinking effort (empty = the Kimi CLI&#39;s own)
 CLAUDE_API_MAX_TOKENS=16384  # Shared thinking + visible-output budget in API mode
 MISTRAL_CLI_MODEL=mistral-medium-3.5 # Vibe alias; MISTRAL_MODEL remains API-only
-GEMINI_MODEL="gemini-4-argon-high" # agy CLI; API uses GEMINI_API_MODEL
-</code></pre>
+GEMINI_MODEL=&quot;gemini-4-argon-high&quot; # agy CLI; API uses GEMINI_API_MODEL</code></pre>
 <p>Full reference: <a href="/docs/configuration.html"><code>references/configuration.md</code></a>. Copy-paste workflows: <a href="/docs/recipes.html"><code>docs/RECIPES.md</code></a>. For category-aware preset suggestions: <code>ai-consultants doctor --suggest-preset --question "..."</code>.</p>
 <h3 id="configuration-recipes">Configuration Recipes</h3>
 <p><strong>Breadth review — the coverage union (default):</strong></p>
-<pre><code class="language-bash">ai-consultants --preset high-stakes \
-  "What could go wrong with this webhook-delivery design?" src/webhooks.ts@PRIMARY
-</code></pre>
+<pre class="bash"><code>ai-consultants --preset high-stakes \
+  &quot;What could go wrong with this webhook-delivery design?&quot; src/webhooks.ts@PRIMARY</code></pre>
 <p><strong>Security review, security-first framing:</strong></p>
-<pre><code class="language-bash">ai-consultants --preset security --strategy security_first \
-  "Find authentication bypasses" src/auth.ts@PRIMARY
-</code></pre>
+<pre class="bash"><code>ai-consultants --preset security --strategy security_first \
+  &quot;Find authentication bypasses&quot; src/auth.ts@PRIMARY</code></pre>
 <p><strong>Side-by-side comparison (no synthesized union):</strong></p>
-<pre><code class="language-bash">ai-consultants --strategy compare_only \
-  "Event log or mutable relational state for this service?"
-</code></pre>
+<pre class="bash"><code>ai-consultants --strategy compare_only \
+  &quot;Event log or mutable relational state for this service?&quot;</code></pre>
 <p><strong>Live health gate plus hard quorum:</strong></p>
-<pre><code class="language-bash">ENABLE_HEALTH_GATE=true \
+<pre class="bash"><code>ENABLE_HEALTH_GATE=true \
 QUORUM_MIN=3 \
 QUORUM_ACTION=stop \
-ai-consultants "Make a release recommendation"
-</code></pre>
-<p>See the <a href="/docs/recipes.html">recipes</a> for balanced, fast, security, compare-only,
-budget-capped, CLI-only, hybrid API, and large-context workflows.</p>
+ai-consultants &quot;Make a release recommendation&quot;</code></pre>
+<p>See the <a href="/docs/recipes.html">recipes</a> for balanced, fast, security, compare-only, budget-capped, CLI-only, hybrid API, and large-context workflows.</p>
 <h3 id="doctor-command">Doctor Command</h3>
 <p>Diagnose, suggest, and fix:</p>
-<pre><code class="language-bash">ai-consultants doctor                                          # Installation and configuration checks
+<pre class="bash"><code>ai-consultants doctor                                          # Installation and configuration checks
 ai-consultants doctor --fix                                    # Auto-fix common issues
 ai-consultants doctor --json                                   # JSON for automation
 ai-consultants doctor --live                                   # Real ping per consultant — catches installed-but-unauthenticated CLIs
 ai-consultants doctor --suggest-config                         # Print recommended ENABLE_* based on detected CLIs
-ai-consultants doctor --suggest-preset --question "..."        # Recommend preset + strategy for a question
-ai-consultants update-clis                                     # Check &#x26; update every installed consultant CLI
-ai-consultants update-clis --dry-run                           # Preview: each CLI's install method + update command
-</code></pre>
+ai-consultants doctor --suggest-preset --question &quot;...&quot;        # Recommend preset + strategy for a question
+ai-consultants update-clis                                     # Check &amp; update every installed consultant CLI
+ai-consultants update-clis --dry-run                           # Preview: each CLI&#39;s install method + update command</code></pre>
 <blockquote>
 <p>When a consultant fails mid-consultation, the run surfaces the captured reason (e.g. <code>CLI not found</code>, <code>401 Unauthorized</code>) instead of a bare “Failed”, so you can tell <em>not installed</em> from <em>not authenticated</em> from <em>transient</em>.</p>
 </blockquote>
-<hr>
+<hr />
 <h2 id="how-it-works">How It Works</h2>
-<pre><code>Classify -> Route -> Fan out (parallel) -> Coverage synthesis
+<pre><code>Classify -&gt; Route -&gt; Fan out (parallel) -&gt; Coverage synthesis
    |          |            |                      |
  category  smart       Gemini (8)          union of every
           routing      Codex (7)           distinct point,
                        Mistral (6)         deduplicated
-                       Kimi (7)
-</code></pre>
-<ol>
+                       Kimi (7)</code></pre>
+<ol type="1">
 <li><strong>Classify</strong> the question into a category.</li>
 <li><strong>Route</strong> (optional, <code>ENABLE_SMART_ROUTING</code>) to the consultants with the best category affinity (<code>references/affinity.json</code>).</li>
 <li><strong>Fan out</strong> to every selected consultant in parallel — one shot each, no serial rounds.</li>
-<li><strong>Synthesize</strong> the <strong>coverage union</strong> over auditable normalized fields. Read
-<code>coverage_integrity</code> before treating it as complete: <code>MET</code> means every local
-atomic source ID is represented once; <code>DEGRADED</code> and <code>FAILED</code> are explicitly
-non-comprehensive. Override with <code>--strategy compare_only</code> (side-by-side) or
-<code>majority</code> (a single blended recommendation).</li>
+<li><strong>Synthesize</strong> the <strong>coverage union</strong> over auditable normalized fields. Read <code>coverage_integrity</code> before treating it as complete: <code>MET</code> means every local atomic source ID is represented once; <code>DEGRADED</code> and <code>FAILED</code> are explicitly non-comprehensive. Override with <code>--strategy compare_only</code> (side-by-side) or <code>majority</code> (a single blended recommendation).</li>
 </ol>
 <h3 id="waiting-and-stopping">Waiting and stopping</h3>
-<p>Consultants and synthesis have <strong>no time limit by default</strong>: reasoning models
-can take minutes, and a call cut off by a client timeout is usually still
-billed while its answer is lost. Whoever started the run decides when to stop
-waiting. The run logs <code>Output: &#x3C;dir></code> near the start and
-<code>Still waiting after Ns for: &#x3C;names></code> every 30 seconds, and accepts:</p>
+<p>Consultants and synthesis have <strong>no time limit by default</strong>: reasoning models can take minutes, and a call cut off by a client timeout is usually still billed while its answer is lost. Whoever started the run decides when to stop waiting. The run logs <code>Output: &lt;dir&gt;</code> near the start and <code>Still waiting after Ns for: &lt;names&gt;</code> every 30 seconds, and accepts:</p>
 <ul>
-<li><code>touch &#x3C;dir>/.proceed</code> (or <code>kill -USR1 &#x3C;pid></code>, or a first Ctrl-C): continue
-with the answers already received. Consultants still running are stopped and
-reported as <code>stopped</code>; sent during synthesis, it skips the synthesis.</li>
-<li><code>touch &#x3C;dir>/.abort</code> (or SIGTERM, or a second Ctrl-C): end the run and keep
-the partial output.</li>
+<li><code>touch &lt;dir&gt;/.proceed</code> (or <code>kill -USR1 &lt;pid&gt;</code>, or a first Ctrl-C): continue with the answers already received. Consultants still running are stopped and reported as <code>stopped</code>; sent during synthesis, it skips the synthesis.</li>
+<li><code>touch &lt;dir&gt;/.abort</code> (or SIGTERM, or a second Ctrl-C): end the run and keep the partial output.</li>
 </ul>
-<p>A stopped call may still be billed for what it generated. Never stop a run with
-SIGKILL: the shell cannot clean up, so consultant CLIs would keep running. A
-positive <code>&#x3C;NAME>_TIMEOUT</code> restores a hard limit for that consultant; see
-<a href="/docs/configuration.html#timeouts-waiting-and-retries"><code>references/configuration.md</code></a>.</p>
+<p>A stopped call may still be billed for what it generated. Never stop a run with SIGKILL: the shell cannot clean up, so consultant CLIs would keep running. A positive <code>&lt;NAME&gt;_TIMEOUT</code> restores a hard limit for that consultant; see <a href="/docs/configuration.html#timeouts-waiting-and-retries"><code>references/configuration.md</code></a>.</p>
 <h3 id="output">Output</h3>
 <p>Each consultation generates:</p>
 <pre><code>${XDG_CACHE_HOME:-$HOME/.cache}/ai-consultants/consultations/TIMESTAMP/
@@ -1691,70 +1489,67 @@ positive <code>&#x3C;NAME>_TIMEOUT</code> restores a hard limit for that consult
 ├── grok.json
 ├── synthesis.json       # Coverage union plus coverage_integrity/audited_fields
 ├── optimization_metrics.json
-└── report.md            # Human-readable report
-</code></pre>
+└── report.md            # Human-readable report</code></pre>
 <p>The command prints the exact output directory as its final stdout line.</p>
-<hr>
+<hr />
 <h2 id="best-practices">Best Practices</h2>
 <h3 id="when-the-panel-helps-most">When the Panel Helps Most</h3>
-<p>The panel’s edge is <strong>coverage</strong> — surfacing what a single model misses. It pays off on
-open-ended, breadth questions:</p>
+<p>The panel’s edge is <strong>coverage</strong> — surfacing what a single model misses. It pays off on open-ended, breadth questions:</p>
 <ul>
 <li>Threat-modeling and design review (“what could go wrong with this?”)</li>
 <li>Enumerating risks, edge cases, or failure modes</li>
 <li>“What am I missing?” / exhaustive audits</li>
 <li>Decisions that are difficult to reverse</li>
 </ul>
-<p>For a single-answer factual or defect-finding question, a single strong model is usually
-enough — the panel adds little.</p>
+<p>For a single-answer factual or defect-finding question, a single strong model is usually enough — the panel adds little.</p>
 <h3 id="interpreting-results">Interpreting Results</h3>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div class="table-scroll" tabindex="0" role="region" aria-label="Table 11: Scenario"><table><thead><tr><th>Scenario</th><th>Recommendation</th></tr></thead><tbody><tr><td>A point only one consultant raised</td><td>Weigh it — the diversity is the point</td></tr><tr><td>Mistral (Devil’s Advocate) flags a risk</td><td>Investigate it</td></tr><tr><td>Consultants diverge on approach</td><td>Use <code>--strategy compare_only</code> to see each side-by-side</td></tr></tbody></table></div>
+<div class="table-scroll" tabindex="0" role="region" aria-label="Documentation table 11"><table>
+<thead>
+<tr>
+<th>Scenario</th>
+<th>Recommendation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A point only one consultant raised</td>
+<td>Weigh it — the diversity is the point</td>
+</tr>
+<tr>
+<td>Mistral (Devil’s Advocate) flags a risk</td>
+<td>Investigate it</td>
+</tr>
+<tr>
+<td>Consultants diverge on approach</td>
+<td>Use <code>--strategy compare_only</code> to see each side-by-side</td>
+</tr>
+</tbody>
+</table></div>
 <h3 id="security">Security</h3>
 <ul>
 <li><strong>Never</strong> include credentials or API keys in queries</li>
 <li>Review and redact sensitive code before sending it to any external consultant</li>
-<li>Private query and context-staging files are removed automatically; generated
-reports remain in the XDG cache directory until you remove them</li>
+<li>Private query and context-staging files are removed automatically; generated reports remain in the XDG cache directory until you remove them</li>
 </ul>
-<hr>
+<hr />
 <h2 id="documentation">Documentation</h2>
 <ul>
 <li><a href="/docs/setup.html">Setup Guide</a> - Installation, authentication, Claude Code setup</li>
 <li><a href="/docs/recipes.html">Configuration Recipes</a> - Copy-paste workflows for routing, budgets, synthesis, and transport</li>
-<li><a href="https://github.com/reasance/ai-consultants/blob/v5.10.0/docs/COST_RATES.md">Cost Rates</a> - Model pricing and budgets</li>
+<li><a href="https://github.com/reasance/ai-consultants/blob/v5.11.0/docs/COST_RATES.md">Cost Rates</a> - Model pricing and budgets</li>
 <li><a href="/docs/routing.html">Smart Routing</a> - Category-based routing</li>
-<li><a href="https://github.com/reasance/ai-consultants/blob/v5.10.0/docs/JSON_SCHEMA.md">JSON Schema</a> - Output format specification</li>
-<li><a href="https://github.com/reasance/ai-consultants/blob/v5.10.0/references/details.md">Reference Details</a> - Presets, strategies, best practices</li>
-<li><a href="/docs/changelog.html">Changelog</a> - Complete version history</li>
-<li><a href="https://github.com/reasance/ai-consultants/blob/v5.10.0/CONTRIBUTING.md">Contributing</a> - How to contribute</li>
+<li><a href="https://github.com/reasance/ai-consultants/blob/v5.11.0/docs/JSON_SCHEMA.md">JSON Schema</a> - Output format specification</li>
+<li><a href="https://github.com/reasance/ai-consultants/blob/v5.11.0/references/details.md">Reference Details</a> - Presets, strategies, best practices</li>
+<li><a href="https://github.com/reasance/ai-consultants/blob/main/CHANGELOG.md">Changelog</a> - Complete version history</li>
+<li><a href="https://github.com/reasance/ai-consultants/blob/v5.11.0/CONTRIBUTING.md">Contributing</a> - How to contribute</li>
 </ul>
-<hr>
+<hr />
 <h2 id="license">License</h2>
-<p>MIT License - see <a href="https://github.com/reasance/ai-consultants/blob/v5.10.0/LICENSE">LICENSE</a> for details.</p>
+<p>MIT License - see <a href="https://github.com/reasance/ai-consultants/blob/v5.11.0/LICENSE">LICENSE</a> for details.</p>
 <h2 id="contributing">Contributing</h2>
-<p>Contributions welcome! See <a href="https://github.com/reasance/ai-consultants/blob/v5.10.0/CONTRIBUTING.md">CONTRIBUTING.md</a> for guidelines.</p>
+<p>Contributions welcome! See <a href="https://github.com/reasance/ai-consultants/blob/v5.11.0/CONTRIBUTING.md">CONTRIBUTING.md</a> for guidelines.</p>
 <!-- BEGIN controller-models: benchmark-reference -->
+
 <h2 id="model-benchmarks-and-availability">Model benchmarks and availability</h2>
-<p><a href="/docs/">Current v5.0.1 reference</a>: Qwen4 Max, Fable 5.2 and Carbon scores, provider contracts and integration choices. Carbon is optional via agy; agy selections use exact inventory checks; Carbon needs Ultra/Enterprise.</p>
-<!-- END controller-models: benchmark-reference --></article><p><a href="/docs/snapshot.json">Snapshot provenance</a> · Published npm version: 5.10.0</p></main></body></html>
+<p><a href="/docs/">Current v5.0.2 reference</a>: Qwen4 Max, Fable 5.2 and Carbon scores, provider contracts and integration choices. Carbon is optional via agy; agy selections use exact inventory checks; Carbon needs Ultra/Enterprise.</p>
+<!-- END controller-models: benchmark-reference --></article><p><a href="/docs/snapshot.json">Snapshot provenance</a> · Published npm version: 5.11.0</p></main></body></html>

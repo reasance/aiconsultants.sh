@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Setup — ai-consultants</title>
-    <meta name="description" content="Released model documentation for Qwen4 Max, measured with Artificial Analysis v5.0.1.">
+    <meta name="description" content="Released model documentation for Qwen4 Max, measured with Artificial Analysis v5.0.2.">
     <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
     <meta name="theme-color" content="#f8f8f6" media="(prefers-color-scheme: light)">
 
@@ -676,233 +676,185 @@
         }
     </style>
 <style>.preview{padding-top:48px;padding-bottom:80px;max-width:960px}.preview nav{margin:24px 0;line-height:2}.preview article{line-height:1.7;overflow-wrap:anywhere}.preview h1{font-size:2.5rem;line-height:1.2}.preview h2,.preview h3{margin:36px 0 14px}.preview p,.preview ul,.preview ol,.preview blockquote{margin:16px 0}.preview ul,.preview ol{padding-left:24px}.preview pre{overflow:auto;padding:16px;border:1px solid var(--border);margin:16px 0;white-space:pre}.preview table{border-collapse:collapse;min-width:600px;font-size:14px}.preview th,.preview td{padding:10px;text-align:left;border-bottom:1px solid var(--border)}.preview .table-scroll{overflow-x:auto}.preview blockquote{border-left:2px solid var(--text-muted);padding-left:16px}.preview a{text-decoration:underline}.preview code{font-size:.9em}.preview pre code{font-size:13px}</style>    <link rel="stylesheet" href="/site-tokens.css">
-</head><body><a class="skip-link" href="#main">Skip to content</a><main id="main" class="container preview"><a href="/">← ai-consultants</a><nav aria-label="Documentation"><a href="/docs/">Models and benchmarks</a> · <a href="/docs/overview.html">Project overview</a> · <a href="/docs/setup.html" aria-current="page">Setup</a> · <a href="/docs/configuration.html">Configuration</a> · <a href="/docs/routing.html">Smart routing</a> · <a href="/docs/recipes.html">Qwen4 setup</a> · <a href="/docs/changelog.html">Changelog</a></nav><article><p>Documentation for <a href="https://github.com/reasance/ai-consultants/releases/tag/v5.10.0">v5.10.0</a>. Benchmark snapshot: November 16, 2026, Artificial Analysis Intelligence Index v5.0.1.</p>
+</head><body><a class="skip-link" href="#main">Skip to content</a><main id="main" class="container preview"><a href="/">← ai-consultants</a><nav aria-label="Documentation"><a href="/docs/">Models and benchmarks</a> · <a href="/docs/overview.html">Project overview</a> · <a href="/docs/setup.html" aria-current="page">Setup</a> · <a href="/docs/configuration.html">Configuration</a> · <a href="/docs/routing.html">Smart routing</a> · <a href="/docs/recipes.html">Qwen4 setup</a> · <a href="/docs/changelog.html">Changelog</a></nav><article><p>Documentation for <a href="https://github.com/reasance/ai-consultants/releases/tag/v5.11.0">v5.11.0</a>. Benchmark snapshot: November 25, 2026, Artificial Analysis Intelligence Index v5.0.2.</p>
 <h1 id="ai-consultants-setup-guide">AI Consultants Setup Guide</h1>
 <p>This guide walks you through installing and configuring AI Consultants for various AI coding agents.</p>
-<section class="quickstart" aria-labelledby="terminal-quickstart">
-<h2 id="terminal-quickstart" style="margin-top:0">Quickstart in the terminal</h2>
-<p>Use macOS, Linux or Windows through WSL, with Node.js, Bash, jq, curl and bc. Have at least two model CLIs signed in or supply their API keys. <a href="#prerequisites">Check the prerequisites</a>.</p>
-<pre><code>npx ai-consultants configure
-npx ai-consultants "What can go wrong when a service retries failed webhook deliveries?"</code></pre>
-<p>The first command detects what is available without calling the models. The second sends your question to the configured providers. Their fees or plan limits apply. Open the printed output directory and read <code>report.md</code>.</p>
-</section>
-<hr>
+<hr />
 <h2 id="supported-agents">Supported Agents</h2>
 <p>AI Consultants follows the open <a href="https://agentskills.io">Agent Skills standard</a>, enabling cross-platform compatibility:</p>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div class="table-scroll" tabindex="0" role="region" aria-label="Table 1: Agent"><table><thead><tr><th>Agent</th><th>Skills Directory</th><th>Status</th></tr></thead><tbody><tr><td><strong>Claude Code</strong></td><td><code>~/.claude/skills/</code></td><td>✅ Native (slash commands)</td></tr><tr><td><strong>OpenAI Codex CLI</strong></td><td><code>~/.codex/skills/</code> or <code>~/.agents/skills/</code></td><td>✅ Compatible (skill, no slash commands)</td></tr><tr><td><strong>Antigravity (agy)</strong></td><td><code>&#x3C;project>/.agents/skills/</code> or <code>~/.gemini/config/skills/</code></td><td>✅ Compatible (skill)</td></tr><tr><td><strong>Gemini CLI</strong></td><td><code>~/.gemini/skills/</code> or <code>~/.agents/skills/</code></td><td>⚠️ Legacy (no longer served to individual accounts)</td></tr><tr><td><strong>GitHub Copilot</strong></td><td>Via SkillPort</td><td>✅ Via AGENTS.md</td></tr><tr><td><strong>Cursor</strong></td><td>Via SkillPort</td><td>✅ Via SkillPort</td></tr><tr><td><strong>Windsurf</strong></td><td>Via SkillPort</td><td>✅ Via SkillPort</td></tr></tbody></table></div>
-<hr>
+<div class="table-scroll" tabindex="0" role="region" aria-label="Documentation table 1"><table>
+<thead>
+<tr>
+<th>Agent</th>
+<th>Skills Directory</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Claude Code</strong></td>
+<td><code>~/.claude/skills/</code></td>
+<td>✅ Native (slash commands)</td>
+</tr>
+<tr>
+<td><strong>OpenAI Codex CLI</strong></td>
+<td><code>~/.codex/skills/</code> or <code>~/.agents/skills/</code></td>
+<td>✅ Compatible (skill, no slash commands)</td>
+</tr>
+<tr>
+<td><strong>Antigravity (agy)</strong></td>
+<td><code>&lt;project&gt;/.agents/skills/</code> or <code>~/.gemini/config/skills/</code></td>
+<td>✅ Compatible (skill)</td>
+</tr>
+<tr>
+<td><strong>Gemini CLI</strong></td>
+<td><code>~/.gemini/skills/</code> or <code>~/.agents/skills/</code></td>
+<td>⚠️ Legacy (no longer served to individual accounts)</td>
+</tr>
+<tr>
+<td><strong>GitHub Copilot</strong></td>
+<td>Via SkillPort</td>
+<td>✅ Via AGENTS.md</td>
+</tr>
+<tr>
+<td><strong>Cursor</strong></td>
+<td>Via SkillPort</td>
+<td>✅ Via SkillPort</td>
+</tr>
+<tr>
+<td><strong>Windsurf</strong></td>
+<td>Via SkillPort</td>
+<td>✅ Via SkillPort</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
 <h2 id="claude-code-setup-recommended">Claude Code Setup (Recommended)</h2>
 <p>AI Consultants is designed as a <strong>Claude Code skill</strong>. This is the fastest and easiest way to get started.</p>
 <h3 id="step-1-install-the-skill">Step 1: Install the Skill</h3>
-<pre><code class="language-bash"># One-liner installation
-curl -fsSL https://raw.githubusercontent.com/reasance/ai-consultants/main/scripts/install.sh | bash
-</code></pre>
+<pre class="bash"><code># One-liner installation
+curl -fsSL https://raw.githubusercontent.com/reasance/ai-consultants/main/scripts/install.sh | bash</code></pre>
 <p>This installs to <code>~/.claude/skills/ai-consultants/</code> and makes slash commands available in Claude Code.</p>
 <h3 id="step-2-configure-the-available-consultants">Step 2: Configure the Available Consultants</h3>
-<pre><code class="language-bash">ai-consultants configure
-</code></pre>
-<p>This detects installed CLIs and available API keys for the complete 10-consultant
-roster, selects CLI/API transport, and saves a private persistent configuration
-under <code>~/.config/ai-consultants/</code>.</p>
+<pre class="bash"><code>ai-consultants configure</code></pre>
+<p>This detects installed CLIs and available API keys for the complete 10-consultant roster, selects CLI/API transport, and saves a private persistent configuration under <code>~/.config/ai-consultants/</code>.</p>
 <h3 id="step-3-verify-installation">Step 3: Verify Installation</h3>
-<pre><code class="language-bash">./scripts/doctor.sh --fix
-</code></pre>
+<pre class="bash"><code>./scripts/doctor.sh --fix</code></pre>
 <p>You should see at least 2 consultants marked as available.</p>
 <h3 id="step-4-your-first-consultation">Step 4: Your First Consultation</h3>
-<pre><code>/ai-consultants:consult "What's the best way to structure a REST API?"
-</code></pre>
+<pre><code>/ai-consultants:consult &quot;What&#39;s the best way to structure a REST API?&quot;</code></pre>
 <p>That’s it! You’re ready to go.</p>
-<hr>
+<hr />
 <h2 id="claude-code-slash-commands">Claude Code Slash Commands</h2>
 <p>AI Consultants provides 2 slash commands:</p>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div class="table-scroll" tabindex="0" role="region" aria-label="Table 2: Command"><table><thead><tr><th>Command</th><th>Description</th></tr></thead><tbody><tr><td><code>/ai-consultants:consult</code></td><td>Main consultation - ask AI consultants a coding question</td></tr><tr><td><code>/ai-consultants:help</code></td><td>Show all commands and usage</td></tr></tbody></table></div>
-<p>Configuration can be managed with <code>ai-consultants configure</code>, including presets,
-strategies, features, personas, API keys, transports, models, timeouts, budgets,
-and advanced optimization controls. Settings are saved to the XDG user config
-directory, normally <code>~/.config/ai-consultants/.env</code>.</p>
-<hr>
+<div class="table-scroll" tabindex="0" role="region" aria-label="Documentation table 2"><table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>/ai-consultants:consult</code></td>
+<td>Main consultation - ask AI consultants a coding question</td>
+</tr>
+<tr>
+<td><code>/ai-consultants:help</code></td>
+<td>Show all commands and usage</td>
+</tr>
+</tbody>
+</table></div>
+<p>Configuration can be managed with <code>ai-consultants configure</code>, including presets, strategies, features, personas, API keys, transports, models, timeouts, budgets, and advanced optimization controls. Settings are saved to the XDG user config directory, normally <code>~/.config/ai-consultants/.env</code>.</p>
+<hr />
 <h2 id="openai-codex-cli-setup">OpenAI Codex CLI Setup</h2>
 <p>Codex CLI supports the Agent Skills standard and can use AI Consultants directly.</p>
 <h3 id="step-1-install-the-skill-1">Step 1: Install the Skill</h3>
-<pre><code class="language-bash"># Option A: Clone directly
+<pre class="bash"><code># Option A: Clone directly
 git clone https://github.com/reasance/ai-consultants.git ~/.codex/skills/ai-consultants
 
 # Option B: Symlink from existing installation
 ln -s ~/.claude/skills/ai-consultants ~/.codex/skills/ai-consultants
 
 # Option C: Symlink from any location
-ln -s /path/to/ai-consultants ~/.codex/skills/ai-consultants
-</code></pre>
+ln -s /path/to/ai-consultants ~/.codex/skills/ai-consultants</code></pre>
 <h3 id="step-2-verify-installation">Step 2: Verify Installation</h3>
-<pre><code class="language-bash">~/.codex/skills/ai-consultants/scripts/doctor.sh --fix
-</code></pre>
+<pre class="bash"><code>~/.codex/skills/ai-consultants/scripts/doctor.sh --fix</code></pre>
 <h3 id="step-3-use-in-codex">Step 3: Use in Codex</h3>
-<p>Codex discovers the skill in <code>~/.codex/skills/</code> or <code>~/.agents/skills/</code>; it has
-no custom slash commands, so ask for it in natural language (“use the
-ai-consultants skill to …”). The consultation needs network access and writes
-under <code>~/.cache</code> and <code>~/.config</code>, which Codex’s default sandbox blocks: approve
-the escalation when Codex asks, or start it with <code>--sandbox danger-full-access</code>.
-Approve it yourself: Codex’s automatic approval review (<code>--approve-for-me</code>)
-rejects it because it sends your files to external providers. Without network
-access every consultant fails with a network error, and the run reports 0
-answers. Codex also rejects <code>rm -f</code>; the skill’s private question file is
-removed with <code>unlink</code> instead.</p>
-<hr>
+<p>Codex discovers the skill in <code>~/.codex/skills/</code> or <code>~/.agents/skills/</code>; it has no custom slash commands, so ask for it in natural language (“use the ai-consultants skill to …”). The consultation needs network access and writes under <code>~/.cache</code> and <code>~/.config</code>, which Codex’s default sandbox blocks: approve the escalation when Codex asks, or start it with <code>--sandbox danger-full-access</code>. Approve it yourself: Codex’s automatic approval review (<code>--approve-for-me</code>) rejects it because it sends your files to external providers. Without network access every consultant fails with a network error, and the run reports 0 answers. Codex also rejects <code>rm -f</code>; the skill’s private question file is removed with <code>unlink</code> instead.</p>
+<hr />
 <h2 id="antigravity-agy-setup">Antigravity (agy) Setup</h2>
-<p>Antigravity (<code>agy</code>) replaced the Gemini CLI for individual Google accounts. It
-reads skills from <code>&#x3C;project>/.agents/skills/&#x3C;name>/</code> and from its user skill
-directory <code>~/.gemini/config/skills/&#x3C;name>/</code>.</p>
-<pre><code class="language-bash"># Per project
+<p>Antigravity (<code>agy</code>) replaced the Gemini CLI for individual Google accounts. It reads skills from <code>&lt;project&gt;/.agents/skills/&lt;name&gt;/</code> and from its user skill directory <code>~/.gemini/config/skills/&lt;name&gt;/</code>.</p>
+<pre class="bash"><code># Per project
 mkdir -p .agents/skills
 ln -s ~/.claude/skills/ai-consultants .agents/skills/ai-consultants
 
 # Or for every project
 mkdir -p ~/.gemini/config/skills
-ln -s ~/.claude/skills/ai-consultants ~/.gemini/config/skills/ai-consultants
-</code></pre>
-<p>Ask in natural language (“use the ai-consultants skill to …”). agy runs the
-consultation as a background task and follows its log; in print mode
-(<code>agy -p</code>) it waits at most 30 minutes for background tasks.</p>
+ln -s ~/.claude/skills/ai-consultants ~/.gemini/config/skills/ai-consultants</code></pre>
+<p>Ask in natural language (“use the ai-consultants skill to …”). agy runs the consultation as a background task and follows its log; in print mode (<code>agy -p</code>) it waits at most 30 minutes for background tasks.</p>
 <h2 id="gemini-cli-legacy">Gemini CLI (legacy)</h2>
-<p>Google stopped serving the Gemini CLI to individual accounts on 2026-06-18.
-Where it still works, it discovers the skill in <code>~/.gemini/skills/</code> or
-<code>~/.agents/skills/</code> (natural language only: it loads <code>.toml</code> custom commands,
-not the Markdown slash commands shipped here).</p>
-<hr>
+<p>Google stopped serving the Gemini CLI to individual accounts on 2026-06-18. Where it still works, it discovers the skill in <code>~/.gemini/skills/</code> or <code>~/.agents/skills/</code> (natural language only: it loads <code>.toml</code> custom commands, not the Markdown slash commands shipped here).</p>
+<hr />
 <h2 id="skillport-setup-multi-agent">SkillPort Setup (Multi-Agent)</h2>
 <p><a href="https://github.com/gotalab/skillport">SkillPort</a> is a universal skill manager that enables skill portability across agents like Cursor, Copilot, and Windsurf.</p>
 <h3 id="step-1-install-skillport">Step 1: Install SkillPort</h3>
-<pre><code class="language-bash">npm install -g skillport
-</code></pre>
+<pre class="bash"><code>npm install -g skillport</code></pre>
 <h3 id="step-2-add-ai-consultants">Step 2: Add AI Consultants</h3>
-<pre><code class="language-bash"># From GitHub
+<pre class="bash"><code># From GitHub
 skillport add github.com/reasance/ai-consultants
 
 # Or from local clone
 git clone https://github.com/reasance/ai-consultants.git
 cd ai-consultants
-./scripts/skillport-install.sh
-</code></pre>
+./scripts/skillport-install.sh</code></pre>
 <h3 id="step-3-verify-installation-1">Step 3: Verify Installation</h3>
-<pre><code class="language-bash">skillport list                    # Should show ai-consultants
-./scripts/skillport-install.sh status  # Detailed status
-</code></pre>
+<pre class="bash"><code>skillport list                    # Should show ai-consultants
+./scripts/skillport-install.sh status  # Detailed status</code></pre>
 <h3 id="step-4-use-in-your-agent">Step 4: Use in Your Agent</h3>
-<pre><code class="language-bash"># Load skill on demand
-skillport show ai-consultants
-</code></pre>
+<pre class="bash"><code># Load skill on demand
+skillport show ai-consultants</code></pre>
 <p>SkillPort also generates <code>AGENTS.md</code> for agents that use that format (Copilot and Cursor).</p>
-<hr>
+<hr />
 <h2 id="generic-agentskills-setup">Generic agentskills Setup</h2>
 <p>For any agent that supports the <a href="https://agentskills.io">agentskills.io</a> standard:</p>
 <h3 id="installation">Installation</h3>
-<pre><code class="language-bash"># Clone to the agent's skills directory
+<pre class="bash"><code># Clone to the agent&#39;s skills directory
 git clone https://github.com/reasance/ai-consultants.git ~/.{agent}/skills/ai-consultants
 
-# Replace {agent} with your agent name (claude, codex, gemini, etc.)
-</code></pre>
+# Replace {agent} with your agent name (claude, codex, gemini, etc.)</code></pre>
 <h3 id="files-available">Files Available</h3>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div class="table-scroll" tabindex="0" role="region" aria-label="Table 3: File"><table><thead><tr><th>File</th><th>Purpose</th></tr></thead><tbody><tr><td><code>SKILL.md</code></td><td>Primary skill specification (agentskills.io format)</td></tr><tr><td><code>AGENTS.md</code></td><td>Alternative discovery format (Copilot/Cursor)</td></tr><tr><td><code>scripts/</code></td><td>Executable scripts for consultations</td></tr></tbody></table></div>
-<hr>
+<div class="table-scroll" tabindex="0" role="region" aria-label="Documentation table 3"><table>
+<thead>
+<tr>
+<th>File</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>SKILL.md</code></td>
+<td>Primary skill specification (agentskills.io format)</td>
+</tr>
+<tr>
+<td><code>AGENTS.md</code></td>
+<td>Alternative discovery format (Copilot/Cursor)</td>
+</tr>
+<tr>
+<td><code>scripts/</code></td>
+<td>Executable scripts for consultations</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
 <h2 id="prerequisites">Prerequisites</h2>
 <p>Before installing consultant CLIs, ensure you have:</p>
 <h3 id="required">Required</h3>
 <ul>
-<li>
-<p><strong>jq</strong> for JSON processing</p>
-</li>
-<li>
-<p><strong>curl</strong> for API connectivity checks</p>
-</li>
-<li>
-<p><strong>Bash 3.2+</strong> (the stock macOS <code>/bin/bash</code> 3.2 is supported; no newer Bash needed)</p>
-</li>
-<li>
-<p><strong>bc</strong> for cost calculations (usually pre-installed)</p>
-</li>
+<li><p><strong>jq</strong> for JSON processing</p></li>
+<li><p><strong>curl</strong> for API connectivity checks</p></li>
+<li><p><strong>Bash 3.2+</strong> (the stock macOS <code>/bin/bash</code> 3.2 is supported; no newer Bash needed)</p></li>
+<li><p><strong>bc</strong> for cost calculations (usually pre-installed)</p></li>
 </ul>
 <h3 id="recommended">Recommended</h3>
 <ul>
@@ -911,173 +863,143 @@ git clone https://github.com/reasance/ai-consultants.git ~/.{agent}/skills/ai-co
 </ul>
 <h3 id="optional">Optional</h3>
 <ul>
-<li><strong>timeout/gtimeout</strong>, used only when you set a positive <code>*_TIMEOUT</code> (a
-built-in fallback is used without it)</li>
+<li><strong>timeout/gtimeout</strong>, used only when you set a positive <code>*_TIMEOUT</code> (a built-in fallback is used without it)</li>
 </ul>
 <h3 id="install-jq">Install jq</h3>
-<pre><code class="language-bash"># macOS
+<pre class="bash"><code># macOS
 brew install jq
 
 # Ubuntu/Debian
 sudo apt-get install jq
 
 # Verify
-jq --version
-</code></pre>
+jq --version</code></pre>
 <h3 id="install-timeout-macos-optional">Install timeout (macOS, optional)</h3>
-<p>Consultants have no time limit by default. If you set a positive <code>*_TIMEOUT</code>,
-coreutils provides <code>gtimeout</code> (macOS does not include <code>timeout</code>):</p>
-<pre><code class="language-bash">brew install coreutils
+<p>Consultants have no time limit by default. If you set a positive <code>*_TIMEOUT</code>, coreutils provides <code>gtimeout</code> (macOS does not include <code>timeout</code>):</p>
+<pre class="bash"><code>brew install coreutils
 
 # Verify (gtimeout on macOS, timeout on Linux)
-gtimeout --version
-</code></pre>
+gtimeout --version</code></pre>
 <blockquote>
 <p><strong>Note:</strong> If timeout/gtimeout is not available, AI Consultants uses a POSIX fallback.</p>
 </blockquote>
-<hr>
+<hr />
 <h2 id="consultant-clis">Consultant CLIs</h2>
 <p>You need <strong>at least 2 consultants</strong> configured for AI Consultants to work.</p>
 <h3 id="antigravity-cli--agy-the-architect">Antigravity CLI — <code>agy</code> (The Architect)</h3>
-<p>The Gemini consultant runs on the Antigravity CLI (<code>agy</code>), the successor to the
-deprecated Gemini CLI (transitioned 2026-06-18).</p>
-<pre><code class="language-bash">curl -fsSL https://antigravity.google/cli/install.sh | bash
+<p>The Gemini consultant runs on the Antigravity CLI (<code>agy</code>), the successor to the deprecated Gemini CLI (transitioned 2026-06-18).</p>
+<pre class="bash"><code>curl -fsSL https://antigravity.google/cli/install.sh | bash
 
 # Authentication (OAuth — sign in once, credentials are cached)
 agy            # launch without arguments to sign in
 
 # Optional: list available models (after sign-in)
-agy models
-</code></pre>
+agy models</code></pre>
 <blockquote>
-<p>API mode (<code>GEMINI_USE_API=true</code>) is an alternative that talks to the Google AI
-endpoint with <code>GEMINI_API_KEY</code> and <code>GEMINI_API_MODEL</code> instead of the agy CLI.</p>
+<p>API mode (<code>GEMINI_USE_API=true</code>) is an alternative that talks to the Google AI endpoint with <code>GEMINI_API_KEY</code> and <code>GEMINI_API_MODEL</code> instead of the agy CLI.</p>
 </blockquote>
 <p>Get API key: <a href="https://aistudio.google.com/apikey">Google AI Studio</a></p>
 <h3 id="codex-cli-the-pragmatist">Codex CLI (The Pragmatist)</h3>
-<pre><code class="language-bash">npm install -g @openai/codex
+<pre class="bash"><code>npm install -g @openai/codex
 
 # Authentication
-export OPENAI_API_KEY="sk-your-key"
-</code></pre>
+export OPENAI_API_KEY=&quot;sk-your-key&quot;</code></pre>
 <p>Get API key: <a href="https://platform.openai.com/api-keys">OpenAI Platform</a></p>
 <h3 id="mistral-vibe-cli-the-devils-advocate">Mistral Vibe CLI (The Devil’s Advocate)</h3>
-<pre><code class="language-bash">pip install mistral-vibe
+<pre class="bash"><code>pip install mistral-vibe
 
 # Authentication
-export MISTRAL_API_KEY="your-key"
-</code></pre>
+export MISTRAL_API_KEY=&quot;your-key&quot;</code></pre>
 <p>Get API key: <a href="https://console.mistral.ai/api-keys/">Mistral Console</a></p>
 <h3 id="claude-cli-the-synthesizer---v22">Claude CLI (The Synthesizer) - v2.2</h3>
-<pre><code class="language-bash"># Claude CLI is part of Claude Code
+<pre class="bash"><code># Claude CLI is part of Claude Code
 # See https://docs.anthropic.com/en/docs/claude-code for installation
 
 # Verify installation
-claude --version
-</code></pre>
+claude --version</code></pre>
 <h3 id="qwen-cli-the-analyst---v27">Qwen CLI (The Analyst) - v2.7</h3>
-<pre><code class="language-bash">npm install -g @qwen-code/qwen-code@latest
+<pre class="bash"><code>npm install -g @qwen-code/qwen-code@latest
 
 # Verify installation
 qwen --version
 
 # Or use API mode
 export QWEN3_USE_API=true
-export QWEN3_API_KEY="your-token-plan-key"
-</code></pre>
+export QWEN3_API_KEY=&quot;your-token-plan-key&quot;</code></pre>
 <p>Get the matching key from <a href="https://docs.qwencloud.com/token-plan/personal/token-plan-personal-quickstart">QwenCloud Token Plan</a>. See the <a href="/docs/recipes.html#qwen-via-qwen-cloud-token-plan">Qwen4 API and CLI recipe</a> for the explicit provider entry.</p>
 <p><strong>CLI/API Mode</strong>: Qwen3 defaults to CLI mode (<code>QWEN3_USE_API=false</code>). Set to <code>true</code> to use the QwenCloud Token Plan API.</p>
 <h3 id="kimi-k31-pro-via-kimi-code-cli-the-eastern-sage---v54">Kimi K3.1 Pro via Kimi Code CLI (The Eastern Sage) - v5.4</h3>
-<pre><code class="language-bash">curl -L code.kimi.com/install.sh | bash
-</code></pre>
+<pre class="bash"><code>curl -L code.kimi.com/install.sh | bash</code></pre>
 <p>Verify: <code>kimi --version</code></p>
-<p>AI Consultants pins K3.1 Pro at max thinking effort for every consultation,
-independently of the model and effort in your user-level Kimi configuration:</p>
-<pre><code class="language-bash">export KIMI_MODEL=kimi-code/k3.1-pro
+<p>AI Consultants pins K3.1 Pro at max thinking effort for every consultation, independently of the model and effort in your user-level Kimi configuration:</p>
+<pre class="bash"><code>export KIMI_MODEL=kimi-code/k3.1-pro
 export KIMI_REASONING_EFFORT=max   # reaches the CLI as KIMI_MODEL_THINKING_EFFORT
-./scripts/query_kimi.sh "Review this API boundary"
-</code></pre>
-<p>Every tier, <code>max_quality</code> included, uses <code>kimi-code/k3.1-pro</code>; its availability
-is verified from the Kimi provider inventory before the request. K3.1 Pro needs
-a Kimi Code Plus plan or higher. If the alias is missing, run <code>kimi</code> once and
-<code>/login</code> to refresh the model list (<code>~/.kimi-code/config.toml</code>).</p>
+./scripts/query_kimi.sh &quot;Review this API boundary&quot;</code></pre>
+<p>Every tier, <code>max_quality</code> included, uses <code>kimi-code/k3.1-pro</code>; its availability is verified from the Kimi provider inventory before the request. K3.1 Pro needs a Kimi Code Plus plan or higher. If the alias is missing, run <code>kimi</code> once and <code>/login</code> to refresh the model list (<code>~/.kimi-code/config.toml</code>).</p>
 <h3 id="minimax-cli-via-mmx---v221">MiniMax (CLI via mmx) - v2.21</h3>
 <p>MiniMax runs via the <code>mmx</code> CLI by default (CLI-first, OAuth). Install and sign in:</p>
-<pre><code class="language-bash">npm install -g mmx-cli
-mmx auth login          # OAuth (browser); or: mmx auth login --api-key &#x3C;key>
-</code></pre>
+<pre class="bash"><code>npm install -g mmx-cli
+mmx auth login          # OAuth (browser); or: mmx auth login --api-key &lt;key&gt;</code></pre>
 <p>API mode is opt-in: set <code>MINIMAX_USE_API=true</code> with <code>MINIMAX_API_KEY</code>.</p>
 <p>Verify: <code>mmx --version</code></p>
 <h3 id="meta-muse-code-cli-or-meta-model-api---v55">Meta (Muse Code CLI or Meta Model API) - v5.5</h3>
-<p>Meta is opt-in. Install Muse Code and sign in once (browser sign-in or an API
-key); a Muse Code subscription or pay-as-you-go both work:</p>
-<pre><code class="language-bash">curl -fsSL https://dev.meta.ai/install.sh | sh
+<p>Meta is opt-in. Install Muse Code and sign in once (browser sign-in or an API key); a Muse Code subscription or pay-as-you-go both work:</p>
+<pre class="bash"><code>curl -fsSL https://dev.meta.ai/install.sh | sh
 muse                    # first run: trust prompt and sign-in, then exit
-ai-consultants configure   # enables ENABLE_META once muse is on PATH
-</code></pre>
-<p>Or use the Meta Model API with a pay-as-you-go key from the Model API
-dashboard (keys start with <code>LLM_</code>): set <code>META_API_KEY</code>, and Meta selects the
-API unless <code>META_USE_API=false</code>. Muse Code also reads <code>META_API_KEY</code> for headless
-runs.</p>
-<p>The CLI runs <code>muse exec</code> advisory-only: a private empty workspace, no shell, no
-workspace writes, no web tools, no sandbox network, no personal rules or
-skills, no session log and <code>--contributor-mode off</code>. Subscriptions default to
-Contributor mode, in which Meta may train on prompts, code and responses, so
-it is switched off on every run. Muse Wonder (<code>muse-wonder-1.0</code>, preview) serves
-the default, premium and maximum tiers; Muse Spark 1.3 (<code>muse-spark-1.3</code>) serves
-standard and economy. Pin <code>META_MODEL=muse-spark-1.3-contributor</code> only if you
-accept Contributor mode for the API; every run logs a warning.</p>
+ai-consultants configure   # enables ENABLE_META once muse is on PATH</code></pre>
+<p>Or use the Meta Model API with a pay-as-you-go key from the Model API dashboard (keys start with <code>LLM_</code>): set <code>META_API_KEY</code>, and Meta selects the API unless <code>META_USE_API=false</code>. Muse Code also reads <code>META_API_KEY</code> for headless runs.</p>
+<p>The CLI runs <code>muse exec</code> advisory-only: a private empty workspace, no shell, no workspace writes, no web tools, no sandbox network, no personal rules or skills, no session log and <code>--contributor-mode off</code>. Subscriptions default to Contributor mode, in which Meta may train on prompts, code and responses, so it is switched off on every run. Muse Wonder (<code>muse-wonder-1.0</code>, preview) serves the default, premium and maximum tiers; Muse Spark 1.3 (<code>muse-spark-1.3</code>) serves standard and economy. Pin <code>META_MODEL=muse-spark-1.3-contributor</code> only if you accept Contributor mode for the API; every run logs a warning.</p>
 <p>Verify: <code>muse --version</code></p>
-<hr>
+<hr />
 <h2 id="self-exclusion-v22">Self-Exclusion (v2.2)</h2>
 <p>When AI Consultants is invoked from a specific AI agent, that agent is automatically excluded from the consultant panel to prevent self-consultation.</p>
 <h3 id="how-it-works">How It Works</h3>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div class="table-scroll" tabindex="0" role="region" aria-label="Table 4: Invoking Agent"><table><thead><tr><th>Invoking Agent</th><th>Excluded Consultant</th><th>Other Consultants</th></tr></thead><tbody><tr><td>Claude Code</td><td>Claude</td><td>Gemini, Codex, Mistral, Qwen, etc.</td></tr><tr><td>Codex CLI</td><td>Codex</td><td>Claude, Gemini, Mistral, Qwen, etc.</td></tr><tr><td>Antigravity (agy) / Gemini CLI</td><td>Gemini</td><td>Claude, Codex, Mistral, Qwen, etc.</td></tr><tr><td>Cursor</td><td>None</td><td>All enabled consultants; Cursor is a host, not a panel member</td></tr><tr><td>Qwen CLI</td><td>Qwen3</td><td>Claude, Gemini, Codex, Mistral, etc.</td></tr><tr><td>Kimi CLI</td><td>Kimi</td><td>All except Kimi</td></tr><tr><td>Bash (direct)</td><td>None</td><td>All enabled consultants (up to 10)</td></tr></tbody></table></div>
+<div class="table-scroll" tabindex="0" role="region" aria-label="Documentation table 4"><table>
+<thead>
+<tr>
+<th>Invoking Agent</th>
+<th>Excluded Consultant</th>
+<th>Other Consultants</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Claude Code</td>
+<td>Claude</td>
+<td>Gemini, Codex, Mistral, Qwen, etc.</td>
+</tr>
+<tr>
+<td>Codex CLI</td>
+<td>Codex</td>
+<td>Claude, Gemini, Mistral, Qwen, etc.</td>
+</tr>
+<tr>
+<td>Antigravity (agy) / Gemini CLI</td>
+<td>Gemini</td>
+<td>Claude, Codex, Mistral, Qwen, etc.</td>
+</tr>
+<tr>
+<td>Cursor</td>
+<td>None</td>
+<td>All enabled consultants; Cursor is a host, not a panel member</td>
+</tr>
+<tr>
+<td>Qwen CLI</td>
+<td>Qwen3</td>
+<td>Claude, Gemini, Codex, Mistral, etc.</td>
+</tr>
+<tr>
+<td>Kimi CLI</td>
+<td>Kimi</td>
+<td>All except Kimi</td>
+</tr>
+<tr>
+<td>Bash (direct)</td>
+<td>None</td>
+<td>All enabled consultants (up to 10)</td>
+</tr>
+</tbody>
+</table></div>
 <h3 id="automatic-detection">Automatic Detection</h3>
 <p>The host sets <code>INVOKING_AGENT</code> itself:</p>
 <ul>
@@ -1085,33 +1007,20 @@ accept Contributor mode for the API; every run logs a warning.</p>
 <li>Codex CLI: the skill’s execution contract (<code>SKILL.md</code>) sets <code>INVOKING_AGENT=codex</code></li>
 <li>Antigravity (agy) and the legacy Gemini CLI: the contract sets <code>INVOKING_AGENT=gemini</code></li>
 </ul>
-<p>The same identity excludes the host from synthesis. A Claude-hosted run must
-not create <code>claude.json</code> or report <code>synthesis_provider=claude</code>; equivalent
-invariants apply to Codex and Gemini. Natural-language skill invocations follow
-the execution contract in <code>SKILL.md</code>.</p>
+<p>The same identity excludes the host from synthesis. A Claude-hosted run must not create <code>claude.json</code> or report <code>synthesis_provider=claude</code>; equivalent invariants apply to Codex and Gemini. Natural-language skill invocations follow the execution contract in <code>SKILL.md</code>.</p>
 <h3 id="manual-usage-bash">Manual Usage (Bash)</h3>
-<pre><code class="language-bash"># Claude excluded from panel
-INVOKING_AGENT=claude ./scripts/consult_all.sh "Question"
+<pre class="bash"><code># Claude excluded from panel
+INVOKING_AGENT=claude ./scripts/consult_all.sh &quot;Question&quot;
 
 # Codex excluded from panel
-INVOKING_AGENT=codex ./scripts/consult_all.sh "Question"
+INVOKING_AGENT=codex ./scripts/consult_all.sh &quot;Question&quot;
 
 # No exclusion (all enabled consultants)
-./scripts/consult_all.sh "Question"
-</code></pre>
-<hr>
+./scripts/consult_all.sh &quot;Question&quot;</code></pre>
+<hr />
 <h2 id="cliapi-mode-switching-v26">CLI/API Mode Switching (v2.6+)</h2>
 <p>Eight consultants can switch between CLI mode (using local CLI tools) and API mode (direct API calls): <strong>Gemini, Codex, Claude, Mistral, Qwen3, Grok, MiniMax, and Meta</strong>. Grok is CLI-first and runs in an isolated, tool-free strict sandbox. It falls back automatically only when Grok Build is missing, cannot launch, or lacks usable authentication and a key is available; request failures after launch are surfaced without an API fallback.</p>
-<p>Grok’s normal OAuth mode is <code>GROK_OAUTH_MODE=shared</code>, which is safe for the
-parallel panel: each call gets a private HOME/workspace/prompt/output, while a
-runner-owned persistent <code>GROK_HOME</code> lets Grok Build coordinate token refresh
-with its own lock. A short ai-consultants lock atomically seeds and publishes
-valid generations; a concurrent external <code>grok login</code> wins the CAS and makes
-the affected run fail without an API fallback. Use
-<code>GROK_OAUTH_MODE=serialized</code> only as a diagnostic fallback. Forced API mode is
-stateless and does not read or create the shared OAuth generation. A newly
-created shared generation runs one locked inventory bootstrap to let Grok 1.0.4
-initialize its home metadata; the lock is released before inference.</p>
+<p>Grok’s normal OAuth mode is <code>GROK_OAUTH_MODE=shared</code>, which is safe for the parallel panel: each call gets a private HOME/workspace/prompt/output, while a runner-owned persistent <code>GROK_HOME</code> lets Grok Build coordinate token refresh with its own lock. A short ai-consultants lock atomically seeds and publishes valid generations; a concurrent external <code>grok login</code> wins the CAS and makes the affected run fail without an API fallback. Use <code>GROK_OAUTH_MODE=serialized</code> only as a diagnostic fallback. Forced API mode is stateless and does not read or create the shared OAuth generation. A newly created shared generation runs one locked inventory bootstrap to let Grok 1.0.4 initialize its home metadata; the lock is released before inference.</p>
 <h3 id="why-use-api-mode">Why Use API Mode?</h3>
 <ul>
 <li><strong>No CLI installation required</strong>: Use API keys without installing CLI tools</li>
@@ -1119,202 +1028,186 @@ initialize its home metadata; the lock is released before inference.</p>
 <li><strong>Easier deployment</strong>: No need to manage CLI binaries</li>
 </ul>
 <h3 id="configuration">Configuration</h3>
-<pre><code class="language-bash"># Enable API mode for individual consultants
+<pre class="bash"><code># Enable API mode for individual consultants
 export GEMINI_USE_API=true
-export GEMINI_API_KEY="your-google-ai-key"
+export GEMINI_API_KEY=&quot;your-google-ai-key&quot;
 
 export CODEX_USE_API=true
-export OPENAI_API_KEY="sk-..."
+export OPENAI_API_KEY=&quot;sk-...&quot;
 
 export CLAUDE_USE_API=true
-export ANTHROPIC_API_KEY="sk-ant-..."
+export ANTHROPIC_API_KEY=&quot;sk-ant-...&quot;
 
 export MISTRAL_USE_API=true
-export MISTRAL_API_KEY="your-mistral-key"
+export MISTRAL_API_KEY=&quot;your-mistral-key&quot;
 
 export GROK_USE_API=true
-export GROK_API_KEY="your-xai-key"
+export GROK_API_KEY=&quot;your-xai-key&quot;
 
 export QWEN3_USE_API=true   # Enable API mode for Qwen3
-export QWEN3_API_KEY="your-token-plan-key"
-</code></pre>
+export QWEN3_API_KEY=&quot;your-token-plan-key&quot;</code></pre>
 <h3 id="api-endpoints-custom">API Endpoints (Custom)</h3>
-<pre><code class="language-bash">GEMINI_API_URL=https://generativelanguage.googleapis.com/v1beta/models
+<pre class="bash"><code>GEMINI_API_URL=https://generativelanguage.googleapis.com/v1beta/models
 CODEX_API_URL=https://api.openai.com/v1/chat/completions
 CLAUDE_API_URL=https://api.anthropic.com/v1/messages
 MISTRAL_API_URL=https://api.mistral.ai/v1/chat/completions
-QWEN3_API_URL=https://token-plan.maas.qwencloudapi.com/compatible-mode/v1/chat/completions
-</code></pre>
-<p>The Qwen API default is the OpenAI-compatible QwenCloud Token Plan endpoint
-(<code>QWEN3_FORMAT=openai</code>). Supply its matching Token Plan key; an existing
-explicit URL, format or key is never repointed. Qwen4 rejects the legacy
-DashScope text-generation wire before dispatch. See <a href="/docs/recipes.html"><code>RECIPES.md</code></a>
-for final-model limits, CLI setup and explicit pay-as-you-go configuration.</p>
-<p>An explicit Qwen3.8 Max or Flash model pin without a custom endpoint keeps the
-legacy implicit DashScope endpoint/wire. Existing keys are not silently moved
-to a different plan. New Qwen4 configurations use the compatible Token Plan
-endpoint; set its matching key deliberately.</p>
+QWEN3_API_URL=https://token-plan.maas.qwencloudapi.com/compatible-mode/v1/chat/completions</code></pre>
+<p>The Qwen API default is the OpenAI-compatible QwenCloud Token Plan endpoint (<code>QWEN3_FORMAT=openai</code>). Supply its matching Token Plan key; an existing explicit URL, format or key is never repointed. Qwen4 rejects the legacy DashScope text-generation wire before dispatch. See <a href="/docs/recipes.html"><code>RECIPES.md</code></a> for final-model limits, CLI setup and explicit pay-as-you-go configuration.</p>
+<p>An explicit Qwen3.8 Max or Flash model pin without a custom endpoint keeps the legacy implicit DashScope endpoint/wire. Existing keys are not silently moved to a different plan. New Qwen4 configurations use the compatible Token Plan endpoint; set its matching key deliberately.</p>
 <h3 id="mode-detection">Mode Detection</h3>
 <p>Check current mode with doctor command:</p>
-<pre><code class="language-bash">./scripts/doctor.sh --verbose
+<pre class="bash"><code>./scripts/doctor.sh --verbose
 # Shows:
 #   ✓ Gemini: API mode (key: AIza...1234)
 #   ○ Codex: CLI mode
 #   ○ Claude: CLI mode
 #   ○ Mistral: CLI mode
-#   ✓ Qwen3: API mode (key: sk-...abcd)
-</code></pre>
-<hr>
+#   ✓ Qwen3: API mode (key: sk-...abcd)</code></pre>
+<hr />
 <h2 id="configuration-presets-v22">Configuration Presets (v2.2)</h2>
 <p>Presets let you quickly configure how many consultants to use.</p>
 <h3 id="available-presets">Available Presets</h3>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div class="table-scroll" tabindex="0" role="region" aria-label="Table 5: Preset"><table><thead><tr><th>Preset</th><th>Consultants</th><th>Use Case</th></tr></thead><tbody><tr><td><code>minimal</code></td><td>2 (Gemini + Codex)</td><td>Quick, cheap</td></tr><tr><td><code>balanced</code></td><td>3 (+ Mistral)</td><td>Standard</td></tr><tr><td><code>thorough</code></td><td>3</td><td>Comprehensive</td></tr><tr><td><code>max_quality</code></td><td>All 11, maximum models and max provider effort</td><td>Critical decisions</td></tr><tr><td><code>high-stakes</code></td><td>Expanded panel</td><td>Critical decisions</td></tr><tr><td><code>security</code></td><td>Security-focused</td><td>Security reviews</td></tr><tr><td><code>cost-capped</code></td><td>Budget-friendly</td><td>Low cost</td></tr></tbody></table></div>
+<div class="table-scroll" tabindex="0" role="region" aria-label="Documentation table 5"><table>
+<thead>
+<tr>
+<th>Preset</th>
+<th>Consultants</th>
+<th>Use Case</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>minimal</code></td>
+<td>2 (Gemini + Codex)</td>
+<td>Quick, cheap</td>
+</tr>
+<tr>
+<td><code>balanced</code></td>
+<td>3 (+ Mistral)</td>
+<td>Standard</td>
+</tr>
+<tr>
+<td><code>thorough</code></td>
+<td>3</td>
+<td>Comprehensive</td>
+</tr>
+<tr>
+<td><code>max_quality</code></td>
+<td>All 11, maximum models and max provider effort</td>
+<td>Critical decisions</td>
+</tr>
+<tr>
+<td><code>high-stakes</code></td>
+<td>Expanded panel</td>
+<td>Critical decisions</td>
+</tr>
+<tr>
+<td><code>security</code></td>
+<td>Security-focused</td>
+<td>Security reviews</td>
+</tr>
+<tr>
+<td><code>cost-capped</code></td>
+<td>Budget-friendly</td>
+<td>Low cost</td>
+</tr>
+</tbody>
+</table></div>
 <h3 id="set-default-preset">Set Default Preset</h3>
 <p><strong>Bash:</strong></p>
-<pre><code class="language-bash"># Add to .env
-DEFAULT_PRESET=balanced
-</code></pre>
+<pre class="bash"><code># Add to .env
+DEFAULT_PRESET=balanced</code></pre>
 <h3 id="override-per-consultation">Override Per Consultation</h3>
 <p><strong>Claude Code:</strong> Specify in your question context.</p>
 <p><strong>Bash:</strong></p>
-<pre><code class="language-bash">./scripts/consult_all.sh --preset high-stakes "Critical question"
-</code></pre>
-<hr>
+<pre class="bash"><code>./scripts/consult_all.sh --preset high-stakes &quot;Critical question&quot;</code></pre>
+<hr />
 <h2 id="synthesis-strategies-v22">Synthesis Strategies (v2.2)</h2>
 <p>Strategies control how consultant responses are combined.</p>
 <h3 id="available-strategies">Available Strategies</h3>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div class="table-scroll" tabindex="0" role="region" aria-label="Table 6: Strategy"><table><thead><tr><th>Strategy</th><th>Description</th></tr></thead><tbody><tr><td><code>coverage</code></td><td>Union of every distinct point/risk across consultants, deduplicated (default)</td></tr><tr><td><code>majority</code></td><td>Produce one blended recommendation</td></tr><tr><td><code>risk_averse</code></td><td>Weight conservative responses higher</td></tr><tr><td><code>security_first</code></td><td>Prioritize security-focused insights</td></tr><tr><td><code>cost_capped</code></td><td>Prefer simpler, cheaper solutions</td></tr><tr><td><code>compare_only</code></td><td>No recommendation, just comparison</td></tr></tbody></table></div>
+<div class="table-scroll" tabindex="0" role="region" aria-label="Documentation table 6"><table>
+<thead>
+<tr>
+<th>Strategy</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>coverage</code></td>
+<td>Union of every distinct point/risk across consultants, deduplicated (default)</td>
+</tr>
+<tr>
+<td><code>majority</code></td>
+<td>Produce one blended recommendation</td>
+</tr>
+<tr>
+<td><code>risk_averse</code></td>
+<td>Weight conservative responses higher</td>
+</tr>
+<tr>
+<td><code>security_first</code></td>
+<td>Prioritize security-focused insights</td>
+</tr>
+<tr>
+<td><code>cost_capped</code></td>
+<td>Prefer simpler, cheaper solutions</td>
+</tr>
+<tr>
+<td><code>compare_only</code></td>
+<td>No recommendation, just comparison</td>
+</tr>
+</tbody>
+</table></div>
 <h3 id="set-default-strategy">Set Default Strategy</h3>
 <p><strong>Bash:</strong></p>
-<pre><code class="language-bash"># Add to .env
-DEFAULT_STRATEGY=risk_averse
-</code></pre>
+<pre class="bash"><code># Add to .env
+DEFAULT_STRATEGY=risk_averse</code></pre>
 <h3 id="strategy-recommendations">Strategy Recommendations</h3>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div class="table-scroll" tabindex="0" role="region" aria-label="Table 7: Use Case"><table><thead><tr><th>Use Case</th><th>Recommended Strategy</th></tr></thead><tbody><tr><td>General questions</td><td><code>coverage</code></td></tr><tr><td>Production deployments</td><td><code>risk_averse</code></td></tr><tr><td>Security audits</td><td><code>security_first</code></td></tr><tr><td>Budget constraints</td><td><code>cost_capped</code></td></tr><tr><td>Learning/exploration</td><td><code>compare_only</code></td></tr></tbody></table></div>
-<hr>
+<div class="table-scroll" tabindex="0" role="region" aria-label="Documentation table 7"><table>
+<thead>
+<tr>
+<th>Use Case</th>
+<th>Recommended Strategy</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>General questions</td>
+<td><code>coverage</code></td>
+</tr>
+<tr>
+<td>Production deployments</td>
+<td><code>risk_averse</code></td>
+</tr>
+<tr>
+<td>Security audits</td>
+<td><code>security_first</code></td>
+</tr>
+<tr>
+<td>Budget constraints</td>
+<td><code>cost_capped</code></td>
+</tr>
+<tr>
+<td>Learning/exploration</td>
+<td><code>compare_only</code></td>
+</tr>
+</tbody>
+</table></div>
+<hr />
 <h2 id="ready-to-run-configurations">Ready-to-run configurations</h2>
-<p>These examples can be prefixed to one command or saved in
-<code>~/.config/ai-consultants/.env</code>.</p>
+<p>These examples can be prefixed to one command or saved in <code>~/.config/ai-consultants/.env</code>.</p>
 <h3 id="security-gate-with-a-required-quorum">Security gate with a required quorum</h3>
-<pre><code class="language-bash">ENABLE_HEALTH_GATE=true \
+<pre class="bash"><code>ENABLE_HEALTH_GATE=true \
 QUORUM_MIN=3 \
 QUORUM_ACTION=stop \
 ai-consultants --preset security --strategy security_first \
-  "Find authentication bypasses" src/auth.ts@PRIMARY
-</code></pre>
-<p>More scenarios—including CLI-only, hybrid API, hard-budget, and
-large-context runs—are in <a href="/docs/recipes.html"><code>docs/RECIPES.md</code></a>.</p>
-<hr>
+  &quot;Find authentication bypasses&quot; src/auth.ts@PRIMARY</code></pre>
+<p>More scenarios—including CLI-only, hybrid API, hard-budget, and large-context runs—are in <a href="/docs/recipes.html"><code>docs/RECIPES.md</code></a>.</p>
+<hr />
 <h2 id="environment-configuration">Environment Configuration</h2>
 <h3 id="automatic-configuration-recommended">Automatic configuration (recommended)</h3>
-<pre><code class="language-bash"># Detect the full roster and write ~/.config/ai-consultants/.env
+<pre class="bash"><code># Detect the full roster and write ~/.config/ai-consultants/.env
 ai-consultants configure
 
 # Set any supported parameter non-interactively
@@ -1328,31 +1221,16 @@ ai-consultants configure --advanced
 
 # Parameter discovery and safe preview
 ai-consultants configure --show-parameters
-ai-consultants configure --dry-run
-</code></pre>
-<p>Existing custom values and credentials are preserved automatically;
-availability-derived <code>ENABLE_*</code> flags are refreshed and can be pinned with
-<code>--set</code>. Unless <code>--force</code> is supplied, the previous file is retained as a
-timestamped mode-600 backup.
-Automatically selected <code>*_USE_API</code> modes carry an <code># ai-consultants:auto</code>
-marker, so rerunning the command can react to installed or removed CLIs and new
-credentials. Unmarked modes, environment values, and <code>--set</code> remain user pins.
-The configurator uses the complete <a href="https://github.com/reasance/ai-consultants/blob/v5.10.0/.env.example"><code>.env.example</code></a> contract,
-so advanced parameters are also accepted through repeatable <code>--set KEY=VALUE</code>
-arguments.</p>
-<p>Do not place API keys in <code>--set</code> arguments: command lines can be retained in
-shell history or observed by other local processes. Use <code>--interactive</code>,
-<code>--advanced</code>, or exported environment variables for credentials.</p>
+ai-consultants configure --dry-run</code></pre>
+<p>Existing custom values and credentials are preserved automatically; availability-derived <code>ENABLE_*</code> flags are refreshed and can be pinned with <code>--set</code>. Unless <code>--force</code> is supplied, the previous file is retained as a timestamped mode-600 backup. Automatically selected <code>*_USE_API</code> modes carry an <code># ai-consultants:auto</code> marker, so rerunning the command can react to installed or removed CLIs and new credentials. Unmarked modes, environment values, and <code>--set</code> remain user pins. The configurator uses the complete <a href="https://github.com/reasance/ai-consultants/blob/v5.11.0/.env.example"><code>.env.example</code></a> contract, so advanced parameters are also accepted through repeatable <code>--set KEY=VALUE</code> arguments.</p>
+<p>Do not place API keys in <code>--set</code> arguments: command lines can be retained in shell history or observed by other local processes. Use <code>--interactive</code>, <code>--advanced</code>, or exported environment variables for credentials.</p>
 <h3 id="using-env-file">Using .env file</h3>
-<pre><code class="language-bash">mkdir -p "${XDG_CONFIG_HOME:-$HOME/.config}/ai-consultants"
+<pre class="bash"><code>mkdir -p &quot;${XDG_CONFIG_HOME:-$HOME/.config}/ai-consultants&quot;
 # For a new configuration only; keep existing credentials/settings if present.
-cp -n .env.example "${XDG_CONFIG_HOME:-$HOME/.config}/ai-consultants/.env"
-chmod 600 "${XDG_CONFIG_HOME:-$HOME/.config}/ai-consultants/.env"
-</code></pre>
-<p>Edit that user configuration <code>.env</code>. A different existing private directory must
-be selected explicitly with <code>AI_CONSULTANTS_CONFIG_DIR</code>; project <code>.env</code> files
-are not discovered automatically:</p>
-<pre><code class="language-bash"># Enable/disable consultants (10 available)
+cp -n .env.example &quot;${XDG_CONFIG_HOME:-$HOME/.config}/ai-consultants/.env&quot;
+chmod 600 &quot;${XDG_CONFIG_HOME:-$HOME/.config}/ai-consultants/.env&quot;</code></pre>
+<p>Edit that user configuration <code>.env</code>. A different existing private directory must be selected explicitly with <code>AI_CONSULTANTS_CONFIG_DIR</code>; project <code>.env</code> files are not discovered automatically:</p>
+<pre class="bash"><code># Enable/disable consultants (10 available)
 ENABLE_GEMINI=true
 ENABLE_CODEX=true
 ENABLE_CLAUDE=false    # Auto-excluded when invoked from Claude Code
@@ -1400,27 +1278,23 @@ QUORUM_ACTION=warn
 # Budget (v2.4)
 ENABLE_BUDGET_LIMIT=false
 MAX_SESSION_COST=1.00
-BUDGET_ACTION=warn
-</code></pre>
+BUDGET_ACTION=warn</code></pre>
 <h3 id="minimum-requirements">Minimum Requirements</h3>
 <p><strong>At least 2 consultants must be enabled.</strong></p>
 <p>Example configurations:</p>
 <p><strong>OpenAI + Google:</strong></p>
-<pre><code class="language-bash">ENABLE_GEMINI=true
+<pre class="bash"><code>ENABLE_GEMINI=true
 ENABLE_CODEX=true
-ENABLE_MISTRAL=false
-</code></pre>
+ENABLE_MISTRAL=false</code></pre>
 <p><strong>OpenAI + Anthropic:</strong></p>
-<pre><code class="language-bash">ENABLE_CODEX=true
+<pre class="bash"><code>ENABLE_CODEX=true
 ENABLE_CLAUDE=true
 ENABLE_GEMINI=false
-ENABLE_MISTRAL=false
-</code></pre>
-<hr>
+ENABLE_MISTRAL=false</code></pre>
+<hr />
 <h2 id="verification">Verification</h2>
 <h3 id="doctor-command">Doctor Command</h3>
-<pre><code class="language-bash">./scripts/doctor.sh
-</code></pre>
+<pre class="bash"><code>./scripts/doctor.sh</code></pre>
 <p>Checks:</p>
 <ul>
 <li>CLI tools installed</li>
@@ -1428,250 +1302,121 @@ ENABLE_MISTRAL=false
 <li>Configuration valid</li>
 </ul>
 <p><strong>Auto-fix issues:</strong></p>
-<pre><code class="language-bash">./scripts/doctor.sh --fix
-</code></pre>
+<pre class="bash"><code>./scripts/doctor.sh --fix</code></pre>
 <h3 id="configuration-1">Configuration</h3>
 <p>Auto-detect the available CLI and API transports:</p>
-<pre><code class="language-bash">./bin/ai-consultants configure
-</code></pre>
-<p>Use <code>--interactive</code> for a guided review, <code>--advanced</code> for every supported
-parameter, or <code>--dry-run</code> to preview the generated configuration without
-writing it. The deprecated <code>setup_wizard.sh</code> and <code>preflight_check.sh</code> entry
-points remain compatibility forwarders but are not the maintained interface.</p>
-<hr>
+<pre class="bash"><code>./bin/ai-consultants configure</code></pre>
+<p>Use <code>--interactive</code> for a guided review, <code>--advanced</code> for every supported parameter, or <code>--dry-run</code> to preview the generated configuration without writing it. The deprecated <code>setup_wizard.sh</code> and <code>preflight_check.sh</code> entry points remain compatibility forwarders but are not the maintained interface.</p>
+<hr />
 <h2 id="troubleshooting">Troubleshooting</h2>
 <h3 id="command-not-found-errors">“Command not found” errors</h3>
-<pre><code class="language-bash"># Check npm global path
+<pre class="bash"><code># Check npm global path
 npm list -g --depth=0
 
 # Check pip packages
-pip list | grep mistral
-</code></pre>
+pip list | grep mistral</code></pre>
 <h3 id="authentication-failures">Authentication failures</h3>
 <p><strong>Gemini (Antigravity CLI):</strong></p>
-<pre><code class="language-bash">agy            # launch with no arguments to (re-)sign in via browser OAuth
-agy models     # verify auth: lists available models when signed in
-</code></pre>
+<pre class="bash"><code>agy            # launch with no arguments to (re-)sign in via browser OAuth
+agy models     # verify auth: lists available models when signed in</code></pre>
 <p>(Or skip the CLI entirely: set <code>GEMINI_API_KEY</code> to run Gemini over the API.)</p>
 <p><strong>Codex:</strong></p>
-<pre><code class="language-bash">echo $OPENAI_API_KEY  # Verify set
-</code></pre>
+<pre class="bash"><code>echo $OPENAI_API_KEY  # Verify set</code></pre>
 <h3 id="timeout-errors">Timeout errors</h3>
-<p>Consultants have no time limit by default. A <code>Timeout after Ns</code> message means a
-<code>*_TIMEOUT</code> is set to a positive value in <code>.env</code> or the environment; set it to
-<code>0</code> to remove the limit:</p>
-<pre><code class="language-bash">GEMINI_TIMEOUT=0
-CODEX_TIMEOUT=0
-</code></pre>
+<p>Consultants have no time limit by default. A <code>Timeout after Ns</code> message means a <code>*_TIMEOUT</code> is set to a positive value in <code>.env</code> or the environment; set it to <code>0</code> to remove the limit:</p>
+<pre class="bash"><code>GEMINI_TIMEOUT=0
+CODEX_TIMEOUT=0</code></pre>
 <h3 id="a-consultant-is-taking-too-long">A consultant is taking too long</h3>
-<p>The run logs <code>Still waiting after Ns for: &#x3C;names></code> while it waits. To continue
-with the answers already received, run <code>touch &#x3C;output dir>/.proceed</code> (the
-directory is logged as <code>Output: &#x3C;dir></code> at the start) or press Ctrl-C once;
-press Ctrl-C again, or <code>touch &#x3C;output dir>/.abort</code>, to end the run.</p>
+<p>The run logs <code>Still waiting after Ns for: &lt;names&gt;</code> while it waits. To continue with the answers already received, run <code>touch &lt;output dir&gt;/.proceed</code> (the directory is logged as <code>Output: &lt;dir&gt;</code> at the start) or press Ctrl-C once; press Ctrl-C again, or <code>touch &lt;output dir&gt;/.abort</code>, to end the run.</p>
 <h3 id="at-least-2-consultants-are-required-error">“At least 2 consultants are required” error</h3>
 <p>Either:</p>
-<ol>
+<ol type="1">
 <li>Install another CLI</li>
 <li>Configure an API-backed consultant</li>
 <li>Run <code>./scripts/doctor.sh --fix</code></li>
 </ol>
 <h3 id="claude-code-issues">Claude Code Issues</h3>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div class="table-scroll" tabindex="0" role="region" aria-label="Table 8: Issue"><table><thead><tr><th>Issue</th><th>Solution</th></tr></thead><tbody><tr><td>“Unknown skill”</td><td>Run install script again</td></tr><tr><td>Commands not showing</td><td>Restart Claude Code</td></tr><tr><td>“Exit code 1”</td><td>Run <code>./scripts/doctor.sh</code></td></tr><tr><td>Configuration not saving</td><td>Check permissions on <code>~/.config/ai-consultants/</code> (or <code>$AI_CONSULTANTS_CONFIG_DIR</code>)</td></tr></tbody></table></div>
-<hr>
+<div class="table-scroll" tabindex="0" role="region" aria-label="Documentation table 8"><table>
+<thead>
+<tr>
+<th>Issue</th>
+<th>Solution</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>“Unknown skill”</td>
+<td>Run install script again</td>
+</tr>
+<tr>
+<td>Commands not showing</td>
+<td>Restart Claude Code</td>
+</tr>
+<tr>
+<td>“Exit code 1”</td>
+<td>Run <code>./scripts/doctor.sh</code></td>
+</tr>
+<tr>
+<td>Configuration not saving</td>
+<td>Check permissions on <code>~/.config/ai-consultants/</code> (or <code>$AI_CONSULTANTS_CONFIG_DIR</code>)</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
 <h2 id="platform-specific-notes">Platform-Specific Notes</h2>
 <h3 id="macos">macOS</h3>
-<p>The stock <code>/bin/bash</code> 3.2 works. Install coreutils only if you set a positive
-<code>*_TIMEOUT</code>:</p>
-<pre><code class="language-bash">brew install coreutils
-</code></pre>
+<p>The stock <code>/bin/bash</code> 3.2 works. Install coreutils only if you set a positive <code>*_TIMEOUT</code>:</p>
+<pre class="bash"><code>brew install coreutils</code></pre>
 <h3 id="windows">Windows</h3>
 <p>Use WSL (Windows Subsystem for Linux):</p>
-<pre><code class="language-bash">wsl --install
-# Then follow Linux instructions
-</code></pre>
+<pre class="bash"><code>wsl --install
+# Then follow Linux instructions</code></pre>
 <h3 id="linux">Linux</h3>
-<p>No special requirements (<code>timeout</code> from coreutils is used when a positive
-<code>*_TIMEOUT</code> is set).</p>
-<hr>
+<p>No special requirements (<code>timeout</code> from coreutils is used when a positive <code>*_TIMEOUT</code> is set).</p>
+<hr />
 <h2 id="next-steps">Next Steps</h2>
 <p>After setup:</p>
 <p><strong>Claude Code:</strong></p>
-<pre><code>/ai-consultants:consult "How do I optimize a SQL query?"
-</code></pre>
+<pre><code>/ai-consultants:consult &quot;How do I optimize a SQL query?&quot;</code></pre>
 <p><strong>Bash:</strong></p>
-<pre><code class="language-bash"># Test your configuration
-output_dir=$(./scripts/consult_all.sh --preset minimal "How do I optimize a SQL query?")
+<pre class="bash"><code># Test your configuration
+output_dir=$(./scripts/consult_all.sh --preset minimal &quot;How do I optimize a SQL query?&quot;)
 
 # View the report
-less "$output_dir/report.md"
-</code></pre>
+less &quot;$output_dir/report.md&quot;</code></pre>
 <p>See <a href="/docs/overview.html">README.md</a> for usage examples and full documentation.</p>
-<p>For a configuration outside the standard user config directory, set
-<code>AI_CONSULTANTS_CONFIG_DIR=/absolute/private/config-directory</code> explicitly.
-The loader does not discover project <code>.env</code> files. Keep credentials in your
-existing private configuration; do not copy them into this repository.</p>
-<p>Claude CLI uses <code>stream-json --verbose</code>. Only response-bearing assistant
-messages attest the content model; terminal <code>modelUsage</code> records billing
-participants separately. A missing or conflicting content model remains
-<code>requested-only</code> and cannot pass a model-promotion gate. Successful terminal
-completion is required even when partial response text or billing is available.</p>
-<p>Codex defaults to <code>gpt-6.1-sol</code> (default and premium); <code>max_quality</code> selects
-<code>gpt-6-astra</code>, standard also selects <code>gpt-6.1-sol</code> (there is no GPT-6 mid
-model, and Sol costs less than GPT-5.6 Terra did), and economy selects <code>gpt-6-luna</code>.
-GPT-6.1 Sol is close to Astra on agentic coding at one fifth of its token price.
-Configure migrates exact unpinned persisted <code>gpt-5.5</code>, <code>gpt-5.6-sol</code> and
-<code>gpt-6-astra</code> values to <code>gpt-6.1-sol</code> and records <code>migrated-from</code> provenance
-(the earliest origin is kept across chained migrations). Use
-<code># ai-consultants:pin</code>, an environment override or <code>--set</code> to keep a model,
-for example <code>--set CODEX_MODEL=gpt-6-astra</code> to keep Astra as the default.</p>
-<p>GPT-6 Astra and GPT-6.1 Sol use <code>high</code> effort when no effort is configured
-(their provider default is <code>medium</code>); economy GPT-6 Luna keeps the provider
-default. Explicit <code>low</code>, <code>medium</code>, <code>high</code>, <code>xhigh</code>, and <code>max</code> prevail;
-<code>none</code>/<code>minimal</code> fail before dispatch on all three.
-The default completion budget is 16384 tokens, including reasoning; override
-<code>CODEX_API_MAX_TOKENS</code> explicitly as needed. The text-only Chat Completions
-request uses <code>max_completion_tokens</code> and <code>reasoning_effort</code>, without tools.
-See the <a href="https://developers.openai.com/api/docs/guides/latest-model">official migration guide</a>.
-CLI JSON events supply token telemetry; the final message file supplies content.
-A CLI <code>-m</code> selection remains <code>requested-only</code>, not provider attestation.</p>
-<p><a href="https://developers.openai.com/api/docs/models/gpt-6.1-sol">GPT-6.1 Sol Standard pricing</a>
-is $2/M input and $10/M output;
-<a href="https://developers.openai.com/api/docs/models/gpt-6-astra">Astra Standard pricing</a>
-is $10/M input and $50/M output. For both, more than 272K input tokens doubles
-input and multiplies output by 1.5 for the whole request. Reported cost is an estimate
-unless a provider cost is supplied: cache writes, cached-input discounts and
-service processing rates can change the invoice.</p>
-<p>Grok CLI and doctor passively inspect the container-runtime socket deny paths,
-including Docker Desktop locations. Symlink endpoints (including dangling links)
-block CLI dispatch because the sandbox cannot safely resolve those deny rules.
-Absent paths and ordinary socket files pass this check. Nothing is removed and
-Docker configuration is never changed. Runtime <code>sandbox_profile_refused</code> and
-<code>sandbox_not_applied</code> diagnostics fail even with exit zero; they cannot trigger
-retry or API fallback. OAuth synchronization and per-run isolation remain active.</p>
-<p>Grok compatibility includes a provider-free parser probe of the complete advisory
-argument list. Hidden flags such as <code>--no-memory</code> are still required in the
-actual request even when omitted from public help. Unsupported mandatory flags
-block dispatch; the optional <code>--no-auto-update</code> guard is used when its parser
-probe succeeds, including on CLIs that hide it from help.</p>
+<p>For a configuration outside the standard user config directory, set <code>AI_CONSULTANTS_CONFIG_DIR=/absolute/private/config-directory</code> explicitly. The loader does not discover project <code>.env</code> files. Keep credentials in your existing private configuration; do not copy them into this repository.</p>
+<p>Claude CLI uses <code>stream-json --verbose</code>. Only response-bearing assistant messages attest the content model; terminal <code>modelUsage</code> records billing participants separately. A missing or conflicting content model remains <code>requested-only</code> and cannot pass a model-promotion gate. Successful terminal completion is required even when partial response text or billing is available.</p>
+<p>Codex defaults to <code>gpt-6.1-sol</code> (default and premium); <code>max_quality</code> selects <code>gpt-6-astra</code>, standard also selects <code>gpt-6.1-sol</code> (there is no GPT-6 mid model, and Sol costs less than GPT-5.6 Terra did), and economy selects <code>gpt-6-luna</code>. GPT-6.1 Sol is close to Astra on agentic coding at one fifth of its token price. Configure migrates exact unpinned persisted <code>gpt-5.5</code>, <code>gpt-5.6-sol</code> and <code>gpt-6-astra</code> values to <code>gpt-6.1-sol</code> and records <code>migrated-from</code> provenance (the earliest origin is kept across chained migrations). Use <code># ai-consultants:pin</code>, an environment override or <code>--set</code> to keep a model, for example <code>--set CODEX_MODEL=gpt-6-astra</code> to keep Astra as the default.</p>
+<p>GPT-6 Astra and GPT-6.1 Sol use <code>high</code> effort when no effort is configured (their provider default is <code>medium</code>); economy GPT-6 Luna keeps the provider default. Explicit <code>low</code>, <code>medium</code>, <code>high</code>, <code>xhigh</code>, and <code>max</code> prevail; <code>none</code>/<code>minimal</code> fail before dispatch on all three. The default completion budget is 16384 tokens, including reasoning; override <code>CODEX_API_MAX_TOKENS</code> explicitly as needed. The text-only Chat Completions request uses <code>max_completion_tokens</code> and <code>reasoning_effort</code>, without tools. See the <a href="https://developers.openai.com/api/docs/guides/latest-model">official migration guide</a>. CLI JSON events supply token telemetry; the final message file supplies content. A CLI <code>-m</code> selection remains <code>requested-only</code>, not provider attestation.</p>
+<p><a href="https://developers.openai.com/api/docs/models/gpt-6.1-sol">GPT-6.1 Sol Standard pricing</a> is $2/M input and $10/M output; <a href="https://developers.openai.com/api/docs/models/gpt-6-astra">Astra Standard pricing</a> is $10/M input and $50/M output. For both, more than 272K input tokens doubles input and multiplies output by 1.5 for the whole request. Reported cost is an estimate unless a provider cost is supplied: cache writes, cached-input discounts and service processing rates can change the invoice.</p>
+<p>Grok CLI and doctor passively inspect the container-runtime socket deny paths, including Docker Desktop locations. Symlink endpoints (including dangling links) block CLI dispatch because the sandbox cannot safely resolve those deny rules. Absent paths and ordinary socket files pass this check. Nothing is removed and Docker configuration is never changed. Runtime <code>sandbox_profile_refused</code> and <code>sandbox_not_applied</code> diagnostics fail even with exit zero; they cannot trigger retry or API fallback. OAuth synchronization and per-run isolation remain active.</p>
+<p>Grok compatibility includes a provider-free parser probe of the complete advisory argument list. Hidden flags such as <code>--no-memory</code> are still required in the actual request even when omitted from public help. Unsupported mandatory flags block dispatch; the optional <code>--no-auto-update</code> guard is used when its parser probe succeeds, including on CLIs that hide it from help.</p>
 <h3 id="retired-models-550">Retired models (5.5.0)</h3>
-<p>Each tier uses only current models. Superseded models are listed in
-<code>retired_models</code> in <code>docs/cost_rates.json</code>, each with its family’s current
-replacement (for example <code>claude-haiku-4-5</code> -> <code>claude-haiku-5-5</code>,
-<code>gpt-5.6-luna</code> -> <code>gpt-6-luna</code>, <code>grok-4.5</code> -> <code>grok-4.7</code>, <code>glm-4-flash</code> ->
-<code>glm-5.3-flash</code>, <code>kimi-code/k3</code> -> <code>kimi-code/k3.1-pro</code>).</p>
+<p>Each tier uses only current models. Superseded models are listed in <code>retired_models</code> in <code>docs/cost_rates.json</code>, each with its family’s current replacement (for example <code>claude-haiku-4-5</code> -&gt; <code>claude-haiku-5-5</code>, <code>gpt-5.6-luna</code> -&gt; <code>gpt-6-luna</code>, <code>grok-4.5</code> -&gt; <code>grok-4.7</code>, <code>glm-4-flash</code> -&gt; <code>glm-5.3-flash</code>, <code>kimi-code/k3</code> -&gt; <code>kimi-code/k3.1-pro</code>).</p>
 <ul>
-<li><code>ai-consultants configure</code> replaces a persisted retired value even when it is
-pinned. The marker is kept, the old value is recorded as <code>migrated-from=</code>
-(spaces become underscores), and the timestamped backup keeps the original.</li>
+<li><code>ai-consultants configure</code> replaces a persisted retired value even when it is pinned. The marker is kept, the old value is recorded as <code>migrated-from=</code> (spaces become underscores), and the timestamped backup keeps the original.</li>
 <li><code>configure --set</code> refuses a retired model and names the replacement.</li>
-<li>A retired or uncatalogued model selected at run time, for example by an
-environment variable, still runs. The run warns, and the cost report names
-it as unpriced instead of applying a default rate.</li>
+<li>A retired or uncatalogued model selected at run time, for example by an environment variable, still runs. The run warns, and the cost report names it as unpriced instead of applying a default rate.</li>
 </ul>
 <h3 id="deepseek-v41-flash">DeepSeek V4.1 Flash</h3>
-<p>DeepSeek uses the HTTP API with <code>DEEPSEEK_MODEL=deepseek-flash</code> in every tier.
-This is the official API alias for DeepSeek-V4.1-Flash as of 2026-09-10, not a
-version identity inferred from the requested name. Provider-reported model
-metadata is retained unchanged. <code>max_quality</code> continues to request <code>max</code> effort;
-other tiers leave effort to the provider unless explicitly configured. The
-provider defaults to thinking mode at high effort. Existing text-only Chat
-Completions requests and the 16,384-token completion budget remain compatible.</p>
-<p><code>configure</code> migrates an exact unpinned <code>deepseek-v4-pro</code> default to
-<code>deepseek-flash</code>; a pinned <code>deepseek-v4-pro</code> (a current opt-in at $1.32/$3.96
-per 1M) is kept. The retired <code>deepseek-v4-flash</code> aliases, which the provider
-still routes to V4.1 Flash, are migrated even when pinned. Peak cache-miss costs are estimates, excluding cache/off-peak
-discounts. An authorized one-attempt API smoke on 2026-09-10 passed with a structured
-response and provider-reported <code>deepseek-flash</code>; no version identity was invented
-from the alias. No CLI transport is introduced.</p>
-<p>Sources: <a href="https://api-docs.deepseek.com/quick_start/pricing/">models/pricing</a> and
-<a href="https://api-docs.deepseek.com/guides/thinking_mode/">thinking mode</a>.</p>
+<p>DeepSeek uses the HTTP API with <code>DEEPSEEK_MODEL=deepseek-flash</code> in every tier. This is the official API alias for DeepSeek-V4.1-Flash as of 2026-09-10, not a version identity inferred from the requested name. Provider-reported model metadata is retained unchanged. <code>max_quality</code> continues to request <code>max</code> effort; other tiers leave effort to the provider unless explicitly configured. The provider defaults to thinking mode at high effort. Existing text-only Chat Completions requests and the 16,384-token completion budget remain compatible.</p>
+<p><code>configure</code> migrates an exact unpinned <code>deepseek-v4-pro</code> default to <code>deepseek-flash</code>; a pinned <code>deepseek-v4-pro</code> (a current opt-in at $1.32/$3.96 per 1M) is kept. The retired <code>deepseek-v4-flash</code> aliases, which the provider still routes to V4.1 Flash, are migrated even when pinned. Peak cache-miss costs are estimates, excluding cache/off-peak discounts. An authorized one-attempt API smoke on 2026-09-10 passed with a structured response and provider-reported <code>deepseek-flash</code>; no version identity was invented from the alias. No CLI transport is introduced.</p>
+<p>Sources: <a href="https://api-docs.deepseek.com/quick_start/pricing/">models/pricing</a> and <a href="https://api-docs.deepseek.com/guides/thinking_mode/">thinking mode</a>.</p>
 <h3 id="grok-47-and-claude-opus-55">Grok 4.7 and Claude Opus 5.5</h3>
-<p>Grok uses <code>grok-4.7</code> in every tier since 5.5.0 (same price as Grok 4.5).
-<code>grok-4.5</code> and <code>grok-4.6</code> are retired: configure migrates them even when
-pinned, and <code>--set</code> refuses them. Unrelated IDs survive.
-The existing capability/model inventory probes, strict sandbox and OAuth
-isolation still apply; the Grok 4.7 Fast variant is not implicitly selected.</p>
-<p>Claude uses Fable 5.2/max for maximum, Fable 5.2/high for premium and
-Opus 5.5/medium for standard. Economy keeps Haiku 5.5. Fable 5.1 remains an
-explicit opt-in. Claude Code requires version 2.1.321 or later for Fable 5.2.
-Configure migrates only marked managed current defaults to Fable 5.2;
-unmarked and pinned current-model choices remain. Pinned retired models still move to their same-family successor.</p>
-<p>Opus 5.5 has always-on adaptive thinking, including empty thinking display
-blocks. Our tool-free single-turn API request omits thinking overrides, sampling
-parameters and forced tool choice; parsing selects visible text by block type.
-Both CLI and API use the matching tier’s effort unless <code>CLAUDE_REASONING_EFFORT</code>
-is explicit. Opt-in models without a matching tier retain provider defaults.
-The total-output budget remains 16384. Content identity and terminal success remain separate checks.</p>
-<p>These additions have offline regression coverage. Grok 4.7 and Opus 5.5 CLI
-smokes passed on 2026-09-28. New API transports remain separately unverified. Frozen
-P1.6 benchmark IDs/efforts/preregistration are not changed by this update.
-See the <a href="https://platform.claude.com/docs/en/models/opus-5-5/migration-guide">Opus migration guide</a>
-and <a href="https://docs.x.ai/developers/grok-4-7">Grok 4.7</a>.</p>
+<p>Grok uses <code>grok-4.7</code> in every tier since 5.5.0 (same price as Grok 4.5). <code>grok-4.5</code> and <code>grok-4.6</code> are retired: configure migrates them even when pinned, and <code>--set</code> refuses them. Unrelated IDs survive. The existing capability/model inventory probes, strict sandbox and OAuth isolation still apply; the Grok 4.7 Fast variant is not implicitly selected.</p>
+<p>Claude uses Fable 5.2/max for maximum, Fable 5.2/high for premium and Opus 5.5/medium for standard. Economy keeps Haiku 5.5. Fable 5.1 remains an explicit opt-in. Claude Code requires version 2.1.321 or later for Fable 5.2. Configure migrates only marked managed current defaults to Fable 5.2; unmarked and pinned current-model choices remain. Pinned retired models still move to their same-family successor.</p>
+<p>Opus 5.5 has always-on adaptive thinking, including empty thinking display blocks. Our tool-free single-turn API request omits thinking overrides, sampling parameters and forced tool choice; parsing selects visible text by block type. Both CLI and API use the matching tier’s effort unless <code>CLAUDE_REASONING_EFFORT</code> is explicit. Opt-in models without a matching tier retain provider defaults. The total-output budget remains 16384. Content identity and terminal success remain separate checks.</p>
+<p>These additions have offline regression coverage. Grok 4.7 and Opus 5.5 CLI smokes passed on 2026-09-28. New API transports remain separately unverified. Frozen P1.6 benchmark IDs/efforts/preregistration are not changed by this update. See the <a href="https://platform.claude.com/docs/en/models/opus-5-5/migration-guide">Opus migration guide</a> and <a href="https://docs.x.ai/developers/grok-4-7">Grok 4.7</a>.</p>
 <h3 id="gemini-4-hydrogen-and-optional-carbon">Gemini 4 Hydrogen and optional Carbon</h3>
-<p>Google economy uses Hydrogen/medium, standard high, premium and default maximum
-xhigh. agy uses exact IDs such as <code>gemini-4-hydrogen-xhigh</code>; the API uses
-<code>gemini-4-hydrogen</code> with low/medium/high/xhigh thinking. Explicit effort wins.
-The API output cap remains 32,768, including thinking. Long decode is not
-implemented by this integration.</p>
-<p>Carbon/high is optional on Ultra/Enterprise accounts. Configure
-<code>GEMINI_FRONTIER_CLI_MODEL=gemini-4-carbon-high</code> and <code>GEMINI_USE_API=false</code> to
-select it in <code>max_quality</code>. With that setting empty, maximum stays Hydrogen.
-For standalone selection without a preset, set <code>GEMINI_MODEL=gemini-4-carbon-high</code>
-and <code>GEMINI_USE_API=false</code>. Carbon must match the exact account inventory before
-dispatch, including when selected for synthesis; a similarly named model or
-Orchestrator is not accepted. No alternate provider or API is substituted.</p>
-<p>Only marked managed current defaults follow Hydrogen. Existing unmarked and
-pinned active choices, including Flash and Argon, stay user-owned. Historical
-retired scaffolds migrate; pinned retired models keep their same-line successor.
-Sources and benchmark figures: <a href="/docs/">model reference</a>.</p>
+<p>Google economy uses Hydrogen/medium, standard high, premium and default maximum xhigh. agy uses exact IDs such as <code>gemini-4-hydrogen-xhigh</code>; the API uses <code>gemini-4-hydrogen</code> with low/medium/high/xhigh thinking. Explicit effort wins. The API output cap remains 32,768, including thinking. Long decode is not implemented by this integration.</p>
+<p>Carbon/high is optional on Ultra/Enterprise accounts. Configure <code>GEMINI_FRONTIER_CLI_MODEL=gemini-4-carbon-high</code> and <code>GEMINI_USE_API=false</code> to select it in <code>max_quality</code>. With that setting empty, maximum stays Hydrogen. For standalone selection without a preset, set <code>GEMINI_MODEL=gemini-4-carbon-high</code> and <code>GEMINI_USE_API=false</code>. Carbon must match the exact account inventory before dispatch, including when selected for synthesis; a similarly named model or Orchestrator is not accepted. No alternate provider or API is substituted.</p>
+<p>Only marked managed current defaults follow Hydrogen. Existing unmarked and pinned active choices, including Flash and Argon, stay user-owned. Historical retired scaffolds migrate; pinned retired models keep their same-line successor. Sources and benchmark figures: <a href="/docs/">model reference</a>.</p>
+<h3 id="gemini-4-neon">Gemini 4 Neon</h3>
+<p>Use <code>GEMINI_MODEL=gemini-4-neon-high</code> with <code>GEMINI_USE_API=false</code> to select Neon in Antigravity. For deeper work, use <code>gemini-4-neon-xhigh</code>. The exact ID must be available in <code>agy models</code>, and any explicit effort must match the ID. For <code>max_quality</code>, set <code>GEMINI_FRONTIER_CLI_MODEL</code> to either of those two IDs. On the paid Gemini API, set <code>GEMINI_USE_API=true</code>, <code>GEMINI_API_MODEL=gemini-4-neon</code>, and <code>GEMINI_REASONING_EFFORT=high</code> or <code>xhigh</code>. The synchronous API accepts at most 65,536 output tokens, including thinking.</p>
 <h3 id="gemini-38-flash">Gemini 3.8 Flash</h3>
-<p>The installed <code>agy models</code> inventory on 2026-09-27 listed Gemini 3.8 Flash
-(High), (Medium) and (Low). All remain explicit model choices. Current Google
-tiers use Hydrogen medium/high/xhigh instead. Inventory evidence is
-capability-probed, not provider attestation of a generated answer.</p>
-<p>Configure migrates retired Flash 3.7 (and 3.6/3.5) values to the same-level
-3.8 Flash, pinned or not; unrelated active models are preserved. For an
-explicit Flash API selection, use <code>gemini-3.8-flash</code>; its thinking levels are
-low/medium/high. Other explicit efforts fail before dispatch. With no effort
-setting, the provider’s API default is medium.</p>
-<p>Inventory discovery performed no inference. Separately authorized High/Low CLI
-smokes passed on 2026-09-28, using the named variant without —effort. This is
-capability-probed provenance, not provider content-model attestation. Prices are promotional estimates
-through 2026-12-31; see <a href="https://ai.google.dev/gemini-api/docs/latest-model">Google’s model guide</a>.
-The frozen P1.6 inputs remain unchanged.</p>
-<p>For Google GenerateContent accounting, output tokens include both
-<code>candidatesTokenCount</code> and <code>thoughtsTokenCount</code>. Input uses <code>promptTokenCount</code>,
-which already includes cached content. This avoids dropping billed thinking
-or adding cache tokens twice; it applies to the existing Google API path too.
-See <a href="https://ai.google.dev/api/generate-content">UsageMetadata</a>.</p>
-<p>For named Gemini 3.8 Flash High/Medium/Low CLI variants, leave
-<code>GEMINI_REASONING_EFFORT</code> unset: the level is selected by <code>GEMINI_MODEL</code>, and
-<code>agy</code> rejects an additional <code>--effort</code> for these variants. The CLI’s general
-help lists effort values for other supported model selections; it does not
-establish support for every model. Native API thinking remains separately
-configured with low/medium/high.</p></article><p><a href="/docs/snapshot.json">Snapshot provenance</a> · Published npm version: 5.10.0</p></main></body></html>
+<p>The installed <code>agy models</code> inventory on 2026-09-27 listed Gemini 3.8 Flash (High), (Medium) and (Low). All remain explicit model choices. Current Google tiers use Hydrogen medium/high/xhigh instead. Inventory evidence is capability-probed, not provider attestation of a generated answer.</p>
+<p>Configure migrates retired Flash 3.7 (and 3.6/3.5) values to the same-level 3.8 Flash, pinned or not; unrelated active models are preserved. For an explicit Flash API selection, use <code>gemini-3.8-flash</code>; its thinking levels are low/medium/high. Other explicit efforts fail before dispatch. With no effort setting, the provider’s API default is medium.</p>
+<p>Inventory discovery performed no inference. Separately authorized High/Low CLI smokes passed on 2026-09-28, using the named variant without –effort. This is capability-probed provenance, not provider content-model attestation. Prices are promotional estimates through 2026-12-31; see <a href="https://ai.google.dev/gemini-api/docs/latest-model">Google’s model guide</a>. The frozen P1.6 inputs remain unchanged.</p>
+<p>For Google GenerateContent accounting, output tokens include both <code>candidatesTokenCount</code> and <code>thoughtsTokenCount</code>. Input uses <code>promptTokenCount</code>, which already includes cached content. This avoids dropping billed thinking or adding cache tokens twice; it applies to the existing Google API path too. See <a href="https://ai.google.dev/api/generate-content">UsageMetadata</a>.</p>
+<p>For named Gemini 3.8 Flash High/Medium/Low CLI variants, leave <code>GEMINI_REASONING_EFFORT</code> unset: the level is selected by <code>GEMINI_MODEL</code>, and <code>agy</code> rejects an additional <code>--effort</code> for these variants. The CLI’s general help lists effort values for other supported model selections; it does not establish support for every model. Native API thinking remains separately configured with low/medium/high.</p></article><p><a href="/docs/snapshot.json">Snapshot provenance</a> · Published npm version: 5.11.0</p></main></body></html>

@@ -676,7 +676,7 @@
         }
     </style>
 <style>.preview{padding-top:48px;padding-bottom:80px;max-width:960px}.preview nav{margin:24px 0;line-height:2}.preview article{line-height:1.7;overflow-wrap:anywhere}.preview h1{font-size:2.5rem;line-height:1.2}.preview h2,.preview h3{margin:36px 0 14px}.preview p,.preview ul,.preview ol,.preview blockquote{margin:16px 0}.preview ul,.preview ol{padding-left:24px}.preview pre{overflow:auto;padding:16px;border:1px solid var(--border);margin:16px 0;white-space:pre}.preview table{border-collapse:collapse;min-width:600px;font-size:14px}.preview th,.preview td{padding:10px;text-align:left;border-bottom:1px solid var(--border)}.preview .table-scroll{overflow-x:auto}.preview blockquote{border-left:2px solid var(--text-muted);padding-left:16px}.preview a{text-decoration:underline}.preview code{font-size:.9em}.preview pre code{font-size:13px}</style>    <link rel="stylesheet" href="/site-tokens.css">
-</head><body><a class="skip-link" href="#main">Skip to content</a><main id="main" class="container preview"><a href="/">← ai-consultants</a><nav aria-label="Documentation"><a href="/docs/">Models and benchmarks</a> · <a href="/docs/overview.html">Project overview</a> · <a href="/docs/setup.html">Setup</a> · <a href="/docs/configuration.html" aria-current="page">Configuration</a> · <a href="/docs/routing.html">Smart routing</a> · <a href="/docs/recipes.html">Qwen4 setup</a> · <a href="/docs/changelog.html">Changelog</a></nav><article><p>Documentation for <a href="https://github.com/reasance/ai-consultants/releases/tag/v5.10.0">v5.10.0</a>. Benchmark snapshot: November 16, 2026, Artificial Analysis Intelligence Index v5.0.1.</p>
+</head><body><a class="skip-link" href="#main">Skip to content</a><main id="main" class="container preview"><a href="/">← ai-consultants</a><nav aria-label="Documentation"><a href="/docs/">Models and benchmarks</a> · <a href="/docs/overview.html">Project overview</a> · <a href="/docs/setup.html">Setup</a> · <a href="/docs/configuration.html" aria-current="page">Configuration</a> · <a href="/docs/routing.html">Smart routing</a> · <a href="/docs/recipes.html">Qwen4 setup</a> · <a href="/docs/changelog.html">Changelog</a></nav><article><p>Documentation for <a href="https://github.com/reasance/ai-consultants/releases/tag/v5.11.0">v5.11.0</a>. Benchmark snapshot: November 25, 2026, Artificial Analysis Intelligence Index v5.0.2.</p>
 <h1 id="ai-consultants---full-configuration-reference">AI Consultants - Full Configuration Reference</h1>
 <p>Configuration sources, in order of precedence (highest wins):</p>
 <ol>
@@ -688,7 +688,7 @@
 </ol>
 <p>For goal-oriented, copy-paste configurations, start with
 <a href="/docs/recipes.html"><code>docs/RECIPES.md</code></a>. This file is the variable reference;
-<a href="https://github.com/reasance/ai-consultants/blob/v5.10.0/scripts/config.sh"><code>scripts/config.sh</code></a> is the executable source of truth.</p>
+<a href="https://github.com/reasance/ai-consultants/blob/v5.11.0/scripts/config.sh"><code>scripts/config.sh</code></a> is the executable source of truth.</p>
 <h2 id="automatic-configurator">Automatic Configurator</h2>
 <p>The public configurator detects all 11 supported consultants, chooses CLI or API
 transport from the available CLI binaries and credentials, and writes the
@@ -737,9 +737,9 @@ in <code>docs/cost_rates.json</code>) are replaced even when pinned: the marker 
 the old value is recorded as <code>migrated-from=</code>, and <code>--set</code> refuses them. A
 retired or uncatalogued model selected at run time still runs, with a warning,
 and its cost is reported as unpriced.
-The exhaustive parameter contract is <a href="https://github.com/reasance/ai-consultants/blob/v5.10.0/.env.example"><code>.env.example</code></a>; the
+The exhaustive parameter contract is <a href="https://github.com/reasance/ai-consultants/blob/v5.11.0/.env.example"><code>.env.example</code></a>; the
 configurator derives its accepted keys from that template, while
-<a href="https://github.com/reasance/ai-consultants/blob/v5.10.0/scripts/config.sh"><code>scripts/config.sh</code></a> remains the runtime source of truth.
+<a href="https://github.com/reasance/ai-consultants/blob/v5.11.0/scripts/config.sh"><code>scripts/config.sh</code></a> remains the runtime source of truth.
 A regression test fails when a persistent runtime default is missing from the
 configurator.</p>
 <h2 id="user-config-dir-v212">User Config Dir (v2.12+)</h2>
@@ -875,7 +875,7 @@ CLASSIFICATION_MODE=pattern     # pattern (fast) | llm (more accurate, costs a c
 ENABLE_SMART_ROUTING=false      # Select consultants using the affinity matrix
 MIN_AFFINITY=7                  # Minimum category score, from 1 to 10
 </code></pre>
-<p>The bundled matrix lives in <a href="https://github.com/reasance/ai-consultants/blob/v5.10.0/references/affinity.json"><code>references/affinity.json</code></a>. Set
+<p>The bundled matrix lives in <a href="https://github.com/reasance/ai-consultants/blob/v5.11.0/references/affinity.json"><code>references/affinity.json</code></a>. Set
 <code>AFFINITY_FILE</code> or place <code>affinity.json</code> in the user config directory to
 override it.</p>
 <h2 id="cliapi-mode-switching-v26">CLI/API Mode Switching (v2.6+)</h2>
@@ -1206,4 +1206,4 @@ DEEPSEEK_MAX_QUALITY_TIMEOUT=0
 <p><code>configure</code> migrates the fixed limits it generated through 5.1.2 (180 s per
 consultant, 240 s for Claude and synthesis, 480 s synthesis total, 600 s for
 maximum-tier Qwen/DeepSeek) to 0. A value marked <code># ai-consultants:pin</code>, or any
-other custom value, stays a hard limit.</p></article><p><a href="/docs/snapshot.json">Snapshot provenance</a> · Published npm version: 5.10.0</p></main></body></html>
+other custom value, stays a hard limit.</p></article><p><a href="/docs/snapshot.json">Snapshot provenance</a> · Published npm version: 5.11.0</p></main></body></html>

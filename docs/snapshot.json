@@ -1,24 +1,24 @@
 {
   "project": "ai-consultants",
   "status": "released",
-  "capturedAt": "2026-11-16",
-  "benchmarkSnapshot": "2026-11-16",
-  "benchmarkVersion": "5.0.1",
-  "publishedNpmVersion": "5.10.0",
+  "capturedAt": "2026-11-25",
+  "benchmarkSnapshot": "2026-11-25",
+  "benchmarkVersion": "5.0.2",
+  "publishedNpmVersion": "5.11.0",
   "sourceBranch": "main",
-  "sourceHead": "862a1c23e894744cb017e00d6a791a66b5b95df3",
+  "sourceHead": "23f181ae15491dafd64ea81dc1192b99b82135aa",
   "sourceDirty": false,
   "files": {
     "docs/MODEL_BENCHMARKS.md": {
-      "sha256": "8903ed82055686e2a84983b8cf2a14e7bb7af144a834ee469c29be8dadc0a873",
+      "sha256": "a3be6a6b5bb846d0fc814be360305755960c652209fb19ab32da5a598e578ba8",
       "page": "/docs/"
     },
     "README.md": {
-      "sha256": "47133b53838e215f1ffe3753ddd25db357ebebc6af294aeca556d63b0808c491",
+      "sha256": "46ae04ad6d9c6df16519259e0fc0e4cfef8a84f916aaa9d8b2ac397a007f36a7",
       "page": "/docs/overview.html"
     },
     "docs/SETUP.md": {
-      "sha256": "9e71832439b31c7d71ceb16ba998bc6b572d4ec8d085102dc2c33a52ff29b6b5",
+      "sha256": "84048489479106274d43b516c1e4f424d7cc35569ed1e56ec5c4ba82d3a5b96a",
       "page": "/docs/setup.html"
     },
     "references/configuration.md": {
@@ -34,7 +34,7 @@
       "page": "/docs/recipes.html"
     },
     "CHANGELOG.md": {
-      "sha256": "96551039c7a4067b04a86220e11eff891498ded055e2de9f474ea357ea96b470",
+      "sha256": "5117726831a2bf71724e27916dc66a520f8aae03873cd6718e827735a288fc35",
       "page": "/docs/changelog.html"
     }
   }
